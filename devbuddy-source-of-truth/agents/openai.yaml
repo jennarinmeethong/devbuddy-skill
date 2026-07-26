@@ -1,0 +1,6 @@
+interface:
+  display_name: "DevBuddy Source of Truth"
+  short_description: "Maintain DevBuddy common specifications safely"
+  default_prompt: "Use $devbuddy-source-of-truth to update and validate the common DevBuddy specification."
+policy:
+  allow_implicit_invocation: false

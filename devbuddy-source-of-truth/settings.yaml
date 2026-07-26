@@ -1,0 +1,45 @@
+schema_version: 1
+skill:
+  name: devbuddy
+  common_spec_version: 0.1.0
+  internal_language: en
+  user_language: th
+governance:
+  git_mode: read_only
+  require_uncertainty_question: true
+  require_cost_approval: true
+  require_manual_update: true
+  require_knowledge_impact_approval: true
+orchestration:
+  max_concurrency: user_required
+  task_timeout: user_required
+  retry_limit: user_required
+  approved_models: []
+  approved_effort_levels: user_required
+  require_model_and_effort_per_dispatch: true
+  model_effort_selection_policy: minimum_sufficient
+  escalation_requires_recorded_reason: true
+  user_update_events: [start, phase_change, blocked, waiting_user, threshold, completion]
+loops:
+  enabled_roles: user_required
+  attempt_budget: user_required
+  external_or_destructive_loops: disabled_without_user_approval
+memory:
+  default_root: .devbuddy
+  project_settings_path: .devbuddy/settings.yaml
+  locator_key: memory_root
+  backup_location: user_required
+  retention_period: user_required
+tools:
+  preferred_tools: {}
+  custom_tool_runtime: python
+  install_without_user_approval: false
+environments:
+  default: local
+  approved_endpoints: user_required
+quality:
+  thresholds_by_risk: user_required
+  required_checks: [policy_compliance, knowledge_health, manual_conformance]
+adapters:
+  claude: claude_code_skill
+  codex: codex_skill_standard
