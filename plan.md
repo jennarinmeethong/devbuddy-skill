@@ -616,6 +616,14 @@ For a feature to be knowledge-complete when applicable, its business documentati
 - Created the required Claude and Codex adapter checklist instances. Both adapters are explicitly `not_started`; they are not represented as implemented or released.
 - Baseline validation includes Python syntax compilation, settings validation, adapter checklist coverage, and manual conformance.
 
+### Codex adapter implementation
+
+- Implemented `devbuddy-codex/` as a self-contained explicit `$devbuddy` Codex Skill with platform dispatch contract, canonical roles and approved aliases, ranked project model/effort allowlists, standard-library validators, no-model-call scenario coverage, and a bilingual local manual.
+- Codex dispatch blocks as `waiting_user` when the subagent capability cannot accept explicit model/effort, settings/resource limits are missing, or a required approval/gate is incomplete. The Orchestrator never substitutes for a specialist.
+- Marked every Codex adapter checklist requirement `done` only with target location and validation evidence. Updated the source-of-truth Codex manual pages with installation, configuration, dispatch, and troubleshooting guidance.
+- The upstream skill-creator quick validator is unavailable because its optional `PyYAML` dependency is not installed; no package was installed. The adapter therefore includes and validates with `scripts/validate_skill_metadata.py`, a standard-library metadata checker.
+- The Codex adapter now bundles standard-library project-memory initialization and knowledge validation scripts so the installed adapter remains self-contained; initialization is dry-run first and does not overwrite existing memory files.
+
 ### Adapter implementation checklist
 
 - Maintain the canonical template at `devbuddy-source-of-truth/templates/adapter-implementation-checklist.md`. Maintain one instantiated copy at `devbuddy-claude/adapter-implementation-checklist.md` and `devbuddy-codex/adapter-implementation-checklist.md`.

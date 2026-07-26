@@ -1,0 +1,25 @@
+schema_version: 1
+adapter:
+  name: devbuddy-codex
+  source_spec_version: 0.1.0
+  invocation: $devbuddy
+  explicit_subagent_model_and_effort: required
+governance:
+  git_mode: read_only
+  require_uncertainty_question: true
+  require_cost_approval: true
+  require_knowledge_impact_approval: true
+orchestration:
+  project_settings_path: .devbuddy/settings.yaml
+  approved_models: []
+  approved_effort_levels: []
+  max_concurrency: user_required
+  task_timeout_seconds: user_required
+  retry_limit: user_required
+  model_effort_selection_policy: minimum_sufficient
+  subagent_capability: required
+memory:
+  default_root: .devbuddy
+  locator_key: memory_root
+quality:
+  required_checks: [policy_compliance, knowledge_health, adapter_conformance, manual_conformance]

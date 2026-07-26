@@ -1,0 +1,24 @@
+schema_version: 1
+memory_root: .devbuddy
+orchestration:
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
+  approved_models:
+    - id: model-basic
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low, medium]
+    - id: model-advanced
+      rank: 2
+      allowed_roles: [architect, developer, qa, security]
+      allowed_risks: [low, medium, high]
+  approved_effort_levels:
+    - id: low
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low, medium]
+    - id: high
+      rank: 2
+      allowed_roles: [architect, developer, qa, security]
+      allowed_risks: [low, medium, high]

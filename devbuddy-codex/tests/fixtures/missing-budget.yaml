@@ -1,0 +1,12 @@
+schema_version: 1
+orchestration:
+  approved_models:
+    - id: model-basic
+      rank: 1
+      allowed_roles: [developer]
+      allowed_risks: [low]
+  approved_effort_levels:
+    - id: low
+      rank: 1
+      allowed_roles: [developer]
+      allowed_risks: [low]
