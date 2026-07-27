@@ -20,11 +20,11 @@
   <p>Invoke it explicitly with <code>/devbuddy</code>. It does not activate on ordinary coding requests, which is what keeps its approval gates predictable.</p>
 
   <h2>Invocation</h2>
-<pre><code>/devbuddy &lt;role&gt; &lt;task&gt;
-/devbuddy loop &lt;role&gt; &lt;task&gt;
-/devbuddy owner &lt;task&gt;
-/devbuddy owner loop &lt;task&gt;</code></pre>
-  <p>Canonical roles: <code>ba-pm</code>, <code>ux-ui</code>, <code>architect</code>, <code>developer</code>, <code>qa</code>, <code>security</code>, <code>devops-sre</code>, <code>dba-data</code>, <code>reviewer</code>. Aliases: <code>ba</code>, <code>sa</code>, <code>dev</code>, <code>tester</code>, <code>operations</code>, <code>data</code>, <code>analyze</code>, <code>docs</code>. <code>owner</code> builds a multi-role graph.</p>
+<pre><code>/devbuddy &lt;task&gt;
+/devbuddy loop &lt;task&gt;
+/devbuddy &lt;role&gt; &lt;task&gt;  (advanced)
+/devbuddy owner &lt;task&gt;   (advanced)</code></pre>
+  <p><code>/devbuddy &lt;task&gt;</code> is the normal Orchestrator entrypoint. It assesses the task, selects the role graph, chooses model/effort, and dispatches specialists. Use an explicit role or <code>owner</code> only when you intentionally want to constrain routing. Canonical roles: <code>ba-pm</code>, <code>ux-ui</code>, <code>architect</code>, <code>developer</code>, <code>qa</code>, <code>security</code>, <code>devops-sre</code>, <code>dba-data</code>, <code>reviewer</code>. Aliases: <code>ba</code>, <code>sa</code>, <code>dev</code>, <code>tester</code>, <code>operations</code>, <code>data</code>, <code>analyze</code>, <code>docs</code>.</p>
 
   <h2>Roles and the task lifecycle</h2>
   <p>Each role has a defined workflow, decision rights, owned artefacts, evidence requirements, and a structured handoff. Every canonical artefact has exactly one owner; other roles contribute through handoffs rather than editing it concurrently.</p>

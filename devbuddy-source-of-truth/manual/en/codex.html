@@ -1,1 +1,42 @@
-<!doctype html><html lang="en" data-manual-version="0.1.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevBuddy for Codex</title><link rel="stylesheet" href="../assets/style.css"></head><body><header><strong>DevBuddy · Codex</strong><nav><a href="index.html">Manual</a><a href="../th/codex.html">ไทย</a></nav></header><main><article><h1>Codex Skill adapter</h1><p class="notice">Status: implemented against common specification 0.1.1. Validate this adapter in the target Codex environment before use.</p></article><section><h2>Target format</h2><p>The adapter uses the current Codex Skill structure: <code>SKILL.md</code>, <code>agents/openai.yaml</code>, role profiles, settings/schema, templates, standard-library validation scripts, scenarios, and a local bilingual manual.</p></section><section><h2>Install and configure</h2><ol><li>Copy the completed <code>devbuddy-codex</code> folder to the user-approved Codex skills location.</li><li>Verify Codex discovers <code>SKILL.md</code> and <code>agents/openai.yaml</code>.</li><li>Create <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> with approved ranked model/effort allowlists, concurrency, timeout, and retry values.</li><li>Run the documented read-only validation commands.</li><li>Invoke <code>$devbuddy owner &lt;task&gt;</code>.</li></ol></section><section><h2>Codex dispatch behaviour</h2><p>The Orchestrator selects the least-capable approved model and lowest approved effort sufficient for every specialist slice, records the reason, and passes both explicitly to the Codex subagent call. Missing settings, approval, resource budget, or subagent capability blocks the task as <code>waiting_user</code>; the Orchestrator does not replace the specialist.</p></section><section><h2>Troubleshooting</h2><ul><li>If Codex cannot create a subagent with model and reasoning_effort parameters, do not run a substitute workflow; ask the user to enable the capability or choose another approved platform.</li><li>If project settings are absent or invalid, validate them before dispatch.</li><li>Do not bypass Git, cost, tool, approval, privacy, or endpoint policy to make the adapter appear usable.</li></ul><p class="muted">Manual version 0.1.1 · Last reviewed: 2026-07-27</p></section></main></body></html>
+<!doctype html>
+<html lang="en" data-manual-version="0.1.1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevBuddy for Codex</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header><strong>DevBuddy · Codex</strong><nav><a href="index.html">Manual</a><a href="../th/codex.html">ไทย</a></nav></header>
+  <main>
+    <article>
+      <p class="eyebrow">Codex adapter</p>
+      <h1>Let the Orchestrator route the work.</h1>
+      <p class="notice">The normal entrypoint is <code>$devbuddy &lt;task&gt;</code>. Codex selects the role graph, model, and reasoning effort before dispatch.</p>
+    </article>
+    <section>
+      <h2>Install and configure</h2>
+      <ol>
+        <li>Install the Codex skill with its dry-run-first installer.</li>
+        <li>Create <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> with user-approved model/effort allowlists and budgets.</li>
+        <li>Run the read-only validators, then invoke <code>$devbuddy &lt;task&gt;</code>.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Invocation contract</h2>
+      <pre><code>$devbuddy &lt;task&gt;
+$devbuddy loop &lt;task&gt;</code></pre>
+      <p>The Orchestrator owns intake, risk, dependencies, approvals, locks, model/effort selection, and handoffs. Explicit role and <code>owner</code> forms are advanced routing overrides, not prerequisites.</p>
+    </section>
+    <section>
+      <h2>Codex dispatch</h2>
+      <p>Every specialist call receives explicit <code>model</code> and <code>reasoning_effort</code> values from the project allowlists. If the capability or handoff cannot verify either value, the task becomes <code>waiting_user</code>; the Orchestrator never substitutes itself for a specialist.</p>
+    </section>
+    <section>
+      <h2>Memory and validation</h2>
+      <p><code>KnowledgeBase.md</code>, core memory, typed knowledge, and task ledgers stay under <code>&lt;project-root&gt;/.devbuddy/</code>. Validate with <code>python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code>, or use <code>--root &lt;approved-external-memory-root&gt;</code> for an external root.</p>
+    </section>
+    <p class="muted">Manual version 0.1.1 · Last reviewed: 2026-07-27</p>
+  </main>
+</body>
+</html>

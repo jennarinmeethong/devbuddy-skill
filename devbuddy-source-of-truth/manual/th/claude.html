@@ -1,1 +1,43 @@
-<!doctype html><html lang="th" data-manual-version="0.1.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevBuddy สำหรับ Claude Code</title><link rel="stylesheet" href="../assets/style.css"></head><body><header><strong>DevBuddy · Claude Code</strong><nav><a href="index.html">คู่มือ</a><a href="../en/claude.html">English</a></nav></header><main><article><h1>Claude Code Skill adapter</h1><p class="notice">สถานะ: implement เสร็จแล้วตามข้อกำหนดกลางเวอร์ชัน 0.1.1 ทุกรายการที่จำเป็นใน <code>devbuddy-claude/adapter-implementation-checklist.md</code> เป็น <code>done</code> ควรตรวจสอบ adapter ในเครื่องเป้าหมายก่อนใช้งานจริง</p></article><section><h2>รูปแบบเป้าหมาย</h2><p>adapter ใช้โครงสร้าง Claude Code Skill ได้แก่ <code>SKILL.md</code> ที่เรียกอย่างชัดเจนด้วย <code>/devbuddy</code>, ไฟล์บทบาท, ไฟล์นิยาม subagent 27 ไฟล์สำหรับติดตั้ง, settings และ schema, templates, สคริปต์ตรวจสอบที่ใช้เฉพาะไลบรารีมาตรฐาน, ชุด scenario และคู่มือสองภาษาในตัว</p></section><section><h2>สิ่งที่ต้องมีก่อน</h2><ul><li>มี Claude Code ที่ติดตั้งและเข้าสู่ระบบแล้วในเครื่องเป้าหมาย</li><li>รองรับ subagent รวมถึงฟิลด์ <code>effort</code> ใน frontmatter ซึ่งเป็นตัวระบุระดับ effort ของแต่ละการส่งงาน</li><li>มี Python 3 สำหรับรันสคริปต์ตรวจสอบที่แถมมา ไม่มีการติดตั้งแพ็กเกจใด ๆ</li><li>การติดตั้ง การอัปเดต บัญชีแบบเสียเงิน หรือการใช้ model ต้องได้รับอนุมัติจากผู้ใช้ก่อน</li></ul><p>ตรวจสถานะจริงด้วย <code>claude doctor</code> ได้หลังผู้ใช้อนุมัติเท่านั้น ดูคู่มือทางการ: <a href="https://code.claude.com/docs/en/overview">เอกสาร Claude Code</a></p></section><section><h2>วิธีติดตั้งและตั้งค่า</h2><ol><li>ตรวจว่าทุกรายการที่ต้องทำใน <code>devbuddy-claude/adapter-implementation-checklist.md</code> เป็น <code>done</code></li><li>ดูรายการไฟล์ก่อนด้วย <code>python3 scripts/install_claude_adapter.py</code> ซึ่งเป็นโหมดทดลองโดยค่าเริ่มต้น</li><li>ติดตั้งจริงด้วย <code>python3 scripts/install_claude_adapter.py --apply</code> ตัว skill จะไปที่ <code>~/.claude/skills/devbuddy/</code> และ subagent <code>devbuddy-&lt;role&gt;-&lt;effort&gt;</code> ทั้ง 27 ตัวไปที่ <code>~/.claude/agents/</code></li><li>สร้าง <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> พร้อมรายการ model/effort ที่อนุมัติและจัดลำดับแล้ว รวมถึงค่า concurrency, timeout และ retry</li><li>เริ่มเซสชันใหม่ รันคำสั่งตรวจสอบแบบอ่านอย่างเดียวตามคู่มือ แล้วจึงเรียก <code>/devbuddy owner &lt;task&gt;</code></li></ol><p>ห้าม copy credential, connection string หรือข้อมูลส่วนบุคคลลง Claude settings หรือ prompt</p></section><section><h2>พฤติกรรมการส่งงานบน Claude</h2><p>Orchestrator จะเลือก model ที่อนุมัติแล้วซึ่งมีความสามารถต่ำที่สุด และระดับ effort ต่ำที่สุดเท่าที่เพียงพอกับงานแต่ละส่วน พร้อมบันทึกเหตุผล เนื่องจาก Claude Code กำหนด effort ที่ไฟล์นิยาม agent และให้ override model ได้รายครั้ง adapter จึงติดตั้ง subagent หนึ่งตัวต่อหนึ่งบทบาทและหนึ่งระดับ effort แล้วส่ง model อย่างชัดเจนในทุกครั้งที่เรียก Agent ไฟล์นิยาม agent ต้องไม่กำหนด model ตายตัว หากขาดการตั้งค่า การอนุมัติ งบทรัพยากร หรือยังไม่ได้ติดตั้ง subagent ที่ต้องใช้ งานจะถูกบล็อกเป็น <code>waiting_user</code> และ Orchestrator จะไม่ทำงานแทนผู้เชี่ยวชาญ</p></section><section><h2>พฤติกรรมของ adapter</h2><p>Claude adapter รักษานโยบายกลางไว้ครบ ได้แก่ สื่อสารกับผู้ใช้เป็นภาษาไทย ส่งต่องานภายในเป็นภาษาอังกฤษ ห้ามเดา Git อ่านอย่างเดียวโดยปริยาย ต้องขออนุมัติก่อนมีค่าใช้จ่าย ติดตั้งเครื่องมือ หรือทำงานกับระบบภายนอก ต้องมี Knowledge Impact Approval และต้องมีหลักฐานใน checklist โดยบังคับใช้ผ่านคำสั่งใน skill เท่านั้น ไม่แก้ไข <code>.claude/settings.json</code> และไม่ติดตั้ง hook การถามสิทธิ์ตามปกติของ Claude Code จึงยังเป็นด่านป้องกันสุดท้ายของผู้ใช้</p></section><section><h2>แก้ปัญหา</h2><ul><li>หากไม่พบ subagent <code>devbuddy-&lt;role&gt;-&lt;effort&gt;</code> ที่ต้องใช้ ให้รันตัวติดตั้งใหม่ ห้ามให้ Orchestrator ทำงานแทนผู้เชี่ยวชาญ</li><li>หากยืนยันระดับ effort ที่ใช้จริงไม่ได้ ให้ถือว่าการส่งงานนั้นถูกบล็อก ไม่ใช่สำเร็จ</li><li>หากไม่มีไฟล์ตั้งค่าโครงการหรือไฟล์ไม่ถูกต้อง ให้ตรวจสอบให้ผ่านก่อนส่งงาน</li><li>หากสิทธิ์ การเข้าถึงเครื่องมือ หรือ model ที่ใช้ได้ต่างจากนโยบายกลาง ให้มาร์ครายการใน checklist ว่ายังไม่เสร็จและใส่หมายเหตุ</li><li>ห้ามใช้โหมดข้ามการขอสิทธิ์เพื่อเลี่ยงการอนุมัติของ DevBuddy</li></ul><p class="muted">Manual version 0.1.1 · ตรวจล่าสุด: 2026-07-27</p></section></main></body></html>
+<!doctype html>
+<html lang="th" data-manual-version="0.1.1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevBuddy สำหรับ Claude Code</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header><strong>DevBuddy · Claude Code</strong><nav><a href="index.html">คู่มือ</a><a href="../en/claude.html">English</a></nav></header>
+  <main>
+    <article>
+      <p class="eyebrow">Claude Code adapter</p>
+      <h1>ให้ Orchestrator เป็นผู้เลือกเส้นทางงาน</h1>
+      <p class="notice">รูปแบบปกติคือ <code>/devbuddy &lt;task&gt;</code> Claude จะประเมินงาน เลือกกราฟ role, model และ effort ก่อน dispatch</p>
+    </article>
+    <section>
+      <h2>ติดตั้งและตั้งค่า</h2>
+      <ol>
+        <li>ติดตั้งผ่าน workflow ของ <code>install_claude_adapter.py</code> ที่มี dry run เป็นค่าเริ่มต้น</li>
+        <li>สร้าง <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> พร้อม model/effort allowlist และ budget</li>
+        <li>ตรวจว่ามี definition <code>devbuddy-&lt;role&gt;-&lt;effort&gt;</code> ครบ 27 ไฟล์</li>
+        <li>รัน validation แล้วเรียก <code>/devbuddy &lt;task&gt;</code></li>
+      </ol>
+    </section>
+    <section>
+      <h2>Invocation contract</h2>
+      <pre><code>/devbuddy &lt;task&gt;
+/devbuddy loop &lt;task&gt;</code></pre>
+      <p>Orchestrator รับผิดชอบ intake, risk, dependency, approval, lock, การเลือก model/effort และ handoff การระบุ <code>/devbuddy &lt;role&gt; &lt;task&gt;</code> หรือ <code>/devbuddy owner &lt;task&gt;</code> เป็นตัวเลือกขั้นสูง ไม่ใช่สิ่งที่ต้องใช้เป็นปกติ</p>
+    </section>
+    <section>
+      <h2>การ dispatch บน Claude</h2>
+      <p>ระดับ effort มาจาก frontmatter <code>effort</code> ของ agent ที่เลือก ส่วน model ส่งไปกับ Agent call แต่ละครั้ง ห้าม pin model ใน agent definition หาก agent, approval, budget หรือ selection ตรวจสอบไม่ได้ งานจะเป็น <code>waiting_user</code> และ Orchestrator จะไม่ทำงานแทน specialist</p>
+    </section>
+    <section>
+      <h2>Memory และ validation</h2>
+      <p><code>KnowledgeBase.md</code>, core memory, typed knowledge และ task ledger อยู่ใต้ <code>&lt;project-root&gt;/.devbuddy/</code> ใช้ <code>python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code> หรือใช้ <code>--root &lt;approved-external-memory-root&gt;</code> เมื่อเป็น external root</p>
+    </section>
+    <p class="muted">Manual version 0.1.1 · ตรวจล่าสุด: 2026-07-27</p>
+  </main>
+</body>
+</html>

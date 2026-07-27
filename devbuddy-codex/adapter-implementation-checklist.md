@@ -5,7 +5,7 @@ Common specification version: `0.1.1`
 
 ## Checklist
 
-- [x] `DBY-CORE-001` | `SKILL.md` | Core orchestration, approvals, risk, slicing, batch, and loop policies | Status: `done` | Location: `SKILL.md`, `references/policy.md`, `references/loop.md` | Evidence: `scripts/check_adapter_conformance.py`
+- [x] `DBY-CORE-001` | `SKILL.md` | Core orchestration, approvals, risk, slicing, batch, and loop policies | Status: `done` | Location: `SKILL.md`, `references/policy.md`, `references/loop.md` | Evidence: bare `$devbuddy <task>` entrypoint routes through the Orchestrator; `scripts/check_adapter_conformance.py` and `bare_entrypoint` scenario
 - [x] `DBY-SET-001` | `settings.yaml` | Settings schema, validation, budgets, model, environment, and cost controls | Status: `done` | Location: `settings.yaml`, `schemas/project-settings.schema.json`, `scripts/validate_project_settings.py` | Evidence: valid and missing-budget fixtures
 - [x] `DBY-MODEL-002` | `settings.yaml`, `roles/orchestrator.md` | Required per-dispatch approved model and effort-level selection with task-ledger evidence | Status: `done` | Location: `SKILL.md`, `roles/orchestrator.md`, `templates/task-ledger.md` | Evidence: model_effort_independent_selection and unverified_model_effort scenarios
 - [x] `DBY-MODEL-003` | `settings.yaml`, `references/policy.md` | Minimum-sufficient model/effort selection and recorded escalation reason | Status: `done` | Location: `references/codex-dispatch.md`, `references/settings.md` | Evidence: ranked allowlist validation, independent selection, and escalation scenarios

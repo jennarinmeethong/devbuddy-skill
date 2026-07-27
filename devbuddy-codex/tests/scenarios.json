@@ -1,4 +1,5 @@
 [
+  {"id":"bare_entrypoint","expected_status":"running","expected_route":"orchestrator -> selected role graph -> specialist","evidence":"bare $devbuddy task is accepted and dispatches without a user-selected role"},
   {"id":"bug_fix","expected_status":"verifying","expected_route":"developer -> qa","evidence":"test and handoff"},
   {"id":"feature","expected_status":"verifying","expected_route":"ba-pm -> architect -> developer -> qa","evidence":"acceptance and test traceability"},
   {"id":"migration","expected_status":"waiting_user","expected_route":"architect -> dba-data -> developer -> qa","evidence":"approval and rollback plan"},

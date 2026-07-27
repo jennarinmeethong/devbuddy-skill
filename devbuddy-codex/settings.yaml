@@ -3,6 +3,7 @@ adapter:
   name: devbuddy-codex
   source_spec_version: 0.1.1
   invocation: $devbuddy
+  entrypoint: orchestrator
   explicit_subagent_model_and_effort: required
 governance:
   git_mode: read_only

@@ -20,11 +20,11 @@
   <p>เรียกใช้อย่างชัดเจนด้วย <code>/devbuddy</code> เท่านั้น ระบบจะไม่ทำงานเองกับคำสั่งเขียนโค้ดทั่วไป ข้อกำหนดนี้เองที่ทำให้ด่านขออนุมัติต่าง ๆ คาดเดาได้</p>
 
   <h2>รูปแบบคำสั่ง</h2>
-<pre><code>/devbuddy &lt;role&gt; &lt;task&gt;
-/devbuddy loop &lt;role&gt; &lt;task&gt;
-/devbuddy owner &lt;task&gt;
-/devbuddy owner loop &lt;task&gt;</code></pre>
-  <p>บทบาทหลัก: <code>ba-pm</code>, <code>ux-ui</code>, <code>architect</code>, <code>developer</code>, <code>qa</code>, <code>security</code>, <code>devops-sre</code>, <code>dba-data</code>, <code>reviewer</code> ชื่อย่อที่ใช้ได้: <code>ba</code>, <code>sa</code>, <code>dev</code>, <code>tester</code>, <code>operations</code>, <code>data</code>, <code>analyze</code>, <code>docs</code> ส่วน <code>owner</code> จะสร้างกราฟงานแบบหลายบทบาท</p>
+<pre><code>/devbuddy &lt;task&gt;
+/devbuddy loop &lt;task&gt;
+/devbuddy &lt;role&gt; &lt;task&gt;  (ขั้นสูง)
+/devbuddy owner &lt;task&gt;   (ขั้นสูง)</code></pre>
+  <p><code>/devbuddy &lt;task&gt;</code> คือ entrypoint ปกติของ Orchestrator ซึ่งจะประเมินงาน เลือกกราฟ role เลือก model/effort และเรียก specialist ให้เอง ใช้ role หรือ <code>owner</code> แบบระบุเองเมื่อจำเป็นต้องจำกัดเส้นทางเท่านั้น บทบาทหลัก: <code>ba-pm</code>, <code>ux-ui</code>, <code>architect</code>, <code>developer</code>, <code>qa</code>, <code>security</code>, <code>devops-sre</code>, <code>dba-data</code>, <code>reviewer</code> ชื่อย่อที่ใช้ได้: <code>ba</code>, <code>sa</code>, <code>dev</code>, <code>tester</code>, <code>operations</code>, <code>data</code>, <code>analyze</code>, <code>docs</code></p>
 
   <h2>บทบาทและวงจรชีวิตของงาน</h2>
   <p>แต่ละบทบาทมีขั้นตอนการทำงาน สิทธิ์ในการตัดสินใจ artefact ที่เป็นเจ้าของ หลักฐานที่ต้องมี และรูปแบบการส่งต่องานที่กำหนดไว้ชัดเจน artefact หลักทุกชิ้นมีเจ้าของเพียงบทบาทเดียว บทบาทอื่นมีส่วนร่วมผ่านการส่งต่องาน ไม่ใช่แก้ไขไฟล์เดียวกันพร้อมกัน</p>

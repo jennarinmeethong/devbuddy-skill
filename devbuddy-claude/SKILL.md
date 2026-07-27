@@ -10,8 +10,16 @@ Use this adapter only through `/devbuddy`. If the user did not invoke `/devbuddy
 ## Invocation
 
 ```text
+/devbuddy <task>
+/devbuddy loop <task>
+```
+
+`/devbuddy` is the Orchestrator entrypoint. Pass the user's complete task after the command; the Orchestrator assesses scope, selects the role graph, chooses model/effort, and dispatches the required specialist subagents. The user does not need to choose a role or `owner` first.
+
+Advanced routing overrides are also accepted when explicitly requested:
+
+```text
 /devbuddy <role> <task>
-/devbuddy loop <role> <task>
 /devbuddy owner <task>
 /devbuddy owner loop <task>
 ```
@@ -20,15 +28,15 @@ Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`
 
 Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` -> `qa`; `operations` -> `devops-sre`; `data` -> `dba-data`; `analyze` -> read-only orchestration triage; `docs` -> documentation work owned by `developer`, with `reviewer` when risk requires it.
 
-`owner` builds and controls a multi-role graph. A direct canonical role creates a single-role graph, but every policy, settings, model/effort, lock, handoff, and closure gate still applies.
+`owner` builds and controls a multi-role graph when explicitly requested. A direct canonical role creates a single-role graph, but every policy, settings, model/effort, lock, handoff, and closure gate still applies. With the normal bare form, the Orchestrator chooses between these routes itself.
 
 ## Required sequence
 
-1. Read `settings.yaml`, `references/policy.md`, `references/claude-dispatch.md`, and the selected role file.
+1. Read `settings.yaml`, `references/policy.md`, `references/claude-dispatch.md`, and the role/reference files required by the Orchestrator's assessment.
 2. Resolve `<project-root>/.devbuddy/settings.yaml` and the memory locator. The default memory root is that same `.devbuddy/` directory; an external locator is used directly. Run `scripts/validate_project_settings.py` before dispatch.
 3. Create or resume a task ledger from `templates/task-ledger.md` under the resolved memory root. Do not persist sensitive data.
 4. Classify risk, environment, cost, tool availability, knowledge impact, batch suitability, and required approvals.
-5. Build the smallest dependency graph. Acquire artefact reservations before any writing role starts.
+5. Build the smallest dependency graph and select the owning role(s). Acquire artefact reservations before any writing role starts.
 6. For every ready slice, choose the lowest-ranked approved model and effort level sufficient for the assigned role, risk, capability, privacy, latency, and cost constraints. Record the selection and reason in the ledger.
 7. Dispatch the specialist with the Agent tool, using `subagent_type: devbuddy-<role>-<effort>` and an explicit `model`. The Orchestrator never performs specialist work.
 8. Check the structured handoff, route the next dependency-ready role, enforce gates, and report material state changes in Thai.

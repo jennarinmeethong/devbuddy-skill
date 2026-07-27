@@ -1,1 +1,42 @@
-<!doctype html><html lang="th" data-manual-version="0.1.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevBuddy สำหรับ Codex</title><link rel="stylesheet" href="../assets/style.css"></head><body><header><strong>DevBuddy · Codex</strong><nav><a href="index.html">คู่มือ</a><a href="../en/codex.html">English</a></nav></header><main><article><h1>Codex Skill adapter</h1><p class="notice">สถานะ: implement แล้วตาม common specification 0.1.1 แต่ต้องตรวจใน Codex environment เป้าหมายก่อนใช้งาน</p></article><section><h2>รูปแบบเป้าหมาย</h2><p>adapter ใช้ Codex Skill structure ปัจจุบัน: <code>SKILL.md</code>, <code>agents/openai.yaml</code>, role profiles, settings/schema, templates, standard-library validation scripts, scenarios และคู่มือสองภาษาในตัว</p></section><section><h2>ติดตั้งและตั้งค่า</h2><ol><li>คัดลอก folder <code>devbuddy-codex</code> ที่เสร็จแล้วไปยัง Codex skills location ที่ user อนุมัติ</li><li>ตรวจว่า Codex ค้นพบ <code>SKILL.md</code> และ <code>agents/openai.yaml</code></li><li>สร้าง <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> ที่มี ranked model/effort allowlist, concurrency, timeout และ retry ที่อนุมัติ</li><li>รัน validation แบบ read-only ตามคู่มือ</li><li>เรียก <code>$devbuddy owner &lt;task&gt;</code></li></ol></section><section><h2>พฤติกรรม Codex dispatch</h2><p>Orchestrator เลือก model ที่ความสามารถต่ำสุดและ effort ต่ำสุดที่อนุมัติซึ่งเพียงพอกับ specialist slice ทุกงาน บันทึกเหตุผล และส่งทั้งสองค่าไปกับ Codex subagent call หาก settings, approval, resource budget หรือ subagent capability ขาด task จะเป็น <code>waiting_user</code>; Orchestrator จะไม่ทำงานแทน specialist</p></section><section><h2>แก้ปัญหา</h2><ul><li>หาก Codex สร้าง subagent พร้อมค่า model และ effort ไม่ได้ ห้ามใช้ workflow ทดแทน ให้ถาม user เพื่อเปิด capability หรือเลือก platform อื่น</li><li>หาก project settings ไม่มีหรือไม่ผ่าน ให้ตรวจ settings ก่อน dispatch</li><li>ห้ามข้าม Git, cost, tool, approval, privacy หรือ endpoint policy เพื่อให้ adapter ดูเหมือนใช้งานได้</li></ul><p class="muted">Manual version 0.1.1 · ตรวจล่าสุด: 2026-07-27</p></section></main></body></html>
+<!doctype html>
+<html lang="th" data-manual-version="0.1.1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevBuddy สำหรับ Codex</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header><strong>DevBuddy · Codex</strong><nav><a href="index.html">คู่มือ</a><a href="../en/codex.html">English</a></nav></header>
+  <main>
+    <article>
+      <p class="eyebrow">Codex adapter</p>
+      <h1>ให้ Orchestrator เป็นผู้เลือกเส้นทางงาน</h1>
+      <p class="notice">รูปแบบปกติคือ <code>$devbuddy &lt;task&gt;</code> Codex จะเลือกกราฟ role, model และ reasoning effort ก่อน dispatch</p>
+    </article>
+    <section>
+      <h2>ติดตั้งและตั้งค่า</h2>
+      <ol>
+        <li>ติดตั้ง Codex skill ด้วย installer ที่มี dry run เป็นค่าเริ่มต้น</li>
+        <li>สร้าง <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> พร้อม model/effort allowlist และ budget ที่ user อนุมัติ</li>
+        <li>รัน validator แบบ read-only แล้วเรียก <code>$devbuddy &lt;task&gt;</code></li>
+      </ol>
+    </section>
+    <section>
+      <h2>Invocation contract</h2>
+      <pre><code>$devbuddy &lt;task&gt;
+$devbuddy loop &lt;task&gt;</code></pre>
+      <p>Orchestrator รับผิดชอบ intake, risk, dependency, approval, lock, การเลือก model/effort และ handoff การระบุ role หรือ <code>owner</code> เองเป็นตัวเลือกขั้นสูง ไม่ใช่สิ่งที่ต้องใช้เป็นปกติ</p>
+    </section>
+    <section>
+      <h2>การ dispatch บน Codex</h2>
+      <p>ทุก specialist call ต้องได้รับค่า <code>model</code> และ <code>reasoning_effort</code> อย่างชัดเจนจาก project allowlist หาก capability หรือ handoff ยืนยันค่าใดไม่ได้ งานจะเป็น <code>waiting_user</code> และ Orchestrator จะไม่ทำงานแทน specialist</p>
+    </section>
+    <section>
+      <h2>Memory และ validation</h2>
+      <p><code>KnowledgeBase.md</code>, core memory, typed knowledge และ task ledger อยู่ใต้ <code>&lt;project-root&gt;/.devbuddy/</code> ใช้ <code>python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code> หรือใช้ <code>--root &lt;approved-external-memory-root&gt;</code> เมื่อเป็น external root</p>
+    </section>
+    <p class="muted">Manual version 0.1.1 · ตรวจล่าสุด: 2026-07-27</p>
+  </main>
+</body>
+</html>

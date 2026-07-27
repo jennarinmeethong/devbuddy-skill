@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-REQUIRED = {"bug_fix", "feature", "migration", "security", "incident", "missing_information", "unavailable_tool", "approval_gate", "multi_role", "missing_agent_definition", "model_effort_escalation"}
+REQUIRED = {"bare_entrypoint", "bug_fix", "feature", "migration", "security", "incident", "missing_information", "unavailable_tool", "approval_gate", "multi_role", "missing_agent_definition", "model_effort_escalation"}
 
 
 def main() -> int:

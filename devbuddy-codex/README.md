@@ -33,4 +33,4 @@ python3 -m unittest discover tests -v
 
 For an approved external memory root, use `--root <approved-external-memory-root>` with both the initializer and `validate_knowledge.py`; the path is used directly and is never wrapped in another `.devbuddy/` directory.
 
-Invoke with `$devbuddy owner <task>`. If the Codex surface cannot express or verify both `model` and `reasoning_effort`, the task becomes `waiting_user`; the Orchestrator does not substitute itself for the specialist.
+Invoke with `$devbuddy <task>`. The Orchestrator selects the role graph; `owner` and explicit role forms are advanced routing overrides. If the Codex surface cannot express or verify both `model` and `reasoning_effort`, the task becomes `waiting_user`; the Orchestrator does not substitute itself for the specialist.

@@ -94,12 +94,16 @@ def main() -> int:
         "devbuddy-claude": {
             "root": claude,
             "invocation": "/devbuddy",
+            "default_task_form": "/devbuddy <task>",
+            "entrypoint": "orchestrator",
             "model_transport": "agent_tool_model_parameter",
             "effort_transport": "agent_definition_frontmatter",
         },
         "devbuddy-codex": {
             "root": codex,
             "invocation": "$devbuddy",
+            "default_task_form": "$devbuddy <task>",
+            "entrypoint": "orchestrator",
             "model_transport": "subagent.model_parameter",
             "effort_transport": "subagent.reasoning_effort_parameter",
         },
@@ -122,6 +126,10 @@ def main() -> int:
         )
         if config["invocation"] not in adapter_text:
             errors.append(f"{name} missing explicit invocation {config['invocation']}")
+        if config["default_task_form"] not in adapter_text:
+            errors.append(f"{name} missing bare Orchestrator task form {config['default_task_form']}")
+        if value(root / "settings.yaml", "entrypoint") != config["entrypoint"]:
+            errors.append(f"{name} entrypoint must be {config['entrypoint']}")
         for token in COMMON_TOKENS:
             if token not in adapter_text:
                 errors.append(f"{name} missing semantic token: {token}")
