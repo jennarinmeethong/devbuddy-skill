@@ -4,7 +4,7 @@ Tracks defects found while implementing and live-testing the DevBuddy adapters. 
 
 ## ISSUE-001: `init_project_memory.py` crashes on Python < 3.10
 
-- **Status:** open (fixed in `devbuddy-claude` only; `devbuddy-codex` and `devbuddy-source-of-truth` still broken)
+- **Status:** [Codex] fixed 2026-07-27; [Claude] fixed 2026-07-27; [source-of-truth] open
 - **Found:** 2026-07-27, during the Claude adapter live smoke test (SMOKE-001)
 - **Location:**
   - `devbuddy-codex/scripts/init_project_memory.py`
@@ -16,8 +16,9 @@ Tracks defects found while implementing and live-testing the DevBuddy adapters. 
   ```
 - **Cause:** `Path.write_text(..., newline="\n")` — the `newline` parameter was added to `pathlib.Path.write_text` in Python 3.10. macOS ships Python 3.9.6 by default, so any user on stock macOS Python hits this the first time they actually initialise project memory, not during validation.
 - **Fix:** drop the `newline="\n"` argument. The `CORE` dict content already uses `\n` literals, and `write_text` does not translate line endings on POSIX, so the argument was redundant even on 3.10+.
-- **Tracking:** spawned as a background task (`task_451e5131`) on 2026-07-27; out of scope for the Claude adapter work that found it, so left for the user to action separately.
-- **[Claude] fixed 2026-07-27** — `devbuddy-claude/scripts/init_project_memory.py` was already fixed before this issue log was written (see "Fix" above); confirmed here for the record. Still open for `devbuddy-codex` and `devbuddy-source-of-truth` — those are not Claude-adapter files, and remain tracked only by `task_451e5131`.
+- **Tracking:** spawned as a background task (`task_451e5131`) on 2026-07-27; the remaining `devbuddy-source-of-truth` fix is still left for the user to action separately.
+- **[Claude] fixed 2026-07-27** — `devbuddy-claude/scripts/init_project_memory.py` was already fixed before this issue log was written (see "Fix" above); confirmed here for the record.
+- **[Codex] fixed 2026-07-27** — removed the Python 3.10-only `newline` argument from `devbuddy-codex/scripts/init_project_memory.py`; verified that the script creates the full memory layout successfully.
 
 ## ISSUE-002: agents write ad-hoc `devbuddy-ref` keys instead of real knowledge keys
 

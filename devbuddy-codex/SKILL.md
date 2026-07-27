@@ -27,7 +27,7 @@ Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` ->
 3. Create or resume a task ledger from `templates/task-ledger.md` under the resolved memory root. Do not persist sensitive data.
 4. Classify risk, environment, cost, tool availability, knowledge impact, batch suitability, and required approvals.
 5. Build the smallest dependency graph. Acquire artefact reservations before any writing role starts.
-6. For every ready slice, choose the lowest-ranked approved model and effort level sufficient for the assigned role, risk, capability, privacy, latency, and cost constraints. Record the selection and reason in the ledger.
+6. For every ready slice, choose the lowest-ranked approved model and lowest-ranked approved effort level independently, provided both permit the assigned role and risk and satisfy capability, privacy, latency, and cost constraints. Record both selections, the sufficiency reason, and any escalation in the ledger before dispatch.
 7. Dispatch the specialist with the platform subagent mechanism, passing the selected model and effort level explicitly. The Orchestrator never performs specialist work.
 8. Check the structured handoff, route the next dependency-ready role, enforce gates, and report material state changes in Thai.
 9. Close only with required evidence, independent checks, approvals, knowledge declarations, and policy compliance.

@@ -21,4 +21,4 @@ orchestration:
       allowed_risks: [low, medium]
 ```
 
-Ranks are positive integers; lower means less capable/costly. Every dispatched role/risk must be allowed by the selected model and effort entry. The allowlist is an approval boundary, not a model catalogue. Do not add provider, price, credential, prompt, or personal data to settings.
+Ranks are positive integers; lower means less capable/costly. Choose the lowest-ranked approved model and effort independently; every dispatched role/risk must be allowed by both selected entries. A model rank and effort rank do not need to match, and neither selection implies the other. Escalation above the lowest permitted option needs a task-specific reason in the ledger before dispatch. The allowlist is an approval boundary, not a model catalogue. Do not add provider, price, credential, prompt, or personal data to settings.

@@ -28,7 +28,9 @@ def main() -> int:
         for directory in DIRECTORIES:
             (root / directory).mkdir(parents=True, exist_ok=True)
         for name, content in CORE.items():
-            (root / name).write_text(content, encoding="utf-8", newline="\n")
+            # No newline= argument: it needs Python 3.10+, and the content
+            # already uses \n. Keep this runnable on the stock macOS 3.9.
+            (root / name).write_text(content, encoding="utf-8")
     except OSError as error:
         print(f"ERROR: cannot create memory layout at {root}: {error}")
         return 1

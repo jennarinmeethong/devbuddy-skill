@@ -9,5 +9,7 @@
   {"id":"approval_gate","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"cost or external-action approval"},
   {"id":"multi_role","expected_status":"running","expected_route":"locked independent specialist slices","evidence":"locks and handoffs"},
   {"id":"missing_subagent","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"capability check"},
-  {"id":"model_effort_escalation","expected_status":"running","expected_route":"minimum-sufficient approved pair","evidence":"ledger sufficiency reason"}
+  {"id":"model_effort_escalation","expected_status":"running","expected_route":"minimum-sufficient approved pair","evidence":"ledger records why every lower model/effort option is insufficient"},
+  {"id":"model_effort_independent_selection","expected_status":"running","expected_route":"lowest permitted model and effort selected independently","evidence":"ledger and dispatch record both explicit parameters"},
+  {"id":"unverified_model_effort","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"execution metadata or handoff cannot verify either selection"}
 ]
