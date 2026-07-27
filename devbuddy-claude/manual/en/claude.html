@@ -91,7 +91,9 @@ orchestration:
 python3 scripts/check_adapter_conformance.py
 python3 scripts/validate_manual.py manual
 python3 scripts/run_scenarios.py tests/scenarios.json
-python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml</code></pre>
+python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml
+python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code></pre>
+  <p>The initializer places <code>KnowledgeBase.md</code>, the other core files, typed knowledge, and task ledgers directly under <code>&lt;project-root&gt;/.devbuddy/</code>. For an external vault, validate it with <code>python3 scripts/validate_knowledge.py --root &lt;approved-external-memory-root&gt;</code>.</p>
   <p>After installing, confirm that <code>/devbuddy</code> resolves to this skill and that the <code>devbuddy-*</code> agents appear in your agent list. Then run a read-only task such as <code>/devbuddy analyze</code> and check that a task ledger is created, a model and effort pair is recorded with its reason, and a real specialist subagent is dispatched.</p>
   <p>If project settings are absent, the run should stop at <code>waiting_user</code>. That is correct behaviour, not a failure.</p>
 

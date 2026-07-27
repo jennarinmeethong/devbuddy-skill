@@ -601,6 +601,8 @@ For a feature to be knowledge-complete when applicable, its business documentati
 - Validate the common specification and each generated adapter against realistic orchestration scenarios before release.
 - After every common-specification or settings change, run a source-of-truth conformance check: validate the common schema, regenerate or compare Claude/Codex adapters, detect semantic drift, and report differences before the adapters are used or released.
 - Maintain a scenario suite for the common specification and both adapters. Include at least: bug fix, new feature, data migration, security finding, incident response, missing-information task, unavailable-tool task, approval-gated task, and multi-role handoff/parallel-work task.
+- Maintain persistent standard-library regression tests for memory initialization, `.devbuddy`/external-root resolution, settings validation, and adapter installer collision safety.
+- Run semantic conformance checks across source and adapters for shared versions, roles, handoff fields, memory defaults, policy tokens, and platform transport mappings.
 - Each scenario must assert the expected routing, blocked/user-question behaviour, approval gates, evidence requirements, memory updates, and final state. Run the suite after material policy, workflow, template, or adapter changes.
 
 ### Confirmed implementation decisions
@@ -608,6 +610,7 @@ For a feature to be knowledge-complete when applicable, its business documentati
 - Python is approved for bundled validation, generation, and manual-conformance scripts. Verify the available Python runtime before use and do not add Python packages without explicit user instruction.
 - `devbuddy-claude` targets the Claude Code Skill format.
 - `devbuddy-codex` targets the current standard Codex Skill structure, including `SKILL.md` and `agents/openai.yaml`.
+- Codex includes a dry-run-first installer and onboarding README; its dispatch contract describes capability-based `model` and `reasoning_effort` parameters without depending on an internal tool name.
 - The requirements are decision-complete for implementing `devbuddy-source-of-truth`. Do not request additional clarification during that implementation; apply the documented policies and report any blocker with evidence.
 
 ### Initial source-of-truth implementation

@@ -91,7 +91,9 @@ orchestration:
 python3 scripts/check_adapter_conformance.py
 python3 scripts/validate_manual.py manual
 python3 scripts/run_scenarios.py tests/scenarios.json
-python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml</code></pre>
+python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml
+python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code></pre>
+  <p>ตัว initializer จะวาง <code>KnowledgeBase.md</code>, core files อื่น, typed knowledge และ task ledger ไว้ใต้ <code>&lt;project-root&gt;/.devbuddy/</code> โดยตรง หากใช้ external vault ให้ตรวจด้วย <code>python3 scripts/validate_knowledge.py --root &lt;approved-external-memory-root&gt;</code></p>
   <p>หลังติดตั้ง ให้ยืนยันว่า <code>/devbuddy</code> ชี้มาที่ skill นี้ และ agent <code>devbuddy-*</code> ปรากฏในรายชื่อ agent จากนั้นลองสั่งงานแบบอ่านอย่างเดียว เช่น <code>/devbuddy analyze</code> แล้วตรวจว่ามีการสร้าง task ledger มีการบันทึกคู่ model และ effort พร้อมเหตุผล และมีการส่งงานให้ subagent ผู้เชี่ยวชาญจริง</p>
   <p>ถ้ายังไม่มีไฟล์ตั้งค่าโครงการ ระบบควรหยุดที่สถานะ <code>waiting_user</code> นี่คือพฤติกรรมที่ถูกต้อง ไม่ใช่ข้อผิดพลาด</p>
 

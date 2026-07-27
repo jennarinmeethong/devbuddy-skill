@@ -1,1 +1,296 @@
-:root{color-scheme:light dark;--bg:#f7f8fa;--text:#1f2937;--accent:#1769aa}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,sans-serif}main,header{max-width:900px;margin:auto;padding:24px}h1,h2{line-height:1.25}a{color:var(--accent)}pre{overflow:auto;padding:14px;border-radius:8px;background:#111827;color:#e5e7eb}
+/* DevBuddy manual visual system · 0.1.1 */
+:root {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-solid: #ffffff;
+  --ink: #102033;
+  --muted: #607086;
+  --line: #dce5ef;
+  --accent: #2563eb;
+  --accent-strong: #1948b7;
+  --accent-soft: #e8f0ff;
+  --teal: #0f766e;
+  --warm: #fff7ed;
+  --warm-line: #fed7aa;
+  --shadow: 0 18px 50px rgba(25, 55, 90, 0.08);
+  --radius: 18px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0c1420;
+    --surface: rgba(20, 31, 47, 0.92);
+    --surface-solid: #142033;
+    --ink: #ecf4ff;
+    --muted: #a7b7ca;
+    --line: #2a3c53;
+    --accent: #82adff;
+    --accent-strong: #b9d1ff;
+    --accent-soft: #1b3157;
+    --teal: #58c7bb;
+    --warm: #302618;
+    --warm-line: #8e6b33;
+    --shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(37, 99, 235, 0.12), transparent 32rem),
+    radial-gradient(circle at 95% 8%, rgba(15, 118, 110, 0.10), transparent 28rem),
+    var(--bg);
+  color: var(--ink);
+  font: 16px/1.72 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", sans-serif;
+}
+
+header,
+main,
+footer {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+header strong {
+  color: var(--ink);
+  font-size: 1.08rem;
+  letter-spacing: -0.01em;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+header nav a,
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: 160ms ease;
+}
+
+header nav a:hover,
+header nav a:focus-visible,
+.button:hover,
+.button:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+main {
+  display: grid;
+  gap: 1rem;
+  padding: 2rem 0 4rem;
+}
+
+main > article:first-child {
+  padding: clamp(2rem, 6vw, 4.8rem);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  border-radius: calc(var(--radius) + 6px);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 82%, var(--surface-solid)), var(--surface)),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+main > article:first-child h1 {
+  max-width: 14ch;
+  margin: 0 0 0.8rem;
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+section,
+article:not(:first-child) {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+}
+
+h3 { margin-bottom: 0.45rem; }
+
+.eyebrow {
+  margin: 0 0 0.7rem;
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+p { max-width: 78ch; }
+
+a {
+  color: var(--accent-strong);
+  text-underline-offset: 0.18em;
+}
+
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
+.notice {
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--warm-line);
+  border-left: 5px solid #f59e0b;
+  border-radius: 12px;
+  background: var(--warm);
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+code {
+  padding: 0.12em 0.38em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font: 0.92em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 1rem 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid #263b55;
+  border-radius: 12px;
+  background: #0c1727;
+  color: #e6f0ff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+ul,
+ol {
+  padding-left: 1.35rem;
+}
+
+li { margin: 0.38rem 0; }
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+th,
+td {
+  padding: 0.8rem 0.9rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+tr:last-child td { border-bottom: 0; }
+th:last-child,
+td:last-child { border-right: 0; }
+
+blockquote {
+  margin: 1rem 0;
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--teal);
+  background: color-mix(in srgb, var(--surface-solid) 75%, var(--accent-soft));
+}
+
+@media (max-width: 700px) {
+  header,
+  main,
+  footer { width: min(100% - 1.25rem, 1120px); }
+
+  header { padding: 0.8rem 0; }
+
+  main { padding-top: 1rem; }
+
+  main > article:first-child { padding: 2rem 1.25rem; }
+
+  main > article:first-child h1 { font-size: clamp(2rem, 13vw, 3.2rem); }
+
+  section,
+  article:not(:first-child) { padding: 1.15rem; }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: normal;
+  }
+}
+
+@media print {
+  header { position: static; }
+  main > article:first-child,
+  section,
+  article:not(:first-child) {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}

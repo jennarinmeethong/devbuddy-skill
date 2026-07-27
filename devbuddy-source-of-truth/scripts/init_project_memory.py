@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+DEFAULT_MEMORY_ROOT = ".devbuddy"
 CORE = {
     "Context.md": "# Technical Context\n\n",
     "BusinessContext.md": "# Business Context\n\n",
@@ -25,11 +26,11 @@ def main() -> int:
     roots.add_argument(
         "--project-root",
         type=Path,
-        help="project root; memory is created below <project-root>/.devbuddy",
+        help=f"project root; memory is created below <project-root>/{DEFAULT_MEMORY_ROOT}",
     )
     parser.add_argument("--dry-run", action="store_true", help="show planned changes only")
     args = parser.parse_args()
-    root = (args.root if args.root is not None else args.project_root / ".devbuddy").expanduser().resolve()
+    root = (args.root if args.root is not None else args.project_root / DEFAULT_MEMORY_ROOT).expanduser().resolve()
     conflicts = [path for name in CORE if (path := root / name).exists()]
     if conflicts:
         print("ERROR: refusing to overwrite existing files: " + ", ".join(map(str, conflicts)))

@@ -34,7 +34,7 @@
   <p>Every dispatch carries an approved model and an approved effort level. On Claude Code the effort level is fixed by the chosen subagent — the adapter installs one subagent per role and tier — while the model is passed per call. DevBuddy selects the lowest-ranked pair sufficient for the role and risk, and records the reason in the task ledger. Escalation needs a task-specific recorded reason.</p>
 
   <h2>Settings and memory</h2>
-  <p>Project configuration lives in <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code>. Project memory defaults to <code>&lt;project-root&gt;/.devbuddy/</code> and may be relocated, including into an Obsidian vault, through the <code>memory_root</code> locator. Knowledge entities carry immutable keys such as <code>REQ-001</code> or <code>DB-042</code>, and code that enforces them carries a <code>devbuddy-ref</code> comment.</p>
+  <p>Project configuration lives in <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code>. Project memory defaults to <code>&lt;project-root&gt;/.devbuddy/</code>, where <code>KnowledgeBase.md</code>, the other core files, typed entities, and task ledgers stay together. It may be relocated, including into an Obsidian vault, through the <code>memory_root</code> locator. Knowledge entities carry immutable keys such as <code>REQ-001</code> or <code>DB-042</code>, and code that enforces them carries a <code>devbuddy-ref</code> comment.</p>
   <p>Canonical knowledge is never written from an impact analysis alone. The branch waits in <code>waiting_user</code> until you confirm the proposed knowledge updates.</p>
 
   <h2>Safety and approvals</h2>

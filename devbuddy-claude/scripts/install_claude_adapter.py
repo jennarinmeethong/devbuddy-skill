@@ -22,11 +22,13 @@ SKILL_CONTENT = ["SKILL.md", "settings.yaml", "references", "roles", "templates"
 MARKER = "devbuddy"
 
 
-def is_devbuddy_artefact(path: Path) -> bool:
+def is_devbuddy_artefact(path: Path, source: Path | None = None) -> bool:
     """True when an existing file is safe for this installer to replace."""
-    if MARKER in path.name.lower() or MARKER in str(path.parent).lower():
+    if MARKER in path.name.lower():
         return True
     try:
+        if source is not None and path.read_bytes() == source.read_bytes():
+            return True
         head = path.read_text(encoding="utf-8", errors="replace")[:4000]
     except OSError:
         return False
@@ -68,7 +70,7 @@ def main() -> int:
         print("ERROR: nothing to install; run scripts/generate_agents.py first")
         return 1
 
-    conflicts = [dst for _, dst in pairs if dst.exists() and not is_devbuddy_artefact(dst)]
+    conflicts = [dst for src, dst in pairs if dst.exists() and not is_devbuddy_artefact(dst, src)]
     if conflicts:
         for path in conflicts:
             print(f"ERROR: refusing to overwrite non-DevBuddy file: {path}")

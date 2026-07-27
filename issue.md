@@ -56,3 +56,8 @@ Confirmed live via real Agent dispatch (not just static `scenarios.json` structu
 - Minimum-sufficient selection was observed forcing an escalation, not choosing one: `reviewer`/`security`/`architect` are absent from the rank-1 `haiku`+`low` entries in the project's own allowlist, so `sonnet`+`medium` was the *lowest permitted* pair for those roles, while `developer`/`qa` correctly stayed at `haiku`+`low` throughout SMOKE-002, 004, and 006.
 
 Not yet exercised live: `migration` and `incident` role chains, and 21 of the 27 role/effort agent definitions that haven't been individually dispatched (only `reviewer-medium`, `developer-low`, `qa-low`, `security-medium`, `architect-medium` have run for real so far).
+
+## Live dispatch verification
+
+- **Codex smoke test passed 2026-07-27** — a real read-only subagent dispatch accepted explicit `model=gpt-5.6-luna` and `reasoning_effort=low`; the handoff reported both values and completed successfully.
+- **Claude smoke test pending** — the target environment has no `claude` executable, and no runtime or package was installed without explicit installation direction.

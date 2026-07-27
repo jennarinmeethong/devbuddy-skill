@@ -1,20 +1,25 @@
 <!doctype html>
 <html lang="en" data-manual-version="0.1.1">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DevBuddy Claude Manual</title>
-<link rel="stylesheet" href="assets/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevBuddy Claude Manual</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<main>
-  <h1>DevBuddy for Claude Code</h1>
-  <p>Choose a language / เลือกภาษา</p>
-  <ul>
-    <li><a href="en/index.html" hreflang="en">English</a></li>
-    <li><a href="th/index.html" hreflang="th">ไทย</a></li>
-  </ul>
-  <p class="muted">Claude Code adapter manual. Revision 0.1.1 · Last reviewed 2026-07-27 · Common specification 0.1.1.</p>
-</main>
+  <main>
+    <article>
+      <p class="eyebrow">DevBuddy · Claude Code adapter</p>
+      <h1>Bring the playbook into Claude Code.</h1>
+      <p>The Claude adapter turns the shared DevBuddy contract into role-and-effort agent definitions, explicit approvals, structured handoffs, and reviewable delivery evidence.</p>
+      <p class="notice">Choose a language to get started.</p>
+      <p><a class="button" href="en/index.html" hreflang="en">English guide</a> <a class="button" href="th/index.html" hreflang="th">คู่มือภาษาไทย</a></p>
+    </article>
+    <section>
+      <h2>What is specific to Claude?</h2>
+      <p>Claude selects effort through the installed <code>devbuddy-&lt;role&gt;-&lt;effort&gt;</code> agent definition and passes the approved model per call. The shared policy and memory layout remain unchanged.</p>
+      <p class="muted">Revision 0.1.1 · Last reviewed 2026-07-27 · Common specification 0.1.1</p>
+    </section>
+  </main>
 </body>
 </html>

@@ -30,6 +30,7 @@ REQUIRED = [
     "scripts/run_scenarios.py",
     "scripts/install_claude_adapter.py",
     "tests/scenarios.json",
+    "tests/test_project_memory.py",
 ]
 
 ROLES = ["ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"]

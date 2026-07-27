@@ -1,1 +1,55 @@
-<!doctype html><html lang="en" data-manual-version="0.1.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevBuddy for Codex</title><link rel="stylesheet" href="../assets/style.css"></head><body><header><a href="../th/index.html">ไทย</a> <a href="codex.html">Codex setup</a></header><main><h1>DevBuddy Codex adapter</h1><p>Invoke explicitly with <code>$devbuddy</code>. The Orchestrator controls state, approvals, locks, model/effort selection, and routing; specialists perform the work.</p><h2>Install</h2><ol><li>Copy the completed <code>devbuddy-codex</code> folder to the approved Codex skills directory.</li><li>Verify Codex can discover <code>SKILL.md</code> and <code>agents/openai.yaml</code>.</li><li>Create and validate <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> before any dispatch.</li><li>Invoke <code>$devbuddy owner &lt;task&gt;</code>.</li></ol><h2>Dispatch safety</h2><p>Every subagent dispatch uses an explicit approved model and effort level. DevBuddy selects the lowest ranked pair sufficient for the role and risk. Missing allowlist, resource budget, approval, or subagent capability changes the task to <code>waiting_user</code>.</p><p>Revision 0.1.1 · Last reviewed 2026-07-27.</p></main></body></html>
+<!doctype html>
+<html lang="en" data-manual-version="0.1.1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevBuddy for Codex</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header>
+    <strong>DevBuddy · Codex</strong>
+    <nav><a href="codex.html">Setup</a><a href="../th/index.html" hreflang="th" lang="th">ไทย</a></nav>
+  </header>
+  <main>
+    <article>
+      <p class="eyebrow">Codex adapter · overview</p>
+      <h1>Software delivery with a clear control plane.</h1>
+      <p>Invoke DevBuddy explicitly with <code>$devbuddy</code>. The Orchestrator manages state, dependencies, approvals, locks, model/effort selection, and evidence; specialist roles perform the substantive work.</p>
+      <p class="notice">Start with the installer dry run, create project settings, validate, then dispatch.</p>
+    </article>
+    <section>
+      <h2>Quick start</h2>
+      <ol>
+        <li>Preview installation with <code>python3 scripts/install_codex_adapter.py</code>.</li>
+        <li>Create <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> with user-approved model and effort allowlists.</li>
+        <li>Validate the skill and project settings before the first dispatch.</li>
+        <li>Run <code>$devbuddy owner &lt;task&gt;</code>.</li>
+      </ol>
+      <pre><code>python3 scripts/install_codex_adapter.py
+python3 scripts/validate_skill_metadata.py .
+python3 scripts/check_adapter_conformance.py
+python3 -m unittest discover tests -v
+$devbuddy owner &lt;task&gt;</code></pre>
+    </section>
+    <section>
+      <h2>What Codex does differently</h2>
+      <table>
+        <thead><tr><th>Concern</th><th>Codex behaviour</th></tr></thead>
+        <tbody>
+          <tr><td>Role</td><td>One role profile per canonical role; role and effort stay independent.</td></tr>
+          <tr><td>Model</td><td>Passed per dispatch through the approved project allowlist.</td></tr>
+          <tr><td>Effort</td><td>Passed per dispatch as <code>reasoning_effort</code> or the platform's documented equivalent.</td></tr>
+          <tr><td>Verification</td><td>The handoff must report the model/effort pair; otherwise the slice is unverified.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Memory that stays understandable</h2>
+      <p>The default project root is <code>&lt;project-root&gt;/.devbuddy/</code>. It contains <code>settings.yaml</code>, <code>KnowledgeBase.md</code>, the other core memory files, typed knowledge folders, and task ledgers. An external <code>memory_root</code> is used directly.</p>
+      <p><a href="codex.html">Read setup, configuration, validation, and troubleshooting →</a></p>
+    </section>
+    <p class="muted">Revision 0.1.1 · Last reviewed 2026-07-27 · Common specification 0.1.1.</p>
+  </main>
+</body>
+</html>

@@ -17,6 +17,11 @@ REQUIRED_CHILDREN = {
     "memory": {"default_root", "project_settings_path", "locator_key"},
     "adapters": {"claude", "codex"},
 }
+CANONICAL_MEMORY = {
+    "default_root": ".devbuddy",
+    "project_settings_path": ".devbuddy/settings.yaml",
+    "locator_key": "memory_root",
+}
 
 
 def parse_keys(text: str) -> tuple[set[str], dict[str, set[str]], list[str]]:
@@ -57,6 +62,12 @@ def main() -> int:
         absent = required - children.get(parent, set())
         if absent:
             errors.append(f"missing {parent} keys: " + ", ".join(sorted(absent)))
+    for key, expected in CANONICAL_MEMORY.items():
+        match = re.search(rf"^  {re.escape(key)}:\s*(\S+)\s*$", text, re.MULTILINE)
+        if match is None:
+            errors.append(f"memory.{key} must be present")
+        elif match.group(1).strip("\"'") != expected:
+            errors.append(f"memory.{key} must be {expected}")
     if not re.search(r"^schema_version:\s*1\s*$", text, re.MULTILINE):
         errors.append("schema_version must be 1")
     if errors:

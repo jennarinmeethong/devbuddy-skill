@@ -2,7 +2,7 @@
 
 ## Memory root
 
-Default root is `<project-root>/.devbuddy/`, containing `settings.yaml`, the four core memory files, typed folders, and task ledgers. Project settings may point directly elsewhere, including an Obsidian vault; do not add another `.devbuddy` wrapper to an external path. Resolve the locator before any read or write. Never use temporary or global storage for project knowledge.
+Default root is `<project-root>/.devbuddy/`, containing `settings.yaml`, `KnowledgeBase.md`, the other three core memory files, typed folders, and task ledgers. Project settings may point directly elsewhere, including an Obsidian vault; do not add another `.devbuddy` wrapper to an external path. Resolve the locator before any read or write. Never use temporary or global storage for project knowledge.
 
 Initialise a project root with `scripts/init_project_memory.py --project-root <project-root> --dry-run` first, then without `--dry-run` once the user approves the shown plan. Use `--root <approved-external-memory-root>` for an external path. The script never overwrites an existing file.
 
@@ -54,6 +54,6 @@ Every canonical artefact has exactly one owner role. Others contribute analysis,
 
 ## Health checks
 
-Run `scripts/validate_knowledge.py <memory-root>` after material changes and before closure. It checks key format, uniqueness, and required metadata. Also look for broken links, missing owners, stale or superseded decisions, requirements and business rules without linked tests, APIs without ownership, and releases without evidence.
+Run `scripts/validate_knowledge.py --project-root <project-root>` after material changes and before closure. Use `--root <approved-external-memory-root>` for an external root. It checks core files, key format, uniqueness, dates, confidence, and required metadata. Also look for broken links, missing owners, stale or superseded decisions, requirements and business rules without linked tests, APIs without ownership, and releases without evidence.
 
 Report each finding with the affected entity, the inconsistent relationship, the impact, and the owner role. Route remediation through the Orchestrator; never fabricate missing knowledge to make a check pass.

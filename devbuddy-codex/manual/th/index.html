@@ -1,1 +1,55 @@
-<!doctype html><html lang="th" data-manual-version="0.1.1"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DevBuddy สำหรับ Codex</title><link rel="stylesheet" href="../assets/style.css"></head><body><header><a href="../en/index.html">English</a> <a href="codex.html">ตั้งค่า Codex</a></header><main><h1>DevBuddy Codex adapter</h1><p>เรียกใช้แบบชัดเจนด้วย <code>$devbuddy</code> โดย Orchestrator ดูแลสถานะ การอนุมัติ lock การเลือก model/effort และการส่งต่องาน ส่วน role เฉพาะทางเป็นผู้ทำงาน</p><h2>ติดตั้ง</h2><ol><li>คัดลอก folder <code>devbuddy-codex</code> ที่เสร็จแล้วไปยัง Codex skills directory ที่อนุมัติ</li><li>ตรวจว่า Codex อ่าน <code>SKILL.md</code> และ <code>agents/openai.yaml</code> ได้</li><li>สร้างและตรวจ <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> ก่อน dispatch</li><li>เรียก <code>$devbuddy owner &lt;task&gt;</code></li></ol><h2>ความปลอดภัยในการ dispatch</h2><p>ทุกครั้งที่เรียก subagent ต้องส่ง model และ effort level ที่อนุมัติแบบ explicit ระบบเลือกคู่ที่ rank ต่ำสุดซึ่งเพียงพอกับ role และ risk หากไม่มี allowlist budget การอนุมัติ หรือ subagent capability task จะเป็น <code>waiting_user</code></p><p>Revision 0.1.1 · ตรวจล่าสุด 2026-07-27</p></main></body></html>
+<!doctype html>
+<html lang="th" data-manual-version="0.1.1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DevBuddy สำหรับ Codex</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header>
+    <strong>DevBuddy · Codex</strong>
+    <nav><a href="codex.html">ตั้งค่า</a><a href="../en/index.html" hreflang="en" lang="en">English</a></nav>
+  </header>
+  <main>
+    <article>
+      <p class="eyebrow">Codex adapter · ภาพรวม</p>
+      <h1>ส่งมอบซอฟต์แวร์อย่างเป็นระบบ</h1>
+      <p>DevBuddy คือ control plane สำหรับ Codex ที่ช่วยจัดลำดับงาน มอบหมาย role เฉพาะทาง ขออนุมัติ และเก็บหลักฐานในทุก handoff</p>
+      <p class="notice">เริ่มจาก preview installer, สร้าง project settings, ตรวจ validation แล้วจึง dispatch</p>
+    </article>
+    <section>
+      <h2>เริ่มต้นอย่างรวดเร็ว</h2>
+      <ol>
+        <li>ดูรายการไฟล์ก่อนด้วย <code>python3 scripts/install_codex_adapter.py</code></li>
+        <li>สร้าง <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> พร้อม model และ effort allowlist ที่ user อนุมัติ</li>
+        <li>ตรวจ skill และ project settings ก่อน dispatch ครั้งแรก</li>
+        <li>เรียก <code>$devbuddy owner &lt;task&gt;</code></li>
+      </ol>
+      <pre><code>python3 scripts/install_codex_adapter.py
+python3 scripts/validate_skill_metadata.py .
+python3 scripts/check_adapter_conformance.py
+python3 -m unittest discover tests -v
+$devbuddy owner &lt;task&gt;</code></pre>
+    </section>
+    <section>
+      <h2>ความต่างของ Codex adapter</h2>
+      <table>
+        <thead><tr><th>เรื่อง</th><th>พฤติกรรม</th></tr></thead>
+        <tbody>
+          <tr><td>Role</td><td>มี role profile เดียวต่อบทบาท และแยก role ออกจาก effort</td></tr>
+          <tr><td>Model</td><td>ส่งต่อครั้งจาก allowlist ของ project settings</td></tr>
+          <tr><td>Effort</td><td>ส่งต่อครั้งด้วย <code>reasoning_effort</code> หรือชื่อพารามิเตอร์ตาม capability ที่ตรวจพบ</td></tr>
+          <tr><td>การตรวจสอบ</td><td>handoff ต้องรายงานคู่ model/effort ไม่เช่นนั้น slice จะถือว่ายังยืนยันไม่ได้</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Memory ที่ค้นหาได้ง่าย</h2>
+      <p>ค่าเริ่มต้นคือ <code>&lt;project-root&gt;/.devbuddy/</code> ซึ่งเก็บ <code>settings.yaml</code>, <code>KnowledgeBase.md</code>, core memory อีกสามไฟล์, typed knowledge และ task ledger ใน root เดียวกัน ส่วน <code>memory_root</code> ภายนอกจะถูกใช้ตรงตาม path ที่กำหนด</p>
+      <p><a href="codex.html">อ่านการติดตั้ง การตั้งค่า การตรวจสอบ และการแก้ปัญหา →</a></p>
+    </section>
+    <p class="muted">Revision 0.1.1 · ตรวจล่าสุด 2026-07-27 · Common specification 0.1.1</p>
+  </main>
+</body>
+</html>

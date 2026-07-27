@@ -10,7 +10,7 @@ The main agent is the Orchestrator. It may create a subagent only when the activ
 | Effort level | the per-call `reasoning_effort` (or equivalent) parameter | project `approved_effort_levels` |
 | Model | the per-call `model` parameter | project `approved_models` |
 
-Codex keeps role instructions independent from effort. Do not create a separate role file for each effort tier; select and verify the effort per dispatch. On the current Codex subagent surface (`multi_agent_v1__spawn_agent`), the Orchestrator passes `model=<approved_models.id>` and `reasoning_effort=<approved_effort_levels.id>` to the subagent call. The task package and structured handoff repeat both values so the ledger can reconcile the requested and reported selection.
+Codex keeps role instructions independent from effort. Do not create a separate role file for each effort tier; select and verify the effort per dispatch. On any supported Codex subagent surface, the Orchestrator passes `model=<approved_models.id>` and `reasoning_effort=<approved_effort_levels.id>` (or the documented equivalent parameter names) to the subagent call. The task package and structured handoff repeat both values so the ledger can reconcile the requested and reported selection.
 
 For each slice, the Orchestrator sends: task ID, role, objective, scope, allowed artefacts, lock/reservation, risk, approved model, approved effort, timeout, retry limit, tool constraints, sensitive-data redaction requirement, required handoff, and exit condition.
 
