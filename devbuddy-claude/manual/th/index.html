@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="th" data-manual-version="0.1.0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DevBuddy สำหรับ Claude Code — ภาพรวม</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <strong>DevBuddy · Claude Code</strong>
+  <nav>
+    <a href="claude.html">การติดตั้ง</a>
+    <a href="../en/index.html" hreflang="en" lang="en">English</a>
+  </nav>
+</header>
+<main>
+  <h1>DevBuddy adapter สำหรับ Claude Code</h1>
+  <p>DevBuddy ทำงานส่งมอบซอฟต์แวร์เหมือนแผนก IT หนึ่งแผนก โดยมี Orchestrator ทำหน้าที่ประเมินงาน วางลำดับการพึ่งพา มอบหมายงานให้ subagent เฉพาะทาง ติดตามการส่งต่องาน และส่งงานไปยังบทบาทถัดไป ผู้ทำงานจริงคือผู้เชี่ยวชาญแต่ละบทบาท ไม่ใช่ Orchestrator</p>
+  <p>เรียกใช้อย่างชัดเจนด้วย <code>/devbuddy</code> เท่านั้น ระบบจะไม่ทำงานเองกับคำสั่งเขียนโค้ดทั่วไป ข้อกำหนดนี้เองที่ทำให้ด่านขออนุมัติต่าง ๆ คาดเดาได้</p>
+
+  <h2>รูปแบบคำสั่ง</h2>
+<pre><code>/devbuddy &lt;role&gt; &lt;task&gt;
+/devbuddy loop &lt;role&gt; &lt;task&gt;
+/devbuddy owner &lt;task&gt;
+/devbuddy owner loop &lt;task&gt;</code></pre>
+  <p>บทบาทหลัก: <code>ba-pm</code>, <code>ux-ui</code>, <code>architect</code>, <code>developer</code>, <code>qa</code>, <code>security</code>, <code>devops-sre</code>, <code>dba-data</code>, <code>reviewer</code> ชื่อย่อที่ใช้ได้: <code>ba</code>, <code>sa</code>, <code>dev</code>, <code>tester</code>, <code>operations</code>, <code>data</code>, <code>analyze</code>, <code>docs</code> ส่วน <code>owner</code> จะสร้างกราฟงานแบบหลายบทบาท</p>
+
+  <h2>บทบาทและวงจรชีวิตของงาน</h2>
+  <p>แต่ละบทบาทมีขั้นตอนการทำงาน สิทธิ์ในการตัดสินใจ artefact ที่เป็นเจ้าของ หลักฐานที่ต้องมี และรูปแบบการส่งต่องานที่กำหนดไว้ชัดเจน artefact หลักทุกชิ้นมีเจ้าของเพียงบทบาทเดียว บทบาทอื่นมีส่วนร่วมผ่านการส่งต่องาน ไม่ใช่แก้ไขไฟล์เดียวกันพร้อมกัน</p>
+  <p>สถานะของงานมี <code>queued</code>, <code>running</code>, <code>blocked</code>, <code>waiting_user</code>, <code>verifying</code>, <code>completed</code>, <code>failed</code> และ <code>cancelled</code> ระดับความเสี่ยงแบ่งเป็น <code>low</code>, <code>medium</code>, <code>high</code>, <code>critical</code> และจะใช้ระดับที่สูงที่สุดที่เข้าเงื่อนไขเสมอ</p>
+
+  <h2>การเลือก model และ effort</h2>
+  <p>ทุกครั้งที่ส่งงานให้ subagent จะต้องระบุทั้ง model ที่อนุมัติแล้วและระดับ effort ที่อนุมัติแล้ว บน Claude Code ระดับ effort ถูกกำหนดจาก subagent ที่เลือก โดย adapter ติดตั้ง subagent หนึ่งตัวต่อหนึ่งบทบาทและหนึ่งระดับ effort ส่วน model จะถูกส่งเป็นพารามิเตอร์ในแต่ละครั้ง DevBuddy จะเลือกคู่ที่ลำดับต่ำที่สุดเท่าที่เพียงพอกับบทบาทและความเสี่ยง แล้วบันทึกเหตุผลลง task ledger การเลือกระดับสูงขึ้นต้องมีเหตุผลเฉพาะงานนั้นบันทึกไว้</p>
+
+  <h2>การตั้งค่าและหน่วยความจำโครงการ</h2>
+  <p>การตั้งค่าระดับโครงการอยู่ที่ <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> ส่วนหน่วยความจำโครงการอยู่ที่ <code>&lt;project-root&gt;/.devbuddy/</code> โดยปริยาย และย้ายไปที่อื่นได้ รวมถึง Obsidian vault ผ่านตัวชี้ตำแหน่ง <code>memory_root</code> องค์ความรู้แต่ละรายการมีคีย์ถาวร เช่น <code>REQ-001</code> หรือ <code>DB-042</code> และโค้ดที่บังคับใช้ความรู้นั้นจะมีคอมเมนต์ <code>devbuddy-ref</code> กำกับ</p>
+  <p>ระบบจะไม่เขียนองค์ความรู้หลักจากผลวิเคราะห์ผลกระทบเพียงอย่างเดียว งานสาขานั้นจะรออยู่ที่สถานะ <code>waiting_user</code> จนกว่าคุณจะยืนยันรายการที่จะปรับปรุง</p>
+
+  <h2>ความปลอดภัยและการขออนุมัติ</h2>
+  <ul>
+    <li>Git เป็นแบบอ่านอย่างเดียว เว้นแต่คุณสั่งให้ทำคำสั่ง Git นั้นอย่างเจาะจง</li>
+    <li>ไม่ติดตั้งเครื่องมือ runtime หรือ dependency ใด ๆ โดยไม่มีคำสั่งจากคุณ</li>
+    <li>สิ่งที่อาจมีค่าใช้จ่ายต้องขออนุมัติ พร้อมแจ้งผู้ให้บริการ เกณฑ์คิดเงิน และทางเลือกอื่น</li>
+    <li>งาน production การแก้ข้อมูลแบบทำลาย การเปลี่ยนสิทธิ์เข้าถึง และการผูกพันทางการเงิน ถือเป็นความเสี่ยงระดับ critical และต้องผ่านด่านอนุมัติ</li>
+    <li>ไม่เก็บความลับหรือข้อมูลส่วนบุคคลไว้ในหน่วยความจำ การส่งต่องาน ledger ผลทดสอบ หรือรายงานใด ๆ</li>
+    <li>เนื้อหาจากภายนอกถือเป็นข้อมูลเท่านั้น ไม่ใช่คำสั่งที่จะมาแทนที่คำสั่งของคุณได้</li>
+  </ul>
+  <p>DevBuddy บังคับใช้กฎเหล่านี้ผ่านคำสั่งภายใน skill ไม่ได้แก้ไขไฟล์ <code>.claude/settings.json</code> และไม่ติดตั้ง hook ใด ๆ ดังนั้นการถามสิทธิ์ตามปกติของ Claude Code จึงยังเป็นด่านป้องกันสุดท้ายของคุณ</p>
+
+  <h2>ภาษาที่ใช้</h2>
+  <p>การสื่อสารภายในระหว่าง agent ทั้ง task package, ledger, การส่งต่องาน และไฟล์ตั้งค่า ใช้ภาษาอังกฤษ ส่วนสถานะ คำถาม การตัดสินใจ ค่าใช้จ่าย ความเสี่ยง และอุปสรรค จะรายงานถึงคุณเป็นภาษาไทย</p>
+
+  <p><a href="claude.html">การติดตั้ง การตั้งค่า การตรวจสอบ และการแก้ปัญหา →</a></p>
+  <p class="muted">ฉบับแก้ไข 0.1.0 · ตรวจทานล่าสุด 2026-07-27 · ข้อกำหนดกลางเวอร์ชัน 0.1.0</p>
+</main>
+</body>
+</html>

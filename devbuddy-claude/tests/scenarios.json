@@ -1,0 +1,13 @@
+[
+  {"id":"bug_fix","expected_status":"verifying","expected_route":"developer -> qa","evidence":"test and handoff"},
+  {"id":"feature","expected_status":"verifying","expected_route":"ba-pm -> architect -> developer -> qa","evidence":"acceptance and test traceability"},
+  {"id":"migration","expected_status":"waiting_user","expected_route":"architect -> dba-data -> developer -> qa","evidence":"approval and rollback plan"},
+  {"id":"security","expected_status":"verifying","expected_route":"security -> developer -> security","evidence":"finding and remediation verification"},
+  {"id":"incident","expected_status":"waiting_user","expected_route":"devops-sre -> reviewer","evidence":"runbook and approval"},
+  {"id":"missing_information","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"recorded question"},
+  {"id":"unavailable_tool","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"availability check"},
+  {"id":"approval_gate","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"cost or external-action approval"},
+  {"id":"multi_role","expected_status":"running","expected_route":"locked independent specialist slices","evidence":"locks and parallel Agent dispatches"},
+  {"id":"missing_agent_definition","expected_status":"waiting_user","expected_route":"orchestrator -> user","evidence":"devbuddy-<role>-<effort> subagent not installed"},
+  {"id":"model_effort_escalation","expected_status":"running","expected_route":"minimum-sufficient approved pair","evidence":"ledger sufficiency reason for the selected tier and model"}
+]

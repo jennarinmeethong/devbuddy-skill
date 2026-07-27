@@ -1,0 +1,67 @@
+schema_version: 1
+adapter:
+  name: devbuddy-claude
+  source_spec_version: 0.1.0
+  invocation: /devbuddy
+  explicit_subagent_model_and_effort: required
+  subagent_naming: devbuddy-<role>-<effort>
+  agent_install_scope: user
+governance:
+  git_mode: read_only
+  require_uncertainty_question: true
+  require_cost_approval: true
+  require_knowledge_impact_approval: true
+orchestration:
+  project_settings_path: .devbuddy/settings.yaml
+  max_concurrency: user_required
+  task_timeout_seconds: user_required
+  retry_limit: user_required
+  model_effort_selection_policy: minimum_sufficient
+  subagent_capability: required
+  model_transport: agent_tool_model_parameter
+  effort_transport: agent_definition_frontmatter
+  # Default approval boundary. A project may narrow it in
+  # <project-root>/.devbuddy/settings.yaml but never widen it silently.
+  # Listing a model here does not waive the Cost Approval Policy.
+  approved_models:
+    - id: haiku
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low]
+    - id: sonnet
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: opus
+      rank: 3
+      allowed_roles: [architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+  approved_effort_levels:
+    - id: low
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low]
+    - id: medium
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: high
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [medium, high, critical]
+loops:
+  enabled_roles: user_required
+  attempt_budget: user_required
+  external_or_destructive_loops: disabled_without_user_approval
+memory:
+  default_root: .devbuddy
+  locator_key: memory_root
+tools:
+  custom_tool_runtime: python
+  install_without_user_approval: false
+environments:
+  default: local
+  approved_endpoints: user_required
+quality:
+  thresholds_by_risk: user_required
+  required_checks: [policy_compliance, knowledge_health, adapter_conformance, manual_conformance]

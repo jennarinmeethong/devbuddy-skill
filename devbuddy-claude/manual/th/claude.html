@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="th" data-manual-version="0.1.0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DevBuddy สำหรับ Claude Code — การติดตั้ง</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <strong>DevBuddy · การติดตั้งบน Claude Code</strong>
+  <nav>
+    <a href="index.html">ภาพรวม</a>
+    <a href="../en/claude.html" hreflang="en" lang="en">English</a>
+  </nav>
+</header>
+<main>
+  <h1>Claude Code Skill adapter</h1>
+  <p class="notice">สถานะ: ติดตั้งใช้งานได้แล้วที่ข้อกำหนดกลางเวอร์ชัน 0.1.0 รายการที่จำเป็นทั้งหมดใน <code>devbuddy-claude/adapter-implementation-checklist.md</code> มีสถานะ <code>done</code></p>
+
+  <h2>สิ่งที่ต้องมีก่อน</h2>
+  <ul>
+    <li>Claude Code ที่ติดตั้ง เข้าสู่ระบบ และใช้งานได้ในเครื่องเป้าหมาย</li>
+    <li>ความสามารถ subagent ที่รองรับฟิลด์ <code>effort</code> ใน frontmatter เพราะ adapter ใช้ฟิลด์นี้ในการระบุระดับ effort ของแต่ละการส่งงาน</li>
+    <li>Python 3 หากต้องการรันสคริปต์ตรวจสอบที่แถมมาด้วย สคริปต์ทั้งหมดใช้เฉพาะไลบรารีมาตรฐาน ไม่ต้องติดตั้งแพ็กเกจเพิ่ม</li>
+    <li>การอนุมัติจากคุณอย่างชัดเจน สำหรับการติดตั้ง การอัปเดต บัญชีแบบเสียเงิน หรือการใช้ model ใด ๆ</li>
+  </ul>
+  <p>ตรวจสอบการติดตั้งด้วย <code>claude doctor</code> ได้ก็ต่อเมื่อคุณอนุญาตให้รันคำสั่งนั้นแล้ว อย่าสรุปว่าเครื่องมือถูกติดตั้งแล้วโดยไม่ตรวจสอบ</p>
+
+  <h2>สิ่งที่จะถูกติดตั้ง</h2>
+  <table>
+    <thead><tr><th>สิ่งที่ติดตั้ง</th><th>ปลายทาง</th><th>หน้าที่</th></tr></thead>
+    <tbody>
+      <tr><td>ตัว skill (<code>SKILL.md</code>, <code>references/</code>, <code>roles/</code>, <code>templates/</code>, <code>schemas/</code>, <code>scripts/</code>, <code>manual/</code>, <code>settings.yaml</code>)</td><td><code>~/.claude/skills/devbuddy/</code></td><td>ตัว Orchestrator และไฟล์นโยบายอ้างอิง</td></tr>
+      <tr><td>ไฟล์นิยาม subagent 27 ไฟล์ <code>devbuddy-&lt;role&gt;-&lt;effort&gt;.md</code></td><td><code>~/.claude/agents/</code></td><td>ผู้เชี่ยวชาญ 9 บทบาท ในระดับ <code>low</code>, <code>medium</code> และ <code>high</code></td></tr>
+    </tbody>
+  </table>
+  <p>การติดตั้งระดับผู้ใช้ทำให้ใช้ DevBuddy ได้ทุกโครงการ แลกกับการที่รายการ <code>devbuddy-*</code> จำนวน 27 รายการจะปรากฏในรายชื่อ agent ของคุณ หากต้องการติดตั้งเฉพาะโครงการเดียว ให้ระบุ <code>--claude-root</code> ชี้ไปที่ <code>.claude/</code> ของโครงการนั้นแทน</p>
+
+  <h2>ขั้นตอนการติดตั้ง</h2>
+  <ol>
+    <li>ยืนยันว่ารายการที่จำเป็นทุกข้อใน <code>devbuddy-claude/adapter-implementation-checklist.md</code> เป็น <code>done</code></li>
+    <li>ดูรายการไฟล์ทั้งหมดก่อน โดยค่าเริ่มต้นเป็นโหมดทดลอง ยังไม่มีการเขียนไฟล์จริง
+<pre><code>python3 scripts/install_claude_adapter.py</code></pre></li>
+    <li>เมื่อรายการถูกต้องแล้วจึงติดตั้งจริง
+<pre><code>python3 scripts/install_claude_adapter.py --apply</code></pre></li>
+    <li>เริ่มเซสชัน Claude Code ใหม่หรือรีเฟรช เพื่อให้ <code>/devbuddy</code> และ agent <code>devbuddy-*</code> ถูกโหลด</li>
+  </ol>
+  <p>ตัวติดตั้งจะปฏิเสธการเขียนทับไฟล์ที่มีอยู่เดิมซึ่งไม่สามารถระบุได้ว่าเป็นไฟล์ของ DevBuddy กรณีชนกันเช่นนี้เป็นเรื่องที่คุณต้องตัดสินใจเอง ตัวติดตั้งจะไม่เดาแทน</p>
+  <p>อย่านำรหัสผ่าน connection string หรือข้อมูลส่วนบุคคล ไปใส่ในไฟล์ตั้งค่าหรือ prompt ของ Claude</p>
+
+  <h2>การตั้งค่า</h2>
+  <p>สร้างไฟล์ <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> ก่อนส่งงานครั้งแรก</p>
+<pre><code>schema_version: 1
+memory_root: .devbuddy
+orchestration:
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
+  approved_models:
+    - id: haiku
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low]
+    - id: sonnet
+      rank: 2
+      allowed_roles: [ba-pm, architect, developer, qa, security, reviewer]
+      allowed_risks: [low, medium, high]
+  approved_effort_levels:
+    - id: low
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low]
+    - id: medium
+      rank: 2
+      allowed_roles: [ba-pm, architect, developer, qa, security, reviewer]
+      allowed_risks: [low, medium, high]</code></pre>
+  <p>adapter มีค่าตั้งต้นให้แล้วเป็น <code>haiku</code> / <code>sonnet</code> / <code>opus</code> พร้อมระดับ <code>low</code> / <code>medium</code> / <code>high</code> เพื่อให้ใช้งานได้ทันที ให้ถือว่านี่คือ<strong>ขอบเขตที่อนุมัติไว้</strong> ไม่ใช่การยกเว้นเรื่องค่าใช้จ่าย การเพิ่มผู้ให้บริการรายใหม่ การขยายรายการที่อนุญาต หรือการใช้ model ที่มีพฤติกรรมด้านความเป็นส่วนตัวต่างออกไป ล้วนเป็นการตัดสินใจเรื่องค่าใช้จ่ายครั้งใหม่ที่ต้องขออนุมัติ</p>
+  <p><code>max_concurrency</code>, <code>task_timeout_seconds</code> และ <code>retry_limit</code> จงใจไม่มีค่าตั้งต้น เพราะเป็นการผูกพันเวลาและค่าใช้จ่ายของคุณ DevBuddy จึงเลือกที่จะถามแทนการเดา ถ้าไม่มีค่าเหล่านี้ ระบบจะไม่ส่งงาน</p>
+
+  <h2>ความต่างจาก adapter ของ Codex</h2>
+  <ul>
+    <li>เรียกใช้ด้วย <code>/devbuddy</code> แทน <code>$devbuddy</code></li>
+    <li>ระดับ effort มาจากฟิลด์ <code>effort</code> ของ subagent ที่เลือก ไม่ได้ส่งเป็นพารามิเตอร์ตอน dispatch การเลือกระดับ subagent จึงเท่ากับการเลือก effort</li>
+    <li>model ส่งเป็นพารามิเตอร์รายครั้งและมีสิทธิ์เหนือค่าใน frontmatter ไฟล์นิยาม agent จึงจงใจไม่ระบุ <code>model</code> ไว้</li>
+    <li>งานที่เป็นอิสระต่อกันจะถูกส่งเป็น Agent หลายคำสั่งในข้อความเดียว ภายใต้ <code>max_concurrency</code> และเพดานจำนวน subagent พร้อมกันของ Claude Code เอง</li>
+  </ul>
+
+  <h2>การตรวจสอบ</h2>
+<pre><code>python3 scripts/validate_skill_metadata.py .
+python3 scripts/check_adapter_conformance.py
+python3 scripts/validate_manual.py manual
+python3 scripts/run_scenarios.py tests/scenarios.json
+python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml</code></pre>
+  <p>หลังติดตั้ง ให้ยืนยันว่า <code>/devbuddy</code> ชี้มาที่ skill นี้ และ agent <code>devbuddy-*</code> ปรากฏในรายชื่อ agent จากนั้นลองสั่งงานแบบอ่านอย่างเดียว เช่น <code>/devbuddy analyze</code> แล้วตรวจว่ามีการสร้าง task ledger มีการบันทึกคู่ model และ effort พร้อมเหตุผล และมีการส่งงานให้ subagent ผู้เชี่ยวชาญจริง</p>
+  <p>ถ้ายังไม่มีไฟล์ตั้งค่าโครงการ ระบบควรหยุดที่สถานะ <code>waiting_user</code> นี่คือพฤติกรรมที่ถูกต้อง ไม่ใช่ข้อผิดพลาด</p>
+
+  <h2>การอัปเกรด</h2>
+  <ol>
+    <li>แก้ข้อกำหนดกลางที่ <code>devbuddy-source-of-truth</code> ก่อนเสมอ แล้วจึงซิงก์รายการใน checklist</li>
+    <li>เมื่อแก้ไขบทบาทใด ให้สร้างไฟล์ subagent ใหม่ด้วย <code>python3 scripts/generate_agents.py</code> และตรวจสอบด้วย <code>--check</code></li>
+    <li>รันสคริปต์ตรวจสอบอีกครั้ง ปรับปรุงคู่มือทั้งสองภาษา แล้วรันตัวติดตั้งซ้ำ ตัวติดตั้งจะเขียนทับเฉพาะไฟล์ของตัวเอง</li>
+  </ol>
+
+  <h2>การแก้ปัญหา</h2>
+  <table>
+    <thead><tr><th>อาการ</th><th>สาเหตุและวิธีแก้</th></tr></thead>
+    <tbody>
+      <tr><td>เรียก <code>/devbuddy</code> แล้วไม่รู้จัก</td><td>ยังไม่ได้ติดตั้ง หรือเซสชันเปิดอยู่ก่อนติดตั้ง ตรวจไฟล์ <code>~/.claude/skills/devbuddy/SKILL.md</code> แล้วเริ่มเซสชันใหม่</td></tr>
+      <tr><td>มี skill ชื่อ <code>devbuddy</code> ตัวอื่นตอบแทน</td><td>มี skill ชื่อซ้ำกันสองตัว ให้ลบหรือเปลี่ยนชื่อตัวที่ไม่ต้องการ ระบบจะไม่เดาว่าคุณหมายถึงตัวไหน</td></tr>
+      <tr><td>ส่งงานแล้วหยุดที่ <code>waiting_user</code> ทันที</td><td>ส่วนใหญ่มาจาก <code>.devbuddy/settings.yaml</code> ที่ขาดหายหรือไม่ถูกต้อง ให้รัน <code>validate_project_settings.py</code> แล้วอ่านชื่อฟิลด์ที่รายงาน</td></tr>
+      <tr><td>ไม่พบ <code>devbuddy-&lt;role&gt;-&lt;effort&gt;</code></td><td>ยังไม่ได้ติดตั้ง agent หรือระดับ effort นั้นไม่ได้รับอนุญาตสำหรับบทบาทและความเสี่ยงนั้น ให้รันตัวติดตั้งใหม่และตรวจ <code>approved_effort_levels</code></td></tr>
+      <tr><td>ยืนยันระดับ effort ที่ใช้จริงไม่ได้</td><td>ให้ถือว่าการส่งงานนั้นถูกบล็อก การเลือกที่ตรวจสอบไม่ได้ไม่ถือว่าสำเร็จ</td></tr>
+      <tr><td>สคริปต์ตรวจสอบรันไม่ได้</td><td>ตรวจว่ามี Python 3 ในเครื่อง อย่าติดตั้งอะไรโดยไม่ได้ตัดสินใจเอง เพราะสคริปต์ไม่ต้องใช้แพ็กเกจเพิ่ม</td></tr>
+    </tbody>
+  </table>
+  <p>อย่าใช้โหมดข้ามการขอสิทธิ์เพื่อเลี่ยงด่านอนุมัติของ DevBuddy หากสิทธิ์ การเข้าถึงเครื่องมือ หรือ model ที่ใช้ได้ในเครื่องคุณต่างจากนโยบายกลาง ให้มาร์ครายการใน checklist ว่ายังไม่สมบูรณ์พร้อมบันทึกหมายเหตุ แทนการหาทางเลี่ยง</p>
+
+  <p class="muted">ฉบับแก้ไข 0.1.0 · ตรวจทานล่าสุด 2026-07-27 · ข้อกำหนดกลางเวอร์ชัน 0.1.0</p>
+</main>
+</body>
+</html>

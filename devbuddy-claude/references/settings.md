@@ -1,0 +1,54 @@
+# Project Settings
+
+Create `<project-root>/.devbuddy/settings.yaml` before any dispatch. The file uses this restricted YAML shape:
+
+```yaml
+schema_version: 1
+memory_root: .devbuddy
+orchestration:
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
+  approved_models:
+    - id: haiku
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low]
+    - id: sonnet
+      rank: 2
+      allowed_roles: [ba-pm, architect, developer, qa, security, reviewer]
+      allowed_risks: [low, medium, high]
+  approved_effort_levels:
+    - id: low
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low]
+    - id: medium
+      rank: 2
+      allowed_roles: [ba-pm, architect, developer, qa, security, reviewer]
+      allowed_risks: [low, medium, high]
+```
+
+Ranks are positive integers; lower means less capable or less costly. Every dispatched role and risk must be allowed by both the selected model entry and the selected effort entry. Validate the file with `scripts/validate_project_settings.py` before the first dispatch.
+
+Do not add provider, price, credential, prompt, or personal data to settings.
+
+## Budgets are not defaulted
+
+`max_concurrency`, `task_timeout_seconds`, and `retry_limit` have no shipped default. They are commitments of the user's time and money, so DevBuddy asks rather than assumes. A missing budget is a dispatch block, not a value to invent.
+
+## About the shipped allowlist
+
+The adapter's own `settings.yaml` carries a ranked default of `haiku` / `sonnet` / `opus` and `low` / `medium` / `high` so the adapter is usable immediately. Treat it as an approval **boundary**, not a recommendation and not a cost waiver:
+
+- A project may narrow it. Widening it, adding a provider, or adding a model with different privacy or cost behaviour is a new Cost Approval decision that needs the user.
+- The allowlist says a pair is *permitted*, never that it is *appropriate*. The minimum-sufficient rule still picks the pair, per dispatch, with a recorded reason.
+- Project settings override the adapter default. Where both define a model with the same `id`, the project entry wins entirely — the two are not merged.
+
+## Resolution order
+
+Explicit user instruction for the current task, then project settings, then the adapter `settings.yaml`, then platform defaults for non-semantic mechanics only. A platform default may never override a behavioural policy.
+
+## Memory locator
+
+`memory_root` accepts an absolute path or a path relative to the project root, including a path inside an Obsidian vault. It is the only memory information stored in the project file; project knowledge itself lives under the resolved root. Resolve the locator before any memory read or write.

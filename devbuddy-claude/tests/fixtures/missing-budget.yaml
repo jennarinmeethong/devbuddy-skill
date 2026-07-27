@@ -1,0 +1,14 @@
+schema_version: 1
+memory_root: .devbuddy
+orchestration:
+  max_concurrency: 2
+  approved_models:
+    - id: sonnet
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low, medium]
+  approved_effort_levels:
+    - id: medium
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low, medium]
