@@ -11,10 +11,16 @@ DIRECTORIES = ["domains", "features", "requirements", "flows", "business-rules",
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", required=True, type=Path, help="approved DevBuddy memory root")
+    roots = parser.add_mutually_exclusive_group(required=True)
+    roots.add_argument("--root", type=Path, help="approved DevBuddy memory root")
+    roots.add_argument(
+        "--project-root",
+        type=Path,
+        help="project root; memory is created below <project-root>/.devbuddy",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    root = args.root.expanduser().resolve()
+    root = (args.root if args.root is not None else args.project_root / ".devbuddy").expanduser().resolve()
     conflicts = [str(root / name) for name in CORE if (root / name).exists()]
     if conflicts:
         print("ERROR: refusing to overwrite existing files: " + ", ".join(conflicts))

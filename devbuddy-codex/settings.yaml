@@ -1,7 +1,7 @@
 schema_version: 1
 adapter:
   name: devbuddy-codex
-  source_spec_version: 0.1.0
+  source_spec_version: 0.1.1
   invocation: $devbuddy
   explicit_subagent_model_and_effort: required
 governance:
@@ -18,6 +18,8 @@ orchestration:
   retry_limit: user_required
   model_effort_selection_policy: minimum_sufficient
   subagent_capability: required
+  model_transport: subagent.model_parameter
+  effort_transport: subagent.reasoning_effort_parameter
 memory:
   default_root: .devbuddy
   locator_key: memory_root

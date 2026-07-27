@@ -7,7 +7,31 @@ import re
 from pathlib import Path
 
 ITEM = re.compile(r"^- \[([ x-])\] `?([A-Za-z0-9_-]+)`? .*Status:\s*`?(done|not_started|in_progress)`?")
-REQUIRED = ["SKILL.md", "agents/openai.yaml", "settings.yaml", "schemas/project-settings.schema.json", "references/policy.md", "references/codex-dispatch.md", "templates/handoff.md", "templates/task-ledger.md", "scripts/validate_project_settings.py", "scripts/validate_skill_metadata.py", "scripts/init_project_memory.py", "scripts/validate_knowledge.py", "scripts/run_scenarios.py"]
+REQUIRED = [
+    "SKILL.md",
+    "agents/openai.yaml",
+    "settings.yaml",
+    "schemas/project-settings.schema.json",
+    "references/policy.md",
+    "references/codex-dispatch.md",
+    "references/role-routing.md",
+    "references/settings.md",
+    "references/knowledge-model.md",
+    "references/loop.md",
+    "templates/handoff.md",
+    "templates/task-ledger.md",
+    "templates/knowledge-entity.md",
+    "scripts/validate_project_settings.py",
+    "scripts/validate_skill_metadata.py",
+    "scripts/init_project_memory.py",
+    "scripts/validate_knowledge.py",
+    "scripts/run_scenarios.py",
+    "scripts/validate_manual.py",
+    "manual/index.html",
+    "tests/scenarios.json",
+]
+
+ROLES = ["ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"]
 
 
 def items(path: Path) -> dict[str, tuple[str, str]]:
@@ -30,6 +54,9 @@ def main() -> int:
     for relative in REQUIRED:
         if not (root / relative).is_file():
             errors.append(f"missing adapter file: {relative}")
+    for role in ROLES:
+        if not (root / "roles" / f"{role}.md").is_file():
+            errors.append(f"missing role workflow: roles/{role}.md")
     if not source.is_file() or not checklist.is_file():
         errors.append("source template or adapter checklist is missing")
     else:

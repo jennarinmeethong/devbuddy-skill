@@ -22,3 +22,5 @@ orchestration:
 ```
 
 Ranks are positive integers; lower means less capable/costly. Choose the lowest-ranked approved model and effort independently; every dispatched role/risk must be allowed by both selected entries. A model rank and effort rank do not need to match, and neither selection implies the other. Escalation above the lowest permitted option needs a task-specific reason in the ledger before dispatch. The allowlist is an approval boundary, not a model catalogue. Do not add provider, price, credential, prompt, or personal data to settings.
+
+`memory_root: .devbuddy` means `<project-root>/.devbuddy/`, which contains the project settings, core memory, typed folders, and task ledgers. An external path is used directly. The Codex adapter does not ship provider model IDs: project settings own the approved model allowlist, and the selected values map to the subagent call's `model` and `reasoning_effort` parameters.

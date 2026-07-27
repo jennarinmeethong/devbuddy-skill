@@ -23,7 +23,7 @@ Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` ->
 ## Required sequence
 
 1. Read `settings.yaml`, `references/policy.md`, `references/codex-dispatch.md`, and the selected role file.
-2. Resolve `<project-root>/.devbuddy/settings.yaml` and the memory locator. Run `scripts/validate_project_settings.py` before dispatch.
+2. Resolve `<project-root>/.devbuddy/settings.yaml` and the memory locator. The default memory root is that same `.devbuddy/` directory; an external locator is used directly. Run `scripts/validate_project_settings.py` before dispatch.
 3. Create or resume a task ledger from `templates/task-ledger.md` under the resolved memory root. Do not persist sensitive data.
 4. Classify risk, environment, cost, tool availability, knowledge impact, batch suitability, and required approvals.
 5. Build the smallest dependency graph. Acquire artefact reservations before any writing role starts.
@@ -52,13 +52,14 @@ Do not simulate a specialist with the Orchestrator when subagents are unavailabl
 - Use cohesive slices and batch only after complete batch assessment shows a safe, independently verifiable benefit.
 - Run a loop only for an explicit loop invocation or user-approved loop-shaped task. Bound it by settings, evidence, retries, and exit conditions.
 
-Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, and `references/loop.md` before a loop.
+Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` for memory and knowledge keys, and `references/loop.md` before a loop.
 
 ## Validation
 
 ```text
 python scripts/validate_project_settings.py <project-root>/.devbuddy/settings.yaml
-python scripts/init_project_memory.py --root <approved-memory-root> --dry-run
+python scripts/init_project_memory.py --project-root <project-root> --dry-run
+python scripts/init_project_memory.py --root <approved-external-memory-root> --dry-run
 python scripts/validate_knowledge.py <memory-root>
 python scripts/validate_skill_metadata.py .
 python scripts/check_adapter_conformance.py

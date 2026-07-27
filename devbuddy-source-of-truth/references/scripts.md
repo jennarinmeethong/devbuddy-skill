@@ -5,7 +5,7 @@ All bundled scripts use only Python's standard library. Confirm `python` is avai
 | Script | Purpose | Safe invocation |
 |---|---|---|
 | `validate_settings.py` | Validate required DevBuddy settings keys and schema version. | `python scripts/validate_settings.py settings.yaml` |
-| `init_project_memory.py` | Create a minimal, non-overwriting project-memory layout. | `python scripts/init_project_memory.py --root <approved-memory-root> --dry-run` |
+| `init_project_memory.py` | Create a minimal, non-overwriting project-memory layout. | `python scripts/init_project_memory.py --project-root <project-root> --dry-run` or `--root <approved-external-memory-root>` |
 | `validate_knowledge.py` | Validate core memory files and typed knowledge metadata/IDs. | `python scripts/validate_knowledge.py <memory-root>` |
 | `check_adapter_checklists.py` | Verify every common change ID appears in each adapter checklist and incomplete entries have remarks. | `python scripts/check_adapter_checklists.py --template templates/adapter-implementation-checklist.md <adapter-checklist> ...` |
 | `check_manual_conformance.py` | Verify required bilingual manual pages, language metadata, version metadata, and stylesheet. | `python scripts/check_manual_conformance.py manual` |

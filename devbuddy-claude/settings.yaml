@@ -1,7 +1,7 @@
 schema_version: 1
 adapter:
   name: devbuddy-claude
-  source_spec_version: 0.1.0
+  source_spec_version: 0.1.1
   invocation: /devbuddy
   explicit_subagent_model_and_effort: required
   subagent_naming: devbuddy-<role>-<effort>

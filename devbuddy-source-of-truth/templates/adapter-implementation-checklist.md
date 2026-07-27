@@ -1,6 +1,6 @@
 # Adapter Implementation Checklist
 
-Common specification version: `<version>`
+Common specification version: `0.1.1`
 
 ## Status legend
 

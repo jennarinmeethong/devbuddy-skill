@@ -4,6 +4,8 @@
 
 Adapters preserve policies, role authority, structured handoffs, settings precedence, memory model, approvals, safety controls, manual requirements, and checklist status. They may translate only platform mechanics: invocation, subagent dispatch, tool names, status transport, and file layout.
 
+The Claude adapter carries the canonical effort tier in the selected `devbuddy-<role>-<effort>` agent definition and carries the approved model through the Agent tool's per-call `model` parameter. The Codex adapter keeps one role profile per canonical role and carries both approved values through the platform subagent call as `model` and `reasoning_effort`. Neither adapter may silently substitute a generic subagent or an unapproved model/effort pair.
+
 Each adapter must map per-dispatch model and effort selection to the platform capability and enforce the common `minimum_sufficient` policy. If the platform cannot represent or verify either selection, it must block dispatch and keep its checklist item incomplete.
 
 ## Targets

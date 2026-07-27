@@ -2,7 +2,7 @@
 
 ## Memory root
 
-Resolve `<project-root>/.devbuddy/settings.yaml` first. Its `memory_root` may point to an external approved location. Canonical memory is never global or temporary.
+Resolve `<project-root>/.devbuddy/settings.yaml` first. By default, that same `.devbuddy/` directory contains `settings.yaml`, the four core memory files, and the typed folders. Its `memory_root` may point directly to an external approved location; do not add another `.devbuddy/` wrapper there. Canonical memory is never global or temporary.
 
 ```text
 <memory-root>/

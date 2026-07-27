@@ -29,6 +29,13 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
         if raw == "schema_version: 1":
             scalars["schema_version"] = "1"
             continue
+        memory_match = re.match(r"^memory_root:\s*(.+?)\s*$", raw)
+        if memory_match:
+            scalars["memory_root"] = memory_match.group(1)
+            continue
+        if raw == "memory_root:":
+            errors.append(f"line {number}: memory_root must not be empty")
+            continue
         if raw == "orchestration:":
             continue
         group_match = re.match(r"^  (approved_models|approved_effort_levels):$", raw)
@@ -90,6 +97,8 @@ def main() -> int:
     scalars, groups, errors = parse(args.settings)
     if scalars.get("schema_version") != "1":
         errors.append("schema_version must be 1")
+    if "memory_root" in scalars and not scalars["memory_root"].strip():
+        errors.append("memory_root must be a non-empty path")
     for key in SCALARS:
         if key not in scalars:
             errors.append(f"missing orchestration.{key}")

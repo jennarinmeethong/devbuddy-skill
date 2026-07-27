@@ -52,3 +52,5 @@ Explicit user instruction for the current task, then project settings, then the 
 ## Memory locator
 
 `memory_root` accepts an absolute path or a path relative to the project root, including a path inside an Obsidian vault. It is the only memory information stored in the project file; project knowledge itself lives under the resolved root. Resolve the locator before any memory read or write.
+
+When `memory_root` is omitted, use `<project-root>/.devbuddy/`. Claude carries effort in the selected `devbuddy-<role>-<effort>` agent definition and carries model in the per-call Agent tool `model` parameter; an agent definition must not pin a model.

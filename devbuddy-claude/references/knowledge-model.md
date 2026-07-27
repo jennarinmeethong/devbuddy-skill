@@ -2,9 +2,9 @@
 
 ## Memory root
 
-Default root is `<project-root>/.devbuddy/`. Project settings may point elsewhere, including an Obsidian vault. Resolve the locator before any read or write. Never use temporary or global storage for project knowledge.
+Default root is `<project-root>/.devbuddy/`, containing `settings.yaml`, the four core memory files, typed folders, and task ledgers. Project settings may point directly elsewhere, including an Obsidian vault; do not add another `.devbuddy` wrapper to an external path. Resolve the locator before any read or write. Never use temporary or global storage for project knowledge.
 
-Initialise a new root with `scripts/init_project_memory.py --root <path> --dry-run` first, then without `--dry-run` once the user approves the shown plan. The script never overwrites an existing file.
+Initialise a project root with `scripts/init_project_memory.py --project-root <project-root> --dry-run` first, then without `--dry-run` once the user approves the shown plan. Use `--root <approved-external-memory-root>` for an external path. The script never overwrites an existing file.
 
 ## Layout
 

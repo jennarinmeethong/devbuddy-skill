@@ -4,7 +4,7 @@ Tracks defects found while implementing and live-testing the DevBuddy adapters. 
 
 ## ISSUE-001: `init_project_memory.py` crashes on Python < 3.10
 
-- **Status:** [Codex] fixed 2026-07-27; [Claude] fixed 2026-07-27; [source-of-truth] open
+- **Status:** [Codex] fixed 2026-07-27; [Claude] fixed 2026-07-27; [source-of-truth] fixed 2026-07-27
 - **Found:** 2026-07-27, during the Claude adapter live smoke test (SMOKE-001)
 - **Location:**
   - `devbuddy-codex/scripts/init_project_memory.py`
@@ -19,6 +19,7 @@ Tracks defects found while implementing and live-testing the DevBuddy adapters. 
 - **Tracking:** spawned as a background task (`task_451e5131`) on 2026-07-27; the remaining `devbuddy-source-of-truth` fix is still left for the user to action separately.
 - **[Claude] fixed 2026-07-27** — `devbuddy-claude/scripts/init_project_memory.py` was already fixed before this issue log was written (see "Fix" above); confirmed here for the record.
 - **[Codex] fixed 2026-07-27** — removed the Python 3.10-only `newline` argument from `devbuddy-codex/scripts/init_project_memory.py`; verified that the script creates the full memory layout successfully.
+- **[Source-of-truth] fixed 2026-07-27** — removed the Python 3.10-only `newline` argument and added `--project-root` so the canonical `.devbuddy/` wrapper is created explicitly; `--root` remains available for approved external memory roots.
 
 ## ISSUE-002: agents write ad-hoc `devbuddy-ref` keys instead of real knowledge keys
 

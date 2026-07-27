@@ -1,7 +1,7 @@
 schema_version: 1
 skill:
   name: devbuddy
-  common_spec_version: 0.1.0
+  common_spec_version: 0.1.1
   internal_language: en
   user_language: th
 governance:
