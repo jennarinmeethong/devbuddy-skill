@@ -671,7 +671,7 @@ The protocol implementation is complete for the bundled, filesystem-level tools.
 The remaining work needs real adapter-host capabilities rather than another filesystem helper:
 
 - **Identity/ACL enforcement:** prevent a specialist process from bypassing the protocol by writing `.devbuddy/` directly; `--actor owner` is a tool-level assertion, not cryptographic identity.
-- **Installed-artifact smoke:** implemented by `verify_installed_adapters.py`, which checks both installed adapters against the source and exercises their task-memory tools in a temporary project without a model call.
+- **Installed-artifact smoke:** implemented by `verify_installed_adapters.py`, which checks both installed adapters against the source and exercises their task-memory tools in a temporary project without a model call. Each adapter also exposes the same local check through `validate_skill_metadata.py <skill-root> --exercise-task-memory`.
 - **Live adapter integration:** still requires an installed Codex and Claude subagent pair to prove the next agent consumes `handoff_path`, actual dispatch payloads obey the scopes, and host-level permissions are effective. Current tests are deterministic filesystem integration tests or no-model-call installed-artifact smoke only.
 - **Operational budgets:** collect per-route model input/output tokens and cost from host execution metadata, enforce task soft/hard budgets, and retain the results without persisting sensitive prompts.
 - **Lock recovery:** add adapter-host expiry/renewal and safe stale-lock recovery once a reliable clock and task liveness signal are available.

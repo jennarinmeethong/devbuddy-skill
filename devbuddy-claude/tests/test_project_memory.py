@@ -16,6 +16,7 @@ TASK_MEMORY = ROOT / "scripts" / "task_memory.py"
 KNOWLEDGE_VALIDATOR = ROOT / "scripts" / "validate_knowledge.py"
 INSTALLER = ROOT / "scripts" / "install_claude_adapter.py"
 VALIDATOR = ROOT / "scripts" / "validate_project_settings.py"
+METADATA_VALIDATOR = ROOT / "scripts" / "validate_skill_metadata.py"
 VALID_SETTINGS = ROOT / "tests" / "fixtures" / "valid-settings.yaml"
 
 
@@ -200,6 +201,10 @@ class ProjectMemoryTests(unittest.TestCase):
 
 
 class SettingsValidatorTests(unittest.TestCase):
+    def test_metadata_validator_exercises_task_memory(self) -> None:
+        result = run(METADATA_VALIDATOR, ROOT, "--agents-dir", ROOT / "agents", "--exercise-task-memory")
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
     def test_valid_project_settings_pass(self) -> None:
         result = run(VALIDATOR, VALID_SETTINGS)
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)

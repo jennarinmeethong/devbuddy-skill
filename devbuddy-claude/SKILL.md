@@ -74,7 +74,7 @@ python scripts/init_project_memory.py --root <approved-external-memory-root> --d
 python scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run
 python scripts/validate_knowledge.py --project-root <project-root>
 python scripts/validate_knowledge.py --root <approved-external-memory-root>
-python scripts/validate_skill_metadata.py .
+python scripts/validate_skill_metadata.py . --exercise-task-memory
 python scripts/check_adapter_conformance.py
 python scripts/validate_manual.py manual
 python scripts/run_scenarios.py tests/scenarios.json

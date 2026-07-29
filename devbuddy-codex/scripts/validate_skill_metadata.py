@@ -4,12 +4,40 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
+
+
+CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
+
+
+def exercise_task_memory(root: Path, errors: list[str]) -> None:
+    tool = root / "scripts" / "task_memory.py"
+    if not tool.is_file():
+        errors.append("missing scripts/task_memory.py")
+        return
+    with tempfile.TemporaryDirectory(prefix="devbuddy-codex-smoke-") as temporary:
+        project = Path(temporary) / "project"
+        memory = project / ".devbuddy"
+        project.mkdir()
+        (project / "package.json").write_text('{"name":"devbuddy-smoke"}', encoding="utf-8")
+        memory.mkdir()
+        for name in CORE:
+            (memory / name).write_text(f"# {name}\n", encoding="utf-8")
+        base = [sys.executable, "-B", str(tool), "--project-root", str(project), "--project-id", "smoke", "--task-id", "001"]
+        for command in (base[:3] + ["init"] + base[3:], base[:3] + ["analyze"] + base[3:] + ["--source-root", str(project)], base[:3] + ["validate"] + base[3:]):
+            result = subprocess.run(command, capture_output=True, text=True, check=False)
+            if result.returncode:
+                errors.append("task-memory smoke failed: " + (result.stdout.strip() or result.stderr.strip()))
+                return
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("skill_root", type=Path)
+    parser.add_argument("--exercise-task-memory", action="store_true", help="run a temporary no-model-call task-memory smoke test")
     args = parser.parse_args()
     root = args.skill_root
     errors: list[str] = []
@@ -46,11 +74,14 @@ def main() -> int:
         ]:
             if not re.search(pattern, text, re.MULTILINE):
                 errors.append(f"agents/openai.yaml: missing {message}")
+    if args.exercise_task_memory:
+        exercise_task_memory(root, errors)
     if errors:
         for error in errors:
             print(f"ERROR: {error}")
         return 1
-    print(f"OK: Codex Skill metadata validates for {root}")
+    suffix = " with task-memory smoke" if args.exercise_task_memory else ""
+    print(f"OK: Codex Skill metadata validates for {root}{suffix}")
     return 0
 
 
