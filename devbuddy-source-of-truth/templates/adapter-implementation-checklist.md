@@ -24,7 +24,7 @@ Common specification version: `0.1.1`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: implement memory resolution and validation flow.
 - [ ] `DBY-SAFE-001` | `references/policies.md` | Git, tool, cost, secret, endpoint, prompt-injection, and policy-compliance controls | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: map controls to platform permissions and prompts.
-- [ ] `DBY-TOOLS-001` | `scripts/` | Python memory initialization, validation, checklist, knowledge, and manual conformance tools | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+- [ ] `DBY-TOOLS-001` | `scripts/` | Python memory initialization, bootstrap, validation, checklist, knowledge, and manual conformance tools | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: validate Python/tool invocation support.
 - [ ] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: publish adapter-specific manual guidance.

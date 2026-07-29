@@ -35,7 +35,7 @@
 
   <h2>การตั้งค่าและหน่วยความจำโครงการ</h2>
   <p>การตั้งค่าระดับโครงการอยู่ที่ <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code> ส่วนหน่วยความจำโครงการอยู่ที่ <code>&lt;project-root&gt;/.devbuddy/</code> โดยมี <code>KnowledgeBase.md</code>, core files อื่น, typed entities และ task ledger อยู่ใน root เดียวกัน และย้ายไปที่อื่นได้ รวมถึง Obsidian vault ผ่านตัวชี้ตำแหน่ง <code>memory_root</code> องค์ความรู้แต่ละรายการมีคีย์ถาวร เช่น <code>REQ-001</code> หรือ <code>DB-042</code> และโค้ดที่บังคับใช้ความรู้นั้นจะมีคอมเมนต์ <code>devbuddy-ref</code> กำกับ</p>
-  <p>ระบบจะไม่เขียนองค์ความรู้หลักจากผลวิเคราะห์ผลกระทบเพียงอย่างเดียว งานสาขานั้นจะรออยู่ที่สถานะ <code>waiting_user</code> จนกว่าคุณจะยืนยันรายการที่จะปรับปรุง</p>
+  <p>ใช้ <code>python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run</code> เพื่อเตรียม inventory ของ repository ที่ตรวจทานได้ และใช้ <code>--apply</code> หลังตรวจทานแล้วเท่านั้น โดยจะเขียนเฉพาะ <code>Context.md</code> กับ <code>KnowledgeBase.md</code> ไม่เขียนทับไฟล์เดิมที่มีเนื้อหา และไม่สร้าง typed canonical entity เอง ระบบจะไม่เขียนองค์ความรู้หลักจากผลวิเคราะห์ผลกระทบเพียงอย่างเดียว งานสาขานั้นจะรออยู่ที่สถานะ <code>waiting_user</code> จนกว่าคุณจะยืนยันรายการที่จะปรับปรุง</p>
 
   <h2>ความปลอดภัยและการขออนุมัติ</h2>
   <ul>

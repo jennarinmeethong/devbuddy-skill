@@ -19,3 +19,5 @@ Before a change that may affect canonical memory, return an impact analysis nami
 Every canonical artefact has one owner and a ledger lock before modification. Reviewer and QA verify references and health; the Orchestrator routes findings rather than fabricating entities.
 
 Run `scripts/validate_knowledge.py --project-root <project-root>` after material memory changes and before closure. Use `--root <approved-external-memory-root>` for an external root. It checks core files, entity metadata, key format, dates, confidence, and duplicate IDs.
+
+Use `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` when a repository inventory is needed. It reports evidence-backed observations from manifests and paths; run `--apply` only after review/approval to write reviewable `Context.md` and `KnowledgeBase.md` observations. It never creates typed entities or overwrites non-empty existing knowledge files.

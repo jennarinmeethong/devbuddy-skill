@@ -57,3 +57,5 @@ Every canonical artefact has exactly one owner role. Others contribute analysis,
 Run `scripts/validate_knowledge.py --project-root <project-root>` after material changes and before closure. Use `--root <approved-external-memory-root>` for an external root. It checks core files, key format, uniqueness, dates, confidence, and required metadata. Also look for broken links, missing owners, stale or superseded decisions, requirements and business rules without linked tests, APIs without ownership, and releases without evidence.
 
 Report each finding with the affected entity, the inconsistent relationship, the impact, and the owner role. Route remediation through the Orchestrator; never fabricate missing knowledge to make a check pass.
+
+Use `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` before onboarding when a repository inventory is needed. It records only evidence-backed observations from manifests and paths; run `--apply` after review/approval to write reviewable core observations. It never creates typed entities or overwrites non-empty existing `Context.md` or `KnowledgeBase.md` files.

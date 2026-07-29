@@ -25,6 +25,7 @@ REQUIRED = [
     "scripts/validate_project_settings.py",
     "scripts/validate_skill_metadata.py",
     "scripts/init_project_memory.py",
+    "scripts/bootstrap_knowledge.py",
     "scripts/validate_knowledge.py",
     "scripts/validate_manual.py",
     "scripts/run_scenarios.py",

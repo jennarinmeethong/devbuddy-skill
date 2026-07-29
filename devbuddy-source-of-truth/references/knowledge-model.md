@@ -37,3 +37,5 @@ Before a potentially relevant implementation change, identify affected keys, ref
 ## Health and migration
 
 Validate IDs, YAML metadata, relations, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
+
+Use `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. Run `--apply` only after the user approves the proposed knowledge write; the script writes only reviewable `Context.md` and `KnowledgeBase.md` observations and never overwrites non-empty existing knowledge files.

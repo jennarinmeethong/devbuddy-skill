@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INIT = ROOT / "scripts" / "init_project_memory.py"
+BOOTSTRAP = ROOT / "scripts" / "bootstrap_knowledge.py"
 KNOWLEDGE_VALIDATOR = ROOT / "scripts" / "validate_knowledge.py"
 INSTALLER = ROOT / "scripts" / "install_claude_adapter.py"
 VALIDATOR = ROOT / "scripts" / "validate_project_settings.py"
@@ -67,6 +68,48 @@ class ProjectMemoryTests(unittest.TestCase):
             result = run(KNOWLEDGE_VALIDATOR, "--project-root", project)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("invalid knowledge id", result.stdout)
+
+    def test_bootstrap_dry_run_scans_without_writing(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            project.mkdir()
+            (project / "package.json").write_text('{"scripts":{"test":"jest","build":"vite"}}', encoding="utf-8")
+            result = run(BOOTSTRAP, "--project-root", project)
+            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+            self.assertIn("FACT manifests: package.json", result.stdout)
+            self.assertIn("DRY RUN", result.stdout)
+            self.assertFalse((project / ".devbuddy").exists())
+
+    def test_bootstrap_apply_writes_reviewable_core_files_only(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            project.mkdir()
+            (project / "pyproject.toml").write_text("[project]\nname = 'example'\n", encoding="utf-8")
+            result = run(BOOTSTRAP, "--project-root", project, "--apply")
+            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+            context = project / ".devbuddy" / "Context.md"
+            knowledge = project / ".devbuddy" / "KnowledgeBase.md"
+            self.assertTrue(context.is_file())
+            self.assertTrue(knowledge.is_file())
+            self.assertIn("pyproject.toml", context.read_text(encoding="utf-8"))
+            self.assertIn("pending user/role review", context.read_text(encoding="utf-8"))
+            self.assertTrue((project / ".devbuddy" / "requirements").is_dir())
+            self.assertTrue((project / ".devbuddy" / "tasks").is_dir())
+            second = run(BOOTSTRAP, "--project-root", project, "--apply")
+            self.assertNotEqual(second.returncode, 0)
+            self.assertIn("refusing to overwrite", second.stdout)
+
+    def test_bootstrap_external_root_uses_source_root_without_nesting(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            external = Path(temporary) / "vault"
+            project.mkdir()
+            (project / "package.json").write_text("{}", encoding="utf-8")
+            result = run(BOOTSTRAP, "--root", external, "--source-root", project, "--apply")
+            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+            self.assertTrue((external / "Context.md").is_file())
+            self.assertIn("package.json", (external / "Context.md").read_text(encoding="utf-8"))
+            self.assertFalse((external / ".devbuddy").exists())
 
     def test_initializer_refuses_to_overwrite_core_files(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

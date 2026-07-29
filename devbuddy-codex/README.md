@@ -24,6 +24,7 @@ Create `<project-root>/.devbuddy/settings.yaml` with user-approved model and eff
 
 ```text
 python3 scripts/init_project_memory.py --project-root <project-root> --dry-run
+python3 scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run
 python3 scripts/validate_project_settings.py <project-root>/.devbuddy/settings.yaml
 python3 scripts/validate_knowledge.py --project-root <project-root>
 python3 scripts/validate_skill_metadata.py .
@@ -31,6 +32,6 @@ python3 scripts/check_adapter_conformance.py
 python3 -m unittest discover tests -v
 ```
 
-For an approved external memory root, use `--root <approved-external-memory-root>` with both the initializer and `validate_knowledge.py`; the path is used directly and is never wrapped in another `.devbuddy/` directory.
+Run bootstrap in dry-run mode to prepare a reviewable repository inventory, then use `--apply` only after review. It writes only `Context.md` and `KnowledgeBase.md`, never overwrites non-empty existing files, and never invents typed canonical entities. For an approved external memory root, use `--root <approved-external-memory-root> --source-root <project-root>` with bootstrap and `--root <approved-external-memory-root>` with the initializer and `validate_knowledge.py`; the path is used directly and is never wrapped in another `.devbuddy/` directory.
 
 Invoke with `$devbuddy <task>`. The Orchestrator selects the role graph; `owner` and explicit role forms are advanced routing overrides. If the Codex surface cannot express or verify both `model` and `reasoning_effort`, the task becomes `waiting_user`; the Orchestrator does not substitute itself for the specialist.

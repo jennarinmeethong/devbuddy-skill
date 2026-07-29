@@ -48,12 +48,13 @@ orchestration:
     <section>
       <h2>3. Initialise memory and validate</h2>
       <pre><code>python3 scripts/init_project_memory.py --project-root &lt;project-root&gt; --dry-run
+python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run
 python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml
 python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;
 python3 scripts/validate_skill_metadata.py .
 python3 scripts/check_adapter_conformance.py
 python3 -m unittest discover tests -v</code></pre>
-      <p>The initializer places <code>KnowledgeBase.md</code>, the other core files, typed knowledge, and task ledgers directly under <code>&lt;project-root&gt;/.devbuddy/</code>. Use <code>python3 scripts/validate_knowledge.py --root &lt;approved-external-memory-root&gt;</code> when memory belongs in an external vault. The initializer never overwrites core files.</p>
+      <p>Run bootstrap in dry-run mode to prepare a reviewable repository inventory. Use <code>--apply</code> only after review; it writes only <code>Context.md</code> and <code>KnowledgeBase.md</code>, never overwrites non-empty existing files, and never invents typed canonical entities. The initializer places <code>KnowledgeBase.md</code>, the other core files, typed knowledge, and task ledgers directly under <code>&lt;project-root&gt;/.devbuddy/</code>. For an external vault, use <code>--root &lt;approved-external-memory-root&gt; --source-root &lt;project-root&gt;</code> and validate it with <code>python3 scripts/validate_knowledge.py --root &lt;approved-external-memory-root&gt;</code>.</p>
     </section>
     <section>
       <h2>Dispatch contract</h2>

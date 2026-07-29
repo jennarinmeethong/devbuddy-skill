@@ -45,6 +45,7 @@ Run only scripts whose runtime is available and approved:
 python scripts/validate_settings.py settings.yaml
 python scripts/init_project_memory.py --project-root <project-root> --dry-run
 python scripts/init_project_memory.py --root <approved-external-memory-root> --dry-run
+python scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run
 python scripts/validate_knowledge.py --project-root <project-root>
 python scripts/validate_knowledge.py --root <approved-external-memory-root>
 python scripts/check_adapter_checklists.py --template templates/adapter-implementation-checklist.md \

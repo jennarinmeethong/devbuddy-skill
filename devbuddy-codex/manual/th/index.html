@@ -46,7 +46,7 @@ $devbuddy &lt;task&gt;</code></pre>
     </section>
     <section>
       <h2>Memory ที่ค้นหาได้ง่าย</h2>
-      <p>ค่าเริ่มต้นคือ <code>&lt;project-root&gt;/.devbuddy/</code> ซึ่งเก็บ <code>settings.yaml</code>, <code>KnowledgeBase.md</code>, core memory อีกสามไฟล์, typed knowledge และ task ledger ใน root เดียวกัน ส่วน <code>memory_root</code> ภายนอกจะถูกใช้ตรงตาม path ที่กำหนด</p>
+      <p>ค่าเริ่มต้นคือ <code>&lt;project-root&gt;/.devbuddy/</code> ซึ่งเก็บ <code>settings.yaml</code>, <code>KnowledgeBase.md</code>, core memory อีกสามไฟล์, typed knowledge และ task ledger ใน root เดียวกัน ใช้ <code>python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run</code> เพื่อเตรียม inventory ของ repository ที่ตรวจทานได้ และใช้ <code>--apply</code> หลังตรวจทานแล้วเท่านั้น โดยจะเขียนเฉพาะ <code>Context.md</code> กับ <code>KnowledgeBase.md</code> ไม่เขียนทับไฟล์เดิมที่มีเนื้อหา และไม่สร้าง typed canonical entity เอง ส่วน <code>memory_root</code> ภายนอกจะถูกใช้ตรงตาม path ที่กำหนด</p>
       <p><a href="codex.html">อ่านการติดตั้ง การตั้งค่า การตรวจสอบ และการแก้ปัญหา →</a></p>
     </section>
     <p class="muted">Revision 0.1.1 · ตรวจล่าสุด 2026-07-27 · Common specification 0.1.1</p>

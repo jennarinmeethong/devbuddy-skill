@@ -35,7 +35,7 @@
 
   <h2>Settings and memory</h2>
   <p>Project configuration lives in <code>&lt;project-root&gt;/.devbuddy/settings.yaml</code>. Project memory defaults to <code>&lt;project-root&gt;/.devbuddy/</code>, where <code>KnowledgeBase.md</code>, the other core files, typed entities, and task ledgers stay together. It may be relocated, including into an Obsidian vault, through the <code>memory_root</code> locator. Knowledge entities carry immutable keys such as <code>REQ-001</code> or <code>DB-042</code>, and code that enforces them carries a <code>devbuddy-ref</code> comment.</p>
-  <p>Canonical knowledge is never written from an impact analysis alone. The branch waits in <code>waiting_user</code> until you confirm the proposed knowledge updates.</p>
+  <p>Use <code>python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run</code> to prepare a reviewable repository inventory. Apply only after review; it writes only <code>Context.md</code> and <code>KnowledgeBase.md</code>, never overwrites non-empty existing files, and never invents typed canonical entities. Canonical knowledge is never written from an impact analysis alone. The branch waits in <code>waiting_user</code> until you confirm the proposed knowledge updates.</p>
 
   <h2>Safety and approvals</h2>
   <ul>

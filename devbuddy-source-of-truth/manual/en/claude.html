@@ -35,7 +35,7 @@
     </section>
     <section>
       <h2>Memory and validation</h2>
-      <p><code>KnowledgeBase.md</code>, core memory, typed knowledge, and task ledgers stay under <code>&lt;project-root&gt;/.devbuddy/</code>. Validate the default root with <code>python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code>, or an external root with <code>--root &lt;approved-external-memory-root&gt;</code>.</p>
+      <p><code>KnowledgeBase.md</code>, core memory, typed knowledge, and task ledgers stay under <code>&lt;project-root&gt;/.devbuddy/</code>. Prepare a reviewable repository inventory with <code>python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run</code>; use <code>--apply</code> only after review. It writes only <code>Context.md</code> and <code>KnowledgeBase.md</code>, never overwrites non-empty existing files, and never invents typed canonical entities. Validate the default root with <code>python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code>, or an external root with <code>--root &lt;approved-external-memory-root&gt;</code>.</p>
     </section>
     <p class="muted">Manual version 0.1.1 · Last reviewed: 2026-07-27</p>
   </main>

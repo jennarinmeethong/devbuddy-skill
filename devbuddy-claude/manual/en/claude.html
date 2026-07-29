@@ -92,8 +92,9 @@ python3 scripts/check_adapter_conformance.py
 python3 scripts/validate_manual.py manual
 python3 scripts/run_scenarios.py tests/scenarios.json
 python3 scripts/validate_project_settings.py &lt;project-root&gt;/.devbuddy/settings.yaml
+python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run
 python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code></pre>
-  <p>The initializer places <code>KnowledgeBase.md</code>, the other core files, typed knowledge, and task ledgers directly under <code>&lt;project-root&gt;/.devbuddy/</code>. For an external vault, validate it with <code>python3 scripts/validate_knowledge.py --root &lt;approved-external-memory-root&gt;</code>.</p>
+  <p>Run the bootstrap in dry-run mode to prepare a reviewable repository inventory. Use <code>--apply</code> only after review; it writes only <code>Context.md</code> and <code>KnowledgeBase.md</code>, never overwrites non-empty existing files, and never invents typed canonical entities. The initializer places <code>KnowledgeBase.md</code>, the other core files, typed knowledge, and task ledgers directly under <code>&lt;project-root&gt;/.devbuddy/</code>. For an external vault, use <code>--root &lt;approved-external-memory-root&gt; --source-root &lt;project-root&gt;</code> and validate it with <code>python3 scripts/validate_knowledge.py --root &lt;approved-external-memory-root&gt;</code>.</p>
   <p>After installing, confirm that <code>/devbuddy</code> resolves to this skill and that the <code>devbuddy-*</code> agents appear in your agent list. Then run a bare read-only task such as <code>/devbuddy inspect the repository and report the current delivery risks</code> and check that the Orchestrator creates a task ledger, records a model and effort pair with its reason, selects the role graph, and dispatches a real specialist subagent.</p>
   <p>If project settings are absent, the run should stop at <code>waiting_user</code>. That is correct behaviour, not a failure.</p>
 
