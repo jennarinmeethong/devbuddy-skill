@@ -12,10 +12,12 @@ Each adapter must map per-dispatch model and effort selection to the platform ca
 
 The adapter command is an Orchestrator entrypoint. A normal invocation passes the complete user task directly to the Orchestrator; the user does not need to choose a role or `owner` first. The Orchestrator assesses the task, selects the required role graph, and dispatches specialists.
 
-- Claude: `/devbuddy <task>` and `/devbuddy loop <task>`.
-- Codex: `$devbuddy <task>` and `$devbuddy loop <task>`.
+- Claude: `/devbuddy <task>`, `/devbuddy loop <task>`, and `/devbuddy analyze <project>`.
+- Codex: `$devbuddy <task>`, `$devbuddy loop <task>`, and `$devbuddy analyze <project>`.
 - Explicit `<role>` and `owner` forms remain advanced overrides for users who intentionally constrain routing; they are not required for normal use.
 - The Orchestrator must not perform specialist work itself. A normal bare invocation that needs specialist work must dispatch a real specialist or stop with a clear `waiting_user` blocker.
+
+`analyze` is a read-only Orchestrator workflow. It may use the bounded bootstrap inventory but writes reviewable observations only to the active task area; the owner promotes approved observations to canonical memory.
 
 ## Targets
 

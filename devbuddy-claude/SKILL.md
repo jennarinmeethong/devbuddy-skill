@@ -12,6 +12,7 @@ Use this adapter only through `/devbuddy`. If the user did not invoke `/devbuddy
 ```text
 /devbuddy <task>
 /devbuddy loop <task>
+/devbuddy analyze <project>
 ```
 
 `/devbuddy` is the Orchestrator entrypoint. Pass the user's complete task after the command; the Orchestrator assesses scope, selects the role graph, chooses model/effort, and dispatches the required specialist subagents. The user does not need to choose a role or `owner` first.
@@ -26,7 +27,7 @@ Advanced routing overrides are also accepted when explicitly requested:
 
 Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer`.
 
-Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` -> `qa`; `operations` -> `devops-sre`; `data` -> `dba-data`; `analyze` -> read-only orchestration triage; `docs` -> documentation work owned by `developer`, with `reviewer` when risk requires it.
+Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` -> `qa`; `operations` -> `devops-sre`; `data` -> `dba-data`; `docs` -> documentation work owned by `developer`, with `reviewer` when risk requires it. `analyze <project>` is a read-only project bootstrap that records reviewable observations in the active task area; only `owner` promotes approved observations to canonical memory.
 
 `owner` builds and controls a multi-role graph when explicitly requested. A direct canonical role creates a single-role graph, but every policy, settings, model/effort, lock, handoff, and closure gate still applies. With the normal bare form, the Orchestrator chooses between these routes itself.
 
@@ -34,7 +35,7 @@ Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` ->
 
 1. Read `settings.yaml`, `references/policy.md`, `references/claude-dispatch.md`, and the role/reference files required by the Orchestrator's assessment.
 2. Resolve `<project-root>/.devbuddy/settings.yaml` and the memory locator. The default memory root is that same `.devbuddy/` directory; an external locator is used directly. Run `scripts/validate_project_settings.py` before dispatch.
-3. Create or resume a task ledger from `templates/task-ledger.md` under the resolved memory root. Do not persist sensitive data.
+3. Create or resume the task ledger with `scripts/task_memory.py`; use the resolved task path and compact handoff paths. Before an owner canonical write, reserve the scope, commit with the expected revision as `--actor owner`, then release it. Before accepting specialist output, run `check-scope` for its `write_scope`. Handoffs over 12,000 UTF-8 bytes are rejected. Do not persist sensitive data.
 4. Classify risk, environment, cost, tool availability, knowledge impact, batch suitability, and required approvals.
 5. Build the smallest dependency graph and select the owning role(s). Acquire artefact reservations before any writing role starts.
 6. For every ready slice, choose the lowest-ranked approved model and effort level sufficient for the assigned role, risk, capability, privacy, latency, and cost constraints. Record the selection and reason in the ledger.
@@ -62,7 +63,7 @@ Do not simulate a specialist with the Orchestrator when a subagent is unavailabl
 - Use cohesive slices and batch only after a complete batch assessment shows a safe, independently verifiable benefit.
 - Run a loop only for an explicit `loop` invocation or a user-approved loop-shaped task. Bound it by settings, evidence, retries, and exit conditions.
 
-Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` for memory and knowledge keys, and `references/loop.md` before a loop.
+Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` and `references/task-memory.md` for memory/task state, and `references/loop.md` before a loop.
 
 ## Validation
 

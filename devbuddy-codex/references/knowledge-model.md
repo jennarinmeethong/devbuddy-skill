@@ -16,7 +16,7 @@ Use `templates/knowledge-entity.md` for new entities. Add `devbuddy-ref: KEY-001
 
 Before a change that may affect canonical memory, return an impact analysis naming affected keys, relationships, proposed updates, unresolved uncertainty, and the consequence of not updating. The Orchestrator asks the user for Knowledge Impact Approval and keeps the branch `waiting_user` until approval. Do not write canonical knowledge from the analysis alone.
 
-Every canonical artefact has one owner and a ledger lock before modification. Reviewer and QA verify references and health; the Orchestrator routes findings rather than fabricating entities.
+The Orchestrator/`owner` is the sole writer for the task ledger and all canonical memory. Specialists propose approved updates through a compact handoff and never write `.devbuddy/` directly. Every canonical write has an owner reservation, parent revision, and atomic replacement; Reviewer and QA verify references and health.
 
 Run `scripts/validate_knowledge.py --project-root <project-root>` after material memory changes and before closure. Use `--root <approved-external-memory-root>` for an external root. It checks core files, entity metadata, key format, dates, confidence, and duplicate IDs.
 

@@ -28,7 +28,7 @@ Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Reco
 - DevOps/SRE: releases, runbooks, incidents, operational context.
 - DBA/Data: database/data models, migrations, integrity evidence.
 
-Owners update canonical memory only after user-approved Knowledge Impact Approval. Keep current facts canonical; mark superseded decisions rather than deleting history.
+Owners propose canonical-memory changes only after user-approved Knowledge Impact Approval. The Orchestrator/`owner` is the sole canonical-memory writer and applies approved proposals with evidence. Keep current facts canonical; mark superseded decisions rather than deleting history.
 
 ## Impact approval
 
@@ -38,4 +38,4 @@ Before a potentially relevant implementation change, identify affected keys, ref
 
 Validate IDs, YAML metadata, relations, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
 
-Use `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. Run `--apply` only after the user approves the proposed knowledge write; the script writes only reviewable `Context.md` and `KnowledgeBase.md` observations and never overwrites non-empty existing knowledge files.
+Use `analyze <project>` or `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. The owner records the reviewable result in the active task area and runs `--apply` only after user approval; it writes only reviewable `Context.md` and `KnowledgeBase.md` observations and never overwrites non-empty existing knowledge files.

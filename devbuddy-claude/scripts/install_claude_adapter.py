@@ -59,6 +59,11 @@ def main() -> int:
     parser.add_argument("--claude-root", type=Path, default=Path.home() / ".claude",
                         help="Claude Code configuration root (default: ~/.claude)")
     parser.add_argument("--apply", action="store_true", help="write files; omit for a dry run")
+    parser.add_argument(
+        "--replace-recognized-skill",
+        action="store_true",
+        help="replace differing files only when the existing skill root identifies itself as DevBuddy",
+    )
     args = parser.parse_args()
 
     root = args.claude_root.expanduser()
@@ -70,11 +75,17 @@ def main() -> int:
         print("ERROR: nothing to install; run scripts/generate_agents.py first")
         return 1
 
+    recognized_skill = is_devbuddy_artefact(skill_target / "SKILL.md")
     conflicts = [dst for src, dst in pairs if dst.exists() and not is_devbuddy_artefact(dst, src)]
+    if args.replace_recognized_skill and recognized_skill:
+        conflicts = [dst for dst in conflicts if skill_target not in dst.parents and dst != skill_target]
     if conflicts:
         for path in conflicts:
             print(f"ERROR: refusing to overwrite non-DevBuddy file: {path}")
         print("Resolve these conflicts or choose a different --claude-root.")
+        return 1
+    if args.replace_recognized_skill and not recognized_skill:
+        print(f"ERROR: {skill_target} is not a recognized DevBuddy skill; refusing replacement")
         return 1
 
     if not args.apply:

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 REQUIRED = {
-    "bare_entrypoint", "bug_fix", "feature", "migration", "security", "incident", "missing_information",
+    "bare_entrypoint", "analyze_project", "handoff_memory", "bug_fix", "feature", "migration", "security", "incident", "missing_information",
     "unavailable_tool", "approval_gate", "multi_role", "missing_subagent",
     "model_effort_escalation", "model_effort_independent_selection", "unverified_model_effort",
 }

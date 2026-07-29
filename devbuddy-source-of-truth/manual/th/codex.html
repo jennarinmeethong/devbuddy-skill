@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="th" data-manual-version="0.1.1">
+<html lang="th" data-manual-version="0.1.2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -36,7 +36,7 @@ $devbuddy loop &lt;task&gt;</code></pre>
       <h2>Memory และ validation</h2>
       <p><code>KnowledgeBase.md</code>, core memory, typed knowledge และ task ledger อยู่ใต้ <code>&lt;project-root&gt;/.devbuddy/</code> เตรียม inventory ของ repository ที่ตรวจทานได้ด้วย <code>python3 scripts/bootstrap_knowledge.py --project-root &lt;project-root&gt; --dry-run</code> และใช้ <code>--apply</code> หลังตรวจทานแล้วเท่านั้น สคริปต์เขียนเฉพาะ <code>Context.md</code> กับ <code>KnowledgeBase.md</code> ไม่เขียนทับไฟล์เดิมที่มีเนื้อหา และไม่สร้าง typed canonical entity เอง ใช้ <code>python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code> หรือใช้ <code>--root &lt;approved-external-memory-root&gt;</code> เมื่อเป็น external root</p>
     </section>
-    <p class="muted">Manual version 0.1.1 · ตรวจล่าสุด: 2026-07-27</p>
+    <p class="muted">Manual version 0.1.2 · ตรวจล่าสุด: 2026-07-27</p>
   </main>
 </body>
 </html>

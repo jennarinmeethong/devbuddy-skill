@@ -16,7 +16,7 @@ Do not add a model to an agent definition's frontmatter. A pinned model would si
 
 ## Task package
 
-For each slice the Orchestrator passes: task ID, role, objective, scope, allowed artefacts, lock/reservation, risk level, approved model, approved effort, timeout, retry limit, tool constraints, sensitive-data redaction requirement, the required handoff shape from `templates/handoff.md`, and the exit condition.
+For each slice the Orchestrator passes: resolved absolute `memory_root`, task ID, `task_path`, `read_keys`, `read_paths`, `write_scope`, `handoff_path`, `parent_revision`, role, objective, scope, allowed artefacts, lock/reservation, risk level, approved model, approved effort, timeout, retry limit, tool constraints, sensitive-data redaction requirement, a 12,000-byte maximum handoff, the required handoff shape from `templates/handoff.md`, and the exit condition. Read/write scope is deny-by-default; the specialist receives only the relevant handoff delta and never writes `.devbuddy/`.
 
 Pass a compact delta, not the whole conversation. The specialist reads the role file and the memory entities it names; forwarding unrelated history wastes context that the specialist needs for its actual work.
 

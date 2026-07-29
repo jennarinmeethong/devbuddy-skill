@@ -1,7 +1,7 @@
 # Adapter Implementation Checklist
 
 Target: Claude Code Skill
-Common specification version: `0.1.1`
+Common specification version: `0.1.2`
 
 ## Checklist
 
@@ -11,6 +11,7 @@ Common specification version: `0.1.1`
 - [x] `DBY-MODEL-003` | `settings.yaml`, `references/policy.md` | Minimum-sufficient model/effort selection and recorded escalation reason | Status: `done` | Location: `references/claude-dispatch.md`, `references/settings.md`, `settings.yaml` | Evidence: ranked allowlist validated by `scripts/validate_project_settings.py`; escalation reason required by the ledger template and dispatch contract
 - [x] `DBY-ROLE-001` | `roles/` | Orchestrator and IT role workflows with structured handoffs | Status: `done` | Location: `roles/` (10 files), `agents/` (27 definitions), `references/role-routing.md`, `templates/handoff.md` | Evidence: `scripts/generate_agents.py --check` confirms agents match `roles/`; role and routing coverage in `tests/scenarios.json`
 - [x] `DBY-KNOW-001` | `references/knowledge-model.md` | Project memory, keys, impact approval, health, and migration controls | Status: `done` | Location: `references/knowledge-model.md`, `templates/knowledge-entity.md`, `scripts/init_project_memory.py`, `scripts/validate_knowledge.py` | Evidence: `--project-root` resolves `<project-root>/.devbuddy/`, `KnowledgeBase.md` stays at that root, external `--root` is direct, and invalid entity keys are rejected by permanent tests
+- [x] `DBY-MEM-002` | `references/task-memory.md`, `templates/` | Task-scoped shared memory, owner-only canonical writes, compact handoffs, and analysis entrypoint | Status: `done` | Location: `SKILL.md`, `references/task-memory.md`, `scripts/task_memory.py`, and task/handoff templates | Evidence: task-memory tests cover resume, handoff persistence for the next slice, stale-revision rejection, owner commits, reservation conflicts, scope rejection, and read-only analysis; static scenarios cover analyze and handoff transport
 - [x] `DBY-SAFE-001` | `references/policy.md` | Git, tool, cost, secret, endpoint, prompt-injection, and policy-compliance controls | Status: `done` | Location: `SKILL.md`, `references/policy.md`, policy digest embedded in all 27 agent definitions | Evidence: static policy coverage plus `unavailable_tool`, `approval_gate`, `missing_information`, and `missing_agent_definition` scenarios
 - [x] `DBY-TOOLS-001` | `scripts/`, `tests/` | Python memory initialization, bootstrap, validation, checklist, knowledge, and manual conformance tools | Status: `done` | Location: `scripts/bootstrap_knowledge.py`, `scripts/`, `tests/test_project_memory.py` | Evidence: standard-library tests cover dry-run repository scan, reviewable `Context.md`/`KnowledgeBase.md` bootstrap, `.devbuddy`, external roots, validator failures, installer dry-run, and non-DevBuddy collision protection
 - [x] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `done` | Location: `manual/` and `devbuddy-source-of-truth/manual/*/claude.html` | Evidence: `scripts/validate_manual.py manual`

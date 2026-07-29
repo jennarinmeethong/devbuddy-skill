@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="th" data-manual-version="0.1.1">
+<html lang="th" data-manual-version="0.1.2">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -16,7 +16,7 @@
 </header>
 <main>
   <h1>Claude Code Skill adapter</h1>
-  <p class="notice">สถานะ: ติดตั้งใช้งานได้แล้วที่ข้อกำหนดกลางเวอร์ชัน 0.1.1 รายการที่จำเป็นทั้งหมดใน <code>devbuddy-claude/adapter-implementation-checklist.md</code> มีสถานะ <code>done</code></p>
+  <p class="notice">สถานะ: ติดตั้งใช้งานได้แล้วที่ข้อกำหนดกลางเวอร์ชัน 0.1.2 รายการที่จำเป็นทั้งหมดใน <code>devbuddy-claude/adapter-implementation-checklist.md</code> มีสถานะ <code>done</code></p>
 
   <h2>สิ่งที่ต้องมีก่อน</h2>
   <ul>
@@ -119,7 +119,8 @@ python3 scripts/validate_knowledge.py --project-root &lt;project-root&gt;</code>
   </table>
   <p>อย่าใช้โหมดข้ามการขอสิทธิ์เพื่อเลี่ยงด่านอนุมัติของ DevBuddy หากสิทธิ์ การเข้าถึงเครื่องมือ หรือ model ที่ใช้ได้ในเครื่องคุณต่างจากนโยบายกลาง ให้มาร์ครายการใน checklist ว่ายังไม่สมบูรณ์พร้อมบันทึกหมายเหตุ แทนการหาทางเลี่ยง</p>
 
-  <p class="muted">ฉบับแก้ไข 0.1.1 · ตรวจทานล่าสุด 2026-07-27 · ข้อกำหนดกลางเวอร์ชัน 0.1.1</p>
+  <h2>Task memory</h2><p>ใช้ <code>/devbuddy analyze &lt;project&gt;</code> เพื่อสำรวจ repository แบบ read-only แล้วเก็บที่ <code>task-&lt;task-id&gt;/analysis.md</code> Owner ต้อง reserve scope, commit ด้วย revision ปัจจุบัน แล้ว release ส่วน specialist ได้เฉพาะ task path, read keys/paths, write scope, parent revision และ handoff ที่เกี่ยวข้อง ต้องตรวจ scope ก่อนรับผล Handoff เกิน 12,000 UTF-8 bytes จะถูกปฏิเสธ และห้ามเขียน <code>.devbuddy/</code> โดยตรง</p>
+  <p class="muted">ฉบับแก้ไข 0.1.2 · ตรวจทานล่าสุด 2026-07-29 · ข้อกำหนดกลางเวอร์ชัน 0.1.2</p>
 </main>
 </body>
 </html>

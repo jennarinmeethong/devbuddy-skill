@@ -5,6 +5,9 @@
 - Risk level:
 - Settings/profile reference:
 - Memory root reference:
+- Project ID:
+- Session ID / attempt:
+- Memory revision:
 
 ## Slices, locks, and handoffs
 

@@ -12,6 +12,8 @@ TYPED = ("domains", "features", "requirements", "flows", "business-rules", "scre
 FIELDS = {"id", "type", "status", "owner", "source", "last_verified", "confidence"}
 KEY_RE = re.compile(r"^(DOM|FEAT|REQ|FLOW|BR|SCR|API|DB|EVT|TEST|ADR|REL|INC)-[A-Za-z0-9][A-Za-z0-9._-]*$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+REFERENCE_RE = re.compile(r"devbuddy-ref:\s*([^\n]+)")
+WIKILINK_RE = re.compile(r"\[\[([A-Za-z][A-Za-z0-9._-]*)")
 
 
 def metadata(path: Path) -> dict[str, str] | None:
@@ -69,12 +71,14 @@ def main() -> int:
     if missing_core:
         errors.append("missing core files: " + ", ".join(missing_core))
     seen: dict[str, Path] = {}
+    markdown: list[Path] = []
     count = 0
     for directory in TYPED:
         base = root / directory
         if not base.exists():
             continue
         for path in base.rglob("*.md"):
+            markdown.append(path)
             count += 1
             data = metadata(path)
             if data is None:
@@ -88,6 +92,15 @@ def main() -> int:
                 errors.append(f"duplicate id {key}: {seen[key]} and {path}")
             else:
                 seen[key] = path
+    for path in markdown:
+        body = path.read_text(encoding="utf-8")
+        for match in REFERENCE_RE.finditer(body):
+            for key in (value.strip() for value in match.group(1).split(",")):
+                if key and key not in seen:
+                    errors.append(f"{path}: unresolved devbuddy-ref {key}")
+        for key in WIKILINK_RE.findall(body):
+            if KEY_RE.fullmatch(key) and key not in seen:
+                errors.append(f"{path}: unresolved wiki-link {key}")
     if errors:
         for error in errors:
             print(f"ERROR: {error}")

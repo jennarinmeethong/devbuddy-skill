@@ -60,6 +60,11 @@ def main() -> int:
         help="Codex configuration root (default: ~/.codex)",
     )
     parser.add_argument("--apply", action="store_true", help="write files; omit for a dry run")
+    parser.add_argument(
+        "--replace-recognized-skill",
+        action="store_true",
+        help="replace differing files only when the existing skill root identifies itself as DevBuddy",
+    )
     args = parser.parse_args()
 
     target = args.codex_root.expanduser() / "skills" / "devbuddy"
@@ -67,10 +72,16 @@ def main() -> int:
     if not pairs:
         print("ERROR: no Codex adapter files found")
         return 1
+    recognized_skill = is_devbuddy_artefact(target / "SKILL.md")
     conflicts = [destination for source, destination in pairs if destination.exists() and not is_devbuddy_artefact(destination, source)]
+    if args.replace_recognized_skill and recognized_skill:
+        conflicts = [destination for destination in conflicts if target not in destination.parents and destination != target]
     if conflicts:
         for path in conflicts:
             print(f"ERROR: refusing to overwrite non-DevBuddy file: {path}")
+        return 1
+    if args.replace_recognized_skill and not recognized_skill:
+        print(f"ERROR: {target} is not a recognized DevBuddy skill; refusing replacement")
         return 1
 
     if not args.apply:

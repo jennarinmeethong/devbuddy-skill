@@ -44,13 +44,13 @@ Developer adds and updates these references during implementation. Reviewer and 
 
 Before any change that may affect the knowledge platform, the responsible role analyses the impact and returns: the proposed change, affected keys and entities, the relationship or evidence for each impact, proposed knowledge updates, unresolved uncertainty, and the consequence of not updating.
 
-The Orchestrator then asks the user to confirm or clarify, and holds the branch in `waiting_user`. Do not implement the change, and do not create, update, or remove canonical knowledge, from the impact analysis alone. After the user answers, record the decision in the ledger and `DecisionLog.md` where applicable; the owner role updates only what the user approved, then revalidates keys, references, and links.
+The Orchestrator then asks the user to confirm or clarify, and holds the branch in `waiting_user`. Do not implement the change, and do not create, update, or remove canonical knowledge, from the impact analysis alone. After the user answers, the Orchestrator/`owner` applies only what the user approved, then revalidates keys, references, and links; specialists return proposals and evidence through handoffs.
 
 A no-impact conclusion is a finding too — record the scope checked. Incomplete evidence is uncertainty, not a no-impact result.
 
 ## Ownership and locking
 
-Every canonical artefact has exactly one owner role. Others contribute analysis, review, or proposed patches through handoffs. Before modifying an artefact, acquire a ledger lock naming the artefact/key, owner role, task ID, scope, and expiry. Two active tasks never mutate the same artefact concurrently; a conflicting task waits, is re-scoped, or goes to the user. A stale or uncertain lock is reported, never silently overridden.
+The Orchestrator/`owner` is the sole writer for the task ledger and all canonical memory. Specialists contribute analysis or proposals through handoffs and never write `.devbuddy/` directly. Before a canonical write, acquire an owner lock naming the artefact/key, task ID, scope, parent revision, and expiry; use atomic replacement. Two active tasks never mutate the same artefact concurrently; a conflicting task waits, is re-scoped, or goes to the user. A stale or uncertain lock is reported, never silently overridden.
 
 ## Health checks
 

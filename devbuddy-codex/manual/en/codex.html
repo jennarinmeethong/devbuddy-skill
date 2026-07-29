@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-manual-version="0.1.1">
+<html lang="en" data-manual-version="0.1.2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -73,7 +73,8 @@ python3 -m unittest discover tests -v</code></pre>
         </tbody>
       </table>
     </section>
-    <p class="muted">Revision 0.1.1 · Last reviewed 2026-07-27 · Common specification 0.1.1.</p>
+    <section><h2>Task memory</h2><p>Use <code>$devbuddy analyze &lt;project&gt;</code> for a bounded read-only inventory, saved as <code>task-&lt;task-id&gt;/analysis.md</code>. The owner reserves a scope, commits only with the current revision, then releases it; specialists receive only their approved task path, read keys/paths, write scope, parent revision, and compact handoff path. Validate their scope before accepting changes. Handoffs above 12,000 UTF-8 bytes are rejected, and specialists never write <code>.devbuddy/</code> directly.</p></section>
+    <p class="muted">Revision 0.1.2 · Last reviewed 2026-07-29 · Common specification 0.1.2.</p>
   </main>
 </body>
 </html>

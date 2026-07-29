@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 INIT = ROOT / "scripts" / "init_project_memory.py"
 BOOTSTRAP = ROOT / "scripts" / "bootstrap_knowledge.py"
+TASK_MEMORY = ROOT / "scripts" / "task_memory.py"
 KNOWLEDGE_VALIDATOR = ROOT / "scripts" / "validate_knowledge.py"
 INSTALLER = ROOT / "scripts" / "install_claude_adapter.py"
 VALIDATOR = ROOT / "scripts" / "validate_project_settings.py"
@@ -69,6 +70,22 @@ class ProjectMemoryTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("invalid knowledge id", result.stdout)
 
+    def test_knowledge_validator_rejects_unresolved_references(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
+            entity = project / ".devbuddy" / "requirements" / "requirement.md"
+            entity.write_text(
+                "---\nid: REQ-001\ntype: requirement\nstatus: active\nowner: owner\n"
+                "source: test\nlast_verified: 2026-07-29\nconfidence: verified\n---\n"
+                "<!-- devbuddy-ref: FEAT-missing -->\nSee [[API-missing]].\n",
+                encoding="utf-8",
+            )
+            result = run(KNOWLEDGE_VALIDATOR, "--project-root", project)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("unresolved devbuddy-ref FEAT-missing", result.stdout)
+            self.assertIn("unresolved wiki-link API-missing", result.stdout)
+
     def test_bootstrap_dry_run_scans_without_writing(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary) / "project"
@@ -120,6 +137,67 @@ class ProjectMemoryTests(unittest.TestCase):
             self.assertNotEqual(second.returncode, 0)
             self.assertIn("refusing to overwrite", second.stdout)
 
+    def test_task_memory_reuses_task_id_and_rejects_path_escape(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
+            first = run(TASK_MEMORY, "init", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--session-id", "s1")
+            second = run(TASK_MEMORY, "init", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--session-id", "s2")
+            self.assertEqual(first.returncode, 0, first.stdout)
+            self.assertEqual(second.returncode, 0, second.stdout)
+            ledger = project / ".devbuddy" / "tasks" / "demo" / "task-001.md"
+            self.assertIn("- s2", ledger.read_text(encoding="utf-8"))
+            escaped = run(TASK_MEMORY, "init", "--project-root", project, "--project-id", "../bad", "--task-id", "001")
+            self.assertNotEqual(escaped.returncode, 0)
+
+    def test_task_memory_persists_handoff_for_next_slice(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
+            self.assertEqual(run(TASK_MEMORY, "init", "--project-root", project, "--project-id", "demo", "--task-id", "001").returncode, 0)
+            source = Path(temporary) / "handoff.md"
+            source.write_text(
+                "# Handoff\n\n- Task ID: 001\n- Slice ID / attempt: developer / 1\n"
+                "- Parent handoff / revision: none / 0\n- Status: `completed`\n",
+                encoding="utf-8",
+            )
+            result = run(TASK_MEMORY, "handoff", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", source)
+            self.assertEqual(result.returncode, 0, result.stdout)
+            target = project / ".devbuddy" / "tasks" / "demo" / "task-001" / "handoffs" / "developer-1.md"
+            self.assertEqual(target.read_text(encoding="utf-8"), source.read_text(encoding="utf-8"))
+
+    def test_task_memory_blocks_stale_revision_and_enforces_owner_commit(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
+            self.assertEqual(run(TASK_MEMORY, "init", "--project-root", project, "--project-id", "demo", "--task-id", "001").returncode, 0)
+            committed = run(TASK_MEMORY, "commit", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--actor", "owner", "--expected-revision", "0", "--summary", "approved canonical update")
+            self.assertEqual(committed.returncode, 0, committed.stdout)
+            stale = run(TASK_MEMORY, "reserve", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--actor", "developer", "--scope", "src", "--expected-revision", "0")
+            self.assertNotEqual(stale.returncode, 0)
+            non_owner = run(TASK_MEMORY, "commit", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--actor", "developer", "--expected-revision", "1", "--summary", "must fail")
+            self.assertNotEqual(non_owner.returncode, 0)
+            ledger = project / ".devbuddy" / "tasks" / "demo" / "task-001.md"
+            self.assertIn("- Memory revision: 1", ledger.read_text(encoding="utf-8"))
+
+    def test_task_memory_reservation_scope_and_readonly_analysis(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary) / "project"
+            project.mkdir()
+            (project / "package.json").write_text('{"name":"demo"}', encoding="utf-8")
+            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
+            self.assertEqual(run(TASK_MEMORY, "init", "--project-root", project, "--project-id", "demo", "--task-id", "001").returncode, 0)
+            reserved = run(TASK_MEMORY, "reserve", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--actor", "developer", "--scope", "src", "--expected-revision", "0")
+            self.assertEqual(reserved.returncode, 0, reserved.stdout)
+            conflict = run(TASK_MEMORY, "reserve", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--actor", "qa", "--scope", "src", "--expected-revision", "0")
+            self.assertNotEqual(conflict.returncode, 0)
+            scope = run(TASK_MEMORY, "check-scope", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--write-scope", "src", "--changed", ".devbuddy/Context.md")
+            self.assertNotEqual(scope.returncode, 0)
+            analysis = run(TASK_MEMORY, "analyze", "--project-root", project, "--project-id", "demo", "--task-id", "001", "--source-root", project)
+            self.assertEqual(analysis.returncode, 0, analysis.stdout)
+            report = project / ".devbuddy" / "tasks" / "demo" / "task-001" / "analysis.md"
+            self.assertIn("package.json", report.read_text(encoding="utf-8"))
+
 
 class SettingsValidatorTests(unittest.TestCase):
     def test_valid_project_settings_pass(self) -> None:
@@ -161,6 +239,20 @@ class InstallerTests(unittest.TestCase):
             result = run(INSTALLER, "--claude-root", target.parents[1])
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("non-DevBuddy", result.stdout)
+
+    def test_installer_replaces_only_an_explicitly_recognized_skill(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "claude"
+            target = root / "skills" / "devbuddy"
+            target.mkdir(parents=True)
+            (target / "SKILL.md").write_text("---\nname: devbuddy\n---\nold DevBuddy skill\n", encoding="utf-8")
+            (target / "roles").mkdir()
+            (target / "roles" / "ba-pm.md").write_text("old custom content", encoding="utf-8")
+            blocked = run(INSTALLER, "--claude-root", root, "--apply")
+            self.assertNotEqual(blocked.returncode, 0)
+            replaced = run(INSTALLER, "--claude-root", root, "--apply", "--replace-recognized-skill")
+            self.assertEqual(replaced.returncode, 0, replaced.stderr or replaced.stdout)
+            self.assertIn("BA/PM", (target / "roles" / "ba-pm.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

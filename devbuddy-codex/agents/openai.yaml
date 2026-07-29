@@ -1,6 +1,6 @@
 interface:
   display_name: "DevBuddy"
   short_description: "Orchestrate safe specialist delivery"
-  default_prompt: "Use $devbuddy owner to assess and route this software-delivery task."
+  default_prompt: "Use $devbuddy to assess and route this software-delivery task."
 policy:
   allow_implicit_invocation: false

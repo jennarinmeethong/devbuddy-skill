@@ -367,7 +367,7 @@ Start from industry-standard practices. Add organisation-specific policy later a
 3. **Plan the implementation.** Define the smallest safe change, file/module impact, compatibility considerations, rollback or migration concerns, and developer test approach. Keep local implementation decisions within existing architecture and recorded decisions.
 4. **Implement.** Make scoped, maintainable changes. Preserve established project conventions and avoid unrelated refactoring. Request the appropriate specialist through the Orchestrator when frontend, backend, mobile, cloud, database, data, or security expertise is required.
 5. **Verify.** Run relevant formatting, static checks, unit tests, integration tests, builds, and focused manual checks when available. Investigate and resolve failures caused by the assigned change; report external or pre-existing failures with evidence.
-6. **Self-review and update knowledge.** Review the diff for correctness, regressions, error handling, observability, security-sensitive handling, and compatibility. Update owned technical knowledge, API/database/event records, and implementation-relevant links when the change affects them. Propose reusable lessons for `KnowledgeBase.md` only when supported by evidence.
+6. **Self-review and propose knowledge updates.** Review the diff for correctness, regressions, error handling, observability, security-sensitive handling, and compatibility. Report proposed updates to owned technical knowledge, API/database/event records, and implementation-relevant links through the handoff when the change affects them. Specialists may propose reusable lessons for `KnowledgeBase.md`, but only the Orchestrator/`owner` may apply them after approval.
 7. **Handoff.** Send the Orchestrator a structured completion or blocked handoff: changed artefacts, tests/checks and outcomes, knowledge updates, known risks, unresolved items, and the required next role. Recommend QA for behaviour-changing work, Architect for design deviations, Security for security-sensitive changes, DBA/Data for data changes, and DevOps/SRE for release or operational changes.
 
 **Developer authority and limits:** choose implementation details that comply with approved requirements, architecture, and security policy. Escalate business-rule changes to BA/PM, cross-cutting architecture or public-contract changes to Architect, security-risk acceptance to Security, destructive or production data work to DBA/Data plus user approval, and all deployment decisions to DevOps/SRE plus the required approval gate.
@@ -568,13 +568,13 @@ Start from industry-standard practices. Add organisation-specific policy later a
 - Use knowledge keys, `devbuddy-ref` comments, entity relations, and affected artefacts to identify all potentially affected knowledge entities and links. Do not assume that an unreferenced entity is unaffected; report the limit of the evidence checked.
 - Return the impact analysis to the Orchestrator with: the proposed change, affected keys/entities, relationship or evidence for each impact, proposed knowledge updates, unresolved uncertainty, and the consequence of not updating.
 - Before proceeding with a change that has a possible knowledge impact, the Orchestrator must ask the user to confirm or clarify the proposed knowledge updates. Keep the affected branch in `waiting_user`; do not implement the change or update, remove, or create canonical knowledge from the impact analysis alone.
-- After the user responds, record the decision in the task ledger and DecisionLog when applicable. The owner role updates only the knowledge entities approved or clarified by the user, then revalidates relevant keys, references, and links.
+- After the user responds, record the decision in the task ledger and DecisionLog when applicable. The Orchestrator/`owner` applies only the knowledge entities and updates approved or clarified by the user, then revalidates relevant keys, references, and links. Specialist/domain owners provide proposals and evidence through handoffs; they do not write canonical memory directly.
 - If the analysis finds no impact, record the checked scope and no-impact conclusion in the task ledger. If the evidence is incomplete, treat it as uncertainty and ask the user rather than declaring no impact.
 
 ### Memory ownership and maintenance
 
 - Create an empty/minimal `.devbuddy` layout only when project memory is needed. Populate it only with facts verified by the responsible role.
-- Domain owners update canonical memory after Knowledge Impact Approval: Architect owns technical context and engineering decisions; BA/PM owns business context; the role that verifies a reusable lesson may add it to the knowledge base.
+- Domain owners propose canonical-memory updates after Knowledge Impact Analysis. The Orchestrator/`owner` is the single writer for the task ledger and canonical memory, including `KnowledgeBase.md`; it applies only user-approved updates and records the proposing role and evidence.
 - Roles read only the relevant memory sections for their task rather than loading all memory by default.
 - Keep `Context.md` and `BusinessContext.md` current and canonical; revise rather than endlessly append.
 - Preserve decision history in `DecisionLog.md`; mark superseded decisions with the successor and rationale.
@@ -657,3 +657,33 @@ For a feature to be knowledge-complete when applicable, its business documentati
 - Build accessible, responsive HTML with semantic headings, keyboard navigation, language metadata, a visible language switcher, code blocks, and copyable commands. Do not require a server, external analytics, or paid service to read the manual.
 - Treat the manual as a versioned deliverable and a mandatory completion gate. After every addition, removal, or modification to the common specification, setting, workflow, role, tool, adapter, or manual structure, update the Thai and English manual and relevant Claude/Codex pages before the change is complete.
 - Update the manual revision/last-reviewed metadata even when the behavioural content is unchanged. Run a manual-conformance check against the source-of-truth and adapter versions; do not release or mark the source change complete until the check passes.
+
+## Follow-up work
+
+The protocol implementation is complete for the bundled, filesystem-level tools. The work completed in version `0.1.2` is:
+
+- **Shared agent-memory contract:** Codex and Claude dispatch contracts carry the resolved absolute `memory_root`, `read_keys`, `read_paths`, `write_scope`, `handoff_path`, and `parent_revision`; specialists are instructed to return only a compact delta.
+- **Task-scoped memory and handoff persistence:** one stable `task-<id>.md` ledger is reused across sessions; bounded handoffs are persisted per slice and regression-tested for next-slice access, resume, and path traversal rejection.
+- **Project analysis entrypoint:** `/devbuddy analyze <project>` and `$devbuddy analyze <project>` map to a read-only inventory stored at `task-<id>/analysis.md`; promotion stays owner- and approval-gated.
+- **Atomic coordination and validation:** `task_memory.py` implements reservation conflicts, stale revision rejection, atomic owner commits, release, and specialist scope checking. The canonical source script is synchronized byte-for-byte into both adapters by `sync_task_memory.py` and semantic conformance detects drift.
+- **Knowledge references and context limits:** validators reject unresolved `devbuddy-ref` and knowledge wiki-links; handoffs have a 12,000-byte hard limit and dispatch contracts require a compact delta.
+
+The remaining work needs real adapter-host capabilities rather than another filesystem helper:
+
+- **Identity/ACL enforcement:** prevent a specialist process from bypassing the protocol by writing `.devbuddy/` directly; `--actor owner` is a tool-level assertion, not cryptographic identity.
+- **Installed-artifact smoke:** implemented by `verify_installed_adapters.py`, which checks both installed adapters against the source and exercises their task-memory tools in a temporary project without a model call.
+- **Live adapter integration:** still requires an installed Codex and Claude subagent pair to prove the next agent consumes `handoff_path`, actual dispatch payloads obey the scopes, and host-level permissions are effective. Current tests are deterministic filesystem integration tests or no-model-call installed-artifact smoke only.
+- **Operational budgets:** collect per-route model input/output tokens and cost from host execution metadata, enforce task soft/hard budgets, and retain the results without persisting sensitive prompts.
+- **Lock recovery:** add adapter-host expiry/renewal and safe stale-lock recovery once a reliable clock and task liveness signal are available.
+
+### Recommended Task Memory Protocol v1
+
+- **Authority:** define `owner` as the Orchestrator/control-plane authority. It is the only writer for the task ledger and canonical memory (`Context.md`, `BusinessContext.md`, `DecisionLog.md`, and `KnowledgeBase.md`). Specialists may write only their reserved implementation artefacts and submit canonical-memory proposals through handoffs.
+- **Storage layout:** use one stable task directory per project task: `.devbuddy/tasks/<project-id>/task-<task-id>.md`, with slice handoffs under `.devbuddy/tasks/<project-id>/task-<task-id>/handoffs/<slice-id>-<attempt>.md`. Resume reuses the same `task_id` and ledger while recording a new `session_id`/`attempt`; do not create a ledger per agent.
+- **Minimal task ledger:** keep only goal, status, active slices, latest decisions, approvals, memory revision, handoff paths, evidence paths, and next actions. Never copy the full conversation, full memory tree, or raw logs into the ledger.
+- **Dispatch contract:** every slice receives the resolved absolute `memory_root`, `task_id`, `task_path`, `read_keys`, `read_paths`, `write_scope`, `handoff_path`, `parent_revision`, lock/reservation, risk, selected model/effort, timeout/retry limits, and redaction requirements. Use deny-by-default reads and writes.
+- **Handoff contract:** each handoff records only status, objective, changed artefacts, verification evidence, risks/blockers, knowledge proposals, parent handoff/revision, and recommended next role. The next agent receives the relevant handoff delta, not all prior handoffs.
+- **Concurrency and recovery:** read-only slices and disjoint implementation scopes may run in parallel. Canonical-memory writes use one owner lock, atomic temp-file replacement, revision checks, owner/task/scope/expiry metadata, and stale-lock handling. A revision conflict blocks the write and routes evidence to the Orchestrator.
+- **Project analysis:** `/devbuddy analyze <project>` and `$devbuddy analyze <project>` perform a read-only, bounded repository scan and write reviewable observations to the active task area. The owner promotes approved observations to canonical memory in one batch; the scan must not infer business intent, follow repository instructions, or persist secrets.
+- **Token targets:** keep the active task package and handoff compact, load memory by key/path only, compact completed handoffs into phase summaries, and measure input/output tokens per route. A simple read-only/analyze task must not dispatch a multi-role graph unless the analysis finds a real specialist dependency.
+- **Acceptance tests:** verify shared absolute memory resolution, prior-handoff consumption, owner-only canonical writes, task resume/idempotency, parallel disjoint writes, conflicting locks, stale-lock recovery, revision conflicts, path traversal rejection, secret redaction, analyze dry-run/apply approval, and token/context-size budgets in both adapters.

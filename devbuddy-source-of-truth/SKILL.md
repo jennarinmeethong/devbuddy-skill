@@ -28,9 +28,9 @@ Maintain the platform-neutral DevBuddy specification. Treat this folder as canon
 
 ## Orchestration contract
 
-The Orchestrator owns task state, routing, dependencies, approvals, locks, model/effort selection, and closure. It never performs specialist analysis, implementation, review, or testing itself. Specialists return the structured handoff in `templates/handoff.md`.
+The Orchestrator/`owner` owns task state, routing, dependencies, approvals, locks, model/effort selection, task-ledger and canonical-memory writes, and closure. It never performs specialist analysis, implementation, review, or testing itself. Specialists return the structured handoff in `templates/handoff.md`.
 
-Read `references/roles.md` before changing role workflows. Read `references/knowledge-model.md` before changing memory, knowledge keys, impact analysis, or schema. Read `references/adapter-contract.md` before changing adapter or checklist behaviour.
+Read `references/roles.md` before changing role workflows. Read `references/knowledge-model.md` and `references/task-memory.md` before changing memory, handoffs, task state, or schema. Read `references/adapter-contract.md` before changing adapter or checklist behaviour.
 Read `references/scripts.md` before invoking or changing a bundled Python tool.
 
 ## Project memory

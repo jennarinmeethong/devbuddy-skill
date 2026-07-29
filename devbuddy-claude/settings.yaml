@@ -1,7 +1,7 @@
 schema_version: 1
 adapter:
   name: devbuddy-claude
-  source_spec_version: 0.1.1
+  source_spec_version: 0.1.2
   invocation: /devbuddy
   entrypoint: orchestrator
   explicit_subagent_model_and_effort: required

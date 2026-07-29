@@ -14,11 +14,15 @@ COMMON_TOKENS = (
     "model",
     "effort",
     "memory_root",
+    "read_keys",
+    "handoff_path",
     "devbuddy-ref",
 )
 ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
 HANDOFF_FIELDS = {
     "Task ID",
+    "Slice ID / attempt",
+    "Parent handoff / revision",
     "Role",
     "Model / effort used",
     "Status",
@@ -26,6 +30,7 @@ HANDOFF_FIELDS = {
     "Outputs and artefacts",
     "Verification evidence",
     "Knowledge keys/updates",
+    "Knowledge proposals",
     "Risks and blockers",
     "Recommended next role/task",
     "Required approval",
@@ -83,6 +88,7 @@ def main() -> int:
             source / "SKILL.md",
             source / "settings.yaml",
             source / "references" / "policies.md",
+            source / "references" / "task-memory.md",
             source / "templates" / "handoff.md",
         )
     )
@@ -120,6 +126,7 @@ def main() -> int:
                 root / "settings.yaml",
                 root / "references" / "policy.md",
                 root / "references" / "knowledge-model.md",
+                root / "references" / "task-memory.md",
                 root / "references" / ("claude-dispatch.md" if name.endswith("claude") else "codex-dispatch.md"),
                 root / "templates" / "handoff.md",
             )
@@ -143,6 +150,8 @@ def main() -> int:
                 errors.append(f"{name} missing transport mapping: {transport}")
         if ".devbuddy" not in settings_text or ".devbuddy" not in text(root / "SKILL.md"):
             errors.append(f"{name} missing .devbuddy default memory root")
+        if text(root / "scripts" / "task_memory.py") != text(source / "scripts" / "task_memory.py"):
+            errors.append(f"{name} task_memory.py differs from canonical source tool; run sync_task_memory.py")
 
     if errors:
         for error in errors:
