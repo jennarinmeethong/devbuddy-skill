@@ -30,11 +30,12 @@ def exercise_task_memory(root: Path, errors: list[str]) -> None:
         memory = project / ".devbuddy"
         project.mkdir()
         (project / "package.json").write_text('{"name":"devbuddy-smoke"}', encoding="utf-8")
-        memory.mkdir()
+        (memory / "knowledge-base").mkdir(parents=True)
         for name in CORE:
-            (memory / name).write_text(f"# {name}\n", encoding="utf-8")
-        base = [sys.executable, "-B", str(tool), "--project-root", str(project), "--project-id", "smoke", "--task-id", "001"]
-        for command in (base[:3] + ["init"] + base[3:], base[:3] + ["analyze"] + base[3:] + ["--source-root", str(project)], base[:3] + ["validate"] + base[3:]):
+            (memory / "knowledge-base" / name).write_text(f"# {name}\n", encoding="utf-8")
+        (memory / "settings.yaml").write_text("workspace:\n  projects:\n    smoke:\n      path: ..\nmemory_root: knowledge-base\n", encoding="utf-8")
+        base = [sys.executable, "-B", str(tool), "--devbuddy-root", str(memory), "--project-id", "smoke", "--task-id", "001"]
+        for command in (base[:3] + ["init"] + base[3:], base[:3] + ["analyze"] + base[3:], base[:3] + ["validate"] + base[3:]):
             result = subprocess.run(command, capture_output=True, text=True, check=False)
             if result.returncode:
                 errors.append("task-memory smoke failed: " + (result.stdout.strip() or result.stderr.strip()))

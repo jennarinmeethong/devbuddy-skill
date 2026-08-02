@@ -1,7 +1,7 @@
 schema_version: 1
 adapter:
   name: devbuddy-codex
-  source_spec_version: 0.1.2
+  source_spec_version: 0.2.0
   invocation: $devbuddy
   entrypoint: orchestrator
   explicit_subagent_model_and_effort: required
@@ -24,5 +24,7 @@ orchestration:
 memory:
   default_root: .devbuddy
   locator_key: memory_root
+  knowledge_root: knowledge-base
+  project_registry_key: workspace.projects
 quality:
   required_checks: [policy_compliance, knowledge_health, adapter_conformance, manual_conformance]

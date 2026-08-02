@@ -34,8 +34,8 @@ Aliases: `ba` -> `ba-pm`; `sa` -> `architect`; `dev` -> `developer`; `tester` ->
 ## Required sequence
 
 1. Read `settings.yaml`, `references/policy.md`, `references/codex-dispatch.md`, and the role/reference files required by the Orchestrator's assessment.
-2. Resolve `<project-root>/.devbuddy/settings.yaml` and the memory locator. The default memory root is that same `.devbuddy/` directory; an external locator is used directly. Run `scripts/validate_project_settings.py` before dispatch.
-3. Create or resume the task ledger with `scripts/task_memory.py`; use the resolved task path and compact handoff paths. Before an owner canonical write, reserve the scope, commit with the expected revision as `--actor owner`, then release it. Before accepting specialist output, run `check-scope` for its `write_scope`. Handoffs over 12,000 UTF-8 bytes are rejected. Do not persist sensitive data.
+2. Resolve the selected `.devbuddy/settings.yaml`, its `workspace.projects` registry, and `.devbuddy/knowledge-base/`. Run `.devbuddy/tools/validate_project_settings.py` before dispatch.
+3. Create or resume the workspace task ledger with `.devbuddy/tools/task_memory.py`; project scopes use `project-id:path`. Before an owner canonical write, reserve the scope, commit with the expected revision as `--actor owner`, then release it. Before accepting specialist output, run `check-scope` for its `write_scope`. Handoffs over 12,000 UTF-8 bytes are rejected. Do not persist sensitive data.
 4. Classify risk, environment, cost, tool availability, knowledge impact, batch suitability, and required approvals.
 5. Build the smallest dependency graph and select the owning role(s). Acquire artefact reservations before any writing role starts.
 6. For every ready slice, choose the lowest-ranked approved model and lowest-ranked approved effort level independently, provided both permit the assigned role and risk and satisfy capability, privacy, latency, and cost constraints. Record both selections, the sufficiency reason, and any escalation in the ledger before dispatch.
@@ -68,12 +68,10 @@ Read `references/policy.md` for detailed gates, `references/role-routing.md` for
 ## Validation
 
 ```text
-python scripts/validate_project_settings.py <project-root>/.devbuddy/settings.yaml
-python scripts/init_project_memory.py --project-root <project-root> --dry-run
-python scripts/init_project_memory.py --root <approved-external-memory-root> --dry-run
-python scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run
-python scripts/validate_knowledge.py --project-root <project-root>
-python scripts/validate_knowledge.py --root <approved-external-memory-root>
+python scripts/init_project_memory.py --devbuddy-root <workspace>/.devbuddy --project fe=../frontend --project be=../backend --dry-run
+python <workspace>/.devbuddy/tools/validate_project_settings.py <workspace>/.devbuddy/settings.yaml
+python <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <workspace>/.devbuddy --project-id fe --dry-run
+python <workspace>/.devbuddy/tools/validate_knowledge.py --devbuddy-root <workspace>/.devbuddy
 python scripts/install_codex_adapter.py
 python scripts/validate_skill_metadata.py . --exercise-task-memory
 python scripts/check_adapter_conformance.py

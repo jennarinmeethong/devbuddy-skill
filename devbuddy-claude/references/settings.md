@@ -1,10 +1,16 @@
 # Project Settings
 
-Create `<project-root>/.devbuddy/settings.yaml` before any dispatch. The file uses this restricted YAML shape:
+Create the selected `.devbuddy/settings.yaml` before any dispatch. Register every source repository by stable project ID. The file uses this restricted YAML shape:
 
 ```yaml
 schema_version: 1
-memory_root: .devbuddy
+workspace:
+  projects:
+    fe:
+      path: ../frontend
+    be:
+      path: ../backend
+memory_root: knowledge-base
 orchestration:
   max_concurrency: 2
   task_timeout_seconds: 900
@@ -53,4 +59,4 @@ Explicit user instruction for the current task, then project settings, then the 
 
 `memory_root` accepts an absolute path or a path relative to the project root, including a path inside an Obsidian vault. It is the only memory information stored in the project file; project knowledge itself lives under the resolved root. Resolve the locator before any memory read or write.
 
-When `memory_root` is omitted, use `<project-root>/.devbuddy/`. Claude carries effort in the selected `devbuddy-<role>-<effort>` agent definition and carries model in the per-call Agent tool `model` parameter; an agent definition must not pin a model.
+Relative project paths resolve from the parent of `.devbuddy`. Shared canonical knowledge is always below `knowledge-base/`; tasks and tools remain siblings. Claude carries effort in the selected `devbuddy-<role>-<effort>` agent definition and carries model in the per-call Agent tool `model` parameter; an agent definition must not pin a model.

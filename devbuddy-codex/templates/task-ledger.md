@@ -3,9 +3,11 @@
 - Status: `queued | running | blocked | waiting_user | verifying | completed | failed | cancelled`
 - User request:
 - Risk level:
+- Selected model/subagent and effort level:
+- Sufficiency reason / escalation reason:
 - Settings/profile reference:
 - Memory root reference:
-- Project ID:
+- Project IDs: []
 - Session ID / attempt:
 - Memory revision:
 

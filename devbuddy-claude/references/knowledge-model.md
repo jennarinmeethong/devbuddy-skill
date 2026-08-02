@@ -2,60 +2,43 @@
 
 ## Memory root
 
-Default root is `<project-root>/.devbuddy/`, containing `settings.yaml`, `KnowledgeBase.md`, the other three core memory files, typed folders, and task ledgers. Project settings may point directly elsewhere, including an Obsidian vault; do not add another `.devbuddy` wrapper to an external path. Resolve the locator before any read or write. Never use temporary or global storage for project knowledge.
-
-Initialise a project root with `scripts/init_project_memory.py --project-root <project-root> --dry-run` first, then without `--dry-run` once the user approves the shown plan. Use `--root <approved-external-memory-root>` for an external path. The script never overwrites an existing file.
-
-## Layout
+Resolve the selected `.devbuddy/settings.yaml` first. A DevBuddy workspace may register multiple source repositories under `workspace.projects`; relative paths resolve from the parent of `.devbuddy`. Canonical memory is shared below `.devbuddy/knowledge-base/`, while task state and executable tools remain in `.devbuddy/tasks/` and `.devbuddy/tools/`.
 
 ```text
-<memory-root>/
-|- Context.md            # current technical understanding
-|- BusinessContext.md    # current business understanding
-|- DecisionLog.md        # decisions, rationale, alternatives, supersession
-|- KnowledgeBase.md      # verified reusable lessons and anti-patterns
-|- domains/ features/ requirements/ flows/ business-rules/ screens/
-|- technical/{architecture,apis,database,events,integrations}/
-|- tests/ decisions/ releases/ incidents/
-`- tasks/                # one ledger per task; orchestration state, not knowledge
+<devbuddy-root>/
+|- settings.yaml
+|- knowledge-base/
+|  |- Context.md
+|  |- BusinessContext.md
+|  |- DecisionLog.md
+|  |- KnowledgeBase.md
+|  |- domains/ features/ requirements/ flows/ business-rules/ screens/
+|  |- technical/{architecture,apis,database,events,integrations}/
+|  `- tests/ decisions/ releases/ incidents/
+|- tasks/
+`- tools/
 ```
 
-The four root files are concise canonical entry points; durable detail lives in the typed folders. Revise them rather than appending indefinitely. Mark superseded decisions with their successor and rationale instead of deleting them.
+## Entity metadata
 
-## Knowledge keys
+Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Every entity has a non-empty `project_ids` list; one shared fact may name multiple registered projects. Recommended prefixes: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, and `INC`.
 
-Every canonical entity carries one immutable, globally unique key in its YAML `id`, using a type prefix: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, `INC`. A retired key is never reused for a different entity.
+## Ownership
 
-Entities also record `owner`, `source` or evidence reference, `last_verified`, `confidence`, and relations. Do not assign a confidence level without evidence — unverified information stays unknown rather than becoming canonical knowledge. Use `templates/knowledge-entity.md`.
+- Architect: technical context, architecture, contracts, ADRs.
+- BA/PM: business context, requirements, flows, business rules.
+- QA: test strategy, cases, evidence, traceability.
+- DevOps/SRE: releases, runbooks, incidents, operational context.
+- DBA/Data: database/data models, migrations, integrity evidence.
 
-## Code references
+Owners propose canonical-memory changes only after user-approved Knowledge Impact Approval. The Orchestrator/`owner` is the sole canonical-memory writer and applies approved proposals with evidence. Keep current facts canonical; mark superseded decisions rather than deleting history.
 
-When code, configuration, a migration, a test, or automation enforces, transforms, depends on, or verifies a knowledge entity, add a source comment naming its key:
+## Impact approval
 
-```text
-devbuddy-ref: BR-001, DB-042
-```
+Before a potentially relevant implementation change, identify affected keys, references, relationships, evidence, proposed updates, and consequences. The Orchestrator presents this to the user. Keep the branch `waiting_user` until the user approves or clarifies it.
 
-Place it at the smallest meaningful scope — the function, class, query, migration, config block, or test that carries the relationship — not on every line. Comments contain keys only, never sensitive values or copied business data; the explanation lives in the linked entity.
+## Health and migration
 
-Developer adds and updates these references during implementation. Reviewer and QA verify them. The Orchestrator records the declared relationships in the ledger.
+Validate IDs, YAML metadata, relations, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
 
-## Knowledge Impact Approval
-
-Before any change that may affect the knowledge platform, the responsible role analyses the impact and returns: the proposed change, affected keys and entities, the relationship or evidence for each impact, proposed knowledge updates, unresolved uncertainty, and the consequence of not updating.
-
-The Orchestrator then asks the user to confirm or clarify, and holds the branch in `waiting_user`. Do not implement the change, and do not create, update, or remove canonical knowledge, from the impact analysis alone. After the user answers, the Orchestrator/`owner` applies only what the user approved, then revalidates keys, references, and links; specialists return proposals and evidence through handoffs.
-
-A no-impact conclusion is a finding too — record the scope checked. Incomplete evidence is uncertainty, not a no-impact result.
-
-## Ownership and locking
-
-The Orchestrator/`owner` is the sole writer for the task ledger and all canonical memory. Specialists contribute analysis or proposals through handoffs and never write `.devbuddy/` directly. Before a canonical write, acquire an owner lock naming the artefact/key, task ID, scope, parent revision, and expiry; use atomic replacement. Two active tasks never mutate the same artefact concurrently; a conflicting task waits, is re-scoped, or goes to the user. A stale or uncertain lock is reported, never silently overridden.
-
-## Health checks
-
-Run `scripts/validate_knowledge.py --project-root <project-root>` after material changes and before closure. Use `--root <approved-external-memory-root>` for an external root. It checks core files, key format, uniqueness, dates, confidence, and required metadata. Also look for broken links, missing owners, stale or superseded decisions, requirements and business rules without linked tests, APIs without ownership, and releases without evidence.
-
-Report each finding with the affected entity, the inconsistent relationship, the impact, and the owner role. Route remediation through the Orchestrator; never fabricate missing knowledge to make a check pass.
-
-Use `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` before onboarding when a repository inventory is needed. It records only evidence-backed observations from manifests and paths; run `--apply` after review/approval to write reviewable core observations. It never creates typed entities or overwrites non-empty existing `Context.md` or `KnowledgeBase.md` files.
+Use `analyze <project-id>` or `.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <root> --project-id <id> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. After approval, `--apply` appends a project-labelled observation section without replacing observations for other projects.

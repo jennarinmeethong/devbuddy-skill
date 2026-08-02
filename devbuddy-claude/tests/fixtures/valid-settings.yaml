@@ -1,5 +1,9 @@
 schema_version: 1
-memory_root: .devbuddy
+workspace:
+  projects:
+    fixture:
+      path: ../..
+memory_root: knowledge-base
 orchestration:
   max_concurrency: 2
   task_timeout_seconds: 900

@@ -5,10 +5,10 @@ All bundled scripts use only Python's standard library. Confirm `python` is avai
 | Script | Purpose | Safe invocation |
 |---|---|---|
 | `validate_settings.py` | Validate required DevBuddy settings keys and schema version. | `python scripts/validate_settings.py settings.yaml` |
-| `init_project_memory.py` | Create a minimal, non-overwriting project-memory layout. | `python scripts/init_project_memory.py --project-root <project-root> --dry-run` or `--root <approved-external-memory-root>` |
-| `bootstrap_knowledge.py` | Read-only scan of repository manifests, runtimes, source/test directories, commands, and architecture references; optionally write reviewable core observations. | `python scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` then `--apply` after review |
-| `validate_knowledge.py` | Validate core memory files and typed knowledge metadata/IDs. | `python scripts/validate_knowledge.py --project-root <project-root>` or `--root <approved-external-memory-root>` |
-| `task_memory.py` | Create/resume task ledgers, persist bounded handoffs, reserve/commit/release owner writes, check a specialist scope, and save read-only analysis. | `python scripts/task_memory.py --help` |
+| `init_project_memory.py` | Create or migrate a multi-project workspace and seed versioned project-local tools. | `python scripts/init_project_memory.py --devbuddy-root <root> --project id=path --dry-run` |
+| `bootstrap_knowledge.py` | Scan one registered repository and append project-labelled reviewable observations. | `python <root>/tools/bootstrap_knowledge.py --devbuddy-root <root> --project-id <id> --dry-run` |
+| `validate_knowledge.py` | Validate shared knowledge and required `project_ids` metadata. | `python <root>/tools/validate_knowledge.py --devbuddy-root <root>` |
+| `task_memory.py` | Coordinate workspace tasks and enforce project-qualified scopes. | `python <root>/tools/task_memory.py --help` |
 | `check_adapter_checklists.py` | Verify every common change ID appears in each adapter checklist and incomplete entries have remarks. | `python scripts/check_adapter_checklists.py --template templates/adapter-implementation-checklist.md <adapter-checklist> ...` |
 | `check_manual_conformance.py` | Verify required bilingual manual pages, language metadata, version metadata, and stylesheet. | `python scripts/check_manual_conformance.py manual` |
 | `check_semantic_conformance.py` | Detect drift in shared versions, roles, handoff fields, memory defaults, policy tokens, and platform transport mappings. | `python scripts/check_semantic_conformance.py` |

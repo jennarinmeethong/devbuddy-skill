@@ -35,22 +35,36 @@ def relative_path(value: str, label: str) -> str:
     return cleaned
 
 
+def qualified_path(value: str, label: str, memory: Path) -> str:
+    if ":" not in value:
+        raise ValueError(f"{label} must be project-qualified: {value!r}")
+    project_id, path = value.split(":", 1)
+    identifier(project_id, f"{label} project ID")
+    if project_id not in project_registry(memory):
+        raise ValueError(f"unknown {label} project ID: {project_id}")
+    return f"{project_id}:{relative_path(path, label)}"
+
+
 def root(args: argparse.Namespace) -> Path:
-    selected = [path for path in (args.root, args.project_root) if path is not None]
+    selected = [path for path in (args.devbuddy_root, args.root, args.project_root) if path is not None]
     if len(selected) != 1:
-        raise ValueError("provide exactly one of --root or --project-root")
-    value = args.root if args.root is not None else args.project_root / ".devbuddy"
+        raise ValueError("provide exactly one of --devbuddy-root, --root, or --project-root")
+    value = args.devbuddy_root or args.root or args.project_root / ".devbuddy"
     resolved = value.expanduser().resolve()
     if not resolved.is_dir():
         raise ValueError(f"memory root not found: {resolved}")
-    missing = sorted(name for name in CORE if not (resolved / name).is_file())
+    missing = sorted(name for name in CORE if not (resolved / "knowledge-base" / name).is_file())
     if missing:
         raise ValueError("memory root is incomplete: " + ", ".join(missing))
     return resolved
 
 
-def task_paths(memory: Path, project_id: str, task_id: str) -> tuple[Path, Path, Path]:
-    base = memory / "tasks" / project_id
+def project_registry(memory: Path) -> dict[str, Path]:
+    return bootstrap_knowledge.registered_projects(memory)
+
+
+def task_paths(memory: Path, task_id: str) -> tuple[Path, Path, Path]:
+    base = memory / "tasks"
     task_dir = base / f"task-{task_id}"
     return base / f"task-{task_id}.md", task_dir, task_dir / "handoffs"
 
@@ -69,12 +83,25 @@ def atomic_write(path: Path, content: str) -> None:
         raise
 
 
-def task(args: argparse.Namespace) -> tuple[Path, str, str, Path, Path, Path]:
+def selected_projects(args: argparse.Namespace, memory: Path) -> list[str]:
+    values = args.project_id or []
+    registry = project_registry(memory)
+    unique: list[str] = []
+    for value in values:
+        project_id = identifier(value, "project ID")
+        if registry and project_id not in registry:
+            raise ValueError(f"unknown project ID: {project_id}")
+        if project_id not in unique:
+            unique.append(project_id)
+    return unique
+
+
+def task(args: argparse.Namespace) -> tuple[Path, list[str], str, Path, Path, Path]:
     memory = root(args)
-    project_id = identifier(args.project_id, "project ID")
+    project_ids = selected_projects(args, memory)
     task_id = identifier(args.task_id, "task ID")
-    ledger, task_dir, handoffs = task_paths(memory, project_id, task_id)
-    return memory, project_id, task_id, ledger, task_dir, handoffs
+    ledger, task_dir, handoffs = task_paths(memory, task_id)
+    return memory, project_ids, task_id, ledger, task_dir, handoffs
 
 
 def revision(ledger: Path) -> int:
@@ -95,7 +122,9 @@ def require_owner(actor: str) -> None:
 
 
 def initialise(args: argparse.Namespace) -> int:
-    memory, project_id, task_id, ledger, _task_dir, handoffs = task(args)
+    memory, project_ids, task_id, ledger, _task_dir, handoffs = task(args)
+    if not project_ids:
+        raise ValueError("provide at least one --project-id when creating a task")
     session_id = identifier(args.session_id or "session-1", "session ID")
     handoffs.mkdir(parents=True, exist_ok=True)
     if ledger.exists():
@@ -106,7 +135,7 @@ def initialise(args: argparse.Namespace) -> int:
         action = "RESUME"
     else:
         atomic_write(ledger, "\n".join((
-            f"# Task Ledger: {task_id}", "", "- Status: `queued`", f"- Project ID: {project_id}",
+            f"# Task Ledger: {task_id}", "", "- Status: `queued`", f"- Project IDs: [{', '.join(project_ids)}]",
             f"- Session ID / attempt: {session_id} / 1", "- Memory revision: 0", "- Memory root reference: " + str(memory),
             "", "## Slices, locks, and handoffs", "", "## Approvals and decisions", "", "## Audit references", "",
         )))
@@ -138,12 +167,12 @@ def record_handoff(args: argparse.Namespace) -> int:
 
 
 def reserve(args: argparse.Namespace) -> int:
-    _memory, _project_id, _task_id, ledger, task_dir, _handoffs = task(args)
+    memory, _project_id, _task_id, ledger, task_dir, _handoffs = task(args)
     require_ledger(ledger)
-    scope = relative_path(args.scope, "reservation scope")
+    scope = qualified_path(args.scope, "reservation scope", memory)
     if args.expected_revision != revision(ledger):
         raise ValueError("stale expected revision; reservation refused")
-    lock = task_dir / "locks" / f"{scope.replace('/', '__')}.lock"
+    lock = task_dir / "locks" / f"{scope.replace(':', '__').replace('/', '__')}.lock"
     lock.parent.mkdir(parents=True, exist_ok=True)
     try:
         descriptor = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -158,10 +187,10 @@ def reserve(args: argparse.Namespace) -> int:
 
 
 def release(args: argparse.Namespace) -> int:
-    _memory, _project_id, _task_id, ledger, task_dir, _handoffs = task(args)
+    memory, _project_id, _task_id, ledger, task_dir, _handoffs = task(args)
     require_ledger(ledger)
-    scope = relative_path(args.scope, "reservation scope")
-    lock = task_dir / "locks" / f"{scope.replace('/', '__')}.lock"
+    scope = qualified_path(args.scope, "reservation scope", memory)
+    lock = task_dir / "locks" / f"{scope.replace(':', '__').replace('/', '__')}.lock"
     if not lock.is_file():
         raise ValueError(f"reservation not found: {lock}")
     if f"actor: {identifier(args.actor, 'actor')}\n" not in lock.read_text(encoding="utf-8"):
@@ -191,28 +220,43 @@ def commit(args: argparse.Namespace) -> int:
 
 
 def check_scope(args: argparse.Namespace) -> int:
-    _memory, _project_id, _task_id, ledger, _task_dir, _handoffs = task(args)
+    memory, _project_ids, _task_id, ledger, _task_dir, _handoffs = task(args)
     require_ledger(ledger)
-    scopes = [relative_path(value, "write scope") for value in args.write_scope.split(",")]
+    registry = project_registry(memory)
+    scopes: list[tuple[str, str]] = []
+    for value in args.write_scope.split(","):
+        if ":" not in value:
+            raise ValueError(f"write scope must be project-qualified: {value!r}")
+        project_id, path = value.split(":", 1)
+        identifier(project_id, "scope project ID")
+        if project_id not in registry:
+            raise ValueError(f"unknown scope project ID: {project_id}")
+        scopes.append((project_id, relative_path(path, "write scope")))
     for changed in args.changed:
-        if changed.replace("\\", "/").strip().rstrip("/") == ".devbuddy" or changed.replace("\\", "/").strip().startswith(".devbuddy/"):
+        if ":" not in changed:
+            raise ValueError(f"changed path must be project-qualified: {changed!r}")
+        project_id, raw_path = changed.split(":", 1)
+        identifier(project_id, "changed project ID")
+        if raw_path.replace("\\", "/").strip().rstrip("/") == ".devbuddy" or raw_path.replace("\\", "/").strip().startswith(".devbuddy/"):
             raise ValueError("specialists may not write .devbuddy directly")
-        candidate = relative_path(changed, "changed path")
-        if not any(candidate == scope or candidate.startswith(scope + "/") for scope in scopes):
-            raise ValueError(f"changed path outside write_scope: {candidate}")
+        candidate = relative_path(raw_path, "changed path")
+        if not any(project_id == scope_project and (candidate == scope or candidate.startswith(scope + "/")) for scope_project, scope in scopes):
+            raise ValueError(f"changed path outside write_scope: {project_id}:{candidate}")
     print("OK: changed paths remain within write_scope")
     return 0
 
 
 def analyse(args: argparse.Namespace) -> int:
-    memory, _project_id, _task_id, ledger, task_dir, _handoffs = task(args)
+    memory, project_ids, _task_id, ledger, task_dir, _handoffs = task(args)
     require_ledger(ledger)
-    source = args.source_root.expanduser().resolve()
+    if len(project_ids) != 1:
+        raise ValueError("analyze requires exactly one --project-id")
+    source = project_registry(memory)[project_ids[0]]
     if not source.is_dir():
         raise ValueError(f"source root not found: {source}")
     facts = bootstrap_knowledge.discover(source)
     sections = [
-        "# Read-only Project Analysis", "", f"- Source root: `{source}`", f"- Memory root: `{memory}`",
+        "# Read-only Project Analysis", "", f"- Project ID: `{project_ids[0]}`", f"- Source root: `{source}`", f"- DevBuddy root: `{memory}`",
         f"- Parent revision: {revision(ledger)}", "", "This is a bounded inventory, not canonical knowledge. Owner approval is required before promotion.",
     ]
     for title, key in (
@@ -252,9 +296,10 @@ def main() -> int:
     for name in ("init", "handoff", "reserve", "release", "commit", "check-scope", "analyze", "validate"):
         command = commands.add_parser(name)
         roots = command.add_mutually_exclusive_group(required=True)
+        roots.add_argument("--devbuddy-root", type=Path)
         roots.add_argument("--root", type=Path)
         roots.add_argument("--project-root", type=Path)
-        command.add_argument("--project-id", required=True)
+        command.add_argument("--project-id", action="append")
         command.add_argument("--task-id", required=True)
     commands.choices["init"].add_argument("--session-id")
     handoff = commands.choices["handoff"]
@@ -273,7 +318,6 @@ def main() -> int:
     scope_command = commands.choices["check-scope"]
     scope_command.add_argument("--write-scope", required=True)
     scope_command.add_argument("--changed", action="append", required=True)
-    commands.choices["analyze"].add_argument("--source-root", type=Path, required=True)
     args = parser.parse_args()
     handlers = {
         "init": initialise, "handoff": record_handoff, "reserve": reserve, "release": release,

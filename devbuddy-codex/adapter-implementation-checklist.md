@@ -1,7 +1,7 @@
 # Adapter Implementation Checklist
 
 Target: Codex Skill
-Common specification version: `0.1.2`
+Common specification version: `0.2.0`
 
 ## Checklist
 
@@ -10,8 +10,8 @@ Common specification version: `0.1.2`
 - [x] `DBY-MODEL-002` | `settings.yaml`, `roles/orchestrator.md` | Required per-dispatch approved model and effort-level selection with task-ledger evidence | Status: `done` | Location: `SKILL.md`, `roles/orchestrator.md`, `templates/task-ledger.md` | Evidence: model_effort_independent_selection and unverified_model_effort scenarios
 - [x] `DBY-MODEL-003` | `settings.yaml`, `references/policy.md` | Minimum-sufficient model/effort selection and recorded escalation reason | Status: `done` | Location: `references/codex-dispatch.md`, `references/settings.md` | Evidence: ranked allowlist validation, independent selection, and escalation scenarios
 - [x] `DBY-ROLE-001` | `roles/` | Orchestrator and IT role workflows with structured handoffs | Status: `done` | Location: `roles/`, `references/role-routing.md`, `templates/handoff.md` | Evidence: role-routing and scenario coverage
-- [x] `DBY-KNOW-001` | `references/knowledge-model.md` | Project memory, keys, impact approval, health, and migration controls | Status: `done` | Location: `SKILL.md`, `references/knowledge-model.md`, `templates/knowledge-entity.md`, `references/policy.md`, `scripts/init_project_memory.py`, `scripts/validate_knowledge.py` | Evidence: `--project-root` resolves `<project-root>/.devbuddy/`, `KnowledgeBase.md` stays at that root, external `--root` is direct, and invalid entity keys are rejected by permanent tests
+- [x] `DBY-KNOW-001` | `references/knowledge-model.md` | Workspace knowledge, keys, impact approval, health, and migration controls | Status: `done` | Location: `SKILL.md`, `references/knowledge-model.md`, `templates/knowledge-entity.md`, `references/policy.md`, `scripts/init_project_memory.py`, `scripts/validate_knowledge.py` | Evidence: tests cover selectable workspace roots, shared `knowledge-base/`, multiple registered projects, required `project_ids`, and safe legacy migration
 - [x] `DBY-MEM-002` | `references/task-memory.md`, `templates/` | Task-scoped shared memory, owner-only canonical writes, compact handoffs, and analysis entrypoint | Status: `done` | Location: `SKILL.md`, `references/task-memory.md`, `scripts/task_memory.py`, and task/handoff templates | Evidence: task-memory tests cover resume, handoff persistence for the next slice, stale-revision rejection, owner commits, reservation conflicts, scope rejection, and read-only analysis; static scenarios cover analyze and handoff transport
 - [x] `DBY-SAFE-001` | `references/policy.md` | Git, tool, cost, secret, endpoint, prompt-injection, and policy-compliance controls | Status: `done` | Location: `SKILL.md`, `references/policy.md` | Evidence: static policy and scenarios
-- [x] `DBY-TOOLS-001` | `scripts/`, `tests/` | Python memory initialization, bootstrap, validation, checklist, knowledge, installer, and manual conformance tools | Status: `done` | Location: `scripts/bootstrap_knowledge.py`, `scripts/`, `tests/test_project_memory.py` | Evidence: standard-library tests cover dry-run repository scan, reviewable `Context.md`/`KnowledgeBase.md` bootstrap, `.devbuddy`, external roots, validator failures, installer dry-run/apply/conflicts, and metadata validation
+- [x] `DBY-TOOLS-001` | `scripts/`, `tests/` | Project-local Python workspace tools and source-only development validation | Status: `done` | Location: `scripts/init_project_memory.py`, `templates/project-tools/`, `tests/test_project_memory.py` | Evidence: tests cover dry-run init, manifest hashes, safe upgrade conflicts, and an installed payload containing only the global initializer
 - [x] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `done` | Location: `manual/` and `devbuddy-source-of-truth/manual/*/codex.html` | Evidence: `scripts/validate_manual.py`

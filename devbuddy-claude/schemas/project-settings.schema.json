@@ -2,10 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "DevBuddy Claude Project Settings",
   "type": "object",
-  "required": ["schema_version", "orchestration"],
+  "required": ["schema_version", "workspace", "memory_root", "orchestration"],
   "properties": {
     "schema_version": {"const": 1},
-    "memory_root": {"type": "string", "minLength": 1, "default": ".devbuddy"},
+    "workspace": {"type": "object", "required": ["projects"], "properties": {"projects": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "object", "required": ["path"], "properties": {"path": {"type": "string", "minLength": 1}}}}}},
+    "memory_root": {"const": "knowledge-base"},
     "orchestration": {
       "type": "object",
       "required": ["max_concurrency", "task_timeout_seconds", "retry_limit", "approved_models", "approved_effort_levels"],

@@ -35,7 +35,7 @@ Read `references/scripts.md` before invoking or changing a bundled Python tool.
 
 ## Project memory
 
-Use the project-selected memory root. The default is `<project-root>/.devbuddy/`; project settings may point to an external root such as an Obsidian vault. Resolve the project locator before reading or writing memory. Never write canonical knowledge until Knowledge Impact Approval is complete.
+Use the selected DevBuddy workspace root. Its `settings.yaml` registers one or more source repositories, canonical knowledge lives in `knowledge-base/`, and operational task/tool state stays at the workspace root. Resolve project IDs before reading or writing. Never write canonical knowledge until Knowledge Impact Approval is complete.
 
 ## Validation
 
@@ -43,11 +43,9 @@ Run only scripts whose runtime is available and approved:
 
 ```text
 python scripts/validate_settings.py settings.yaml
-python scripts/init_project_memory.py --project-root <project-root> --dry-run
-python scripts/init_project_memory.py --root <approved-external-memory-root> --dry-run
-python scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run
-python scripts/validate_knowledge.py --project-root <project-root>
-python scripts/validate_knowledge.py --root <approved-external-memory-root>
+python scripts/init_project_memory.py --devbuddy-root <workspace>/.devbuddy --project fe=../frontend --project be=../backend --dry-run
+python <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <workspace>/.devbuddy --project-id fe --dry-run
+python <workspace>/.devbuddy/tools/validate_knowledge.py --devbuddy-root <workspace>/.devbuddy
 python scripts/check_adapter_checklists.py --template templates/adapter-implementation-checklist.md \
   ../devbuddy-claude/adapter-implementation-checklist.md \
   ../devbuddy-codex/adapter-implementation-checklist.md
@@ -56,3 +54,7 @@ python scripts/check_semantic_conformance.py
 ```
 
 Use `--help` before unfamiliar script options. These scripts use only the Python standard library.
+
+During the transition, `--project-root` and `--root` remain deprecated aliases
+for the initializer; new work should always select `--devbuddy-root` and
+register projects with repeatable `--project ID=PATH`.

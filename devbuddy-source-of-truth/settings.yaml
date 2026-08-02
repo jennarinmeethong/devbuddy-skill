@@ -1,7 +1,7 @@
 schema_version: 1
 skill:
   name: devbuddy
-  common_spec_version: 0.1.2
+  common_spec_version: 0.2.0
   internal_language: en
   user_language: th
 governance:
@@ -28,6 +28,8 @@ memory:
   default_root: .devbuddy
   project_settings_path: .devbuddy/settings.yaml
   locator_key: memory_root
+  knowledge_root: knowledge-base
+  project_registry_key: workspace.projects
   backup_location: user_required
   retention_period: user_required
 tools:

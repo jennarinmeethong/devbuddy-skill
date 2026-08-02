@@ -9,7 +9,7 @@ from pathlib import Path
 DEFAULT_MEMORY_ROOT = ".devbuddy"
 CORE = {"Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md"}
 TYPED = ("domains", "features", "requirements", "flows", "business-rules", "screens", "technical", "tests", "decisions", "releases", "incidents")
-FIELDS = {"id", "type", "status", "owner", "source", "last_verified", "confidence"}
+FIELDS = {"id", "type", "status", "owner", "source", "project_ids", "last_verified", "confidence"}
 KEY_RE = re.compile(r"^(DOM|FEAT|REQ|FLOW|BR|SCR|API|DB|EVT|TEST|ADR|REL|INC)-[A-Za-z0-9][A-Za-z0-9._-]*$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 REFERENCE_RE = re.compile(r"devbuddy-ref:\s*([^\n]+)")
@@ -31,12 +31,15 @@ def metadata(path: Path) -> dict[str, str] | None:
 
 
 def resolve_root(args: argparse.Namespace, parser: argparse.ArgumentParser) -> Path:
-    selected = [value for value in (args.memory_root, args.root, args.project_root) if value is not None]
+    selected = [value for value in (args.memory_root, args.devbuddy_root, args.root, args.project_root) if value is not None]
     if len(selected) != 1:
-        parser.error("provide a memory path, --root <external-root>, or --project-root <project-root>")
+        parser.error("provide --devbuddy-root, a legacy memory path, --root, or --project-root")
     if args.project_root is not None:
-        return (args.project_root / DEFAULT_MEMORY_ROOT).expanduser().resolve()
-    return selected[0].expanduser().resolve()
+        workspace = (args.project_root / DEFAULT_MEMORY_ROOT).expanduser().resolve()
+    else:
+        workspace = selected[0].expanduser().resolve()
+    knowledge = workspace / "knowledge-base"
+    return knowledge if knowledge.is_dir() or not all((workspace / name).is_file() for name in CORE) else workspace
 
 
 def validate_entity(path: Path, data: dict[str, str], errors: list[str]) -> None:
@@ -53,12 +56,15 @@ def validate_entity(path: Path, data: dict[str, str], errors: list[str]) -> None
         errors.append(f"{path}: last_verified must use YYYY-MM-DD")
     if data["confidence"] not in {"verified", "high", "medium", "low", "unknown"}:
         errors.append(f"{path}: confidence must be verified/high/medium/low/unknown")
+    if not re.fullmatch(r"\[[A-Za-z0-9._-]+(?:,\s*[A-Za-z0-9._-]+)*\]", data["project_ids"]):
+        errors.append(f"{path}: project_ids must be a non-empty inline list")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("memory_root", nargs="?", type=Path, help="memory root used directly (legacy positional form)")
     roots = parser.add_mutually_exclusive_group()
+    roots.add_argument("--devbuddy-root", type=Path, help="DevBuddy workspace root")
     roots.add_argument("--root", type=Path, help="approved external memory root, used directly")
     roots.add_argument("--project-root", type=Path, help="project root; resolve memory at <project-root>/.devbuddy")
     args = parser.parse_args()

@@ -2,23 +2,26 @@
 
 ## Memory root
 
-Resolve `<project-root>/.devbuddy/settings.yaml` first. By default, that same `.devbuddy/` directory contains `settings.yaml`, `KnowledgeBase.md`, the other three core memory files, and the typed folders. Its `memory_root` may point directly to an external approved location; do not add another `.devbuddy/` wrapper there. Canonical memory is never global or temporary.
+Resolve the selected `.devbuddy/settings.yaml` first. A DevBuddy workspace may register multiple source repositories under `workspace.projects`; relative paths resolve from the parent of `.devbuddy`. Canonical memory is shared below `.devbuddy/knowledge-base/`, while task state and executable tools remain in `.devbuddy/tasks/` and `.devbuddy/tools/`.
 
 ```text
-<memory-root>/
-|- Context.md
-|- BusinessContext.md
-|- DecisionLog.md
-|- KnowledgeBase.md
-|- domains/ features/ requirements/ flows/ business-rules/ screens/
-|- technical/{architecture,apis,database,events,integrations}/
-|- tests/ decisions/ releases/ incidents/
-`- tasks/
+<devbuddy-root>/
+|- settings.yaml
+|- knowledge-base/
+|  |- Context.md
+|  |- BusinessContext.md
+|  |- DecisionLog.md
+|  |- KnowledgeBase.md
+|  |- domains/ features/ requirements/ flows/ business-rules/ screens/
+|  |- technical/{architecture,apis,database,events,integrations}/
+|  `- tests/ decisions/ releases/ incidents/
+|- tasks/
+`- tools/
 ```
 
 ## Entity metadata
 
-Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Recommended prefixes: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, and `INC`.
+Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Every entity has a non-empty `project_ids` list; one shared fact may name multiple registered projects. Recommended prefixes: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, and `INC`.
 
 ## Ownership
 
@@ -38,4 +41,4 @@ Before a potentially relevant implementation change, identify affected keys, ref
 
 Validate IDs, YAML metadata, relations, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
 
-Use `analyze <project>` or `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. The owner records the reviewable result in the active task area and runs `--apply` only after user approval; it writes only reviewable `Context.md` and `KnowledgeBase.md` observations and never overwrites non-empty existing knowledge files.
+Use `analyze <project-id>` or `.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <root> --project-id <id> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. After approval, `--apply` appends a project-labelled observation section without replacing observations for other projects.

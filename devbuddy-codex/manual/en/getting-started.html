@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-manual-version="0.3.0"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Getting started · DevBuddy</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#main">Skip to main content</a><header class="site-header"><a class="brand" href="index.html">DevBuddy <span>· Manual</span></a><nav class="header-nav"><a href="index.html">Overview</a><a href="getting-started.html" aria-current="page">Getting started</a><a href="workspace.html">Workspace</a><a href="scripts.html">Scripts</a><a href="tasks-and-knowledge.html">Tasks &amp; knowledge</a><a href="migration.html">Migration</a><a href="troubleshooting.html">Troubleshooting</a></nav><div class="header-actions"><a href="../th/getting-started.html">ไทย</a><span class="header-adapters"><a href="codex.html">Codex</a></span><label class="header-search"><span class="sr-only">Search</span><input type="search" placeholder="Search" aria-label="Search documentation" data-nav-filter></label><button class="icon-button mobile-only" data-menu aria-expanded="false" aria-label="Open navigation">☰</button><button class="icon-button" data-theme aria-label="Theme">◐</button></div></header>
+<div class="layout"><aside class="sidebar"><h2>Documentation</h2><input class="sidebar-search" type="search" placeholder="Filter pages" aria-label="Filter pages" data-nav-filter><nav class="nav-group"><div class="nav-group-title">DevBuddy</div><a href="index.html" data-page-title="Overview">Overview</a><a href="getting-started.html" aria-current="page" data-page-title="Getting started">Getting started</a><a href="workspace.html" data-page-title="Workspace">Workspace</a><a href="scripts.html" data-page-title="Scripts">Scripts</a><a href="tasks-and-knowledge.html" data-page-title="Tasks &amp; knowledge">Tasks &amp; knowledge</a><a href="migration.html" data-page-title="Migration">Migration</a><a href="troubleshooting.html" data-page-title="Troubleshooting">Troubleshooting</a></nav><nav class="nav-group"><div class="nav-group-title">Adapters</div><a href="codex.html">Codex</a></nav></aside>
+<main class="article" id="main"><div class="breadcrumbs"><a href="index.html">DevBuddy</a><span>›</span><span>Getting started</span></div><header class="article-header"><p class="eyebrow">Setup · validation · first task</p><h1>Getting started</h1><p class="lede">Install an adapter, create a multi-project workspace, seed local runtime tools, and make the first validation pass.</p><div class="meta"><span>Manual 0.3.0</span><span>Dry-run first</span></div></header>
+<section id="prerequisites"><h2>Prerequisites</h2><p>Use Python 3.9 or newer, an approved Codex or Claude configuration root, and filesystem access to the workspace plus every registered repository. A dedicated knowledge repository should be backed up and versioned.</p></section>
+<section id="install"><h2>Install the adapter</h2><p>Preview the installer before applying it. It copies skill metadata and templates and refuses unrelated collisions.</p><div class="code-wrap"><div class="code-label">Codex <button class="copy" data-copy="copy">Copy</button></div><pre><code>python3 devbuddy-codex/scripts/install_codex_adapter.py
+python3 devbuddy-codex/scripts/install_codex_adapter.py --apply</code></pre></div><div class="code-wrap"><div class="code-label">Claude Code <button class="copy" data-copy="copy">Copy</button></div><pre><code>python3 devbuddy-claude/scripts/install_claude_adapter.py
+python3 devbuddy-claude/scripts/install_claude_adapter.py --apply</code></pre></div><div class="callout warn"><strong>Runtime boundary</strong>The installed skill keeps only the global initializer as executable Python. Runtime tools are copied to <code class="inline">.devbuddy/tools/</code>.</div></section>
+<section id="initialize"><h2>Initialize the workspace</h2><p>Choose any approved `.devbuddy` location. Repeat `--project ID=PATH` for FE, BE, mobile, services or other repositories.</p><div class="code-wrap"><div class="code-label">Preview then apply <button class="copy" data-copy="copy">Copy</button></div><pre><code>python3 &lt;installed-skill&gt;/scripts/init_project_memory.py \
+  --devbuddy-root /path/to/knowledge-repo/.devbuddy \
+  --project fe=../frontend \
+  --project be=../backend \
+  --dry-run
+
+python3 &lt;installed-skill&gt;/scripts/init_project_memory.py \
+  --devbuddy-root /path/to/knowledge-repo/.devbuddy \
+  --project fe=../frontend \
+  --project be=../backend</code></pre></div><p>Relative paths resolve from the parent of `.devbuddy`. Paths must exist, be unique and stay outside `.devbuddy`.</p></section>
+<section id="configure"><h2>Configure settings</h2><p>The initializer creates the workspace registry and memory locator. Add the approved orchestration values before dispatch.</p><div class="code-wrap"><div class="code-label">settings.yaml <button class="copy" data-copy="copy">Copy</button></div><pre><code>schema_version: 1
+workspace:
+  projects:
+    fe:
+      path: ../frontend
+    be:
+      path: ../backend
+memory_root: knowledge-base
+orchestration:
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
+  approved_models: [...] 
+  approved_effort_levels: [...]</code></pre></div></section>
+<section id="validate"><h2>Validate and bootstrap</h2><div class="code-wrap"><div class="code-label">Project-local tools <button class="copy" data-copy="copy">Copy</button></div><pre><code>python3 .devbuddy/tools/validate_project_settings.py .devbuddy/settings.yaml
+python3 .devbuddy/tools/bootstrap_knowledge.py --devbuddy-root .devbuddy --project-id fe --dry-run
+python3 .devbuddy/tools/bootstrap_knowledge.py --devbuddy-root .devbuddy --project-id fe --apply
+python3 .devbuddy/tools/validate_knowledge.py --devbuddy-root .devbuddy</code></pre></div><p>Repeat bootstrap for `be`. Review observations before applying; bootstrap never creates typed canonical entities.</p></section>
+<section id="first-task"><h2>Create the first task</h2><div class="code-wrap"><div class="code-label">Workspace task <button class="copy" data-copy="copy">Copy</button></div><pre><code>python3 .devbuddy/tools/task_memory.py init \
+  --devbuddy-root .devbuddy \
+  --project-id fe --project-id be \
+  --task-id checkout-001</code></pre></div><p>Use one ledger for cross-repository work. Continue with <a href="tasks-and-knowledge.html">Tasks &amp; knowledge</a> to reserve project-qualified scopes.</p></section>
+<nav class="next-prev"><a href="index.html"><small>Previous</small>Overview</a><a href="workspace.html"><small>Next</small>Workspace</a></nav></main><aside class="toc"><h2>In this article</h2><a href="#prerequisites">Prerequisites</a><a href="#install">Install the adapter</a><a href="#initialize">Initialize the workspace</a><a href="#configure">Configure settings</a><a href="#validate">Validate and bootstrap</a><a href="#first-task">Create the first task</a></aside></div><script src="../assets/manual.js" defer></script></body></html>

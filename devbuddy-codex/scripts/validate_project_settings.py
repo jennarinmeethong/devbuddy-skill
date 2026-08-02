@@ -17,17 +17,29 @@ def list_values(value: str) -> set[str]:
     return {part.strip() for part in value[1:-1].split(",") if part.strip()}
 
 
-def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], list[str]]:
+def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], dict[str, str], list[str]]:
     scalars: dict[str, str] = {}
     groups = {"approved_models": [], "approved_effort_levels": []}
     errors: list[str] = []
+    projects: dict[str, str] = {}
     group: str | None = None
     entry: dict[str, str] | None = None
+    project_id: str | None = None
     for number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if not raw.strip() or raw.lstrip().startswith("#"):
             continue
         if raw == "schema_version: 1":
             scalars["schema_version"] = "1"
+            continue
+        project_match = re.match(r"^    ([A-Za-z0-9][A-Za-z0-9._-]*):$", raw)
+        if project_match:
+            project_id = project_match.group(1)
+            continue
+        path_match = re.match(r"^      path:\s*(.+?)\s*$", raw)
+        if path_match and project_id:
+            if project_id in projects:
+                errors.append(f"line {number}: duplicate project ID {project_id}")
+            projects[project_id] = path_match.group(1).strip("\"'")
             continue
         memory_match = re.match(r"^memory_root:\s*(.+?)\s*$", raw)
         if memory_match:
@@ -37,6 +49,8 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
             errors.append(f"line {number}: memory_root must not be empty")
             continue
         if raw == "orchestration:":
+            continue
+        if raw in {"workspace:", "  projects:"}:
             continue
         group_match = re.match(r"^  (approved_models|approved_effort_levels):$", raw)
         if group_match:
@@ -57,7 +71,7 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
             continue
         if raw.startswith(" "):
             errors.append(f"line {number}: unsupported restricted-YAML shape")
-    return scalars, groups, errors
+    return scalars, groups, projects, errors
 
 
 def validate_entries(kind: str, entries: list[dict[str, str]], errors: list[str]) -> None:
@@ -94,11 +108,22 @@ def main() -> int:
     if not args.settings.is_file():
         print(f"ERROR: settings file not found: {args.settings}")
         return 1
-    scalars, groups, errors = parse(args.settings)
+    scalars, groups, projects, errors = parse(args.settings)
     if scalars.get("schema_version") != "1":
         errors.append("schema_version must be 1")
-    if "memory_root" in scalars and not scalars["memory_root"].strip():
-        errors.append("memory_root must be a non-empty path")
+    if scalars.get("memory_root", "").strip("\"'") != "knowledge-base":
+        errors.append("memory_root must be knowledge-base")
+    if not projects:
+        errors.append("workspace.projects must contain at least one project")
+    resolved: set[Path] = set()
+    for project_id, value in projects.items():
+        path = Path(value).expanduser()
+        absolute = (path if path.is_absolute() else args.settings.parent.parent / path).resolve()
+        if not absolute.is_dir():
+            errors.append(f"workspace project path not found ({project_id}): {absolute}")
+        if absolute in resolved:
+            errors.append(f"workspace projects resolve to duplicate path: {absolute}")
+        resolved.add(absolute)
     for key in SCALARS:
         if key not in scalars:
             errors.append(f"missing orchestration.{key}")

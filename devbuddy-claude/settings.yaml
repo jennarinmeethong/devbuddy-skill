@@ -1,7 +1,7 @@
 schema_version: 1
 adapter:
   name: devbuddy-claude
-  source_spec_version: 0.1.2
+  source_spec_version: 0.2.0
   invocation: /devbuddy
   entrypoint: orchestrator
   explicit_subagent_model_and_effort: required
@@ -57,6 +57,8 @@ loops:
 memory:
   default_root: .devbuddy
   locator_key: memory_root
+  knowledge_root: knowledge-base
+  project_registry_key: workspace.projects
 tools:
   custom_tool_runtime: python
   install_without_user_approval: false

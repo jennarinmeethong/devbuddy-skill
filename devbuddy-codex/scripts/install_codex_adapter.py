@@ -17,7 +17,6 @@ SKILL_CONTENT = [
     "references",
     "roles",
     "templates",
-    "scripts",
     "manual",
     "tests",
 ]
@@ -48,6 +47,8 @@ def plan(target: Path) -> list[tuple[Path, Path]]:
         for path in sorted(source.rglob("*")):
             if path.is_file() and "__pycache__" not in path.parts:
                 pairs.append((path, target / path.relative_to(ROOT)))
+    initializer = ROOT / "scripts" / "init_project_memory.py"
+    pairs.append((initializer, target / "scripts" / initializer.name))
     return pairs
 
 

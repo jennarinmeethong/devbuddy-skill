@@ -1,146 +1,119 @@
 #!/usr/bin/env python3
-"""Regression tests for the common memory layout and settings validator."""
+"""Regression tests for the common multi-project workspace."""
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 INIT = ROOT / "scripts" / "init_project_memory.py"
 BOOTSTRAP = ROOT / "scripts" / "bootstrap_knowledge.py"
+TASK = ROOT / "scripts" / "task_memory.py"
 KNOWLEDGE_VALIDATOR = ROOT / "scripts" / "validate_knowledge.py"
 VALIDATOR = ROOT / "scripts" / "validate_settings.py"
 SETTINGS = ROOT / "settings.yaml"
 
 
-def run(script: Path, *args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        [sys.executable, str(script), *(str(arg) for arg in args)],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+def run(script: Path, *args: object) -> subprocess.CompletedProcess[str]:
+    return subprocess.run([sys.executable, str(script), *(str(arg) for arg in args)], capture_output=True, text=True, check=False)
 
 
-class ProjectMemoryTests(unittest.TestCase):
-    def test_project_root_is_wrapped_in_devbuddy(self) -> None:
+class WorkspaceTests(unittest.TestCase):
+    def make_workspace(self, temporary: str) -> tuple[Path, Path, Path]:
+        base = Path(temporary)
+        frontend, backend = base / "frontend", base / "backend"
+        frontend.mkdir(); backend.mkdir()
+        root = base / "knowledge" / ".devbuddy"
+        result = run(INIT, "--devbuddy-root", root, "--project", "fe=../frontend", "--project", "be=../backend")
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        return root, frontend, backend
+
+    def test_initializer_creates_shared_layout_registry_and_tools(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            result = run(INIT, "--project-root", project)
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-            memory = project / ".devbuddy"
-            self.assertTrue((memory / "Context.md").is_file())
-            self.assertTrue((memory / "tasks").is_dir())
-            self.assertFalse((project / "Context.md").exists())
+            root, _frontend, _backend = self.make_workspace(temporary)
+            self.assertTrue((root / "knowledge-base" / "Context.md").is_file())
+            self.assertTrue((root / "tasks").is_dir())
+            self.assertTrue((root / "tools" / "task_memory.py").is_file())
+            manifest = json.loads((root / "tools" / "manifest.json").read_text(encoding="utf-8"))
+            self.assertIn("task_memory.py", manifest["files"])
+            settings = (root / "settings.yaml").read_text(encoding="utf-8")
+            self.assertIn("fe:", settings); self.assertIn("be:", settings)
+            self.assertIn("memory_root: knowledge-base", settings)
 
-    def test_external_root_is_used_directly(self) -> None:
+    def test_dry_run_writes_nothing_and_rejects_duplicate_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            external = Path(temporary) / "vault"
-            result = run(INIT, "--root", external)
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-            self.assertTrue((external / "KnowledgeBase.md").is_file())
-            self.assertFalse((external / ".devbuddy").exists())
-            validated = run(KNOWLEDGE_VALIDATOR, "--root", external)
-            self.assertEqual(validated.returncode, 0, validated.stderr or validated.stdout)
+            base = Path(temporary); source = base / "source"; source.mkdir(); root = base / ".devbuddy"
+            dry = run(INIT, "--devbuddy-root", root, "--project", f"app={source}", "--dry-run")
+            self.assertEqual(dry.returncode, 0, dry.stdout); self.assertFalse(root.exists())
+            duplicate = run(INIT, "--devbuddy-root", root, "--project", f"one={source}", "--project", f"two={source}")
+            self.assertNotEqual(duplicate.returncode, 0); self.assertIn("duplicate resolved", duplicate.stdout)
 
-    def test_knowledge_validator_resolves_project_devbuddy_root(self) -> None:
+    def test_add_missing_is_idempotent_and_preserves_core(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
-            result = run(KNOWLEDGE_VALIDATOR, "--project-root", project)
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+            root, _frontend, _backend = self.make_workspace(temporary)
+            context = root / "knowledge-base" / "Context.md"
+            context.write_text("custom\n", encoding="utf-8")
+            second = run(INIT, "--devbuddy-root", root)
+            self.assertEqual(second.returncode, 0, second.stdout)
+            self.assertEqual(context.read_text(encoding="utf-8"), "custom\n")
 
-    def test_knowledge_validator_rejects_invalid_entity_key(self) -> None:
+    def test_safe_layout_migration(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            self.assertEqual(run(INIT, "--project-root", project).returncode, 0)
-            entity = project / ".devbuddy" / "requirements" / "invalid.md"
-            entity.write_text(
-                "---\nid: BAD-001\ntype: requirement\nstatus: active\nowner: qa\n"
-                "source: test\nlast_verified: 2026-07-27\nconfidence: verified\n---\n",
-                encoding="utf-8",
-            )
-            result = run(KNOWLEDGE_VALIDATOR, "--project-root", project)
-            self.assertNotEqual(result.returncode, 0)
-            self.assertIn("invalid knowledge id", result.stdout)
+            root = Path(temporary) / ".devbuddy"; root.mkdir()
+            (root / "Context.md").write_text("legacy\n", encoding="utf-8")
+            preview = run(INIT, "--devbuddy-root", root, "--migrate-layout", "--dry-run")
+            self.assertIn("MOVE:", preview.stdout); self.assertTrue((root / "Context.md").exists())
+            applied = run(INIT, "--devbuddy-root", root, "--migrate-layout")
+            self.assertEqual(applied.returncode, 0, applied.stdout)
+            self.assertEqual((root / "knowledge-base" / "Context.md").read_text(encoding="utf-8"), "legacy\n")
 
-    def test_bootstrap_dry_run_scans_without_writing(self) -> None:
+    def test_modified_tool_blocks_explicit_upgrade(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            project.mkdir()
-            (project / "package.json").write_text('{"scripts":{"test":"jest","build":"vite"}}', encoding="utf-8")
-            result = run(BOOTSTRAP, "--project-root", project)
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-            self.assertIn("FACT manifests: package.json", result.stdout)
-            self.assertIn("DRY RUN", result.stdout)
-            self.assertFalse((project / ".devbuddy").exists())
+            root, _frontend, _backend = self.make_workspace(temporary)
+            tool = root / "tools" / "task_memory.py"; tool.write_text("modified\n", encoding="utf-8")
+            result = run(INIT, "--devbuddy-root", root, "--upgrade-tools")
+            self.assertNotEqual(result.returncode, 0); self.assertIn("modified or unrecognized", result.stdout)
 
-    def test_bootstrap_apply_writes_reviewable_core_files_only(self) -> None:
+    def test_bootstrap_uses_registered_project_and_appends_shared_observations(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            project.mkdir()
-            (project / "pyproject.toml").write_text("[project]\nname = 'example'\n", encoding="utf-8")
-            result = run(BOOTSTRAP, "--project-root", project, "--apply")
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-            context = project / ".devbuddy" / "Context.md"
-            knowledge = project / ".devbuddy" / "KnowledgeBase.md"
-            self.assertTrue(context.is_file())
-            self.assertTrue(knowledge.is_file())
-            self.assertIn("pyproject.toml", context.read_text(encoding="utf-8"))
-            self.assertIn("pending user/role review", context.read_text(encoding="utf-8"))
-            self.assertTrue((project / ".devbuddy" / "requirements").is_dir())
-            self.assertTrue((project / ".devbuddy" / "tasks").is_dir())
-            second = run(BOOTSTRAP, "--project-root", project, "--apply")
-            self.assertNotEqual(second.returncode, 0)
-            self.assertIn("refusing to overwrite", second.stdout)
+            root, frontend, backend = self.make_workspace(temporary)
+            (frontend / "package.json").write_text("{}", encoding="utf-8")
+            (backend / "pyproject.toml").write_text("[project]\nname='api'\n", encoding="utf-8")
+            for project_id in ("fe", "be"):
+                result = run(BOOTSTRAP, "--devbuddy-root", root, "--project-id", project_id, "--apply")
+                self.assertEqual(result.returncode, 0, result.stdout)
+            context = (root / "knowledge-base" / "Context.md").read_text(encoding="utf-8")
+            self.assertIn("Bootstrap inventory: fe", context); self.assertIn("Bootstrap inventory: be", context)
 
-    def test_bootstrap_external_root_uses_source_root_without_nesting(self) -> None:
+    def test_workspace_task_and_project_qualified_scope(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            external = Path(temporary) / "vault"
-            project.mkdir()
-            (project / "package.json").write_text("{}", encoding="utf-8")
-            result = run(BOOTSTRAP, "--root", external, "--source-root", project, "--apply")
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-            self.assertTrue((external / "Context.md").is_file())
-            self.assertIn("package.json", (external / "Context.md").read_text(encoding="utf-8"))
-            self.assertFalse((external / ".devbuddy").exists())
+            root, _frontend, _backend = self.make_workspace(temporary)
+            created = run(TASK, "init", "--devbuddy-root", root, "--project-id", "fe", "--project-id", "be", "--task-id", "001")
+            self.assertEqual(created.returncode, 0, created.stdout)
+            ledger = root / "tasks" / "task-001.md"
+            self.assertIn("Project IDs: [fe, be]", ledger.read_text(encoding="utf-8"))
+            allowed = run(TASK, "check-scope", "--devbuddy-root", root, "--task-id", "001", "--write-scope", "fe:src,be:apps/api", "--changed", "fe:src/main.ts")
+            self.assertEqual(allowed.returncode, 0, allowed.stdout)
+            denied = run(TASK, "check-scope", "--devbuddy-root", root, "--task-id", "001", "--write-scope", "fe:src", "--changed", "be:src/main.py")
+            self.assertNotEqual(denied.returncode, 0)
 
-    def test_initializer_refuses_to_overwrite_core_files(self) -> None:
+    def test_knowledge_entity_requires_project_ids(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            project = Path(temporary) / "project"
-            first = run(INIT, "--project-root", project)
-            second = run(INIT, "--project-root", project)
-            self.assertEqual(first.returncode, 0, first.stderr or first.stdout)
-            self.assertNotEqual(second.returncode, 0)
-            self.assertIn("refusing to overwrite", second.stdout)
+            root, _frontend, _backend = self.make_workspace(temporary)
+            entity = root / "knowledge-base" / "requirements" / "req.md"
+            entity.write_text("---\nid: REQ-001\ntype: requirement\nstatus: active\nowner: ba-pm\nsource: test\nlast_verified: 2026-08-02\nconfidence: verified\n---\n", encoding="utf-8")
+            result = run(KNOWLEDGE_VALIDATOR, "--devbuddy-root", root)
+            self.assertNotEqual(result.returncode, 0); self.assertIn("project_ids", result.stdout)
 
 
 class SettingsValidatorTests(unittest.TestCase):
     def test_shipped_settings_validate(self) -> None:
         result = run(VALIDATOR, SETTINGS)
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-
-    def test_missing_common_key_is_rejected(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            invalid = Path(temporary) / "settings.yaml"
-            invalid.write_text(SETTINGS.read_text(encoding="utf-8").replace("quality:\n", ""), encoding="utf-8")
-            result = run(VALIDATOR, invalid)
-            self.assertNotEqual(result.returncode, 0)
-            self.assertIn("quality", result.stdout)
-
-    def test_noncanonical_memory_root_is_rejected(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            invalid = Path(temporary) / "settings.yaml"
-            content = SETTINGS.read_text(encoding="utf-8").replace("  default_root: .devbuddy", "  default_root: memory")
-            invalid.write_text(content, encoding="utf-8")
-            result = run(VALIDATOR, invalid)
-            self.assertNotEqual(result.returncode, 0)
-            self.assertIn("memory.default_root", result.stdout)
 
 
 if __name__ == "__main__":

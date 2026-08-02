@@ -20,18 +20,19 @@ The default target is `~/.codex/skills/devbuddy`. Use `--codex-root <path>` for 
 
 ## Configure and validate
 
-Create `<project-root>/.devbuddy/settings.yaml` with user-approved model and effort allowlists, concurrency, timeout, and retry values. The same `.devbuddy/` root contains `KnowledgeBase.md`, the other core files, typed knowledge, and task ledgers. Model IDs are intentionally not hardcoded in this adapter.
+Select a `.devbuddy` workspace and register one or more repositories in `settings.yaml` with stable project IDs, plus user-approved model and effort allowlists, concurrency, timeout, and retry values. Shared canonical knowledge lives in `knowledge-base/`; task ledgers and runtime tools live in `tasks/` and `tools/`. Model IDs are intentionally not hardcoded in this adapter.
 
 ```text
 python3 scripts/init_project_memory.py --project-root <project-root> --dry-run
-python3 scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run
-python3 scripts/validate_project_settings.py <project-root>/.devbuddy/settings.yaml
-python3 scripts/validate_knowledge.py --project-root <project-root>
+python3 scripts/init_project_memory.py --devbuddy-root <workspace>/.devbuddy --project fe=../frontend --project be=../backend --dry-run
+python3 <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <workspace>/.devbuddy --project-id fe --dry-run
+python3 <workspace>/.devbuddy/tools/validate_project_settings.py <workspace>/.devbuddy/settings.yaml
+python3 <workspace>/.devbuddy/tools/validate_knowledge.py --devbuddy-root <workspace>/.devbuddy
 python3 scripts/validate_skill_metadata.py .
 python3 scripts/check_adapter_conformance.py
 python3 -m unittest discover tests -v
 ```
 
-Run bootstrap in dry-run mode to prepare a reviewable repository inventory, then use `--apply` only after review. It writes only `Context.md` and `KnowledgeBase.md`, never overwrites non-empty existing files, and never invents typed canonical entities. For an approved external memory root, use `--root <approved-external-memory-root> --source-root <project-root>` with bootstrap and `--root <approved-external-memory-root>` with the initializer and `validate_knowledge.py`; the path is used directly and is never wrapped in another `.devbuddy/` directory.
+Run bootstrap in dry-run mode for one registered project ID, then use `--apply` only after review. It appends a labelled observation section without replacing another project's observations and never invents typed canonical entities. Use `--migrate-layout --dry-run` before explicitly moving a legacy layout into `knowledge-base/`.
 
 Invoke with `$devbuddy <task>`. The Orchestrator selects the role graph; `owner` and explicit role forms are advanced routing overrides. If the Codex surface cannot express or verify both `model` and `reasoning_effort`, the task becomes `waiting_user`; the Orchestrator does not substitute itself for the specialist.

@@ -2,22 +2,43 @@
 
 ## Memory root
 
-Resolve `<project-root>/.devbuddy/settings.yaml` first. By default, that same `.devbuddy/` directory contains `settings.yaml`, `KnowledgeBase.md`, the other three core memory files, and the typed folders. A configured external `memory_root` is used directly; do not add another `.devbuddy/` wrapper there. Canonical memory is never global or temporary.
+Resolve the selected `.devbuddy/settings.yaml` first. A DevBuddy workspace may register multiple source repositories under `workspace.projects`; relative paths resolve from the parent of `.devbuddy`. Canonical memory is shared below `.devbuddy/knowledge-base/`, while task state and executable tools remain in `.devbuddy/tasks/` and `.devbuddy/tools/`.
 
-Initialise a project root with `scripts/init_project_memory.py --project-root <project-root> --dry-run` first, then without `--dry-run` after approval. Use `--root <approved-external-memory-root>` for an external root. The script never overwrites an existing file.
+```text
+<devbuddy-root>/
+|- settings.yaml
+|- knowledge-base/
+|  |- Context.md
+|  |- BusinessContext.md
+|  |- DecisionLog.md
+|  |- KnowledgeBase.md
+|  |- domains/ features/ requirements/ flows/ business-rules/ screens/
+|  |- technical/{architecture,apis,database,events,integrations}/
+|  `- tests/ decisions/ releases/ incidents/
+|- tasks/
+`- tools/
+```
 
-## Layout and entities
+## Entity metadata
 
-The memory root contains `Context.md`, `BusinessContext.md`, `DecisionLog.md`, and `KnowledgeBase.md` directly at its root, plus typed folders and `tasks/` for task ledgers. Every canonical entity has an immutable typed key such as `REQ-001`, `BR-001`, `API-001`, `DB-001`, or `ADR-001`, plus owner, source/evidence, verification date, and confidence metadata.
+Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Every entity has a non-empty `project_ids` list; one shared fact may name multiple registered projects. Recommended prefixes: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, and `INC`.
 
-Use `templates/knowledge-entity.md` for new entities. Add `devbuddy-ref: KEY-001` comments only when the key already exists. A task ID, slice name, or invented placeholder is never a knowledge key.
+## Ownership
 
-## Impact and ownership
+- Architect: technical context, architecture, contracts, ADRs.
+- BA/PM: business context, requirements, flows, business rules.
+- QA: test strategy, cases, evidence, traceability.
+- DevOps/SRE: releases, runbooks, incidents, operational context.
+- DBA/Data: database/data models, migrations, integrity evidence.
 
-Before a change that may affect canonical memory, return an impact analysis naming affected keys, relationships, proposed updates, unresolved uncertainty, and the consequence of not updating. The Orchestrator asks the user for Knowledge Impact Approval and keeps the branch `waiting_user` until approval. Do not write canonical knowledge from the analysis alone.
+Owners propose canonical-memory changes only after user-approved Knowledge Impact Approval. The Orchestrator/`owner` is the sole canonical-memory writer and applies approved proposals with evidence. Keep current facts canonical; mark superseded decisions rather than deleting history.
 
-The Orchestrator/`owner` is the sole writer for the task ledger and all canonical memory. Specialists propose approved updates through a compact handoff and never write `.devbuddy/` directly. Every canonical write has an owner reservation, parent revision, and atomic replacement; Reviewer and QA verify references and health.
+## Impact approval
 
-Run `scripts/validate_knowledge.py --project-root <project-root>` after material memory changes and before closure. Use `--root <approved-external-memory-root>` for an external root. It checks core files, entity metadata, key format, dates, confidence, and duplicate IDs.
+Before a potentially relevant implementation change, identify affected keys, references, relationships, evidence, proposed updates, and consequences. The Orchestrator presents this to the user. Keep the branch `waiting_user` until the user approves or clarifies it.
 
-Use `scripts/bootstrap_knowledge.py --project-root <project-root> --dry-run` when a repository inventory is needed. It reports evidence-backed observations from manifests and paths; run `--apply` only after review/approval to write reviewable `Context.md` and `KnowledgeBase.md` observations. It never creates typed entities or overwrites non-empty existing knowledge files.
+## Health and migration
+
+Validate IDs, YAML metadata, relations, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
+
+Use `analyze <project-id>` or `.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <root> --project-id <id> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. After approval, `--apply` appends a project-labelled observation section without replacing observations for other projects.

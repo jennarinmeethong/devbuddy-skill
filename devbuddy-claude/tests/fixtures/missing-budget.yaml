@@ -1,5 +1,5 @@
 schema_version: 1
-memory_root: .devbuddy
+memory_root: knowledge-base
 orchestration:
   max_concurrency: 2
   approved_models:

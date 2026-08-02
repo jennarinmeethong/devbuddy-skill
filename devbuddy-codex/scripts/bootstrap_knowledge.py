@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 DEFAULT_MEMORY_ROOT = ".devbuddy"
+KNOWLEDGE_ROOT = "knowledge-base"
 CORE = {
     "Context.md": "# Technical Context\n\n",
     "BusinessContext.md": "# Business Context\n\n",
@@ -16,7 +18,7 @@ CORE = {
 DIRECTORIES = [
     "domains", "features", "requirements", "flows", "business-rules", "screens",
     "technical/architecture", "technical/apis", "technical/database", "technical/events",
-    "technical/integrations", "tests", "decisions", "releases", "incidents", "tasks",
+    "technical/integrations", "tests", "decisions", "releases", "incidents",
 ]
 MANIFESTS = (
     "package.json", "pyproject.toml", "requirements.txt", "Pipfile", "Cargo.toml", "go.mod",
@@ -33,16 +35,47 @@ FRAMEWORK_MARKERS = {
 }
 
 
-def resolve_root(args: argparse.Namespace, parser: argparse.ArgumentParser) -> tuple[Path, Path]:
-    selected = [value for value in (args.root, args.project_root) if value is not None]
-    if len(selected) != 1:
-        parser.error("provide --project-root <project-root> or --root <memory-root>")
+def registered_projects(root: Path) -> dict[str, Path]:
+    settings = root / "settings.yaml"
+    if not settings.is_file():
+        raise ValueError(f"workspace settings not found: {settings}")
+    projects: dict[str, Path] = {}
+    current: str | None = None
+    in_projects = False
+    for raw in settings.read_text(encoding="utf-8").splitlines():
+        if raw == "  projects:":
+            in_projects = True
+            continue
+        if in_projects and (match := re.match(r"^    ([A-Za-z0-9][A-Za-z0-9._-]*):$", raw)):
+            current = match.group(1)
+            continue
+        if in_projects and current and (match := re.match(r"^      path:\s*(.+?)\s*$", raw)):
+            value = Path(match.group(1).strip("\"'"))
+            projects[current] = (value if value.is_absolute() else root.parent / value).resolve()
+            continue
+        if in_projects and raw and not raw.startswith(" "):
+            break
+    return projects
+
+
+def resolve_root(args: argparse.Namespace, parser: argparse.ArgumentParser) -> tuple[str, Path, Path, Path]:
+    if args.devbuddy_root is not None:
+        root = args.devbuddy_root.expanduser().resolve()
+        projects = registered_projects(root)
+        if not args.project_id:
+            parser.error("--project-id is required with --devbuddy-root")
+        if args.project_id not in projects:
+            parser.error(f"unknown project ID: {args.project_id}")
+        return args.project_id, projects[args.project_id], root, root / KNOWLEDGE_ROOT
     if args.project_root is not None:
         project = args.project_root.expanduser().resolve()
-        return project, project / DEFAULT_MEMORY_ROOT
-    memory = args.root.expanduser().resolve()
-    project = (args.source_root or Path.cwd()).expanduser().resolve()
-    return project, memory
+        root = project / DEFAULT_MEMORY_ROOT
+        return args.project_id or project.name, project, root, root / KNOWLEDGE_ROOT
+    if args.root is not None:
+        root = args.root.expanduser().resolve()
+        project = (args.source_root or Path.cwd()).expanduser().resolve()
+        return args.project_id or project.name, project, root, root / KNOWLEDGE_ROOT
+    parser.error("provide --devbuddy-root, --project-root, or --root")
 
 
 def relative(path: Path, project: Path) -> str:
@@ -133,11 +166,11 @@ def bullet_section(title: str, values: list[str] | str) -> str:
     return f"## {title}\n\n" + "\n".join(f"- `{item}`" for item in items) + "\n"
 
 
-def render_context(project: Path, memory: Path, facts: dict[str, list[str] | str]) -> str:
+def render_context(project_id: str, project: Path, memory: Path, facts: dict[str, list[str] | str]) -> str:
     return (
-        "# Technical Context\n\n"
-        "## Bootstrap inventory\n\n"
+        f"## Bootstrap inventory: {project_id}\n\n"
         "This inventory was produced by a read-only repository scan. Review it before treating any observation as canonical knowledge.\n\n"
+        f"- Project ID: `{project_id}`\n"
         f"- Project: `{facts['project_name']}`\n"
         f"- Repository root: `{project}`\n"
         f"- Memory root: `{memory}`\n\n"
@@ -152,11 +185,11 @@ def render_context(project: Path, memory: Path, facts: dict[str, list[str] | str
     )
 
 
-def render_knowledge(facts: dict[str, list[str] | str]) -> str:
+def render_knowledge(project_id: str, facts: dict[str, list[str] | str]) -> str:
     return (
-        "# Knowledge Base\n\n"
-        "## Bootstrap observations\n\n"
+        f"## Bootstrap observations: {project_id}\n\n"
         "The following observations were extracted from repository metadata for review. They are not typed canonical entities and must not be promoted without Knowledge Impact Approval.\n\n"
+        f"- Project IDs: `[{project_id}]`\n"
         f"- Project: `{facts['project_name']}`\n"
         f"- Manifests detected: {', '.join(facts['manifests']) or 'none'}\n"
         f"- Runtime/package signals: {', '.join(facts['package_managers']) or 'none'}\n"
@@ -168,45 +201,59 @@ def render_knowledge(facts: dict[str, list[str] | str]) -> str:
     )
 
 
-def scaffoldable(path: Path, name: str) -> bool:
-    return not path.exists() or read_text(path) == CORE[name]
+def merged(path: Path, heading: str, section: str, project_id: str) -> str:
+    current = read_text(path) if path.exists() else heading + "\n\n"
+    marker = f": {project_id}\n"
+    if marker in current:
+        raise ValueError(f"bootstrap observations already exist for project {project_id}: {path}")
+    return current.rstrip() + "\n\n" + section
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     roots = parser.add_mutually_exclusive_group(required=True)
+    roots.add_argument("--devbuddy-root", type=Path, help="DevBuddy workspace root")
     roots.add_argument("--project-root", type=Path, help="repository to inspect; memory is <project-root>/.devbuddy")
     roots.add_argument("--root", type=Path, help="approved external memory root, used directly")
     parser.add_argument("--source-root", type=Path, help="repository to inspect when using an external --root (default: current directory)")
+    parser.add_argument("--project-id", help="registered workspace project ID")
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--dry-run", action="store_true", help="print observations and planned writes (default)")
     modes.add_argument("--apply", action="store_true", help="write only empty/bootstrap core files after review")
     args = parser.parse_args()
-    project, memory = resolve_root(args, parser)
+    try:
+        project_id, project, workspace, memory = resolve_root(args, parser)
+    except ValueError as error:
+        print(f"ERROR: {error}")
+        return 1
     if not project.is_dir():
         print(f"ERROR: repository root not found: {project}")
         return 1
     facts = discover(project)
     targets = [memory / "Context.md", memory / "KnowledgeBase.md"]
-    conflicts = [path for path in targets if not scaffoldable(path, path.name)]
+    try:
+        outputs = {
+            targets[0]: merged(targets[0], "# Technical Context", render_context(project_id, project, workspace, facts), project_id),
+            targets[1]: merged(targets[1], "# Knowledge Base", render_knowledge(project_id, facts), project_id),
+        }
+    except ValueError as error:
+        print(f"ERROR: {error}")
+        return 1
     print(f"SCAN: {project}")
     print(f"MEMORY: {memory}")
     for key in ("manifests", "package_managers", "frameworks", "source_directories", "test_directories", "commands", "architecture_references"):
         values = facts[key]
         print(f"FACT {key}: {', '.join(values) if isinstance(values, list) and values else 'none detected'}")
     for path in targets:
-        print(f"{'CONFLICT' if path in conflicts else 'WRITE'}: {path}")
-    if conflicts:
-        print("ERROR: refusing to overwrite existing knowledge files: " + ", ".join(map(str, conflicts)))
-        return 1
+        print(f"WRITE: {path}")
     if not args.apply:
         print("DRY RUN: no files written; review observations, then re-run with --apply after approval")
         return 0
     try:
         for directory in DIRECTORIES:
             (memory / directory).mkdir(parents=True, exist_ok=True)
-        (memory / "Context.md").write_text(render_context(project, memory, facts), encoding="utf-8")
-        (memory / "KnowledgeBase.md").write_text(render_knowledge(facts), encoding="utf-8")
+        for path, content in outputs.items():
+            path.write_text(content, encoding="utf-8")
     except OSError as error:
         print(f"ERROR: cannot write bootstrap knowledge at {memory}: {error}")
         return 1
