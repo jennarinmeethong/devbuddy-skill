@@ -29,6 +29,13 @@ SKILL_CONTENT = ["SKILL.md", "settings.yaml", "references", "roles", "templates"
 # validation section is split along this same line.
 SKILL_SCRIPTS = ["init_project_memory.py", "validate_skill_metadata.py", "run_scenarios.py"]
 SKILL_EXTRAS = [Path("tests") / "scenarios.json"]
+
+# Never installed. Bundled custom tools carry real project files, so a local
+# build or an editor's restore can leave output beside them; shipping that would
+# put stale binaries in the user's configuration. Host-owned configuration is
+# excluded for the stronger reason that it holds credentials.
+SKIP_DIRS = {"__pycache__", "bin", "obj", "releases", ".venv", "node_modules"}
+SKIP_FILES = {"appsettings.json", ".DS_Store"}
 MARKER = "devbuddy"
 
 
@@ -55,8 +62,11 @@ def plan_skill(target: Path) -> list[tuple[Path, Path]]:
             pairs.append((source, target / entry))
             continue
         for path in sorted(source.rglob("*")):
-            if path.is_file() and "__pycache__" not in path.parts:
-                pairs.append((path, target / path.relative_to(ROOT)))
+            if not path.is_file() or path.name in SKIP_FILES:
+                continue
+            if set(path.relative_to(ROOT).parts) & SKIP_DIRS:
+                continue
+            pairs.append((path, target / path.relative_to(ROOT)))
     for name in SKILL_SCRIPTS:
         script = ROOT / "scripts" / name
         if script.is_file():

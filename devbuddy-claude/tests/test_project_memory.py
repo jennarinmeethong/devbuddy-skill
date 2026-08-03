@@ -22,6 +22,9 @@ MANIFEST = ROOT / "tests" / "fixtures" / "custom-tool-manifest.json"
 INSTALLER = ROOT / "scripts" / "install_claude_adapter.py"
 SCENARIOS = ROOT / "tests" / "scenarios.json"
 RUN_SCENARIOS = ROOT / "scripts" / "run_scenarios.py"
+# Directories a build or an editor restore creates. They must never be seeded
+# into a workspace or installed into a configuration root.
+SKIP_DIRS = ("bin", "obj", "releases", ".venv", "__pycache__")
 
 # An entity that satisfies every required field, so a negative test fails for
 # the one reason it is testing rather than for a missing field.
@@ -450,21 +453,36 @@ class BundledCustomToolTests(unittest.TestCase):
 
     TOOL = "db-query-tool"
 
-    def test_bundled_tool_ships_no_secret_and_no_build_output(self) -> None:
+    def source_files(self) -> list[Path]:
+        """Source files of the bundled tool, excluding anything a build produces.
+
+        An editor with C# support restores these projects as soon as it notices
+        them, so `obj/` and `bin/` reappear in a developer's tree no matter how
+        often they are deleted. That is why the guards that matter live on the
+        install and seed paths, which decide what actually reaches a user; here
+        we assert only that build output stays untracked and unshipped.
+        """
         source = ROOT / "templates" / "project-tools" / self.TOOL
         self.assertTrue(source.is_dir(), f"missing bundled tool {self.TOOL}")
-        for path in source.rglob("*"):
-            parts = set(path.relative_to(source).parts)
-            self.assertFalse(parts & {"bin", "obj", "releases", ".venv", "__pycache__"}, f"build output shipped: {path}")
+        return [p for p in sorted(source.rglob("*"))
+                if p.is_file() and not set(p.relative_to(source).parts) & set(SKIP_DIRS)]
+
+    def test_bundled_tool_carries_no_host_configuration(self) -> None:
+        for path in self.source_files():
             self.assertNotIn(path.name, {"appsettings.json", "tool.json"}, f"host-owned file shipped: {path}")
-        text = "\n".join(p.read_text(encoding="utf-8", errors="replace")
-                         for p in source.rglob("*") if p.is_file())
+        text = "\n".join(p.read_text(encoding="utf-8", errors="replace") for p in self.source_files())
         # The committed template documents the shape; a real value would mean a
         # credential is now inside the skill and, once installed, inside ~/.claude.
         for placeholder in ("YOUR_SERVER", "YOUR_PASSWORD"):
             self.assertIn(placeholder, text)
-        for leaked in ("BMS_DBDEV",):
-            self.assertNotIn(leaked, text)
+        self.assertNotIn("BMS_DBDEV", text)
+
+    def test_build_output_beside_a_bundled_tool_cannot_be_committed(self) -> None:
+        source = ROOT / "templates" / "project-tools" / self.TOOL / self.TOOL
+        for candidate in (source / "obj" / "project.assets.json", source / "bin" / "Debug" / "stale.dll"):
+            checked = subprocess.run(["git", "check-ignore", "-q", str(candidate)],
+                                     cwd=ROOT, capture_output=True, text=True, check=False)
+            self.assertEqual(checked.returncode, 0, f"build output is not git-ignored: {candidate}")
 
     def test_seeding_reproduces_the_buildable_layout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -478,6 +496,9 @@ class BundledCustomToolTests(unittest.TestCase):
             self.assertTrue((tool / "build-release.sh").is_file())
             self.assertTrue((tool / "appsettings.template.json").is_file())
             self.assertFalse((tool / "appsettings.json").exists())
+            for path in tool.rglob("*"):
+                self.assertFalse(set(path.relative_to(tool).parts) & set(SKIP_DIRS),
+                                 f"build output seeded into the workspace: {path}")
             # The test project references ../db-query-tool/, so the two must stay
             # siblings under tools/ or the seeded copy will not build.
             reference = (root / "tools" / f"{self.TOOL}.tests").glob("*.csproj")
@@ -589,6 +610,39 @@ class InstallerTests(unittest.TestCase):
             self.assertEqual(metadata.returncode, 0, metadata.stderr or metadata.stdout)
             scenarios = run(installed / "scripts" / "run_scenarios.py", installed / "tests" / "scenarios.json")
             self.assertEqual(scenarios.returncode, 0, scenarios.stderr or scenarios.stdout)
+
+    def test_installer_skips_build_output_beside_a_bundled_tool(self) -> None:
+        """A local build or an editor restore must not reach the user's config.
+
+        Bundled custom tools are real projects, so `obj/` and `bin/` appear next
+        to them as soon as anything touches them locally. The source tree is
+        usually clean, so this plants the output rather than waiting for it.
+        """
+        bundled = ROOT / "templates" / "project-tools" / "db-query-tool" / "db-query-tool"
+        planted = [bundled / "obj" / "project.assets.json", bundled / "bin" / "Debug" / "stale.dll"]
+        created: list[Path] = []
+        try:
+            for path in planted:
+                if not path.parent.exists():
+                    created.append(path.parent)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("stale build output\n", encoding="utf-8")
+            with tempfile.TemporaryDirectory() as temporary:
+                installed = self.install(temporary)
+                shipped = [p for p in installed.rglob("*") if p.is_file()]
+                self.assertTrue(shipped)
+                for path in shipped:
+                    self.assertFalse({"obj", "bin"} & set(path.relative_to(installed).parts),
+                                     f"build output installed: {path}")
+        finally:
+            for path in planted:
+                path.unlink(missing_ok=True)
+            for directory in sorted(created, key=lambda p: len(p.parts), reverse=True):
+                for parent in (directory, *directory.parents):
+                    if parent == bundled:
+                        break
+                    if parent.is_dir() and not any(parent.iterdir()):
+                        parent.rmdir()
 
     def test_installer_is_dry_run_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

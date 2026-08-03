@@ -20,6 +20,12 @@ SKILL_CONTENT = [
     "manual",
     "tests",
 ]
+# Never installed. A bundled custom tool carries real project files, so a local
+# build or an editor's restore can leave output beside them; shipping that would
+# put stale binaries in the user's configuration. Host-owned configuration is
+# excluded for the stronger reason that it holds credentials.
+SKIP_DIRS = {"__pycache__", "bin", "obj", "releases", ".venv", "node_modules"}
+SKIP_FILES = {"appsettings.json", ".DS_Store"}
 MARKER = "devbuddy"
 
 
@@ -45,7 +51,9 @@ def plan(target: Path) -> list[tuple[Path, Path]]:
             pairs.append((source, target / entry))
             continue
         for path in sorted(source.rglob("*")):
-            if path.is_file() and "__pycache__" not in path.parts:
+            if not path.is_file() or path.name in SKIP_FILES:
+                continue
+            if not set(path.relative_to(ROOT).parts) & SKIP_DIRS:
                 pairs.append((path, target / path.relative_to(ROOT)))
     initializer = ROOT / "scripts" / "init_project_memory.py"
     pairs.append((initializer, target / "scripts" / initializer.name))
