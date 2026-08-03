@@ -21,8 +21,9 @@ orchestration:
   subagent_capability: required
   model_transport: agent_tool_model_parameter
   effort_transport: agent_definition_frontmatter
-  # Default approval boundary. A project may narrow it in
-  # <project-root>/.devbuddy/settings.yaml but never widen it silently.
+  # Default approval boundary. The selected workspace may narrow it in
+  # <workspace>/.devbuddy/settings.yaml, per registered project where needed,
+  # but never widen it silently.
   # Listing a model here does not waive the Cost Approval Policy.
   approved_models:
     - id: haiku
@@ -60,7 +61,10 @@ memory:
   knowledge_root: knowledge-base
   project_registry_key: workspace.projects
 tools:
-  custom_tool_runtime: python
+  # Default approval boundary for custom tools. A workspace may add a runtime in
+  # its own settings after the user approves it; a tool whose runtime is not
+  # listed is a dispatch block, not a judgement call. See references/custom-tools.md.
+  approved_custom_tool_runtimes: [python, dotnet]
   install_without_user_approval: false
 environments:
   default: local

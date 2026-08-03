@@ -4,6 +4,12 @@
 Checks the skill frontmatter and every agent definition, because a subagent
 whose `effort` is missing or whose `model` is pinned would silently break the
 per-dispatch model/effort guarantee the Orchestrator records in the ledger.
+
+The skill frontmatter must also keep `disable-model-invocation: true`. Every
+approval gate in this adapter assumes the workflow starts only when the user
+types `/devbuddy`; without that field Claude may load the skill on its own and
+begin dispatching specialists for a request the user never gated. Prose in the
+body cannot enforce that, so it is checked here.
 """
 from __future__ import annotations
 
@@ -16,7 +22,12 @@ from pathlib import Path
 
 ROLES = ["ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"]
 TIERS = ["low", "medium", "high"]
+# Claude Code accepts xhigh and max as well. The adapter deliberately ships only
+# the three tiers above; the wider set stays legal here so raising the ceiling
+# later is a settings and generator change, not a validator change.
 EFFORTS = {"low", "medium", "high", "xhigh", "max"}
+SKILL_REQUIRED = {"name", "description", "disable-model-invocation"}
+SKILL_OPTIONAL = {"argument-hint"}
 CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
 
 
@@ -67,10 +78,19 @@ def check_skill(root: Path, errors: list[str]) -> None:
     if problem:
         errors.append(f"SKILL.md: {problem}")
         return
-    if set(fields) != {"name", "description"}:
-        errors.append("SKILL.md: frontmatter must contain only name and description")
+    unknown = set(fields) - SKILL_REQUIRED - SKILL_OPTIONAL
+    if unknown:
+        errors.append(f"SKILL.md: unexpected frontmatter field(s): {', '.join(sorted(unknown))}")
+    for missing in sorted(SKILL_REQUIRED - set(fields)):
+        errors.append(f"SKILL.md: missing required frontmatter field: {missing}")
     if fields.get("name") != "devbuddy":
         errors.append("SKILL.md: name must be devbuddy for /devbuddy invocation")
+    gate = fields.get("disable-model-invocation")
+    if gate is not None and gate.strip().lower() != "true":
+        errors.append(
+            "SKILL.md: disable-model-invocation must be true so only an explicit /devbuddy "
+            "starts the workflow; Claude must not load this skill on its own"
+        )
     description = fields.get("description", "")
     if not description:
         errors.append("SKILL.md: description is required")

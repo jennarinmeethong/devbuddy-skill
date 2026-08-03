@@ -2,6 +2,10 @@
 
 The main Claude Code session is the Orchestrator. It dispatches specialists with the Agent tool and never performs their work itself.
 
+## Entry
+
+`SKILL.md` sets `disable-model-invocation: true`, so this workflow starts only when the user types `/devbuddy`. That is a platform guarantee rather than an instruction the model could reason around, and every approval gate below depends on it: a dispatch the user never asked for cannot be approved by the user. It also keeps the skill out of the automatic listing, so the description costs no context until the workflow is actually opened, and stops the skill being preloaded into the specialists themselves — they receive a task package, not the Orchestrator's rulebook.
+
 ## Transport
 
 | Selection | Carried by | Source of truth |

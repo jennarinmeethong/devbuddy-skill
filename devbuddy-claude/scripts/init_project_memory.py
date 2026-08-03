@@ -29,6 +29,10 @@ TOOLS = (
     "init_project_memory.py", "bootstrap_knowledge.py", "task_memory.py",
     "validate_project_settings.py", "validate_knowledge.py",
 )
+# Never copied into a workspace: build output is regenerated locally, and the
+# host's real configuration holds credentials the skill must never carry.
+SKIP_DIRS = {"bin", "obj", "releases", ".venv", "__pycache__", "node_modules"}
+SKIP_FILES = {"appsettings.json", "tool.json", ".DS_Store"}
 
 
 def sha256(path: Path) -> str:
@@ -45,6 +49,34 @@ def tool_source(name: str) -> Path:
         if candidate.is_file():
             return candidate
     raise ValueError(f"project-tool template not found: {name}")
+
+
+def bundled_tool(name: str) -> Path:
+    """Locate a bundled custom-tool directory under templates/project-tools/.
+
+    These are opt-in: unlike the five Python runtime tools, a bundled custom
+    tool may need another runtime and a build step, so seeding it is an explicit
+    request rather than part of workspace initialisation.
+    """
+    if not PROJECT_ID.fullmatch(name):
+        raise ValueError(f"invalid custom tool name: {name!r}")
+    source = Path(__file__).resolve().parents[1] / "templates" / "project-tools" / name
+    if not source.is_dir():
+        raise ValueError(f"bundled custom tool not found: {name}")
+    return source
+
+
+def bundled_tool_pairs(source: Path, root: Path) -> list[tuple[Path, Path]]:
+    """Plan the copy, skipping anything a build produces or a host owns."""
+    pairs: list[tuple[Path, Path]] = []
+    for path in sorted(source.rglob("*")):
+        if not path.is_file():
+            continue
+        parts = set(path.relative_to(source).parts)
+        if parts & SKIP_DIRS or path.name in SKIP_FILES:
+            continue
+        pairs.append((path, root / "tools" / path.relative_to(source)))
+    return pairs
 
 
 def workspace_root(args: argparse.Namespace) -> Path:
@@ -124,11 +156,14 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true", help="show planned changes only")
     parser.add_argument("--upgrade-tools", action="store_true", help="safely replace recognized project tools")
     parser.add_argument("--migrate-layout", action="store_true", help="move the legacy memory layout below knowledge-base")
+    parser.add_argument("--seed-custom-tool", action="append", default=[], metavar="NAME",
+                        help="copy a bundled custom tool from templates/project-tools/NAME into tools/; repeatable")
     args = parser.parse_args()
     root = workspace_root(args)
     try:
         project_map = projects(args.project, root, args.project_root)
         sources = {name: tool_source(name) for name in TOOLS}
+        bundled = [(name, bundled_tool(name)) for name in args.seed_custom_tool]
     except (OSError, ValueError) as error:
         print(f"ERROR: {error}")
         return 1
@@ -173,6 +208,17 @@ def main() -> int:
                 print(f"ERROR: refusing to replace modified or unrecognized project tool: {target}")
                 return 1
             tool_actions.append(("REPLACE", source, target))
+    custom_actions: list[tuple[Path, Path]] = []
+    for name, source in bundled:
+        pairs = bundled_tool_pairs(source, root)
+        existing = [target for _source, target in pairs if target.exists()]
+        if existing:
+            # The host may have edited the seeded copy or built inside it, so an
+            # overwrite here could destroy local work the manifest cannot vouch for.
+            print(f"ERROR: refusing to overwrite existing custom tool files for {name}: " + ", ".join(map(str, existing[:3])))
+            return 1
+        custom_actions.extend(pairs)
+
     new_manifest = {"tool_version": TOOL_VERSION, "files": {name: sha256(source) for name, source in sources.items()}}
     manifest_content = json.dumps(new_manifest, indent=2, sort_keys=True) + "\n"
     write_manifest = not manifest_path.exists() or (args.upgrade_tools and manifest_path.read_text(encoding="utf-8") != manifest_content)
@@ -186,6 +232,8 @@ def main() -> int:
         print(f"CREATE: {path}")
     for action, _source, target in tool_actions:
         print(f"{action}: {target}")
+    for _source, target in custom_actions:
+        print(f"CREATE: {target}")
     if write_manifest:
         print(f"{'REPLACE' if manifest_path.exists() else 'CREATE'}: {manifest_path}")
     if args.dry_run:
@@ -202,6 +250,9 @@ def main() -> int:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding="utf-8")
         for _action, source, target in tool_actions:
+            shutil.copy2(source, target)
+        for source, target in custom_actions:
+            target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
         if write_manifest:
             manifest_path.write_text(manifest_content, encoding="utf-8")

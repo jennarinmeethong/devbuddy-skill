@@ -22,11 +22,20 @@ COMMON_PAGES = (
 
 
 def rendered(text: str, adapter: str) -> str:
-    """Remove the other adapter from the shared navigation."""
+    """Strip everything belonging to the other adapter from a shared page."""
     other = "claude" if adapter == "codex" else "codex"
     # This also removes an adapter-specific next/previous link, which would
     # otherwise point at a page intentionally not shipped in this adapter.
-    return re.sub(rf'<a href="{other}\.html"[^>]*>.*?</a>', "", text, flags=re.DOTALL)
+    text = re.sub(rf'<a href="{other}\.html"[^>]*>.*?</a>', "", text, flags=re.DOTALL)
+    # A shared page may carry one install block per adapter. Shipping both would
+    # put the wrong platform's command in front of a reader who only installed
+    # this one, so keep only the block tagged for this adapter.
+    return re.sub(
+        rf'<div class="code-wrap" data-adapter="{other}">.*?</pre></div>',
+        "",
+        text,
+        flags=re.DOTALL,
+    )
 
 
 def sync(source_root: Path, repository: Path, adapter: str, dry_run: bool) -> int:

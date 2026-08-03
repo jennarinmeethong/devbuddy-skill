@@ -60,4 +60,4 @@ Not yet exercised live: `migration` and `incident` role chains, and 21 of the 27
 ## Live dispatch verification
 
 - **Codex smoke test passed 2026-07-27** — a real read-only subagent dispatch accepted explicit `model=gpt-5.6-luna` and `reasoning_effort=low`; the handoff reported both values and completed successfully.
-- **Claude smoke test pending** — the target environment has no `claude` executable, and no runtime or package was installed without explicit installation direction.
+- **Claude live dispatches passed 2026-07-27** — SMOKE-001 through SMOKE-006 above are real Agent-tool dispatches of `devbuddy-<role>-<effort>` subagents with explicit models, not simulations; they produced ISSUE-002 and ISSUE-003. Still unexercised live: the `migration` and `incident` role chains, and 21 of the 27 agent definitions.

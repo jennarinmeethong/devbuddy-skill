@@ -49,6 +49,7 @@ Set the affected task or slice to `waiting_user`; do not dispatch when any of th
 
 - Codex cannot create a subagent with explicit model and effort parameters.
 - Project settings lack a valid model allowlist, effort allowlist, max concurrency, timeout, or retry limit.
+- A needed custom tool is absent from `custom_tools`, its runtime is not approved, or its executable is missing on this platform.
 - No approved model/effort pair is sufficient, or a cost/privacy/tool/environment approval is missing.
 - A required tool is unavailable, an artefact lock conflicts, required knowledge impact approval is pending, or a fact is uncertain.
 
@@ -63,7 +64,7 @@ Do not simulate a specialist with the Orchestrator when subagents are unavailabl
 - Use cohesive slices and batch only after complete batch assessment shows a safe, independently verifiable benefit.
 - Run a loop only for an explicit loop invocation or user-approved loop-shaped task. Bound it by settings, evidence, retries, and exit conditions.
 
-Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` and `references/task-memory.md` for memory/task state, and `references/loop.md` before a loop.
+Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` and `references/task-memory.md` for memory/task state, `references/loop.md` before a loop, and `references/custom-tools.md` before proposing or calling a workspace custom tool.
 
 ## Validation
 

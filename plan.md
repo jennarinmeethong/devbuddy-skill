@@ -660,7 +660,7 @@ For a feature to be knowledge-complete when applicable, its business documentati
 
 ## Follow-up work
 
-The protocol implementation is complete for the bundled, filesystem-level tools. The work completed in version `0.1.2` is:
+The protocol implementation is complete for the bundled, filesystem-level tools. The work completed as of common specification version `0.2.0` is:
 
 - **Shared agent-memory contract:** Codex and Claude dispatch contracts carry the resolved absolute `memory_root`, `read_keys`, `read_paths`, `write_scope`, `handoff_path`, and `parent_revision`; specialists are instructed to return only a compact delta.
 - **Task-scoped memory and handoff persistence:** one stable `task-<id>.md` ledger is reused across sessions; bounded handoffs are persisted per slice and regression-tested for next-slice access, resume, and path traversal rejection.

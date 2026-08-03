@@ -14,6 +14,7 @@ All bundled scripts use only Python's standard library. Confirm `python` is avai
 | `check_semantic_conformance.py` | Detect drift in shared versions, roles, handoff fields, memory defaults, policy tokens, and platform transport mappings. | `python scripts/check_semantic_conformance.py` |
 | `sync_adapter_checklist.py` | Add missing source checklist items to an adapter checklist without replacing existing entries. | `python scripts/sync_adapter_checklist.py templates/adapter-implementation-checklist.md <adapter-checklist>` |
 | `sync_task_memory.py` | Copy the canonical task-memory protocol tool into both adapters. | `python scripts/sync_task_memory.py --dry-run` then without `--dry-run` after review |
+| `sync_manual.py` | Copy the shared manual pages and each adapter's own page into that adapter, dropping the other adapter's navigation and install block. | `python scripts/sync_manual.py --dry-run` then without `--dry-run` after review |
 | `verify_installed_adapters.py` | Verify installed Codex/Claude artifacts match the adapters; optionally exercise installed task-memory tools in a temporary project without a model call. | `python scripts/verify_installed_adapters.py --exercise-task-memory` |
 
 Run `--help` before using unfamiliar options. Validation scripts are read-only. Checklist synchronisation writes only to the adapter checklist passed by the user-approved workflow; review the target and Git policy before running it.

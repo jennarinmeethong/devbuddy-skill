@@ -17,6 +17,8 @@
         "approved_models": {"type": "array", "minItems": 1},
         "approved_effort_levels": {"type": "array", "minItems": 1}
       }
-    }
+    },
+    "tools": {"type": "object", "properties": {"approved_custom_tool_runtimes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}}},
+    "custom_tools": {"type": "array", "items": {"type": "object", "required": ["name", "runtime", "manifest"], "additionalProperties": false, "properties": {"name": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"}, "runtime": {"type": "string", "minLength": 1}, "manifest": {"type": "string", "minLength": 1}, "secret_file": {"type": "string", "minLength": 1}}}}
   }
 }

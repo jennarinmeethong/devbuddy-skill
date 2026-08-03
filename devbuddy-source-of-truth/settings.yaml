@@ -34,7 +34,10 @@ memory:
   retention_period: user_required
 tools:
   preferred_tools: {}
-  custom_tool_runtime: python
+  # Default approval boundary for custom tools. A workspace may add a runtime in
+  # its own settings after the user approves it; a tool whose runtime is not
+  # listed is a dispatch block, not a judgement call. See references/custom-tools.md.
+  approved_custom_tool_runtimes: [python, dotnet]
   install_without_user_approval: false
 environments:
   default: local

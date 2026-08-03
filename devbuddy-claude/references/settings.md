@@ -39,6 +39,24 @@ Ranks are positive integers; lower means less capable or less costly. Every disp
 
 Do not add provider, price, credential, prompt, or personal data to settings.
 
+## Custom tools
+
+A workspace that owns custom tools declares them so the Orchestrator knows which executables are approved, what shape each call takes, and where the host's secrets live:
+
+```yaml
+tools:
+  approved_custom_tool_runtimes: [python, dotnet]
+custom_tools:
+  - name: readonly_database_query
+    runtime: dotnet
+    manifest: tools/db-query-tool/tool.json
+    secret_file: tools/db-query-tool/appsettings.json
+```
+
+Both keys are optional; a workspace with no custom tools omits them. When `custom_tools` is present the validator requires an approved runtime for every entry, a manifest that parses as JSON and declares `name`, `description`, `command`, `inputSchema`, and `outputSchema`, and — for a declared `secret_file` — a committed `*.template.*` sibling. It also refuses a manifest containing a credential-shaped value, because a manifest is meant to be committed and a leaked one has already leaked. Paths resolve from the `.devbuddy` root.
+
+Read `references/custom-tools.md` before proposing, registering, or calling one.
+
 ## Budgets are not defaulted
 
 `max_concurrency`, `task_timeout_seconds`, and `retry_limit` have no shipped default. They are commitments of the user's time and money, so DevBuddy asks rather than assumes. A missing budget is a dispatch block, not a value to invent.

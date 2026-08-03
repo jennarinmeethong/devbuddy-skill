@@ -20,6 +20,7 @@ REQUIRED = [
     "references/knowledge-model.md",
     "references/task-memory.md",
     "references/loop.md",
+    "references/custom-tools.md",
     "templates/handoff.md",
     "templates/task-ledger.md",
     "templates/knowledge-entity.md",

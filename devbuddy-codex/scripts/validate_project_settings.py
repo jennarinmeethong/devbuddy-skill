@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
-"""Validate DevBuddy Codex's restricted project settings YAML without packages."""
+"""Validate a DevBuddy project settings YAML against the restricted schema, without packages.
+
+This tool is shared verbatim by every adapter and is copied into each
+workspace as .devbuddy/tools/validate_project_settings.py, so it must stay
+platform-neutral and dependency-free.
+"""
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from pathlib import Path
 
 ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
 RISKS = {"low", "medium", "high", "critical"}
 SCALARS = {"max_concurrency", "task_timeout_seconds", "retry_limit"}
+IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+# A manifest is committable by design, so a credential-shaped assignment in one
+# is a leak that has already happened rather than a style problem.
+CREDENTIAL = re.compile(r"(password|pwd|accountkey|api[_-]?key|secret|token)\s*[=:]\s*[^\s\"',}]+", re.IGNORECASE)
 
 
 def list_values(value: str) -> set[str]:
@@ -19,12 +29,13 @@ def list_values(value: str) -> set[str]:
 
 def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], dict[str, str], list[str]]:
     scalars: dict[str, str] = {}
-    groups = {"approved_models": [], "approved_effort_levels": []}
+    groups = {"approved_models": [], "approved_effort_levels": [], "custom_tools": []}
     errors: list[str] = []
     projects: dict[str, str] = {}
     group: str | None = None
     entry: dict[str, str] | None = None
     project_id: str | None = None
+    tool: dict[str, str] | None = None
     for number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if not raw.strip() or raw.lstrip().startswith("#"):
             continue
@@ -48,13 +59,29 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
         if raw == "memory_root:":
             errors.append(f"line {number}: memory_root must not be empty")
             continue
-        if raw == "orchestration:":
+        if raw in {"orchestration:", "tools:"}:
             continue
         if raw in {"workspace:", "  projects:"}:
             continue
+        if raw == "custom_tools:":
+            group, entry, tool = "custom_tools", None, None
+            continue
+        runtimes_match = re.match(r"^  approved_custom_tool_runtimes:\s*(\[.*\])\s*$", raw)
+        if runtimes_match:
+            scalars["approved_custom_tool_runtimes"] = runtimes_match.group(1)
+            continue
+        tool_match = re.match(r"^  - name:\s*(.+?)\s*$", raw)
+        if tool_match and group == "custom_tools":
+            tool = {"name": tool_match.group(1).strip("\"'")}
+            groups["custom_tools"].append(tool)
+            continue
+        tool_field_match = re.match(r"^    (runtime|manifest|secret_file):\s*(.+?)\s*$", raw)
+        if tool_field_match and tool is not None:
+            tool[tool_field_match.group(1)] = tool_field_match.group(2).strip("\"'")
+            continue
         group_match = re.match(r"^  (approved_models|approved_effort_levels):$", raw)
         if group_match:
-            group, entry = group_match.group(1), None
+            group, entry, tool = group_match.group(1), None, None
             continue
         scalar_match = re.match(r"^  (max_concurrency|task_timeout_seconds|retry_limit):\s*(\d+)\s*$", raw)
         if scalar_match:
@@ -101,6 +128,66 @@ def validate_entries(kind: str, entries: list[dict[str, str]], errors: list[str]
             errors.append(f"{kind} {entry['id']}: allowed_risks must contain low/medium/high/critical")
 
 
+def validate_custom_tools(tools: list[dict[str, str]], approved: set[str], root: Path, errors: list[str]) -> None:
+    """Check the workspace custom-tool registry.
+
+    An unregistered executable has no approved runtime, no schema, and no
+    declared secret boundary, so the registry is what makes calling a tool a
+    decision the user already made rather than one the Orchestrator invents.
+    """
+    if not tools:
+        return
+    if not approved:
+        errors.append("custom_tools requires tools.approved_custom_tool_runtimes")
+        return
+    names: set[str] = set()
+    for tool in tools:
+        name = tool.get("name", "<unknown>")
+        missing = {"name", "runtime", "manifest"} - set(tool)
+        if missing:
+            errors.append(f"custom_tools {name}: missing " + ", ".join(sorted(missing)))
+            continue
+        if not IDENTIFIER.fullmatch(name):
+            errors.append(f"custom_tools: invalid tool name {name}")
+        if name in names:
+            errors.append(f"custom_tools: duplicate tool name {name}")
+        names.add(name)
+        if tool["runtime"] not in approved:
+            errors.append(
+                f"custom_tools {name}: runtime '{tool['runtime']}' is not in "
+                "tools.approved_custom_tool_runtimes"
+            )
+        manifest = root / tool["manifest"]
+        if not manifest.is_file():
+            errors.append(f"custom_tools {name}: manifest not found: {manifest}")
+            continue
+        text = manifest.read_text(encoding="utf-8", errors="replace")
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError as error:
+            errors.append(f"custom_tools {name}: manifest is not valid JSON: {error}")
+            continue
+        for key in ("name", "description", "command", "inputSchema", "outputSchema"):
+            if key not in data:
+                errors.append(f"custom_tools {name}: manifest missing {key}")
+        if data.get("name") != name:
+            errors.append(f"custom_tools {name}: manifest name is {data.get('name')!r}")
+        leak = CREDENTIAL.search(text)
+        if leak:
+            errors.append(f"custom_tools {name}: manifest looks like it contains a credential ({leak.group(1)})")
+        secret = tool.get("secret_file")
+        if not secret:
+            continue
+        if (root / secret).resolve() == manifest.resolve():
+            errors.append(f"custom_tools {name}: secret_file must not be the manifest")
+        # A committed template is how the required shape stays documented once
+        # the real file is git-ignored; without one the next host has to guess.
+        stem = Path(secret)
+        template = root / stem.with_suffix(f".template{stem.suffix}")
+        if not template.is_file():
+            errors.append(f"custom_tools {name}: missing committed template beside secret_file: {template}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("settings", type=Path)
@@ -133,6 +220,12 @@ def main() -> int:
         errors.append("task_timeout_seconds must be at least 1")
     validate_entries("approved_models", groups["approved_models"], errors)
     validate_entries("approved_effort_levels", groups["approved_effort_levels"], errors)
+    validate_custom_tools(
+        groups["custom_tools"],
+        list_values(scalars.get("approved_custom_tool_runtimes", "")),
+        args.settings.parent,
+        errors,
+    )
     if errors:
         for error in errors:
             print(f"ERROR: {error}")

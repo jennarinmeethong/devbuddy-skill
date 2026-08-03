@@ -5,6 +5,8 @@ Copies the skill to <root>/skills/devbuddy/ and the 27 subagent definitions to
 <root>/agents/. Dry-run is the default: nothing is written until --apply is
 given, so the user can see the exact file list first.
 
+Only the self-contained scripts travel with the install; see SKILL_SCRIPTS.
+
 The installer refuses to overwrite any existing file it cannot identify as a
 DevBuddy artefact. A same-named file from another tool is a conflict for the
 user to resolve, not something to silently replace.
@@ -19,6 +21,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 SKILL_CONTENT = ["SKILL.md", "settings.yaml", "references", "roles", "templates", "schemas", "manual"]
+
+# Scripts the installed skill can actually run. Each one is self-contained: it
+# needs nothing outside the skill root. The adapter's other scripts compare this
+# adapter against devbuddy-source-of-truth/, which no install ever contains, so
+# shipping them would only hand the user a command that cannot work. SKILL.md's
+# validation section is split along this same line.
+SKILL_SCRIPTS = ["init_project_memory.py", "validate_skill_metadata.py", "run_scenarios.py"]
+SKILL_EXTRAS = [Path("tests") / "scenarios.json"]
 MARKER = "devbuddy"
 
 
@@ -47,8 +57,14 @@ def plan_skill(target: Path) -> list[tuple[Path, Path]]:
         for path in sorted(source.rglob("*")):
             if path.is_file() and "__pycache__" not in path.parts:
                 pairs.append((path, target / path.relative_to(ROOT)))
-    initializer = ROOT / "scripts" / "init_project_memory.py"
-    pairs.append((initializer, target / "scripts" / initializer.name))
+    for name in SKILL_SCRIPTS:
+        script = ROOT / "scripts" / name
+        if script.is_file():
+            pairs.append((script, target / "scripts" / name))
+    for relative in SKILL_EXTRAS:
+        extra = ROOT / relative
+        if extra.is_file():
+            pairs.append((extra, target / relative))
     return pairs
 
 

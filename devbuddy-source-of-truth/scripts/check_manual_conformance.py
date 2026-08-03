@@ -22,10 +22,12 @@ def pages(root: Path, adapters: tuple[str, ...] = ("codex", "claude")) -> list[s
 
 
 def check_root(root: Path, adapters: tuple[str, ...] = ("codex", "claude")) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("manual_root", type=Path)
-    args = parser.parse_args()
-    root = args.manual_root
+    """Validate one manual root.
+
+    Adapters call this directly with their own single-adapter tuple, so the
+    arguments must be honoured as passed; re-reading sys.argv here would ignore
+    the caller and silently validate the wrong root.
+    """
     errors: list[str] = []
     expected = pages(root, adapters)
     texts: dict[str, str] = {}

@@ -6,7 +6,12 @@ import argparse
 import json
 from pathlib import Path
 
-REQUIRED = {"bare_entrypoint", "analyze_project", "handoff_memory", "bug_fix", "feature", "migration", "security", "incident", "missing_information", "unavailable_tool", "approval_gate", "multi_role", "missing_agent_definition", "model_effort_escalation"}
+# The two model/effort selection gates are required because this adapter splits
+# the pair across two transports: effort is baked into the chosen subagent
+# definition, model is set per Agent call. A gap in either one is invisible in
+# the other, so both the independent-selection and the unverified case are
+# covered rather than folded into model_effort_escalation.
+REQUIRED = {"bare_entrypoint", "analyze_project", "handoff_memory", "bug_fix", "feature", "migration", "security", "incident", "missing_information", "unavailable_tool", "approval_gate", "multi_role", "missing_agent_definition", "model_effort_escalation", "model_effort_independent_selection", "unverified_model_effort"}
 
 
 def main() -> int:

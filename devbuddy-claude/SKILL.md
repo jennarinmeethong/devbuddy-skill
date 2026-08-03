@@ -1,11 +1,13 @@
 ---
 name: devbuddy
-description: Policy-driven Claude Code software-delivery orchestrator. Use only when the user explicitly invokes /devbuddy; never trigger it on ordinary coding requests. Assess the task, route it to DevBuddy IT specialist subagents, enforce approval and safety gates, select the minimum-sufficient approved model and effort level for every dispatch, preserve project memory, and verify delivery with evidence.
+description: Policy-driven Claude Code software-delivery orchestrator for an explicit /devbuddy invocation. Assess the task, route it to DevBuddy IT specialist subagents, enforce approval and safety gates, select the minimum-sufficient approved model and effort level for every dispatch, preserve project memory, and verify delivery with evidence.
+disable-model-invocation: true
+argument-hint: <task> | loop <task> | analyze <project> | <role> <task>
 ---
 
 # DevBuddy for Claude Code
 
-Use this adapter only through `/devbuddy`. If the user did not invoke `/devbuddy`, do not apply this workflow; answer normally instead. Explicit invocation is what makes the approval gates below predictable.
+`disable-model-invocation: true` means only an explicit `/devbuddy` reaches this workflow. Every gate below is written for a user who chose to open one: the approval prompts, cost limits, and dispatch blocks are predictable precisely because the user, not the model, decided to start.
 
 ## Invocation
 
@@ -49,6 +51,7 @@ Set the affected task or slice to `waiting_user`; do not dispatch when any of th
 
 - The required `devbuddy-<role>-<effort>` subagent is not installed in this environment.
 - Project settings lack a valid model allowlist, effort allowlist, max concurrency, timeout, or retry limit.
+- A needed custom tool is absent from `custom_tools`, its runtime is not approved, or its executable is missing on this platform.
 - No approved model/effort pair is sufficient, or a cost/privacy/tool/environment approval is missing.
 - A required tool is unavailable, an artefact lock conflicts, required knowledge impact approval is pending, or a fact is uncertain.
 
@@ -63,19 +66,29 @@ Do not simulate a specialist with the Orchestrator when a subagent is unavailabl
 - Use cohesive slices and batch only after a complete batch assessment shows a safe, independently verifiable benefit.
 - Run a loop only for an explicit `loop` invocation or a user-approved loop-shaped task. Bound it by settings, evidence, retries, and exit conditions.
 
-Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` and `references/task-memory.md` for memory/task state, and `references/loop.md` before a loop.
+Read `references/policy.md` for detailed gates, `references/role-routing.md` for routing, `references/settings.md` for configuration, `references/knowledge-model.md` and `references/task-memory.md` for memory/task state, `references/loop.md` before a loop, and `references/custom-tools.md` before proposing or calling a workspace custom tool.
 
 ## Validation
+
+These commands ship with the installed skill and run from the skill root (`~/.claude/skills/devbuddy` by default). Use them to set up a workspace and to re-verify an install:
 
 ```text
 python scripts/init_project_memory.py --devbuddy-root <workspace>/.devbuddy --project fe=../frontend --project be=../backend --dry-run
 python <workspace>/.devbuddy/tools/validate_project_settings.py <workspace>/.devbuddy/settings.yaml
 python <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <workspace>/.devbuddy --project-id fe --dry-run
 python <workspace>/.devbuddy/tools/validate_knowledge.py --devbuddy-root <workspace>/.devbuddy
+python scripts/validate_skill_metadata.py .
+python scripts/run_scenarios.py tests/scenarios.json
+```
+
+The remaining checks compare this adapter against the shared specification, so they need the `devbuddy-source-of-truth/` sibling directory and run only from the repository, never from an install:
+
+```text
+python scripts/generate_agents.py --check
 python scripts/validate_skill_metadata.py . --exercise-task-memory
 python scripts/check_adapter_conformance.py
 python scripts/validate_manual.py manual
-python scripts/run_scenarios.py tests/scenarios.json
+python3 -m unittest discover tests -v
 ```
 
 Use only an available, approved Python runtime. These scripts use the standard library.
