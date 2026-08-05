@@ -11,6 +11,16 @@ from pathlib import Path
 
 
 CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
+RUNTIME_BOUNDARY = (
+    "<devbuddy-root>/tools/",
+    "tools/manifest.json",
+    "init_project_memory.py",
+    "bootstrap_knowledge.py",
+    "task_memory.py",
+    "validate_project_settings.py",
+    "validate_knowledge.py",
+    "source-maintenance scripts",
+)
 
 
 def exercise_task_memory(root: Path, errors: list[str]) -> None:
@@ -63,6 +73,12 @@ def main() -> int:
                 errors.append("SKILL.md: name must be devbuddy for $devbuddy invocation")
             if not fields.get("description"):
                 errors.append("SKILL.md: description is required")
+        body = "\n".join(lines)
+        for required in RUNTIME_BOUNDARY:
+            if required not in body:
+                errors.append(f"SKILL.md: missing runtime-tool boundary token: {required}")
+        if re.search(r"(?m)^python(?:3)? scripts/", body):
+            errors.append("SKILL.md: delivery runtime must not invoke source scripts/")
     if not config.is_file():
         errors.append("missing agents/openai.yaml")
     else:

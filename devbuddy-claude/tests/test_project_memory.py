@@ -59,6 +59,9 @@ class WorkspaceTests(unittest.TestCase):
             settings = (root / "settings.yaml").read_text(encoding="utf-8")
             self.assertIn("fe:", settings); self.assertIn("be:", settings)
             self.assertIn("memory_root: knowledge-base", settings)
+            self.assertIn("max_concurrency: 2", settings)
+            self.assertIn("task_timeout_seconds: 900", settings)
+            self.assertIn("retry_limit: 1", settings)
 
     def test_dry_run_writes_nothing_and_rejects_duplicate_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -194,7 +197,7 @@ class TaskMemoryTests(unittest.TestCase):
 
     task_memory.py is the only thing standing between two concurrent specialists
     and a corrupted canonical memory, so each guarantee it advertises — resume,
-    handoff durability, revision freshness, owner-only commits, reservation
+    JSON slice-record durability, revision freshness, owner-only commits, reservation
     exclusivity, scope containment, read-only analysis — is asserted here rather
     than trusted.
     """
@@ -223,30 +226,29 @@ class TaskMemoryTests(unittest.TestCase):
             self.assertNotEqual(escaped.returncode, 0)
             self.assertIn("invalid project ID", escaped.stdout)
 
-    def test_handoff_persists_for_the_next_slice(self) -> None:
+    def test_json_slice_record_persists_for_the_next_slice(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = self.make_task(temporary)
-            source = Path(temporary) / "handoff.md"
-            source.write_text(
-                "# Handoff\n\n- Task ID: 001\n- Slice ID / attempt: developer / 1\n"
-                "- Parent handoff / revision: none / 0\n- Status: `completed`\n",
-                encoding="utf-8",
-            )
-            result = run(TASK, "handoff", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
+            source = Path(temporary) / "record.json"
+            payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0, "role": "developer", "model": "haiku", "effort": "low", "status": "completed", "result": "Implemented focused change.", "evidence": [], "next_slice": {"summary": "Run focused tests.", "read_paths": [], "read_keys": []}, "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
+            source.write_text(json.dumps(payload), encoding="utf-8")
+            result = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
                          "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", source)
             self.assertEqual(result.returncode, 0, result.stdout)
-            target = root / "tasks" / "task-001" / "handoffs" / "developer-1.md"
-            self.assertEqual(target.read_text(encoding="utf-8"), source.read_text(encoding="utf-8"))
+            target = root / "tasks" / "task-001" / "records" / "developer-1.json"
+            self.assertEqual(json.loads(target.read_text(encoding="utf-8")), payload)
 
-    def test_oversized_handoff_is_rejected(self) -> None:
+    def test_large_valid_slice_record_is_persisted(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = self.make_task(temporary)
-            source = Path(temporary) / "handoff.md"
-            source.write_text("# Handoff\n\n- Task ID: 001\n" + "x" * 12_001, encoding="utf-8")
-            result = run(TASK, "handoff", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
+            source = Path(temporary) / "record.json"
+            payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0, "role": "developer", "model": "haiku", "effort": "low", "status": "completed", "result": "Implemented focused change.", "evidence": [{"ref": f"tests/case-{index}", "outcome": "x" * 500} for index in range(16)], "next_slice": {"summary": "Run focused tests.", "read_paths": [], "read_keys": []}, "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
+            source.write_text(json.dumps(payload), encoding="utf-8")
+            self.assertGreater(len(source.read_bytes()), 4_000)
+            result = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
                          "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", source)
-            self.assertNotEqual(result.returncode, 0)
-            self.assertFalse((root / "tasks" / "task-001" / "handoffs" / "developer-1.md").exists())
+            self.assertEqual(result.returncode, 0, result.stdout)
+            self.assertEqual(json.loads((root / "tasks" / "task-001" / "records" / "developer-1.json").read_text(encoding="utf-8")), payload)
 
     def test_stale_revision_is_blocked_and_only_owner_commits(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

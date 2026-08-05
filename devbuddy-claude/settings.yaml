@@ -1,7 +1,7 @@
 schema_version: 1
 adapter:
   name: devbuddy-claude
-  source_spec_version: 0.2.0
+  source_spec_version: 0.4.4
   invocation: /devbuddy
   entrypoint: orchestrator
   explicit_subagent_model_and_effort: required
@@ -14,10 +14,11 @@ governance:
   require_knowledge_impact_approval: true
 orchestration:
   project_settings_path: .devbuddy/settings.yaml
-  max_concurrency: user_required
-  task_timeout_seconds: user_required
-  retry_limit: user_required
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
   model_effort_selection_policy: minimum_sufficient
+  adapter_profile_selection: current_adapter
   subagent_capability: required
   model_transport: agent_tool_model_parameter
   effort_transport: agent_definition_frontmatter

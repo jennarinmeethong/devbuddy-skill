@@ -12,7 +12,7 @@ def main() -> int:
     args = parser.parse_args()
     scripts = Path(__file__).resolve().parent
     repository = scripts.parents[1]
-    common = ("init_project_memory.py", "bootstrap_knowledge.py", "task_memory.py", "validate_knowledge.py")
+    common = ("init_project_memory.py", "bootstrap_knowledge.py", "task_memory.py", "validate_project_settings.py", "validate_knowledge.py")
     for name in common:
         source = scripts / name
         for adapter in ("devbuddy-codex", "devbuddy-claude"):
@@ -27,13 +27,13 @@ def main() -> int:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
                 print(f"OK: synced {target}")
-    for adapter in ("devbuddy-codex", "devbuddy-claude"):
-        source = repository / adapter / "scripts" / "validate_project_settings.py"
-        target = repository / adapter / "templates" / "project-tools" / "validate_project_settings.py.template"
-        if args.dry_run:
-            print(f"SYNC: {source} -> {target}")
-        else:
-            target.parent.mkdir(parents=True, exist_ok=True)
+    for name, directory in (("task-memory.md", "references"), ("slice-record.schema.json", "schemas")):
+        source = repository / "devbuddy-source-of-truth" / directory / name
+        for adapter in ("devbuddy-codex", "devbuddy-claude"):
+            target = repository / adapter / directory / name
+            if args.dry_run:
+                print(f"SYNC: {source} -> {target}")
+                continue
             target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
             print(f"OK: synced {target}")
     return 0

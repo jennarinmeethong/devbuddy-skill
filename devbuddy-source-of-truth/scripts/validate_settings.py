@@ -13,7 +13,7 @@ REQUIRED_TOP = {
 }
 REQUIRED_CHILDREN = {
     "skill": {"name", "common_spec_version", "internal_language", "user_language"},
-    "orchestration": {"max_concurrency", "task_timeout", "retry_limit", "approved_models", "approved_effort_levels", "require_model_and_effort_per_dispatch", "model_effort_selection_policy", "escalation_requires_recorded_reason", "user_update_events"},
+    "orchestration": {"max_concurrency", "task_timeout", "retry_limit", "approved_models", "approved_effort_levels", "adapter_profile_selection", "require_model_and_effort_per_dispatch", "model_effort_selection_policy", "escalation_requires_recorded_reason", "user_update_events"},
     "memory": {"default_root", "project_settings_path", "locator_key", "knowledge_root", "project_registry_key"},
     "adapters": {"claude", "codex"},
 }

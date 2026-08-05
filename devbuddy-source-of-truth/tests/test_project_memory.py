@@ -15,6 +15,7 @@ BOOTSTRAP = ROOT / "scripts" / "bootstrap_knowledge.py"
 TASK = ROOT / "scripts" / "task_memory.py"
 KNOWLEDGE_VALIDATOR = ROOT / "scripts" / "validate_knowledge.py"
 VALIDATOR = ROOT / "scripts" / "validate_settings.py"
+PROJECT_SETTINGS_VALIDATOR = ROOT / "scripts" / "validate_project_settings.py"
 SETTINGS = ROOT / "settings.yaml"
 
 
@@ -43,6 +44,9 @@ class WorkspaceTests(unittest.TestCase):
             settings = (root / "settings.yaml").read_text(encoding="utf-8")
             self.assertIn("fe:", settings); self.assertIn("be:", settings)
             self.assertIn("memory_root: knowledge-base", settings)
+            self.assertIn("max_concurrency: 2", settings)
+            self.assertIn("task_timeout_seconds: 900", settings)
+            self.assertIn("retry_limit: 1", settings)
 
     def test_dry_run_writes_nothing_and_rejects_duplicate_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -109,11 +113,59 @@ class WorkspaceTests(unittest.TestCase):
             result = run(KNOWLEDGE_VALIDATOR, "--devbuddy-root", root)
             self.assertNotEqual(result.returncode, 0); self.assertIn("project_ids", result.stdout)
 
+    def test_json_slice_record_is_validated_without_a_file_size_cap(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _frontend, _backend = self.make_workspace(temporary)
+            created = run(TASK, "init", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001")
+            self.assertEqual(created.returncode, 0, created.stdout)
+            record = root / "record.json"
+            payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0,
+                       "role": "developer", "model": "test-model", "effort": "low", "status": "completed", "result": "Implemented focused change.",
+                       "evidence": [{"ref": "tests/unit", "outcome": "passed"}], "next_slice": {"summary": "Run focused unit test.", "read_paths": ["fe:tests/unit"], "read_keys": []},
+                       "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
+            record.write_text(json.dumps(payload), encoding="utf-8")
+            accepted = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
+                           "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", record)
+            self.assertEqual(accepted.returncode, 0, accepted.stdout)
+            target = root / "tasks" / "task-001" / "records" / "developer-1.json"
+            self.assertEqual(json.loads(target.read_text(encoding="utf-8")), payload)
+            payload["task_id"] = "wrong-task"
+            record.write_text(json.dumps(payload), encoding="utf-8")
+            mismatched = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
+                             "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", record)
+            self.assertNotEqual(mismatched.returncode, 0)
+            self.assertIn("record identity must match", mismatched.stdout)
+            payload["task_id"] = "001"
+            payload["evidence"] = [{"ref": f"tests/case-{index}", "outcome": "x" * 500} for index in range(16)]
+            record.write_text(json.dumps(payload), encoding="utf-8")
+            self.assertGreater(len(record.read_bytes()), 4_000)
+            accepted_large = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
+                                 "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", record)
+            self.assertEqual(accepted_large.returncode, 0, accepted_large.stdout)
+
 
 class SettingsValidatorTests(unittest.TestCase):
     def test_shipped_settings_validate(self) -> None:
         result = run(VALIDATOR, SETTINGS)
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+    def test_shared_adapter_profiles_validate_without_a_toggle(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            project = base / "project"; project.mkdir()
+            settings = base / ".devbuddy" / "settings.yaml"; settings.parent.mkdir()
+            settings.write_text(
+                "schema_version: 1\nworkspace:\n  projects:\n    app:\n      path: project\n"
+                "memory_root: knowledge-base\norchestration:\n  max_concurrency: 1\n  task_timeout_seconds: 60\n"
+                "  retry_limit: 0\n  adapter_profiles: [claude, codex]\n  approved_models:\n"
+                "    - id: claude-fast\n      adapters: [claude]\n      rank: 1\n      allowed_roles: [developer]\n      allowed_risks: [low]\n"
+                "    - id: codex-fast\n      adapters: [codex]\n      rank: 1\n      allowed_roles: [developer]\n      allowed_risks: [low]\n"
+                "  approved_effort_levels:\n    - id: low\n      adapters: [claude, codex]\n      rank: 1\n"
+                "      allowed_roles: [developer]\n      allowed_risks: [low]\n",
+                encoding="utf-8",
+            )
+            result = run(PROJECT_SETTINGS_VALIDATOR, settings)
+            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
 
 if __name__ == "__main__":

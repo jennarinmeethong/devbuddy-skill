@@ -12,6 +12,9 @@ Apply in this order: explicit user instruction; mandatory safety/privacy/complia
 - Prefer read-only inspection. Git state is read-only unless the user explicitly requests the exact Git action.
 - Never persist sensitive or personal data. Use active context only, minimise access, and redact evidence.
 - Check tool availability before use. Ask the user to choose among valid alternatives or to approve installation. Never install without instruction.
+- Treat the five manifest-bound Python runtime tools in `<devbuddy-root>/tools/` as the only built-in delivery tools: `init_project_memory.py`, `bootstrap_knowledge.py`, `task_memory.py`, `validate_project_settings.py`, and `validate_knowledge.py`. Before each call, resolve the selected DevBuddy root, require the exact direct child path and a matching `tools/manifest.json` hash; never substitute a same-named script elsewhere.
+- A current, user-started DevBuddy task authorises these tools' help, validation, dry-run, inventory, and task-lifecycle calls without a second DevBuddy confirmation. This does not bypass the host platform's permission prompt. Any write mode still follows its ordinary gate: workspace initialization/upgrade/migration needs an explicit requested setup action, and canonical-knowledge writes need Knowledge Impact Approval.
+- Keep installers, generators, scenario runners, conformance/manual/metadata checks, and sync utilities as source-maintenance tools. Do not invoke them as delivery-task runtime tools, and never copy them to `<devbuddy-root>/tools/` merely to evade this boundary.
 - Ask before a cost-bearing action. Disclose provider, cost or uncertainty, frequency, recurring effect, and alternatives.
 - Classify actions as read-only, write, destructive, or external. Destructive/external/prod/access/financial actions require explicit approval.
 

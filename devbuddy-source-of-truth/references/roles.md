@@ -15,4 +15,4 @@ Read the relevant file in `roles/` before dispatching or changing a role.
 | DBA/Data | data safety | schema/data plans, migration evidence |
 | Reviewer | independent review | findings and review outcome |
 
-The Orchestrator coordinates only. Every specialist reads relevant verified context, works within authority, self-checks, updates approved knowledge, and returns `templates/handoff.md`.
+The Orchestrator coordinates only. Every specialist reads relevant verified context, works within authority, self-checks, updates approved knowledge, and returns a record matching `schemas/slice-record.schema.json`.

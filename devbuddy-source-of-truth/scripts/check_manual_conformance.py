@@ -6,7 +6,7 @@ import argparse
 import re
 from pathlib import Path
 
-VERSION = "0.3.0"
+VERSION = "0.4.4"
 COMMON = ["index", "getting-started", "workspace", "scripts", "tasks-and-knowledge", "migration", "troubleshooting"]
 REQUIRED_SCRIPTS = ("init_project_memory.py", "bootstrap_knowledge.py", "task_memory.py", "validate_project_settings.py", "validate_knowledge.py")
 HREF = re.compile(r'href="([^"]+)"')

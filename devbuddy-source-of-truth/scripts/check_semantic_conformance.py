@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from pathlib import Path
 
@@ -15,26 +16,13 @@ COMMON_TOKENS = (
     "effort",
     "memory_root",
     "read_keys",
-    "handoff_path",
+    "record_path",
+    "slice-record.schema.json",
+    "adapter_profiles",
     "devbuddy-ref",
 )
 ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
-HANDOFF_FIELDS = {
-    "Task ID",
-    "Slice ID / attempt",
-    "Parent handoff / revision",
-    "Role",
-    "Model / effort used",
-    "Status",
-    "Objective",
-    "Outputs and artefacts",
-    "Verification evidence",
-    "Knowledge keys/updates",
-    "Knowledge proposals",
-    "Risks and blockers",
-    "Recommended next role/task",
-    "Required approval",
-}
+RECORD_FIELDS = {"schema_version", "task_id", "slice_id", "attempt", "parent_revision", "role", "model", "effort", "status", "result", "evidence", "next_slice", "knowledge_keys", "knowledge_proposal", "blockers", "required_approval"}
 
 
 def text(path: Path) -> str:
@@ -50,13 +38,12 @@ def roles(root: Path) -> set[str]:
     return {path.stem for path in (root / "roles").glob("*.md")} - {"orchestrator"}
 
 
-def handoff_fields(path: Path) -> set[str]:
-    found: set[str] = set()
-    for line in text(path).splitlines():
-        match = re.match(r"^- ([^:]+):", line)
-        if match:
-            found.add(match.group(1))
-    return found
+def record_fields(path: Path) -> set[str]:
+    try:
+        data = json.loads(text(path))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"invalid slice record schema {path}: {error}") from None
+    return set(data.get("properties", {})) if isinstance(data, dict) else set()
 
 
 def main() -> int:
@@ -74,9 +61,9 @@ def main() -> int:
     if source_version is None:
         errors.append("source settings missing skill.common_spec_version")
 
-    source_handoff = handoff_fields(source / "templates" / "handoff.md")
-    if missing := HANDOFF_FIELDS - source_handoff:
-        errors.append("source handoff missing: " + ", ".join(sorted(missing)))
+    source_record = record_fields(source / "schemas" / "slice-record.schema.json")
+    if missing := RECORD_FIELDS - source_record:
+        errors.append("source slice record missing: " + ", ".join(sorted(missing)))
 
     source_roles = roles(source)
     if source_roles != ROLES:
@@ -89,7 +76,8 @@ def main() -> int:
             source / "settings.yaml",
             source / "references" / "policies.md",
             source / "references" / "task-memory.md",
-            source / "templates" / "handoff.md",
+            source / "references" / "adapter-contract.md",
+            source / "schemas" / "slice-record.schema.json",
         )
     )
     for token in COMMON_TOKENS:
@@ -128,7 +116,7 @@ def main() -> int:
                 root / "references" / "knowledge-model.md",
                 root / "references" / "task-memory.md",
                 root / "references" / ("claude-dispatch.md" if name.endswith("claude") else "codex-dispatch.md"),
-                root / "templates" / "handoff.md",
+                root / "schemas" / "slice-record.schema.json",
             )
         )
         if config["invocation"] not in adapter_text:
@@ -140,8 +128,8 @@ def main() -> int:
         for token in COMMON_TOKENS:
             if token not in adapter_text:
                 errors.append(f"{name} missing semantic token: {token}")
-        if missing := HANDOFF_FIELDS - handoff_fields(root / "templates" / "handoff.md"):
-            errors.append(f"{name} handoff missing: " + ", ".join(sorted(missing)))
+        if missing := RECORD_FIELDS - record_fields(root / "schemas" / "slice-record.schema.json"):
+            errors.append(f"{name} slice record missing: " + ", ".join(sorted(missing)))
         if roles(root) != ROLES:
             errors.append(f"{name} role catalogue mismatch: " + ", ".join(sorted(roles(root) ^ ROLES)))
         settings_text = text(root / "settings.yaml")

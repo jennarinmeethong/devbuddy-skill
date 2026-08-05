@@ -19,6 +19,12 @@ Resolve the selected `.devbuddy/settings.yaml` first. A DevBuddy workspace may r
 `- tools/
 ```
 
+## Runtime-tool boundary
+
+After bootstrap, delivery tasks invoke only the five built-in scripts directly below `<devbuddy-root>/tools/`: `init_project_memory.py`, `bootstrap_knowledge.py`, `task_memory.py`, `validate_project_settings.py`, and `validate_knowledge.py`. Confirm their `tools/manifest.json` hashes before each call. The exception is the one-time installed-skill initializer that creates this folder; it is available only for an explicitly requested workspace setup and must start with `--dry-run`.
+
+The automatic DevBuddy allowance covers help, validation, dry-run, repository inventory, and task-lifecycle calls for a current user-started task. It does not suppress a Codex or Claude platform permission prompt, authorize any external/destructive action, or remove the required gate for workspace writes and canonical knowledge.
+
 ## Entity metadata
 
 Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Every entity has a non-empty `project_ids` list; one shared fact may name multiple registered projects. Recommended prefixes: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, and `INC`.

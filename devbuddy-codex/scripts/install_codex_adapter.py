@@ -9,7 +9,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_CONTENT = [
-    "README.md",
     "SKILL.md",
     "agents",
     "settings.yaml",
@@ -18,7 +17,6 @@ SKILL_CONTENT = [
     "roles",
     "templates",
     "manual",
-    "tests",
 ]
 # Never installed. A bundled custom tool carries real project files, so a local
 # build or an editor's restore can leave output beside them; shipping that would

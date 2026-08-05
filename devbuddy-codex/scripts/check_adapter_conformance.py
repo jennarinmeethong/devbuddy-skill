@@ -9,7 +9,6 @@ from pathlib import Path
 ITEM = re.compile(r"^- \[([ x-])\] `?([A-Za-z0-9_-]+)`? .*Status:\s*`?(done|not_started|in_progress)`?")
 REQUIRED = [
     "SKILL.md",
-    "README.md",
     "agents/openai.yaml",
     "settings.yaml",
     "schemas/project-settings.schema.json",
@@ -21,7 +20,7 @@ REQUIRED = [
     "references/task-memory.md",
     "references/loop.md",
     "references/custom-tools.md",
-    "templates/handoff.md",
+    "schemas/slice-record.schema.json",
     "templates/task-ledger.md",
     "templates/knowledge-entity.md",
     "scripts/validate_project_settings.py",

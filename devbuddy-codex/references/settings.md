@@ -15,19 +15,29 @@ orchestration:
   max_concurrency: 2
   task_timeout_seconds: 900
   retry_limit: 1
+  adapter_profiles: [claude, codex]
   approved_models:
-    - id: approved-model-id
+    - id: claude-fast
+      adapters: [claude]
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low, medium]
+    - id: codex-fast
+      adapters: [codex]
       rank: 1
       allowed_roles: [developer, qa]
       allowed_risks: [low, medium]
   approved_effort_levels:
     - id: low
+      adapters: [claude, codex]
       rank: 1
       allowed_roles: [developer, qa]
       allowed_risks: [low, medium]
 ```
 
-Ranks are positive integers; lower means less capable/costly. Choose the lowest-ranked approved model and effort independently; every dispatched role/risk must be allowed by both selected entries. A model rank and effort rank do not need to match, and neither selection implies the other. Escalation above the lowest permitted option needs a task-specific reason in the ledger before dispatch. The allowlist is an approval boundary, not a model catalogue. Do not add provider, price, credential, prompt, or personal data to settings.
+`adapter_profiles` enables a single settings file for Claude and Codex. The adapter chooses its own profile at runtime; never edit an “active adapter” value when switching tools. An allowlist entry tagged with `adapters` is visible only to those adapters. Each declared profile needs at least one model and effort entry. Ranks are positive integers within each profile; lower means less capable/costly. Choose the lowest-ranked approved model and effort independently; every dispatched role/risk must be allowed by both selected entries. A model rank and effort rank do not need to match, and neither selection implies the other. Escalation above the lowest permitted option needs a task-specific reason in the ledger before dispatch. The allowlist is an approval boundary, not a model catalogue. Do not add provider, price, credential, prompt, or personal data to settings.
+
+Legacy settings without `adapter_profiles` stay valid and treat entries as universal. Once `adapter_profiles` is present, tag every model and effort entry with `adapters` so a provider-specific model cannot be dispatched by the wrong adapter.
 
 Relative project paths resolve from the parent of `.devbuddy`. `memory_root: knowledge-base` places shared canonical knowledge below the workspace; tasks and tools remain siblings. The Codex adapter does not ship provider model IDs: project settings own the approved model allowlist, and selected values map to the subagent call's `model` and `reasoning_effort` parameters.
 

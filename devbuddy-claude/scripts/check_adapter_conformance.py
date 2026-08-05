@@ -20,7 +20,7 @@ REQUIRED = [
     "references/task-memory.md",
     "references/loop.md",
     "references/custom-tools.md",
-    "templates/handoff.md",
+    "schemas/slice-record.schema.json",
     "templates/task-ledger.md",
     "templates/knowledge-entity.md",
     "templates/project-tools/db-query-tool/db-query-tool/BmsReadonlyDatabaseQuery.csproj",

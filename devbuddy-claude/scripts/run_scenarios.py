@@ -11,7 +11,7 @@ from pathlib import Path
 # definition, model is set per Agent call. A gap in either one is invisible in
 # the other, so both the independent-selection and the unverified case are
 # covered rather than folded into model_effort_escalation.
-REQUIRED = {"bare_entrypoint", "analyze_project", "handoff_memory", "bug_fix", "feature", "migration", "security", "incident", "missing_information", "unavailable_tool", "approval_gate", "multi_role", "missing_agent_definition", "model_effort_escalation", "model_effort_independent_selection", "unverified_model_effort"}
+REQUIRED = {"bare_entrypoint", "analyze_project", "slice_record_memory", "bug_fix", "feature", "migration", "security", "incident", "missing_information", "unavailable_tool", "approval_gate", "multi_role", "missing_agent_definition", "model_effort_escalation", "model_effort_independent_selection", "unverified_model_effort", "trusted_workspace_runtime_tools"}
 
 
 def main() -> int:

@@ -11,7 +11,7 @@
 | `analyze` | read-only orchestration triage; dispatch a specialist only when needed |
 | `docs` | `developer` documentation scope; route `reviewer` when risk requires it |
 
-`owner` builds and controls a multi-role graph. A direct canonical role creates a single-role graph, but all policy, settings, model/effort, lock, handoff, and closure gates still apply.
+`owner` builds and controls a multi-role graph. A direct canonical role creates a single-role graph, but all policy, settings, model/effort, lock, slice record, and closure gates still apply.
 
 ## Subagent names
 

@@ -127,7 +127,14 @@ def render_settings(project_map: dict[str, str]) -> str:
         lines.append("    {}")
     for project_id, path in sorted(project_map.items()):
         lines.extend((f"    {project_id}:", f"      path: {path}"))
-    lines.extend(("memory_root: knowledge-base", ""))
+    lines.extend((
+        "memory_root: knowledge-base",
+        "orchestration:",
+        "  max_concurrency: 2",
+        "  task_timeout_seconds: 900",
+        "  retry_limit: 1",
+        "",
+    ))
     return "\n".join(lines)
 
 

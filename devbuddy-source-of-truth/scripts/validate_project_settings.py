@@ -15,6 +15,7 @@ from pathlib import Path
 ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
 RISKS = {"low", "medium", "high", "critical"}
 SCALARS = {"max_concurrency", "task_timeout_seconds", "retry_limit"}
+ADAPTERS = {"claude", "codex"}
 IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 # A manifest is committable by design, so a credential-shaped assignment in one
 # is a leak that has already happened rather than a style problem.
@@ -70,6 +71,10 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
         if runtimes_match:
             scalars["approved_custom_tool_runtimes"] = runtimes_match.group(1)
             continue
+        profiles_match = re.match(r"^  adapter_profiles:\s*(\[.*\])\s*$", raw)
+        if profiles_match:
+            scalars["adapter_profiles"] = profiles_match.group(1)
+            continue
         tool_match = re.match(r"^  - name:\s*(.+?)\s*$", raw)
         if tool_match and group == "custom_tools":
             tool = {"name": tool_match.group(1).strip("\"'")}
@@ -92,7 +97,7 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
             entry = {"id": item_match.group(1)}
             groups[group].append(entry)
             continue
-        field_match = re.match(r"^      (rank|allowed_roles|allowed_risks):\s*(.+?)\s*$", raw)
+        field_match = re.match(r"^      (rank|allowed_roles|allowed_risks|adapters):\s*(.+?)\s*$", raw)
         if field_match and entry is not None:
             entry[field_match.group(1)] = field_match.group(2)
             continue
@@ -101,31 +106,49 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
     return scalars, groups, projects, errors
 
 
-def validate_entries(kind: str, entries: list[dict[str, str]], errors: list[str]) -> None:
+def validate_entries(kind: str, entries: list[dict[str, str]], profiles: set[str], errors: list[str]) -> None:
     if not entries:
         errors.append(f"{kind} must contain at least one entry")
         return
-    ids: set[str] = set()
-    ranks: set[int] = set()
+    ids: dict[str, set[str]] = {profile: set() for profile in profiles}
+    ranks: dict[str, set[int]] = {profile: set() for profile in profiles}
+    covered: dict[str, int] = {profile: 0 for profile in profiles}
     for entry in entries:
         missing = {"id", "rank", "allowed_roles", "allowed_risks"} - set(entry)
         if missing:
             errors.append(f"{kind} {entry.get('id', '<unknown>')}: missing " + ", ".join(sorted(missing)))
             continue
-        if entry["id"] in ids:
-            errors.append(f"{kind}: duplicate id {entry['id']}")
-        ids.add(entry["id"])
+        targets = list_values(entry.get("adapters", "")) if profiles else set()
+        if profiles:
+            if not targets:
+                errors.append(f"{kind} {entry['id']}: adapters is required when adapter_profiles is set")
+                continue
+            if not targets <= profiles:
+                errors.append(f"{kind} {entry['id']}: adapters must be declared in orchestration.adapter_profiles")
+                continue
+        else:
+            targets = set(ADAPTERS)
+        for profile in targets:
+            covered[profile] = covered.get(profile, 0) + 1
+            if entry["id"] in ids.setdefault(profile, set()):
+                errors.append(f"{kind}: duplicate id {entry['id']} for {profile}")
+            ids[profile].add(entry["id"])
         if not entry["rank"].isdigit() or int(entry["rank"]) < 1:
             errors.append(f"{kind} {entry['id']}: rank must be a positive integer")
-        elif int(entry["rank"]) in ranks:
-            errors.append(f"{kind}: duplicate rank {entry['rank']}")
         else:
-            ranks.add(int(entry["rank"]))
+            for profile in targets:
+                if int(entry["rank"]) in ranks.setdefault(profile, set()):
+                    errors.append(f"{kind}: duplicate rank {entry['rank']} for {profile}")
+                else:
+                    ranks[profile].add(int(entry["rank"]))
         roles, risks = list_values(entry["allowed_roles"]), list_values(entry["allowed_risks"])
         if not roles or not roles <= ROLES:
             errors.append(f"{kind} {entry['id']}: allowed_roles must contain canonical roles")
         if not risks or not risks <= RISKS:
             errors.append(f"{kind} {entry['id']}: allowed_risks must contain low/medium/high/critical")
+    for profile in profiles:
+        if not covered[profile]:
+            errors.append(f"{kind} must contain at least one entry for adapter profile {profile}")
 
 
 def validate_custom_tools(tools: list[dict[str, str]], approved: set[str], root: Path, errors: list[str]) -> None:
@@ -218,8 +241,11 @@ def main() -> int:
         errors.append("max_concurrency must be at least 1")
     if "task_timeout_seconds" in scalars and int(scalars["task_timeout_seconds"]) < 1:
         errors.append("task_timeout_seconds must be at least 1")
-    validate_entries("approved_models", groups["approved_models"], errors)
-    validate_entries("approved_effort_levels", groups["approved_effort_levels"], errors)
+    profiles = list_values(scalars.get("adapter_profiles", ""))
+    if profiles and not profiles <= ADAPTERS:
+        errors.append("orchestration.adapter_profiles may contain only claude and codex")
+    validate_entries("approved_models", groups["approved_models"], profiles, errors)
+    validate_entries("approved_effort_levels", groups["approved_effort_levels"], profiles, errors)
     validate_custom_tools(
         groups["custom_tools"],
         list_values(scalars.get("approved_custom_tool_runtimes", "")),

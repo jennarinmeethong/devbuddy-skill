@@ -12,7 +12,7 @@ The main Claude Code session is the Orchestrator. It dispatches specialists with
 |---|---|---|
 | Role | `subagent_type: devbuddy-<role>-<effort>` | `references/role-routing.md` |
 | Effort level | the selected subagent's `effort` frontmatter field | `agents/devbuddy-<role>-<effort>.md` |
-| Model | the Agent tool's `model` parameter, set explicitly on every call | project `approved_models` |
+| Model | the Agent tool's `model` parameter, set explicitly on every call | current `claude` entries in project `approved_models` |
 
 Claude Code fixes effort per agent definition and allows the model to be overridden per call, so the adapter ships one agent per role and effort tier. Selecting the tier *is* selecting the effort level, and the Agent tool's `model` parameter takes precedence over any model in frontmatter. The agent definitions therefore leave `model` unset so minimum-sufficient model selection stays a live per-dispatch decision.
 
@@ -20,9 +20,11 @@ Do not add a model to an agent definition's frontmatter. A pinned model would si
 
 ## Task package
 
-For each slice the Orchestrator passes: resolved absolute `memory_root`, task ID, `task_path`, `read_keys`, `read_paths`, `write_scope`, `handoff_path`, `parent_revision`, role, objective, scope, allowed artefacts, lock/reservation, risk level, approved model, approved effort, timeout, retry limit, tool constraints, sensitive-data redaction requirement, a 12,000-byte maximum handoff, the required handoff shape from `templates/handoff.md`, and the exit condition. Read/write scope is deny-by-default; the specialist receives only the relevant handoff delta and never writes `.devbuddy/`.
+In a workspace that defines `adapter_profiles`, select only entries tagged `adapters: [claude]` (or a list containing `claude`). The current invocation supplies that selection; never change shared settings to switch adapters.
 
-Pass a compact delta, not the whole conversation. The specialist reads the role file and the memory entities it names; forwarding unrelated history wastes context that the specialist needs for its actual work.
+For each slice the Orchestrator passes: resolved absolute `memory_root`, task ID, `task_path`, `read_keys`, `read_paths`, `write_scope`, `record_path`, `parent_revision`, role, objective, scope, allowed artefacts, lock/reservation, risk level, approved model, approved effort, timeout, retry limit, tool constraints, sensitive-data redaction requirement, `schemas/slice-record.schema.json`, and the exit condition. Slice records have no file-size cap, but `next_slice` names only the references the next slice needs. Read/write scope is deny-by-default; the specialist returns only a JSON record and never writes `.devbuddy/`.
+
+Pass referenced state, not the whole conversation. The specialist reads the role file and the memory entities it names; its JSON record returns only `next_slice`, evidence references, and status.
 
 ## Selection rule
 

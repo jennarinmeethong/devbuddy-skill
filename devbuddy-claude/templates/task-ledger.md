@@ -11,7 +11,7 @@
 - Session ID / attempt:
 - Memory revision:
 
-## Slices, locks, and handoffs
+## Slices, locks, and records
 
 | Slice | Owner | Model | Effort level | Sufficiency / escalation reason | Status | Locked artefacts | Evidence | Next action |
 |---|---|---|---|---|---|---|---|---|

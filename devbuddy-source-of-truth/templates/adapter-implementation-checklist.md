@@ -1,6 +1,6 @@
 # Adapter Implementation Checklist
 
-Common specification version: `0.2.0`
+Common specification version: `0.4.4`
 
 ## Status legend
 
@@ -18,16 +18,20 @@ Common specification version: `0.2.0`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: map and verify model/effort selection in platform dispatch.
 - [ ] `DBY-MODEL-003` | `settings.yaml`, `references/policies.md` | Minimum-sufficient model/effort selection and recorded escalation reason | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: enforce minimum-sufficient selection and escalation evidence.
-- [ ] `DBY-ROLE-001` | `roles/` | Orchestrator and IT role workflows with structured handoffs | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
-  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: translate role dispatch and handoff transport.
+- [ ] `DBY-SET-002` | `settings.yaml`, `references/settings.md` | Shared Claude/Codex workspace profiles selected automatically from the invoking adapter | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: select only the invoking adapter's tagged allowlist entries without editing workspace settings.
+- [ ] `DBY-ROLE-001` | `roles/` | Orchestrator and IT role workflows with structured JSON slice records | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: translate role dispatch and slice-record transport.
 - [ ] `DBY-KNOW-001` | `references/knowledge-model.md` | Project memory, keys, impact approval, health, and migration controls | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: implement memory resolution and validation flow.
-- [ ] `DBY-MEM-002` | `references/task-memory.md`, `templates/` | Task-scoped shared memory, owner-only canonical writes, compact handoffs, and analysis entrypoint | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
-  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: implement task-memory transport and validation.
+- [ ] `DBY-MEM-002` | `references/task-memory.md`, `schemas/` | Task-scoped shared memory, owner-only canonical writes, compact JSON slice records, and analysis entrypoint | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: implement task-memory record transport and validation.
+- [ ] `DBY-MEM-003` | `schemas/slice-record.schema.json`, `scripts/task_memory.py` | JSON-only slice-record schema, bounded validation, and record persistence without Markdown hand-off files | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: persist only validated JSON records under the task record directory.
 - [ ] `DBY-SAFE-001` | `references/policies.md` | Git, tool, cost, secret, endpoint, prompt-injection, and policy-compliance controls | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: map controls to platform permissions and prompts.
-- [ ] `DBY-TOOLS-001` | `scripts/` | Python memory initialization, bootstrap, validation, checklist, knowledge, and manual conformance tools | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
-  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: validate Python/tool invocation support.
+- [ ] `DBY-TOOLS-001` | `scripts/`, `tools/` | Manifest-bound project-local Python runtime tools and source-only development validation | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: enforce exact workspace-tool paths, manifest verification, and runtime/source separation.
 - [ ] `DBY-TOOLS-002` | `references/custom-tools.md` | Custom-tool contract, workspace registry, approved runtimes, manifest schema, secret boundary, and untrusted-output handling | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: carry the contract into the adapter and validate the workspace registry.
 - [ ] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`

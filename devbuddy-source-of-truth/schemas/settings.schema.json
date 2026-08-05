@@ -7,7 +7,7 @@
     "schema_version": {"const": 1},
     "skill": {"type": "object", "required": ["name", "common_spec_version", "internal_language", "user_language"]},
     "governance": {"type": "object"},
-    "orchestration": {"type": "object", "required": ["max_concurrency", "task_timeout", "retry_limit", "approved_models", "approved_effort_levels", "require_model_and_effort_per_dispatch", "model_effort_selection_policy", "escalation_requires_recorded_reason", "user_update_events"]},
+    "orchestration": {"type": "object", "required": ["max_concurrency", "task_timeout", "retry_limit", "approved_models", "approved_effort_levels", "adapter_profile_selection", "require_model_and_effort_per_dispatch", "model_effort_selection_policy", "escalation_requires_recorded_reason", "user_update_events"]},
     "loops": {"type": "object"},
     "memory": {"type": "object", "required": ["default_root", "project_settings_path", "locator_key", "knowledge_root", "project_registry_key"]},
     "tools": {"type": "object"},

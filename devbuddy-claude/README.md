@@ -130,6 +130,6 @@ Pass the complete task after the command; the Orchestrator picks the route. The 
 | `references/` | Dispatch contract, policy, routing, settings, knowledge model, task memory, loop engineering, custom tools |
 | `schemas/` | JSON Schema for a project's `.devbuddy/settings.yaml` |
 | `scripts/` | Installer, generator, validators, workspace initializer, task-memory tool |
-| `templates/` | Handoff, task ledger, knowledge entity, the `project-tools/` runtime payload, and opt-in bundled custom tools |
+| `templates/` | Slice record, task ledger, knowledge entity, the `project-tools/` runtime payload, and opt-in bundled custom tools |
 | `tests/` | Workspace, task-memory, settings, metadata, and installer regression tests plus static scenarios |
 | `manual/` | Bilingual Thai/English offline manual |

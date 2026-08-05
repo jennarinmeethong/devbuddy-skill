@@ -15,8 +15,15 @@ orchestration:
   max_concurrency: 2
   task_timeout_seconds: 900
   retry_limit: 1
+  adapter_profiles: [claude, codex]
   approved_models:
     - id: haiku
+      adapters: [claude]
+      rank: 1
+      allowed_roles: [developer, qa]
+      allowed_risks: [low]
+    - id: codex-fast
+      adapters: [codex]
       rank: 1
       allowed_roles: [developer, qa]
       allowed_risks: [low]
@@ -26,6 +33,7 @@ orchestration:
       allowed_risks: [low, medium, high]
   approved_effort_levels:
     - id: low
+      adapters: [claude, codex]
       rank: 1
       allowed_roles: [developer, qa]
       allowed_risks: [low]
@@ -35,7 +43,9 @@ orchestration:
       allowed_risks: [low, medium, high]
 ```
 
-Ranks are positive integers; lower means less capable or less costly. Every dispatched role and risk must be allowed by both the selected model entry and the selected effort entry. Validate the file with `scripts/validate_project_settings.py` before the first dispatch.
+`adapter_profiles` enables a single settings file for Claude and Codex. The adapter chooses its own profile at runtime; never edit an “active adapter” value when switching tools. An allowlist entry tagged with `adapters` is visible only to those adapters. Each declared profile needs at least one model and effort entry. Ranks are positive integers within each profile; lower means less capable or less costly. Every dispatched role and risk must be allowed by both the selected model entry and the selected effort entry. Validate the file with `scripts/validate_project_settings.py` before the first dispatch.
+
+Legacy settings without `adapter_profiles` stay valid and treat entries as universal. Once `adapter_profiles` is present, tag every model and effort entry with `adapters` so a provider-specific model cannot be dispatched by the wrong adapter.
 
 Do not add provider, price, credential, prompt, or personal data to settings.
 

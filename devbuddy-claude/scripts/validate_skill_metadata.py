@@ -29,6 +29,16 @@ EFFORTS = {"low", "medium", "high", "xhigh", "max"}
 SKILL_REQUIRED = {"name", "description", "disable-model-invocation"}
 SKILL_OPTIONAL = {"argument-hint"}
 CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
+RUNTIME_BOUNDARY = (
+    "<devbuddy-root>/tools/",
+    "tools/manifest.json",
+    "init_project_memory.py",
+    "bootstrap_knowledge.py",
+    "task_memory.py",
+    "validate_project_settings.py",
+    "validate_knowledge.py",
+    "source-maintenance scripts",
+)
 
 
 def exercise_task_memory(root: Path, errors: list[str]) -> None:
@@ -96,6 +106,12 @@ def check_skill(root: Path, errors: list[str]) -> None:
         errors.append("SKILL.md: description is required")
     elif "/devbuddy" not in description:
         errors.append("SKILL.md: description must state the explicit /devbuddy invocation")
+    body = skill.read_text(encoding="utf-8")
+    for required in RUNTIME_BOUNDARY:
+        if required not in body:
+            errors.append(f"SKILL.md: missing runtime-tool boundary token: {required}")
+    if re.search(r"(?m)^python(?:3)? scripts/", body):
+        errors.append("SKILL.md: delivery runtime must not invoke source scripts/")
 
 
 def resolve_agents_dir(root: Path, override: Path | None) -> Path | None:

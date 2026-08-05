@@ -1,7 +1,7 @@
 schema_version: 1
 skill:
   name: devbuddy
-  common_spec_version: 0.2.0
+  common_spec_version: 0.4.4
   internal_language: en
   user_language: th
 governance:
@@ -11,11 +11,12 @@ governance:
   require_manual_update: true
   require_knowledge_impact_approval: true
 orchestration:
-  max_concurrency: user_required
-  task_timeout: user_required
-  retry_limit: user_required
+  max_concurrency: 2
+  task_timeout: 900
+  retry_limit: 1
   approved_models: []
   approved_effort_levels: user_required
+  adapter_profile_selection: current_adapter
   require_model_and_effort_per_dispatch: true
   model_effort_selection_policy: minimum_sufficient
   escalation_requires_recorded_reason: true
