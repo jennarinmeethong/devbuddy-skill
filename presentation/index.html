@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#091525">
+    <title>DevBuddy · Meeting presentation</title>
+    <meta name="description" content="สไลด์นำเสนอ DevBuddy: policy-driven software delivery orchestration">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#slides">ข้ามไปเนื้อหาสไลด์</a>
+
+    <header class="deck-header">
+      <a class="wordmark" href="#intro" aria-label="DevBuddy — กลับสไลด์แรก">
+        <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>devbuddy</span>
+      </a>
+      <div class="deck-actions">
+        <a class="manual-link" href="../devbuddy-source-of-truth/manual/th/index.html">ดูคู่มือ</a>
+        <button class="icon-button" type="button" data-notes aria-pressed="false" title="เปิดโน้ตผู้นำเสนอ (N)">
+          <span aria-hidden="true">✦</span><span class="button-label">Notes</span>
+        </button>
+        <button class="icon-button" type="button" data-fullscreen title="เต็มจอ (F)">
+          <span aria-hidden="true">⛶</span><span class="button-label">Full screen</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="slides" class="slides" aria-label="DevBuddy presentation">
+      <section class="slide slide-intro is-active" id="intro" data-title="DevBuddy" data-note="เปิดด้วยภาพรวม: DevBuddy ไม่ได้แทนที่คนหรือทีม แต่ทำให้การทำงานร่วมกับ AI มีเจ้าของงาน หลักฐาน และจุดอนุมัติที่ชัดเจน.">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Policy-driven software delivery</p>
+            <h1>เปลี่ยน AI หลายตัว<br>ให้ทำงานเป็น <em>ทีมเดียวกัน</em></h1>
+            <p class="hero-lede">DevBuddy คือ skill สำหรับจัดระเบียบงานส่งมอบซอฟต์แวร์ ตั้งแต่รับโจทย์ ส่งต่อ specialist เก็บหลักฐาน ไปจนถึงดูแล project knowledge ร่วมกัน</p>
+            <div class="hero-meta"><span>Offline-first</span><span>Thai / English</span><span>v0.4.4</span></div>
+          </div>
+          <div class="orbit" aria-label="DevBuddy orchestrator เชื่อมต่อผู้เชี่ยวชาญ 9 บทบาท">
+            <div class="orbit-core"><span>Dev</span><strong>Buddy</strong><small>orchestrator</small></div>
+            <span class="orbit-dot dot-1">PM</span><span class="orbit-dot dot-2">UX</span><span class="orbit-dot dot-3">DEV</span>
+            <span class="orbit-dot dot-4">QA</span><span class="orbit-dot dot-5">SEC</span><span class="orbit-dot dot-6">OPS</span>
+          </div>
+        </div>
+        <p class="slide-caption">01 <span>·</span> Why DevBuddy</p>
+      </section>
+
+      <section class="slide" id="problem" data-title="Why now" data-note="ชี้ให้เห็นว่าความเร็วที่ได้จาก AI ต้องมาพร้อมระบบควบคุม ไม่เช่นนั้นเราจะได้ output เยอะ แต่ไม่รู้ว่าใครรับผิดชอบ อะไรได้รับอนุมัติ หรือบริบทไหนเชื่อถือได้.">
+        <div class="slide-heading"><p class="eyebrow">The delivery gap</p><h2>AI ช่วยให้เร็วขึ้น<br>แต่ไม่ได้ทำให้ <em>ส่งมอบได้มั่นใจขึ้น</em> โดยอัตโนมัติ</h2></div>
+        <div class="contrast-grid">
+          <article class="contrast-card chaotic">
+            <p class="card-kicker">เมื่อไม่มี control plane</p>
+            <h3>งานเหมือนเร็ว<br>แต่เสี่ยงหลุดบริบท</h3>
+            <ul><li>คำตอบกระจัดกระจายและตรวจย้อนยาก</li><li>ขอบเขต approval ไม่ชัด</li><li>ความรู้สำคัญอาจถูกเขียนทับหรือสูญหาย</li></ul>
+          </article>
+          <div class="versus" aria-hidden="true">→</div>
+          <article class="contrast-card calm">
+            <p class="card-kicker">ด้วย DevBuddy</p>
+            <h3>ทุกงานมีเส้นทาง<br>และหลักฐานที่ตรวจได้</h3>
+            <ul><li>ส่งงานให้ specialist ตามความรับผิดชอบ</li><li>จุดตัดสินใจและการอนุมัติมองเห็นได้</li><li>ความรู้ร่วมถูกดูแลอย่างมีเจ้าของ</li></ul>
+          </article>
+        </div>
+        <p class="slide-caption">02 <span>·</span> The delivery gap</p>
+      </section>
+
+      <section class="slide" id="control-plane" data-title="Control plane" data-note="อธิบายว่า orchestrator เป็นคนถือ state ของงาน ไม่ได้ลงมือแทน specialist. โครงสร้างนี้ทำให้ governance ไม่หายไปเมื่อ task ใหญ่หรือมีหลาย role.">
+        <div class="slide-heading compact"><p class="eyebrow">One control plane</p><h2>ให้งานมีเจ้าของตั้งแต่คำขอ<br>จนถึงหลักฐานก่อนปิดงาน</h2></div>
+        <div class="flow-wrap" role="img" aria-label="ลำดับงาน: task เข้า orchestrator, routing และ approvals, specialists, review และ evidence">
+          <div class="flow-step request"><span>01</span><strong>Task</strong><small>สิ่งที่ทีมต้องการ</small></div>
+          <div class="flow-line"></div>
+          <div class="flow-step orchestration"><span>02</span><strong>Orchestrator</strong><small>scope · route · state</small></div>
+          <div class="flow-line"></div>
+          <div class="flow-step specialists"><span>03</span><strong>Specialists</strong><small>work within authority</small></div>
+          <div class="flow-line"></div>
+          <div class="flow-step evidence"><span>04</span><strong>Evidence</strong><small>review · decision · close</small></div>
+        </div>
+        <div class="principle-row"><span><b>Policy</b> ชัดเจนก่อนลงมือ</span><span><b>Approval</b> อยู่ตรงจุดที่มีผลกระทบ</span><span><b>Evidence</b> รองรับการตัดสินใจ</span></div>
+        <p class="slide-caption">03 <span>·</span> How it works</p>
+      </section>
+
+      <section class="slide" id="roles" data-title="Specialists" data-note="พูดว่าการแบ่ง role ไม่ได้เพิ่ม bureaucracy แต่ช่วยให้แต่ละมุมมองถูกเชิญเข้ามาในเวลาที่เหมาะสม. ไม่จำเป็นต้องใช้ทุก role กับทุกงาน.">
+        <div class="roles-layout">
+          <div class="slide-heading"><p class="eyebrow">The right perspective at the right time</p><h2>ไม่ใช่ agent เดียวทำทุกอย่าง<br>แต่คือ <em>ทีมที่รู้บทบาทตัวเอง</em></h2><p class="body-copy">DevBuddy route งานตามหน้าที่จริงของทีมส่งมอบ และเลือกใช้เฉพาะบทบาทที่งานนั้นต้องการ</p></div>
+          <div class="roles-grid" aria-label="DevBuddy specialist roles">
+            <article><span>01</span><strong>BA / PM</strong><small>Scope &amp; acceptance</small></article>
+            <article><span>02</span><strong>UX / UI</strong><small>Journey &amp; accessibility</small></article>
+            <article><span>03</span><strong>Architect</strong><small>Contracts &amp; design</small></article>
+            <article class="featured"><span>04</span><strong>Developer</strong><small>Implementation &amp; tests</small></article>
+            <article><span>05</span><strong>QA</strong><small>Quality evidence</small></article>
+            <article><span>06</span><strong>Security</strong><small>Risk controls</small></article>
+            <article><span>07</span><strong>DevOps / SRE</strong><small>Release &amp; operations</small></article>
+            <article><span>08</span><strong>DBA / Data</strong><small>Data safety</small></article>
+            <article><span>09</span><strong>Reviewer</strong><small>Independent review</small></article>
+          </div>
+        </div>
+        <p class="slide-caption">04 <span>·</span> Specialist roles</p>
+      </section>
+
+      <section class="slide" id="knowledge" data-title="Knowledge" data-note="เน้นว่านี่ไม่ใช่ memory ที่ถูกเติมอัตโนมัติแบบควบคุมไม่ได้: ใช้ knowledge impact approval ก่อนเขียน canonical knowledge และมี dry-run เพื่อตรวจผลก่อน apply.">
+        <div class="slide-heading"><p class="eyebrow">Shared project memory</p><h2>บริบทไม่ควรหายไป<br>ทุกครั้งที่เริ่มบทสนทนาใหม่</h2></div>
+        <div class="knowledge-board">
+          <div class="knowledge-rail"><span class="rail-label">Sources</span><div>Frontend</div><div>Backend</div><div>Docs</div></div>
+          <div class="knowledge-arrow" aria-hidden="true">→</div>
+          <div class="knowledge-core"><span class="core-label">Canonical knowledge</span><strong>Shared<br>knowledge base</strong><small>verified context<br>project-aware</small></div>
+          <div class="knowledge-arrow" aria-hidden="true">→</div>
+          <div class="knowledge-rail outcomes"><span class="rail-label">Outcomes</span><div>Better routing</div><div>Safer changes</div><div>Repeatable work</div></div>
+        </div>
+        <div class="safety-strip"><span>Read-only by default</span><span>Dry-run before apply</span><span>Approval before knowledge impact</span></div>
+        <p class="slide-caption">05 <span>·</span> Knowledge with guardrails</p>
+      </section>
+
+      <section class="slide" id="platforms" data-title="Platforms" data-note="DevBuddy มี common specification เดียว และ platform adapters เพียงแปลกลไกของแต่ละ platform. ดังนั้น intent และ policy ไม่แตกกันระหว่างทีมที่ใช้ Codex กับ Claude Code.">
+        <div class="slide-heading centered"><p class="eyebrow">One specification, two adapters</p><h2>ใช้ policy เดียวกัน<br>บนเครื่องมือที่ทีมเลือกใช้</h2></div>
+        <div class="adapter-stage">
+          <article class="adapter-card"><span class="adapter-number">01</span><h3>Claude Code</h3><p>เรียกผ่าน <code>/devbuddy</code> และใช้ role/effort agent definitions ตาม platform</p></article>
+          <div class="shared-spec"><span>Common</span><strong>DevBuddy<br>specification</strong><small>policies · roles · memory</small></div>
+          <article class="adapter-card"><span class="adapter-number">02</span><h3>Codex</h3><p>เรียกผ่าน <code>$devbuddy</code> พร้อม model และ reasoning effort ที่กำหนดแบบ explicit</p></article>
+        </div>
+        <p class="slide-caption">06 <span>·</span> Platform-ready</p>
+      </section>
+
+      <section class="slide slide-close" id="next" data-title="Next step" data-note="ปิดด้วยการชวนทดลองกับ task ที่มีขอบเขตชัดเจนหนึ่งงาน. เริ่มจาก dry-run / validation ก่อน แล้วค่อยขยายไป workflow ที่สำคัญขึ้น.">
+        <div class="close-copy">
+          <p class="eyebrow">Start small. Learn quickly.</p>
+          <h2>เริ่มจากงานหนึ่งชิ้น<br>แล้วให้หลักฐานเป็นคนบอกว่า<br><em>DevBuddy ช่วยทีมได้แค่ไหน</em></h2>
+          <div class="next-steps"><span>01 เลือก workflow ที่ต้องการทำให้ชัด</span><span>02 ติดตั้ง adapter ที่ทีมใช้</span><span>03 ทดลอง dry-run และ validate</span></div>
+          <a class="primary-link" href="../devbuddy-source-of-truth/manual/th/getting-started.html">เริ่มต้นใช้งาน <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="closing-mark" aria-hidden="true"><span>DEV</span><strong>Buddy</strong><i>delivery, with intent</i></div>
+        <p class="slide-caption">07 <span>·</span> Questions &amp; next step</p>
+      </section>
+    </main>
+
+    <aside class="speaker-notes" aria-live="polite" aria-label="โน้ตผู้นำเสนอ">
+      <div class="notes-header"><span>Presenter notes</span><button type="button" data-close-notes aria-label="ปิดโน้ต">×</button></div>
+      <p data-note-content>เริ่มนำเสนอเพื่อดูโน้ตของแต่ละสไลด์</p>
+    </aside>
+
+    <nav class="slide-nav" aria-label="ควบคุมสไลด์">
+      <button type="button" data-prev aria-label="สไลด์ก่อนหน้า">←</button>
+      <div class="slide-count"><span data-current>01</span><i></i><span data-total>07</span></div>
+      <button type="button" data-next aria-label="สไลด์ถัดไป">→</button>
+    </nav>
+    <div class="progress" aria-hidden="true"><span data-progress></span></div>
+    <script src="presentation.js" defer></script>
+  </body>
+</html>
