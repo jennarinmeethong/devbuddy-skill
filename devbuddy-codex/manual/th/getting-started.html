@@ -17,7 +17,9 @@ orchestration:
   retry_limit: 1
   adapter_profiles: [claude, codex]
   approved_models: [...]
-  approved_effort_levels: [...]</code></pre></div><p>ตั้งครั้งเดียวพอ Claude และ Codex จะเลือก entry ที่ tag ตรงกับ adapter ที่กำลังรันให้อัตโนมัติ จึงไม่มีค่า active adapter ที่ต้องสลับเอง</p></section><section id="validate"><h2>ตรวจและ bootstrap</h2><div class="code-wrap"><div class="code-label">Project-local tools <button class="copy" data-copy="copy">คัดลอก</button></div><pre><code>python3 .devbuddy/tools/validate_project_settings.py .devbuddy/settings.yaml
+  approved_effort_levels: [...]
+tools:
+  is_rtk: false</code></pre></div><p>ตั้งครั้งเดียวพอ Claude และ Codex จะเลือก entry ที่ tag ตรงกับ adapter ที่กำลังรันให้อัตโนมัติ จึงไม่มีค่า active adapter ที่ต้องสลับเอง เมื่อเป็น <code class="inline">true</code> ให้ใช้คำสั่ง RTK ที่รองรับแทนคำสั่งตรง เช่น <code class="inline">git status</code> เป็น <code class="inline">rtk git status</code> และ <code class="inline">rg</code> เป็น <code class="inline">rtk grep</code>; คำสั่งที่ RTK ไม่รองรับให้รันตรงตามเดิม</p></section><section id="validate"><h2>ตรวจและ bootstrap</h2><div class="code-wrap"><div class="code-label">Project-local tools <button class="copy" data-copy="copy">คัดลอก</button></div><pre><code>python3 .devbuddy/tools/validate_project_settings.py .devbuddy/settings.yaml
 python3 .devbuddy/tools/bootstrap_knowledge.py --devbuddy-root .devbuddy --project-id fe --dry-run
 python3 .devbuddy/tools/bootstrap_knowledge.py --devbuddy-root .devbuddy --project-id fe --apply
 python3 .devbuddy/tools/validate_knowledge.py --devbuddy-root .devbuddy</code></pre></div><p>ทำซ้ำกับ `be`; review observations ก่อน apply และ bootstrap จะไม่สร้าง typed canonical entity เอง</p></section><section id="first-task"><h2>สร้าง task แรก</h2><div class="code-wrap"><div class="code-label">Workspace task <button class="copy" data-copy="copy">คัดลอก</button></div><pre><code>python3 .devbuddy/tools/task_memory.py init \

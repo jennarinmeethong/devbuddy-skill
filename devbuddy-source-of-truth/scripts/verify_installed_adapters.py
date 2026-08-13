@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 
-CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
+CORE = ("Context.md", "KnowledgeBase.md")
 ROLES = ("ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer")
 EFFORTS = ("low", "medium", "high")
 

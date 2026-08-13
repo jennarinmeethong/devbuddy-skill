@@ -16,6 +16,8 @@ Run from the repository root:
 python3 devbuddy-source-of-truth/scripts/validate_settings.py devbuddy-source-of-truth/settings.yaml
 python3 devbuddy-source-of-truth/scripts/check_adapter_checklists.py --template devbuddy-source-of-truth/templates/adapter-implementation-checklist.md devbuddy-claude/adapter-implementation-checklist.md devbuddy-codex/adapter-implementation-checklist.md
 python3 devbuddy-source-of-truth/scripts/check_semantic_conformance.py
+python3 devbuddy-source-of-truth/scripts/sync_adapter_skills.py --check
+python3 devbuddy-source-of-truth/scripts/validate_skill_contract.py
 python3 -m unittest discover devbuddy-source-of-truth/tests -v
 python3 -m unittest discover devbuddy-claude/tests -v
 python3 -m unittest discover devbuddy-codex/tests -v
@@ -46,4 +48,4 @@ python3 devbuddy-source-of-truth/scripts/init_project_memory.py --devbuddy-root 
 python3 <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <workspace>/.devbuddy --project-id fe --dry-run
 ```
 
-Bootstrap writes only `Context.md` and `KnowledgeBase.md` after explicit `--apply`, never overwrites non-empty existing files, and does not invent typed canonical entities or business policy. For a dedicated knowledge repository, register each source repository in its `.devbuddy/settings.yaml` and run bootstrap once per `--project-id`.
+Bootstrap writes only `Context.md` and `KnowledgeBase.md` after explicit `--apply`, never overwrites non-empty existing files, and does not invent typed canonical entities or business policy. Business context and decisions belong in typed knowledge entities, so legacy `BusinessContext.md` and `DecisionLog.md` are no longer created or required. For a dedicated knowledge repository, register each source repository in its `.devbuddy/settings.yaml` and run bootstrap once per `--project-id`. Runtime task inputs and temporary artifacts must remain below `.devbuddy` on every supported platform.

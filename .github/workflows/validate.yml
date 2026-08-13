@@ -1,0 +1,39 @@
+name: Validate DevBuddy
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  validate:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate generated skills and contracts
+        run: |
+          python devbuddy-source-of-truth/scripts/sync_adapter_skills.py --check
+          python devbuddy-source-of-truth/scripts/validate_skill_contract.py
+          python devbuddy-source-of-truth/scripts/validate_settings.py devbuddy-source-of-truth/settings.yaml
+          python devbuddy-source-of-truth/scripts/check_adapter_checklists.py --template devbuddy-source-of-truth/templates/adapter-implementation-checklist.md devbuddy-claude/adapter-implementation-checklist.md devbuddy-codex/adapter-implementation-checklist.md
+          python devbuddy-source-of-truth/scripts/check_semantic_conformance.py
+          python devbuddy-codex/scripts/validate_skill_metadata.py devbuddy-codex
+          python devbuddy-claude/scripts/validate_skill_metadata.py devbuddy-claude --agents-dir devbuddy-claude/agents
+          python devbuddy-codex/scripts/run_scenarios.py devbuddy-codex/tests/scenarios.json
+          python devbuddy-claude/scripts/run_scenarios.py devbuddy-claude/tests/scenarios.json
+          python devbuddy-source-of-truth/scripts/check_manual_conformance.py devbuddy-source-of-truth/manual
+          python devbuddy-codex/scripts/validate_manual.py devbuddy-codex/manual
+          python devbuddy-claude/scripts/validate_manual.py devbuddy-claude/manual
+      - name: Run source tests
+        run: python -m unittest discover devbuddy-source-of-truth/tests -v
+      - name: Run Codex adapter tests
+        run: python -m unittest discover devbuddy-codex/tests -v
+      - name: Run Claude adapter tests
+        run: python -m unittest discover devbuddy-claude/tests -v

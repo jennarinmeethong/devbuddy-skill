@@ -71,6 +71,13 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
         if runtimes_match:
             scalars["approved_custom_tool_runtimes"] = runtimes_match.group(1)
             continue
+        is_rtk_match = re.match(r"^  is_rtk:\s*(true|false)\s*$", raw)
+        if is_rtk_match:
+            scalars["is_rtk"] = is_rtk_match.group(1)
+            continue
+        if re.match(r"^  is_rtk:\s*", raw):
+            errors.append(f"line {number}: tools.is_rtk must be true or false")
+            continue
         profiles_match = re.match(r"^  adapter_profiles:\s*(\[.*\])\s*$", raw)
         if profiles_match:
             scalars["adapter_profiles"] = profiles_match.group(1)

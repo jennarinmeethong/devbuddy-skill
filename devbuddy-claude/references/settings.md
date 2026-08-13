@@ -41,11 +41,15 @@ orchestration:
       rank: 2
       allowed_roles: [ba-pm, architect, developer, qa, security, reviewer]
       allowed_risks: [low, medium, high]
+tools:
+  is_rtk: false
 ```
 
 `adapter_profiles` enables a single settings file for Claude and Codex. The adapter chooses its own profile at runtime; never edit an “active adapter” value when switching tools. An allowlist entry tagged with `adapters` is visible only to those adapters. Each declared profile needs at least one model and effort entry. Ranks are positive integers within each profile; lower means less capable or less costly. Every dispatched role and risk must be allowed by both the selected model entry and the selected effort entry. Validate the file with `scripts/validate_project_settings.py` before the first dispatch.
 
 Legacy settings without `adapter_profiles` stay valid and treat entries as universal. Once `adapter_profiles` is present, tag every model and effort entry with `adapters` so a provider-specific model cannot be dispatched by the wrong adapter.
+
+`tools.is_rtk` defaults to `false`. When it is `true`, DevBuddy uses RTK's supported equivalent in place of a direct command: for example `git status` becomes `rtk git status`, `rg <pattern> <path>` becomes `rtk grep <pattern> <path>`, and `cat <file>` becomes `rtk read <file>`. Commands with no RTK equivalent continue directly. If a supported RTK command is needed but `rtk` is missing from `PATH`, the affected dispatch waits for the user instead of installing RTK or falling back.
 
 Do not add provider, price, credential, prompt, or personal data to settings.
 
@@ -55,6 +59,7 @@ A workspace that owns custom tools declares them so the Orchestrator knows which
 
 ```yaml
 tools:
+  is_rtk: false
   approved_custom_tool_runtimes: [python, dotnet]
 custom_tools:
   - name: readonly_database_query

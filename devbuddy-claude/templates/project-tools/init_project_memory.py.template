@@ -16,10 +16,12 @@ TOOL_VERSION = "1"
 PROJECT_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 CORE = {
     "Context.md": "# Technical Context\n\n",
-    "BusinessContext.md": "# Business Context\n\n",
-    "DecisionLog.md": "# Decision Log\n\n",
     "KnowledgeBase.md": "# Knowledge Base\n\n",
 }
+# Keep legacy files during an explicit layout migration, but do not create or
+# require them.  Business context belongs in typed business entities and
+# decisions in the decisions/ directory, where each item has evidence.
+LEGACY_CORE = (*CORE, "BusinessContext.md", "DecisionLog.md")
 KNOWLEDGE_DIRS = [
     "domains", "features", "requirements", "flows", "business-rules", "screens",
     "technical/architecture", "technical/apis", "technical/database", "technical/events",
@@ -81,14 +83,18 @@ def bundled_tool_pairs(source: Path, root: Path) -> list[tuple[Path, Path]]:
 
 def workspace_root(args: argparse.Namespace) -> Path:
     if args.devbuddy_root is not None:
-        return args.devbuddy_root.expanduser().resolve()
-    if args.root is not None:
+        selected = args.devbuddy_root.expanduser().resolve()
+    elif args.root is not None:
         print("DEPRECATED: --root is now an alias for --devbuddy-root")
-        return args.root.expanduser().resolve()
-    if args.project_root is not None:
+        selected = args.root.expanduser().resolve()
+    elif args.project_root is not None:
         print("DEPRECATED: --project-root selects one project; prefer --devbuddy-root and --project id=path")
-        return (args.project_root.expanduser().resolve() / DEFAULT_ROOT)
-    return (Path.cwd() / DEFAULT_ROOT).resolve()
+        selected = args.project_root.expanduser().resolve() / DEFAULT_ROOT
+    else:
+        selected = (Path.cwd() / DEFAULT_ROOT).resolve()
+    if selected.name != DEFAULT_ROOT:
+        raise ValueError(f"DevBuddy root must be named {DEFAULT_ROOT}: {selected}")
+    return selected
 
 
 def projects(values: list[str], root: Path, legacy: Path | None) -> dict[str, str]:
@@ -129,6 +135,8 @@ def render_settings(project_map: dict[str, str]) -> str:
         lines.extend((f"    {project_id}:", f"      path: {path}"))
     lines.extend((
         "memory_root: knowledge-base",
+        "tools:",
+        "  is_rtk: false",
         "orchestration:",
         "  max_concurrency: 2",
         "  task_timeout_seconds: 900",
@@ -150,7 +158,7 @@ def settings_projects(path: Path) -> dict[str, str]:
 
 
 def migration_pairs(root: Path) -> list[tuple[Path, Path]]:
-    names = list(CORE) + [directory.split("/", 1)[0] for directory in KNOWLEDGE_DIRS]
+    names = list(LEGACY_CORE) + [directory.split("/", 1)[0] for directory in KNOWLEDGE_DIRS]
     return [(root / name, root / KNOWLEDGE / name) for name in sorted(set(names)) if (root / name).exists()]
 
 
@@ -166,8 +174,8 @@ def main() -> int:
     parser.add_argument("--seed-custom-tool", action="append", default=[], metavar="NAME",
                         help="copy a bundled custom tool from templates/project-tools/NAME into tools/; repeatable")
     args = parser.parse_args()
-    root = workspace_root(args)
     try:
+        root = workspace_root(args)
         project_map = projects(args.project, root, args.project_root)
         sources = {name: tool_source(name) for name in TOOLS}
         bundled = [(name, bundled_tool(name)) for name in args.seed_custom_tool]

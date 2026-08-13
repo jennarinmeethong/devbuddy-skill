@@ -28,7 +28,7 @@ TIERS = ["low", "medium", "high"]
 EFFORTS = {"low", "medium", "high", "xhigh", "max"}
 SKILL_REQUIRED = {"name", "description", "disable-model-invocation"}
 SKILL_OPTIONAL = {"argument-hint"}
-CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
+CORE = ("Context.md", "KnowledgeBase.md")
 RUNTIME_BOUNDARY = (
     "<devbuddy-root>/tools/",
     "tools/manifest.json",

@@ -31,7 +31,9 @@ orchestration:
   retry_limit: 1
   adapter_profiles: [claude, codex]
   approved_models: [...]
-  approved_effort_levels: [...]</code></pre></div><p>Set this once. Claude and Codex select entries tagged for the adapter currently running; there is no active-adapter toggle.</p></section>
+  approved_effort_levels: [...]
+tools:
+  is_rtk: false</code></pre></div><p>Set this once. Claude and Codex select entries tagged for the adapter currently running; there is no active-adapter toggle. Set <code class="inline">tools.is_rtk</code> to <code class="inline">true</code> only when <code class="inline">rtk</code> is available on PATH; DevBuddy then uses supported RTK command equivalents, such as <code class="inline">git status</code> -> <code class="inline">rtk git status</code> and <code class="inline">rg</code> -> <code class="inline">rtk grep</code>, while unsupported commands remain direct.</p></section>
 <section id="validate"><h2>Validate and bootstrap</h2><div class="code-wrap"><div class="code-label">Project-local tools <button class="copy" data-copy="copy">Copy</button></div><pre><code>python3 .devbuddy/tools/validate_project_settings.py .devbuddy/settings.yaml
 python3 .devbuddy/tools/bootstrap_knowledge.py --devbuddy-root .devbuddy --project-id fe --dry-run
 python3 .devbuddy/tools/bootstrap_knowledge.py --devbuddy-root .devbuddy --project-id fe --apply

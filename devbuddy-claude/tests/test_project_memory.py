@@ -59,6 +59,7 @@ class WorkspaceTests(unittest.TestCase):
             settings = (root / "settings.yaml").read_text(encoding="utf-8")
             self.assertIn("fe:", settings); self.assertIn("be:", settings)
             self.assertIn("memory_root: knowledge-base", settings)
+            self.assertIn("is_rtk: false", settings)
             self.assertIn("max_concurrency: 2", settings)
             self.assertIn("task_timeout_seconds: 900", settings)
             self.assertIn("retry_limit: 1", settings)
@@ -179,17 +180,15 @@ class WorkspaceTests(unittest.TestCase):
             # marker disappears, observations start reading as canonical memory.
             self.assertIn("pending user/role review", context)
 
-    def test_bootstrap_external_root_uses_source_root_without_nesting(self) -> None:
+    def test_bootstrap_requires_a_devbuddy_root(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
             project, external = base / "project", base / "vault"
             project.mkdir()
             (project / "package.json").write_text("{}", encoding="utf-8")
-            self.assertEqual(run(INIT, "--devbuddy-root", external, "--project", f"app={project}").returncode, 0)
-            result = run(BOOTSTRAP, "--root", external, "--source-root", project, "--apply")
-            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-            self.assertIn("package.json", (external / "knowledge-base" / "Context.md").read_text(encoding="utf-8"))
-            self.assertFalse((external / ".devbuddy").exists())
+            result = run(INIT, "--devbuddy-root", external, "--project", f"app={project}")
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("must be named .devbuddy", result.stdout)
 
 
 class TaskMemoryTests(unittest.TestCase):
@@ -229,7 +228,8 @@ class TaskMemoryTests(unittest.TestCase):
     def test_json_slice_record_persists_for_the_next_slice(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = self.make_task(temporary)
-            source = Path(temporary) / "record.json"
+            inbox = root / "tasks" / "task-001" / "inbox"; inbox.mkdir()
+            source = inbox / "developer-1.json"
             payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0, "role": "developer", "model": "haiku", "effort": "low", "status": "completed", "result": "Implemented focused change.", "evidence": [], "next_slice": {"summary": "Run focused tests.", "read_paths": [], "read_keys": []}, "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
             source.write_text(json.dumps(payload), encoding="utf-8")
             result = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
@@ -241,8 +241,9 @@ class TaskMemoryTests(unittest.TestCase):
     def test_large_valid_slice_record_is_persisted(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = self.make_task(temporary)
-            source = Path(temporary) / "record.json"
-            payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0, "role": "developer", "model": "haiku", "effort": "low", "status": "completed", "result": "Implemented focused change.", "evidence": [{"ref": f"tests/case-{index}", "outcome": "x" * 500} for index in range(16)], "next_slice": {"summary": "Run focused tests.", "read_paths": [], "read_keys": []}, "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
+            inbox = root / "tasks" / "task-001" / "inbox"; inbox.mkdir()
+            source = inbox / "developer-1.json"
+            payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0, "role": "developer", "model": "haiku", "effort": "low", "status": "completed", "result": "x" * 1_501, "evidence": [{"ref": f"tests/case-{index}", "outcome": "x" * 500} for index in range(16)], "next_slice": {"summary": "Run focused tests.", "read_paths": [], "read_keys": []}, "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
             source.write_text(json.dumps(payload), encoding="utf-8")
             self.assertGreater(len(source.read_bytes()), 4_000)
             result = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
@@ -298,6 +299,27 @@ class SettingsValidatorTests(unittest.TestCase):
     def test_shipped_settings_validate(self) -> None:
         result = run(VALIDATOR, SETTINGS)
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+    def test_rtk_setting_must_be_boolean(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            invalid = Path(temporary) / "settings.yaml"
+            content = SETTINGS.read_text(encoding="utf-8").replace(
+                "orchestration:", "tools:\n  is_rtk: enabled\norchestration:"
+            )
+            invalid.write_text(content, encoding="utf-8")
+            result = run(VALIDATOR, invalid)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("tools.is_rtk", result.stdout)
+
+    def test_rtk_setting_accepts_true(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            enabled = Path(temporary) / "settings.yaml"
+            content = SETTINGS.read_text(encoding="utf-8").replace(
+                "orchestration:", "tools:\n  is_rtk: true\norchestration:"
+            )
+            enabled.write_text(content, encoding="utf-8")
+            result = run(VALIDATOR, enabled)
+            self.assertEqual(result.returncode, 0, result.stdout)
 
     def test_missing_budget_fixture_is_rejected(self) -> None:
         result = run(VALIDATOR, MISSING_BUDGET)

@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 
-CORE = ("Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md")
+CORE = ("Context.md", "KnowledgeBase.md")
 RUNTIME_BOUNDARY = (
     "<devbuddy-root>/tools/",
     "tools/manifest.json",

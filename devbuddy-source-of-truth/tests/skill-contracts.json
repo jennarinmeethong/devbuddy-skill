@@ -1,0 +1,5 @@
+{
+  "source": ["Change workflow", "Non-negotiable controls", "tools.is_rtk", "Knowledge Impact Approval"],
+  "codex": ["$devbuddy <task>", "$devbuddy owner loop <task>", "analyze` is read-only", "active Codex profile", "tools.is_rtk", "reasoning_effort", "task inbox", "source-maintenance scripts", "waiting_user"],
+  "claude": ["/devbuddy <task>", "/devbuddy owner loop <task>", "analyze` is read-only", "active Claude profile", "tools.is_rtk", "devbuddy-<role>-<effort>", "task inbox", "source-maintenance scripts", "waiting_user", "disable-model-invocation: true"]
+}

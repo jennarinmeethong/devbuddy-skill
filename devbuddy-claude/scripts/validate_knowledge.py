@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 DEFAULT_MEMORY_ROOT = ".devbuddy"
-CORE = {"Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md"}
+CORE = {"Context.md", "KnowledgeBase.md"}
 TYPED = ("domains", "features", "requirements", "flows", "business-rules", "screens", "technical", "tests", "decisions", "releases", "incidents")
 FIELDS = {"id", "type", "status", "owner", "source", "project_ids", "last_verified", "confidence"}
 KEY_RE = re.compile(r"^(DOM|FEAT|REQ|FLOW|BR|SCR|API|DB|EVT|TEST|ADR|REL|INC)-[A-Za-z0-9][A-Za-z0-9._-]*$")
@@ -38,6 +38,8 @@ def resolve_root(args: argparse.Namespace, parser: argparse.ArgumentParser) -> P
         workspace = (args.project_root / DEFAULT_MEMORY_ROOT).expanduser().resolve()
     else:
         workspace = selected[0].expanduser().resolve()
+    if workspace.name != DEFAULT_MEMORY_ROOT:
+        parser.error(f"DevBuddy root must be named {DEFAULT_MEMORY_ROOT}: {workspace}")
     knowledge = workspace / "knowledge-base"
     return knowledge if knowledge.is_dir() or not all((workspace / name).is_file() for name in CORE) else workspace
 
@@ -62,10 +64,10 @@ def validate_entity(path: Path, data: dict[str, str], errors: list[str]) -> None
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("memory_root", nargs="?", type=Path, help="memory root used directly (legacy positional form)")
+    parser.add_argument("memory_root", nargs="?", type=Path, help="legacy .devbuddy root positional form")
     roots = parser.add_mutually_exclusive_group()
     roots.add_argument("--devbuddy-root", type=Path, help="DevBuddy workspace root")
-    roots.add_argument("--root", type=Path, help="approved external memory root, used directly")
+    roots.add_argument("--root", type=Path, help="legacy alias for a root named .devbuddy")
     roots.add_argument("--project-root", type=Path, help="project root; resolve memory at <project-root>/.devbuddy")
     args = parser.parse_args()
     root = resolve_root(args, parser)

@@ -72,6 +72,9 @@ def main() -> int:
             errors.append(f"memory.{key} must be {expected}")
     if not re.search(r"^schema_version:\s*1\s*$", text, re.MULTILINE):
         errors.append("schema_version must be 1")
+    is_rtk = re.search(r"^  is_rtk:\s*(\S+)\s*$", text, re.MULTILINE)
+    if is_rtk and is_rtk.group(1).strip("\"'") not in {"true", "false"}:
+        errors.append("tools.is_rtk must be true or false")
     if errors:
         for error in errors:
             print(f"ERROR: {error}")

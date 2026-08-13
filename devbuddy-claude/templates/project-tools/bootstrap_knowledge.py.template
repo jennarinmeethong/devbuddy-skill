@@ -11,8 +11,6 @@ DEFAULT_MEMORY_ROOT = ".devbuddy"
 KNOWLEDGE_ROOT = "knowledge-base"
 CORE = {
     "Context.md": "# Technical Context\n\n",
-    "BusinessContext.md": "# Business Context\n\n",
-    "DecisionLog.md": "# Decision Log\n\n",
     "KnowledgeBase.md": "# Knowledge Base\n\n",
 }
 DIRECTORIES = [
@@ -60,7 +58,7 @@ def registered_projects(root: Path) -> dict[str, Path]:
 
 def resolve_root(args: argparse.Namespace, parser: argparse.ArgumentParser) -> tuple[str, Path, Path, Path]:
     if args.devbuddy_root is not None:
-        root = args.devbuddy_root.expanduser().resolve()
+        root = require_devbuddy_root(args.devbuddy_root.expanduser().resolve())
         projects = registered_projects(root)
         if not args.project_id:
             parser.error("--project-id is required with --devbuddy-root")
@@ -69,13 +67,19 @@ def resolve_root(args: argparse.Namespace, parser: argparse.ArgumentParser) -> t
         return args.project_id, projects[args.project_id], root, root / KNOWLEDGE_ROOT
     if args.project_root is not None:
         project = args.project_root.expanduser().resolve()
-        root = project / DEFAULT_MEMORY_ROOT
+        root = require_devbuddy_root(project / DEFAULT_MEMORY_ROOT)
         return args.project_id or project.name, project, root, root / KNOWLEDGE_ROOT
     if args.root is not None:
-        root = args.root.expanduser().resolve()
+        root = require_devbuddy_root(args.root.expanduser().resolve())
         project = (args.source_root or Path.cwd()).expanduser().resolve()
         return args.project_id or project.name, project, root, root / KNOWLEDGE_ROOT
     parser.error("provide --devbuddy-root, --project-root, or --root")
+
+
+def require_devbuddy_root(root: Path) -> Path:
+    if root.name != DEFAULT_MEMORY_ROOT:
+        raise ValueError(f"DevBuddy root must be named {DEFAULT_MEMORY_ROOT}: {root}")
+    return root
 
 
 def relative(path: Path, project: Path) -> str:
@@ -214,8 +218,8 @@ def main() -> int:
     roots = parser.add_mutually_exclusive_group(required=True)
     roots.add_argument("--devbuddy-root", type=Path, help="DevBuddy workspace root")
     roots.add_argument("--project-root", type=Path, help="repository to inspect; memory is <project-root>/.devbuddy")
-    roots.add_argument("--root", type=Path, help="approved external memory root, used directly")
-    parser.add_argument("--source-root", type=Path, help="repository to inspect when using an external --root (default: current directory)")
+    roots.add_argument("--root", type=Path, help="legacy alias for a root named .devbuddy")
+    parser.add_argument("--source-root", type=Path, help="repository to inspect when using --root (default: current directory)")
     parser.add_argument("--project-id", help="registered workspace project ID")
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--dry-run", action="store_true", help="print observations and planned writes (default)")

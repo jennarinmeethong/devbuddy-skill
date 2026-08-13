@@ -12,6 +12,8 @@ Common specification version: `0.4.4`
 
 - [ ] `DBY-CORE-001` | `SKILL.md` | Core orchestration, approvals, risk, slicing, batch, and loop policies | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: map common workflow to platform mechanics.
+- [ ] `DBY-SKILL-001` | `templates/adapter-skill-core.md.template`, `references/loading-matrix.md` | Generated adapter prompt core, progressive reference loading, and behavioral prompt-contract validation | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: render the shared core, preserve platform mechanics, and validate the prompt contract.
 - [ ] `DBY-SET-001` | `settings.yaml` | Settings schema, validation, budgets, model, environment, and cost controls | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: map settings to platform configuration.
 - [ ] `DBY-MODEL-002` | `settings.yaml`, `roles/orchestrator.md` | Required per-dispatch approved model and effort-level selection with task-ledger evidence | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`

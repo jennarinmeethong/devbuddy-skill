@@ -19,7 +19,7 @@ import bootstrap_knowledge
 IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 RELATIVE_PATH = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]*$")
 REVISION = re.compile(r"^- Memory revision: (\d+)$", re.MULTILINE)
-CORE = {"Context.md", "BusinessContext.md", "DecisionLog.md", "KnowledgeBase.md"}
+CORE = {"Context.md", "KnowledgeBase.md"}
 RECORD_STATUSES = {"completed", "blocked", "failed", "waiting_user"}
 
 
@@ -52,6 +52,8 @@ def root(args: argparse.Namespace) -> Path:
         raise ValueError("provide exactly one of --devbuddy-root, --root, or --project-root")
     value = args.devbuddy_root or args.root or args.project_root / ".devbuddy"
     resolved = value.expanduser().resolve()
+    if resolved.name != ".devbuddy":
+        raise ValueError(f"DevBuddy root must be named .devbuddy: {resolved}")
     if not resolved.is_dir():
         raise ValueError(f"memory root not found: {resolved}")
     missing = sorted(name for name in CORE if not (resolved / "knowledge-base" / name).is_file())
@@ -146,10 +148,10 @@ def initialise(args: argparse.Namespace) -> int:
     return 0
 
 
-def require_string(data: dict[str, object], key: str, limit: int) -> str:
+def require_string(data: dict[str, object], key: str) -> str:
     value = data.get(key)
-    if not isinstance(value, str) or not value.strip() or len(value) > limit:
-        raise ValueError(f"record.{key} must be a non-empty string of at most {limit} characters")
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"record.{key} must be a non-empty string")
     return value
 
 
@@ -182,34 +184,34 @@ def validate_record(content: str, task_id: str, slice_id: str, attempt: int, par
     if record["task_id"] != task_id or record["slice_id"] != slice_id or record["attempt"] != attempt or record["parent_revision"] != parent_revision:
         raise ValueError("record identity must match task ID, slice ID, attempt, and parent revision")
     for key in ("role", "model", "effort"):
-        identifier(require_string(record, key, 120), f"record {key}")
+        identifier(require_string(record, key), f"record {key}")
     if record["status"] not in RECORD_STATUSES:
         raise ValueError("record.status must be completed, blocked, failed, or waiting_user")
-    require_string(record, "result", 1_200)
+    require_string(record, "result")
     require_string_list(record, "knowledge_keys", 32)
     require_string_list(record, "blockers", 16)
     proposal, approval = record["knowledge_proposal"], record["required_approval"]
-    if proposal is not None and (not isinstance(proposal, str) or len(proposal) > 500):
-        raise ValueError("record.knowledge_proposal must be null or a string of at most 500 characters")
-    if approval is not None and (not isinstance(approval, str) or len(approval) > 500):
-        raise ValueError("record.required_approval must be null or a string of at most 500 characters")
+    if proposal is not None and not isinstance(proposal, str):
+        raise ValueError("record.knowledge_proposal must be null or a string")
+    if approval is not None and not isinstance(approval, str):
+        raise ValueError("record.required_approval must be null or a string")
     evidence = record["evidence"]
     if not isinstance(evidence, list) or len(evidence) > 16:
         raise ValueError("record.evidence must be a list of at most 16 entries")
     for item in evidence:
         if not isinstance(item, dict) or set(item) != {"ref", "outcome"}:
             raise ValueError("each record.evidence entry must contain only ref and outcome")
-        require_string(item, "ref", 300); require_string(item, "outcome", 500)
+        require_string(item, "ref"); require_string(item, "outcome")
     next_slice = record["next_slice"]
     if not isinstance(next_slice, dict) or set(next_slice) != {"summary", "read_paths", "read_keys"}:
         raise ValueError("record.next_slice must contain only summary, read_paths, and read_keys")
-    require_string(next_slice, "summary", 1_000)
+    require_string(next_slice, "summary")
     require_string_list(next_slice, "read_paths", 32); require_string_list(next_slice, "read_keys", 32)
     return record
 
 
 def record_slice(args: argparse.Namespace) -> int:
-    _memory, _project_id, task_id, ledger, _task_dir, records = task(args)
+    _memory, _project_id, task_id, ledger, task_dir, records = task(args)
     slice_id = identifier(args.slice_id, "slice ID")
     if args.attempt < 1:
         raise ValueError("attempt must be at least 1")
@@ -219,6 +221,11 @@ def record_slice(args: argparse.Namespace) -> int:
     source = args.input.expanduser().resolve()
     if source.suffix != ".json":
         raise ValueError("record input must use a .json file")
+    inbox = (task_dir / "inbox").resolve()
+    try:
+        source.relative_to(inbox)
+    except ValueError:
+        raise ValueError(f"record input must be below {inbox}") from None
     content = source.read_text(encoding="utf-8")
     record = validate_record(content, task_id, slice_id, args.attempt, args.parent_revision)
     target = records / f"{slice_id}-{args.attempt}.json"
@@ -273,8 +280,8 @@ def commit(args: argparse.Namespace) -> int:
     if replacements != 1:
         raise ValueError("unable to advance memory revision")
     summary = args.summary.strip()
-    if not summary or len(summary) > 500 or "\n" in summary:
-        raise ValueError("summary must be one non-empty line of at most 500 characters")
+    if not summary or "\n" in summary:
+        raise ValueError("summary must be one non-empty line")
     atomic_write(ledger, updated.rstrip() + f"\n\n## Canonical commits\n- revision {current + 1}: {summary}\n")
     print(f"OK: memory revision={current + 1}")
     return 0

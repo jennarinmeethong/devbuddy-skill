@@ -87,6 +87,10 @@
             "type": "string",
             "minLength": 1
           }
+        },
+        "is_rtk": {
+          "type": "boolean",
+          "default": false
         }
       }
     },

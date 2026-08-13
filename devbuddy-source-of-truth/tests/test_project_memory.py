@@ -118,9 +118,10 @@ class WorkspaceTests(unittest.TestCase):
             root, _frontend, _backend = self.make_workspace(temporary)
             created = run(TASK, "init", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001")
             self.assertEqual(created.returncode, 0, created.stdout)
-            record = root / "record.json"
+            inbox = root / "tasks" / "task-001" / "inbox"; inbox.mkdir()
+            record = inbox / "developer-1.json"
             payload = {"schema_version": 1, "task_id": "001", "slice_id": "developer", "attempt": 1, "parent_revision": 0,
-                       "role": "developer", "model": "test-model", "effort": "low", "status": "completed", "result": "Implemented focused change.",
+                       "role": "developer", "model": "test-model", "effort": "low", "status": "completed", "result": "x" * 1_501,
                        "evidence": [{"ref": "tests/unit", "outcome": "passed"}], "next_slice": {"summary": "Run focused unit test.", "read_paths": ["fe:tests/unit"], "read_keys": []},
                        "knowledge_keys": [], "knowledge_proposal": None, "blockers": [], "required_approval": None}
             record.write_text(json.dumps(payload), encoding="utf-8")
@@ -142,6 +143,18 @@ class WorkspaceTests(unittest.TestCase):
             accepted_large = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
                                  "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", record)
             self.assertEqual(accepted_large.returncode, 0, accepted_large.stdout)
+
+    def test_record_input_outside_devbuddy_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _frontend, _backend = self.make_workspace(temporary)
+            created = run(TASK, "init", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001")
+            self.assertEqual(created.returncode, 0, created.stdout)
+            record = Path(temporary) / "record.json"
+            record.write_text("{}", encoding="utf-8")
+            result = run(TASK, "record", "--devbuddy-root", root, "--project-id", "fe", "--task-id", "001",
+                         "--slice-id", "developer", "--attempt", "1", "--parent-revision", "0", "--input", record)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("record input must be below", result.stdout)
 
 
 class SettingsValidatorTests(unittest.TestCase):

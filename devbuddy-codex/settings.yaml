@@ -28,6 +28,8 @@ memory:
   knowledge_root: knowledge-base
   project_registry_key: workspace.projects
 tools:
+  # Prefer supported RTK command equivalents for delivery shell commands.
+  is_rtk: false
   # Default approval boundary for custom tools. A workspace may add a runtime in
   # its own settings after the user approves it; a tool whose runtime is not
   # listed is a dispatch block, not a judgement call. See references/custom-tools.md.

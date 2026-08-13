@@ -9,8 +9,6 @@ Resolve the selected `.devbuddy/settings.yaml` first. A DevBuddy workspace may r
 |- settings.yaml
 |- knowledge-base/
 |  |- Context.md
-|  |- BusinessContext.md
-|  |- DecisionLog.md
 |  |- KnowledgeBase.md
 |  |- domains/ features/ requirements/ flows/ business-rules/ screens/
 |  |- technical/{architecture,apis,database,events,integrations}/
@@ -38,6 +36,8 @@ Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Ever
 - DBA/Data: database/data models, migrations, integrity evidence.
 
 Owners propose canonical-memory changes only after user-approved Knowledge Impact Approval. The Orchestrator/`owner` is the sole canonical-memory writer and applies approved proposals with evidence. Keep current facts canonical; mark superseded decisions rather than deleting history.
+
+`Context.md` and `KnowledgeBase.md` are the only bootstrap files. They hold reviewable inventory and shared observations, respectively. Put durable business context in the typed `domains/`, `requirements/`, `flows/`, and `business-rules/` entities; put durable decisions in typed `decisions/` entities. `BusinessContext.md` and `DecisionLog.md` from an older layout are optional legacy notes, not required inputs and never created or updated automatically.
 
 ## Impact approval
 
