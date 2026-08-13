@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the 27 DevBuddy Claude subagent definitions from roles/.
+"""Generate DevBuddy Claude subagent definitions from roles/.
 
 One definition per canonical role and effort tier. Effort is fixed per
 definition because Claude Code sets reasoning effort in agent frontmatter,
@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-TIERS = ("low", "medium", "high")
+TIERS = ("low", "medium", "high", "extra", "max", "ultracode")
 
 ROLES = {
     "ba-pm": ("BA/PM", "business analysis, scope, acceptance criteria, and priority", "purple"),
@@ -41,6 +41,18 @@ TIER_GUIDANCE = {
         "This is the high-effort tier: the Orchestrator recorded a specific reason that lower "
         "tiers were insufficient. Reason carefully about failure modes, edge cases, and "
         "consequences before acting."
+    ),
+    "extra": (
+        "This is the extra-effort tier: lower tiers were insufficient for the recorded "
+        "high-risk slice. Analyse dependencies, edge cases, and failure modes before acting."
+    ),
+    "max": (
+        "This is the max-effort tier: the slice needs unusually deep investigation or "
+        "verification. Work systematically and record why the lower tiers were insufficient."
+    ),
+    "ultracode": (
+        "This is the Ultracode tier: use it only for a recorded critical-risk need. "
+        "Exhaust the approved evidence path and stop at any unresolved uncertainty."
     ),
 }
 

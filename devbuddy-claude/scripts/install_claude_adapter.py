@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Install the DevBuddy Claude adapter into a Claude Code configuration root.
 
-Copies the skill to <root>/skills/devbuddy/ and the 27 subagent definitions to
+Copies the skill to <root>/skills/devbuddy/ and the 54 subagent definitions to
 <root>/agents/. Dry-run is the default: nothing is written until --apply is
 given, so the user can see the exact file list first.
 

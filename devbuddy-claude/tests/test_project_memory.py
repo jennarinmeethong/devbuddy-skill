@@ -64,6 +64,32 @@ class WorkspaceTests(unittest.TestCase):
             self.assertIn("task_timeout_seconds: 900", settings)
             self.assertIn("retry_limit: 1", settings)
 
+    def test_settings_upgrade_fills_defaults_without_overwriting_values(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            frontend = base / "frontend"; frontend.mkdir()
+            root = base / "knowledge" / ".devbuddy"; root.mkdir(parents=True)
+            settings = root / "settings.yaml"
+            settings.write_text(
+                "schema_version: 1\nsettings_version: 0.4.4\nworkspace:\n  projects:\n    fe:\n      path: ../frontend\n"
+                "memory_root: knowledge-base\norchestration:\n  max_concurrency: 7\n  task_timeout_seconds: 900\n  retry_limit: 1\n"
+                "tools:\n  is_rtk: true\n",
+                encoding="utf-8",
+            )
+            preview = run(INIT, "--devbuddy-root", root, "--upgrade-settings", "--dry-run")
+            self.assertEqual(preview.returncode, 0, preview.stdout)
+            self.assertIn("UPGRADE SETTINGS", preview.stdout)
+            self.assertIn("settings_version: 0.4.4", settings.read_text(encoding="utf-8"))
+            applied = run(INIT, "--devbuddy-root", root, "--upgrade-settings")
+            self.assertEqual(applied.returncode, 0, applied.stdout)
+            content = settings.read_text(encoding="utf-8")
+            self.assertIn("settings_version: 0.4.5", content)
+            self.assertIn("max_concurrency: 7", content)
+            self.assertIn("is_rtk: true", content)
+            self.assertIn("gpt-5.6-sol", content)
+            self.assertIn("claude-fable", content)
+            self.assertEqual(run(VALIDATOR, settings).returncode, 0)
+
     def test_dry_run_writes_nothing_and_rejects_duplicate_paths(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary); source = base / "source"; source.mkdir(); root = base / ".devbuddy"
@@ -357,6 +383,7 @@ class CustomToolRegistryTests(unittest.TestCase):
     """
 
     BASE = """schema_version: 1
+settings_version: 0.4.5
 workspace:
   projects:
     app:

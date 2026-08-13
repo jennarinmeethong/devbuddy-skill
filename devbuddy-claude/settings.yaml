@@ -1,7 +1,8 @@
 schema_version: 1
 adapter:
   name: devbuddy-claude
-  source_spec_version: 0.4.4
+  source_spec_version: 0.4.5
+  settings_version: 0.4.5
   invocation: /devbuddy
   entrypoint: orchestrator
   explicit_subagent_model_and_effort: required
@@ -27,18 +28,22 @@ orchestration:
   # but never widen it silently.
   # Listing a model here does not waive the Cost Approval Policy.
   approved_models:
-    - id: haiku
+    - id: claude-haiku-4.5
       rank: 1
       allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
-      allowed_risks: [low]
-    - id: sonnet
+      allowed_risks: [low, medium]
+    - id: claude-sonnet-5
       rank: 2
       allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
       allowed_risks: [low, medium, high]
-    - id: opus
+    - id: claude-opus-5
       rank: 3
-      allowed_roles: [architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
       allowed_risks: [high, critical]
+    - id: claude-fable
+      rank: 4
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [critical]
   approved_effort_levels:
     - id: low
       rank: 1
@@ -52,6 +57,18 @@ orchestration:
       rank: 3
       allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
       allowed_risks: [medium, high, critical]
+    - id: extra
+      rank: 4
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: max
+      rank: 5
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: ultracode
+      rank: 6
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [critical]
 loops:
   enabled_roles: user_required
   attempt_budget: user_required

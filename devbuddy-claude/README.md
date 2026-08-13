@@ -4,7 +4,7 @@ DevBuddy is an explicitly invoked Claude Code skill for policy-driven software d
 
 Two platform mechanics shape this adapter:
 
-- **Effort is fixed per agent definition.** Claude Code sets reasoning effort in the `effort` frontmatter field, not as a per-call parameter, so the adapter ships one subagent per role and effort tier — 9 roles x 3 tiers = 27 definitions. Choosing `devbuddy-<role>-<effort>` *is* choosing the effort level.
+- **Effort is fixed per agent definition.** Claude Code sets reasoning effort in the `effort` frontmatter field, not as a per-call parameter, so the adapter ships one subagent per role and effort tier — 9 roles x 6 tiers = 54 definitions. Choosing `devbuddy-<role>-<effort>` *is* choosing the effort level.
 - **Model is chosen per call.** The Agent tool's `model` parameter overrides frontmatter, so agent definitions deliberately leave `model` unset and `scripts/validate_skill_metadata.py` rejects any that pin one. Minimum-sufficient model selection stays a live decision the ledger records.
 
 `SKILL.md` carries `disable-model-invocation: true`, so only an explicit `/devbuddy` opens the workflow. The approval gates assume a user who chose to start a delivery task.
@@ -23,13 +23,13 @@ Apply only after reviewing the dry run:
 python3 scripts/install_claude_adapter.py --apply
 ```
 
-The default target is `~/.claude`: the skill lands in `skills/devbuddy/` and the 27 definitions in `agents/`. Use `--claude-root <path>` for another approved configuration root. The installer refuses to overwrite any file it cannot identify as a DevBuddy artefact; `--replace-recognized-skill` narrows that refusal to a skill root that already identifies itself as DevBuddy. Restart or refresh the session afterwards so `/devbuddy` and the `devbuddy-*` agents load.
+The default target is `~/.claude`: the skill lands in `skills/devbuddy/` and the 54 definitions in `agents/`. Use `--claude-root <path>` for another approved configuration root. The installer refuses to overwrite any file it cannot identify as a DevBuddy artefact; `--replace-recognized-skill` narrows that refusal to a skill root that already identifies itself as DevBuddy. Restart or refresh the session afterwards so `/devbuddy` and the `devbuddy-*` agents load.
 
 Only the self-contained scripts are installed (`SKILL_SCRIPTS` in the installer). The conformance and manual checkers compare this adapter against `devbuddy-source-of-truth/`, which no install contains, so they stay repository-only.
 
 ## Configure a workspace
 
-Select a `.devbuddy` workspace and register repositories with stable project IDs. Shared canonical knowledge lives in `knowledge-base/`; task ledgers and the runtime tools copied from `templates/project-tools/` live in `tasks/` and `tools/`. Model IDs are intentionally not hardcoded — `settings.yaml` lists the aliases `haiku`, `sonnet`, and `opus` with ranks, allowed roles, and allowed risk levels, and a workspace may narrow that allowlist but never widen it silently.
+Select a `.devbuddy` workspace and register repositories with stable project IDs. Shared canonical knowledge lives in `knowledge-base/`; task ledgers and the runtime tools copied from `templates/project-tools/` live in `tasks/` and `tools/`. The default Claude allowlist is `claude-haiku-4.5`, `claude-sonnet-5`, `claude-opus-5`, and `claude-fable`, with six effort levels from `low` through `ultracode`; a workspace may narrow that allowlist but never widen it silently.
 
 ```bash
 python3 scripts/init_project_memory.py --devbuddy-root <workspace>/.devbuddy --project fe=../frontend --project be=../backend --dry-run
@@ -43,7 +43,7 @@ python3 <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <work
 python3 <workspace>/.devbuddy/tools/validate_knowledge.py --devbuddy-root <workspace>/.devbuddy
 ```
 
-Bootstrap appends a labelled observation section for one registered project without replacing another project's observations, and never invents typed canonical entities. Use `--migrate-layout --dry-run` before moving a legacy layout into `knowledge-base/`.
+Bootstrap appends a labelled observation section for one registered project without replacing another project's observations, and never invents typed canonical entities. When `settings_version` is stale, use `--upgrade-settings --dry-run` and then `--upgrade-settings` to add missing current defaults without overwriting workspace values. Use `--migrate-layout --dry-run` before moving a legacy layout into `knowledge-base/`.
 
 ## Register a custom tool
 
@@ -102,7 +102,7 @@ python3 scripts/validate_manual.py manual
 python3 -m unittest discover tests -v
 ```
 
-`generate_agents.py` regenerates the 27 definitions from `roles/`; `--check` asserts the committed files still match. Cross-adapter conformance lives in the source repository:
+`generate_agents.py` regenerates the 54 definitions from `roles/`; `--check` asserts the committed files still match. Cross-adapter conformance lives in the source repository:
 
 ```bash
 python3 ../devbuddy-source-of-truth/scripts/check_semantic_conformance.py
@@ -125,7 +125,7 @@ Pass the complete task after the command; the Orchestrator picks the route. The 
 |---|---|
 | `SKILL.md` | Orchestrator entrypoint, required sequence, dispatch blocks, core policy |
 | `settings.yaml` | Adapter identity, governance, orchestration transport, approved model and effort allowlists |
-| `agents/` | 27 generated `devbuddy-<role>-<effort>.md` subagent definitions |
+| `agents/` | 54 generated `devbuddy-<role>-<effort>.md` subagent definitions |
 | `roles/` | Orchestrator plus 9 canonical role workflows, the generator's source |
 | `references/` | Dispatch contract, policy, routing, settings, knowledge model, task memory, loop engineering, custom tools |
 | `schemas/` | JSON Schema for a project's `.devbuddy/settings.yaml` |

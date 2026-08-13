@@ -12,7 +12,7 @@ from pathlib import Path
 
 CORE = ("Context.md", "KnowledgeBase.md")
 ROLES = ("ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer")
-EFFORTS = ("low", "medium", "high")
+EFFORTS = ("low", "medium", "high", "extra", "max", "ultracode")
 
 
 def version(path: Path, key: str) -> str | None:

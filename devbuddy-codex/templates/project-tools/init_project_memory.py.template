@@ -13,6 +13,7 @@ from pathlib import Path
 DEFAULT_ROOT = ".devbuddy"
 KNOWLEDGE = "knowledge-base"
 TOOL_VERSION = "1"
+SETTINGS_VERSION = "0.4.5"
 PROJECT_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 CORE = {
     "Context.md": "# Technical Context\n\n",
@@ -35,6 +36,43 @@ TOOLS = (
 # host's real configuration holds credentials the skill must never carry.
 SKIP_DIRS = {"bin", "obj", "releases", ".venv", "__pycache__", "node_modules"}
 SKIP_FILES = {"appsettings.json", "tool.json", ".DS_Store"}
+
+ALL_ROLES = "[ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]"
+STANDARD_ROLES = "[ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]"
+
+
+def allowlist_entry(identifier: str, adapter: str, rank: int, roles: str, risks: str) -> tuple[str, ...]:
+    return (
+        f"    - id: {identifier}",
+        f"      adapters: [{adapter}]",
+        f"      rank: {rank}",
+        f"      allowed_roles: {roles}",
+        f"      allowed_risks: {risks}",
+    )
+
+
+DEFAULT_MODELS = (
+    *allowlist_entry("claude-haiku-4.5", "claude", 1, STANDARD_ROLES, "[low, medium]"),
+    *allowlist_entry("claude-sonnet-5", "claude", 2, ALL_ROLES, "[low, medium, high]"),
+    *allowlist_entry("claude-opus-5", "claude", 3, ALL_ROLES, "[high, critical]"),
+    *allowlist_entry("claude-fable", "claude", 4, ALL_ROLES, "[critical]"),
+    *allowlist_entry("gpt-5.6-luna", "codex", 1, STANDARD_ROLES, "[low, medium]"),
+    *allowlist_entry("gpt-5.6-terra", "codex", 2, ALL_ROLES, "[low, medium, high]"),
+    *allowlist_entry("gpt-5.6-sol", "codex", 3, ALL_ROLES, "[high, critical]"),
+)
+DEFAULT_EFFORTS = (
+    *allowlist_entry("low", "claude", 1, STANDARD_ROLES, "[low]"),
+    *allowlist_entry("medium", "claude", 2, ALL_ROLES, "[low, medium]"),
+    *allowlist_entry("high", "claude", 3, ALL_ROLES, "[low, medium, high]"),
+    *allowlist_entry("extra", "claude", 4, ALL_ROLES, "[high, critical]"),
+    *allowlist_entry("max", "claude", 5, ALL_ROLES, "[high, critical]"),
+    *allowlist_entry("ultracode", "claude", 6, ALL_ROLES, "[critical]"),
+    *allowlist_entry("light", "codex", 1, STANDARD_ROLES, "[low]"),
+    *allowlist_entry("medium", "codex", 2, ALL_ROLES, "[low, medium]"),
+    *allowlist_entry("high", "codex", 3, ALL_ROLES, "[low, medium, high]"),
+    *allowlist_entry("extra-high", "codex", 4, ALL_ROLES, "[high, critical]"),
+    *allowlist_entry("ultra", "codex", 5, ALL_ROLES, "[high, critical]"),
+)
 
 
 def sha256(path: Path) -> str:
@@ -128,7 +166,7 @@ def projects(values: list[str], root: Path, legacy: Path | None) -> dict[str, st
 
 
 def render_settings(project_map: dict[str, str]) -> str:
-    lines = ["schema_version: 1", "workspace:", "  projects:"]
+    lines = ["schema_version: 1", f"settings_version: {SETTINGS_VERSION}", "workspace:", "  projects:"]
     if not project_map:
         lines.append("    {}")
     for project_id, path in sorted(project_map.items()):
@@ -141,9 +179,97 @@ def render_settings(project_map: dict[str, str]) -> str:
         "  max_concurrency: 2",
         "  task_timeout_seconds: 900",
         "  retry_limit: 1",
+        "  adapter_profiles: [claude, codex]",
+        "  approved_models:",
+        *DEFAULT_MODELS,
+        "  approved_effort_levels:",
+        *DEFAULT_EFFORTS,
         "",
     ))
     return "\n".join(lines)
+
+
+def settings_version(text: str) -> str | None:
+    match = re.search(r"^settings_version:\s*([^\s#]+)\s*$", text, re.MULTILINE)
+    return match.group(1) if match else None
+
+
+def section_end(lines: list[str], start: int) -> int:
+    for index in range(start + 1, len(lines)):
+        if lines[index] and not lines[index].startswith(" "):
+            return index
+    return len(lines)
+
+
+def section_start(lines: list[str], name: str) -> int | None:
+    for index, line in enumerate(lines):
+        if line == f"  {name}:":
+            return index
+    return None
+
+
+def entry_ids(lines: list[str]) -> set[str]:
+    return {
+        match.group(1)
+        for line in lines
+        if (match := re.match(r"^    - id:\s*([A-Za-z0-9._-]+)\s*$", line))
+    }
+
+
+def merge_section(lines: list[str], name: str, defaults: tuple[str, ...]) -> None:
+    start = section_start(lines, name)
+    if start is None:
+        orchestration = next((index for index, line in enumerate(lines) if line == "orchestration:"), None)
+        if orchestration is None:
+            lines.extend(("orchestration:", f"  {name}:"))
+            lines.extend(defaults)
+            return
+        end = section_end(lines, orchestration)
+        lines[end:end] = [f"  {name}:", *defaults]
+        return
+    end = section_end(lines, start)
+    present = entry_ids(lines[start:end])
+    pending: list[str] = []
+    for index, line in enumerate(defaults):
+        if line.startswith("    - id:") and line.split(": ", 1)[1] in present:
+            continue
+        if line.startswith("    - id:"):
+            pending.extend(defaults[index:index + 5])
+    lines[end:end] = pending
+
+
+def merge_default_settings(text: str) -> str:
+    """Add current defaults without replacing any existing workspace choice."""
+    lines = text.splitlines()
+    if not any(line.startswith("schema_version:") for line in lines):
+        lines.insert(0, "schema_version: 1")
+    version_line = next((index for index, line in enumerate(lines) if line.startswith("settings_version:")), None)
+    if version_line is None:
+        schema_line = next(index for index, line in enumerate(lines) if line.startswith("schema_version:"))
+        lines.insert(schema_line + 1, f"settings_version: {SETTINGS_VERSION}")
+    else:
+        lines[version_line] = f"settings_version: {SETTINGS_VERSION}"
+    orchestration = next((index for index, line in enumerate(lines) if line == "orchestration:"), None)
+    if orchestration is None:
+        lines.append("orchestration:")
+        orchestration = len(lines) - 1
+    defaults = (
+        ("max_concurrency", "2"),
+        ("task_timeout_seconds", "900"),
+        ("retry_limit", "1"),
+        ("adapter_profiles", "[claude, codex]"),
+    )
+    end = section_end(lines, orchestration)
+    present = {match.group(1) for line in lines[orchestration:end] if (match := re.match(r"^  ([A-Za-z_][A-Za-z0-9_-]*):", line))}
+    lines[end:end] = [f"  {key}: {value}" for key, value in defaults if key not in present]
+    merge_section(lines, "approved_models", DEFAULT_MODELS)
+    merge_section(lines, "approved_effort_levels", DEFAULT_EFFORTS)
+    tools = next((index for index, line in enumerate(lines) if line == "tools:"), None)
+    if tools is None:
+        lines.extend(("tools:", "  is_rtk: false"))
+    elif not any(line.startswith("  is_rtk:") for line in lines[tools:section_end(lines, tools)]):
+        lines.insert(section_end(lines, tools), "  is_rtk: false")
+    return "\n".join(lines) + "\n"
 
 
 def settings_projects(path: Path) -> dict[str, str]:
@@ -169,6 +295,8 @@ def main() -> int:
     parser.add_argument("--root", type=Path, help=argparse.SUPPRESS)
     parser.add_argument("--project-root", type=Path, help=argparse.SUPPRESS)
     parser.add_argument("--dry-run", action="store_true", help="show planned changes only")
+    parser.add_argument("--upgrade-settings", action="store_true",
+                        help="fill missing current defaults in an older settings.yaml without overwriting existing values")
     parser.add_argument("--upgrade-tools", action="store_true", help="safely replace recognized project tools")
     parser.add_argument("--migrate-layout", action="store_true", help="move the legacy memory layout below knowledge-base")
     parser.add_argument("--seed-custom-tool", action="append", default=[], metavar="NAME",
@@ -187,6 +315,7 @@ def main() -> int:
     migration_destinations = {destination for _source, destination in moves}
     settings = root / "settings.yaml"
     settings_content = render_settings(project_map)
+    settings_upgrade: str | None = None
     creates: list[tuple[Path, str]] = []
     directories = [root / KNOWLEDGE / item for item in KNOWLEDGE_DIRS] + [root / "tasks", root / "tools"]
     for name, content in CORE.items():
@@ -198,6 +327,8 @@ def main() -> int:
     elif project_map and settings_projects(settings) != project_map:
         print(f"ERROR: settings already exists with different project registry: {settings}")
         return 1
+    elif args.upgrade_settings and settings_version(settings.read_text(encoding="utf-8")) != SETTINGS_VERSION:
+        settings_upgrade = merge_default_settings(settings.read_text(encoding="utf-8"))
 
     conflicts = [destination for source, destination in moves if destination.exists()]
     if conflicts:
@@ -245,6 +376,8 @@ def main() -> int:
         print(f"MOVE: {source} -> {destination}")
     for path, _content in creates:
         print(f"CREATE: {path}")
+    if settings_upgrade is not None:
+        print(f"UPGRADE SETTINGS: {settings}")
     for action, _source, target in tool_actions:
         print(f"{action}: {target}")
     for _source, target in custom_actions:
@@ -264,6 +397,8 @@ def main() -> int:
         for path, content in creates:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding="utf-8")
+        if settings_upgrade is not None:
+            settings.write_text(settings_upgrade, encoding="utf-8")
         for _action, source, target in tool_actions:
             shutil.copy2(source, target)
         for source, target in custom_actions:

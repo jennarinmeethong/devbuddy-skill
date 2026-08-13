@@ -16,6 +16,12 @@ Each adapter must resolve `tools.is_rtk` from the selected workspace settings be
 
 One `.devbuddy/settings.yaml` may serve both adapters. Its `orchestration.adapter_profiles` declares the installed profiles; entries in `approved_models` and `approved_effort_levels` may declare `adapters: [claude]`, `adapters: [codex]`, or both. At dispatch, select only entries for the active adapter. No mutable “active adapter” setting exists: the invoking adapter determines the profile. Legacy entries without `adapters` remain universal only when `adapter_profiles` is absent; a profile-aware workspace must tag every entry.
 
+## Settings defaults and upgrades
+
+Every generated project settings file carries `settings_version`, which must match the adapter's shipped defaults. A version mismatch is resolved only through the explicitly requested `init_project_memory.py --upgrade-settings` flow (first with `--dry-run`). It updates `settings_version` and adds missing scalar settings, adapter profiles, models, and effort entries; it never replaces, narrows, or deletes existing workspace values.
+
+The shipped ordered defaults are intentionally only an approval boundary: `claude-haiku-4.5`, `claude-sonnet-5`, `claude-opus-5`, and `claude-fable`; plus `gpt-5.6-luna`, `gpt-5.6-terra`, and `gpt-5.6-sol`. Claude effort defaults are `low`, `medium`, `high`, `extra`, `max`, and `ultracode`; Codex defaults are `light`, `medium`, `high`, `extra-high`, and `ultra`. The Orchestrator still selects the lowest-ranked sufficient pair and obtains a Cost Approval before any chargeable dispatch.
+
 ## Invocation contract
 
 The adapter command is an Orchestrator entrypoint. A normal invocation passes the complete user task directly to the Orchestrator; the user does not need to choose a role or `owner` first. The Orchestrator assesses the task, selects the required role graph, and dispatches specialists.

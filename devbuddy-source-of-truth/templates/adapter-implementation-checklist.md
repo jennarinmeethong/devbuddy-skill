@@ -1,6 +1,6 @@
 # Adapter Implementation Checklist
 
-Common specification version: `0.4.4`
+Common specification version: `0.4.5`
 
 ## Status legend
 
@@ -22,6 +22,8 @@ Common specification version: `0.4.4`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: enforce minimum-sufficient selection and escalation evidence.
 - [ ] `DBY-SET-002` | `settings.yaml`, `references/settings.md` | Shared Claude/Codex workspace profiles selected automatically from the invoking adapter | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: select only the invoking adapter's tagged allowlist entries without editing workspace settings.
+- [ ] `DBY-SET-003` | `settings.yaml`, `scripts/init_project_memory.py`, `scripts/validate_project_settings.py` | Versioned defaults, explicit non-destructive settings upgrade, and current provider allowlists | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: ship, validate, and exercise the versioned default settings upgrade.
 - [ ] `DBY-ROLE-001` | `roles/` | Orchestrator and IT role workflows with structured JSON slice records | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: translate role dispatch and slice-record transport.
 - [ ] `DBY-KNOW-001` | `references/knowledge-model.md` | Project memory, keys, impact approval, health, and migration controls | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`

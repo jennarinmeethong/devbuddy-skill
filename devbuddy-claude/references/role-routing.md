@@ -15,15 +15,18 @@
 
 ## Subagent names
 
-Each canonical role has three installed subagents, one per effort tier:
+Each canonical role has six installed subagents, one per effort tier:
 
 ```text
 devbuddy-<role>-low
 devbuddy-<role>-medium
 devbuddy-<role>-high
+devbuddy-<role>-extra
+devbuddy-<role>-max
+devbuddy-<role>-ultracode
 ```
 
-for `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer` — 27 definitions.
+for `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer` — 54 definitions.
 
 `analyze` is an Orchestrator mode, not a role, and has no subagent. `docs` resolves to a `developer` subagent.
 

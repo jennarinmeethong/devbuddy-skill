@@ -1,7 +1,8 @@
 schema_version: 1
 adapter:
   name: devbuddy-codex
-  source_spec_version: 0.4.4
+  source_spec_version: 0.4.5
+  settings_version: 0.4.5
   invocation: $devbuddy
   entrypoint: orchestrator
   explicit_subagent_model_and_effort: required
@@ -12,8 +13,42 @@ governance:
   require_knowledge_impact_approval: true
 orchestration:
   project_settings_path: .devbuddy/settings.yaml
-  approved_models: []
-  approved_effort_levels: []
+  # Ordered from the lowest-cost sufficient default.  The project allowlist
+  # may narrow these entries, but does not silently broaden them.
+  approved_models:
+    - id: gpt-5.6-luna
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low, medium]
+    - id: gpt-5.6-terra
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: gpt-5.6-sol
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+  approved_effort_levels:
+    - id: light
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low]
+    - id: medium
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium]
+    - id: high
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: extra-high
+      rank: 4
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: ultra
+      rank: 5
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
   max_concurrency: 2
   task_timeout_seconds: 900
   retry_limit: 1

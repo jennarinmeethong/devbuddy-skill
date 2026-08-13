@@ -4,6 +4,7 @@ Create the selected `.devbuddy/settings.yaml` before any dispatch. Register ever
 
 ```yaml
 schema_version: 1
+settings_version: 0.4.5
 workspace:
   projects:
     fe:
@@ -43,7 +44,11 @@ Legacy settings without `adapter_profiles` stay valid and treat entries as unive
 
 `tools.is_rtk` defaults to `false`. When it is `true`, DevBuddy uses RTK's supported equivalent in place of a direct command: for example `git status` becomes `rtk git status`, `rg <pattern> <path>` becomes `rtk grep <pattern> <path>`, and `cat <file>` becomes `rtk read <file>`. Commands with no RTK equivalent continue directly. If a supported RTK command is needed but `rtk` is missing from `PATH`, the affected dispatch waits for the user instead of installing RTK or falling back.
 
-Relative project paths resolve from the parent of `.devbuddy`. `memory_root: knowledge-base` places shared canonical knowledge below the workspace; tasks and tools remain siblings. The Codex adapter does not ship provider model IDs: project settings own the approved model allowlist, and selected values map to the subagent call's `model` and `reasoning_effort` parameters.
+Relative project paths resolve from the parent of `.devbuddy`. `memory_root: knowledge-base` places shared canonical knowledge below the workspace; tasks and tools remain siblings. The Codex adapter ships the ranked defaults `gpt-5.6-luna` / `gpt-5.6-terra` / `gpt-5.6-sol` and `light` / `medium` / `high` / `extra-high` / `ultra`; project settings may narrow them, and selected values map to the subagent call's `model` and `reasoning_effort` parameters.
+
+## Settings upgrades
+
+`settings_version` tracks the shipped default set independently of `schema_version`. When it differs, preview and then run `init_project_memory.py --upgrade-settings`; it adds only missing defaults and updates the version, never overwriting workspace values. A stale settings version blocks validation until the explicit upgrade is applied.
 
 ## Custom tools
 

@@ -49,5 +49,5 @@ Apply in this order: explicit user instruction; mandatory safety/privacy/complia
 ## Completion controls
 
 - Run policy compliance before material dispatches, closure, and adapter changes.
-- Update the Thai and English manuals on every Skill change; update manual revision metadata and run conformance checks.
+- Update the Thai and English manuals on every Skill change; increment `skill.common_spec_version`, `skill.settings_version`, and every adapter `source_spec_version`/`settings_version` together; update manual revision metadata and run conformance checks.
 - Update adapter checklist items on every common change. An adapter is incomplete until all required items are done or the user accepts an exception.

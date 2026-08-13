@@ -45,6 +45,10 @@ def main() -> int:
     repository = source.parent
     template = (source / "templates" / "adapter-skill-core.md.template").read_text(encoding="utf-8")
     matrix = (source / "references" / "loading-matrix.md").read_text(encoding="utf-8")
+    shared_runtime = (
+        "scripts/init_project_memory.py",
+        "scripts/validate_project_settings.py",
+    )
     errors: list[str] = []
     for name, config in ADAPTERS.items():
         target = repository / config["directory"] / "SKILL.md"
@@ -55,9 +59,22 @@ def main() -> int:
                 errors.append(f"stale generated adapter skill: {target}; run sync_adapter_skills.py")
             if not matrix_target.is_file() or matrix_target.read_text(encoding="utf-8") != matrix:
                 errors.append(f"stale loading matrix: {matrix_target}; run sync_adapter_skills.py")
+            for relative in shared_runtime:
+                source_file = source / relative
+                adapter_file = repository / config["directory"] / relative
+                template_file = repository / config["directory"] / "templates" / "project-tools" / f"{source_file.name}.template"
+                for target_file in (adapter_file, template_file):
+                    if not target_file.is_file() or target_file.read_bytes() != source_file.read_bytes():
+                        errors.append(f"stale shared runtime tool: {target_file}; run sync_adapter_skills.py")
             continue
         target.write_text(expected, encoding="utf-8")
         matrix_target.write_text(matrix, encoding="utf-8")
+        for relative in shared_runtime:
+            source_file = source / relative
+            adapter_file = repository / config["directory"] / relative
+            template_file = repository / config["directory"] / "templates" / "project-tools" / f"{source_file.name}.template"
+            adapter_file.write_bytes(source_file.read_bytes())
+            template_file.write_bytes(source_file.read_bytes())
         print(f"OK: generated {target}")
     if errors:
         for error in errors:

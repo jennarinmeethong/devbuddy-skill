@@ -16,6 +16,7 @@ ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-s
 RISKS = {"low", "medium", "high", "critical"}
 SCALARS = {"max_concurrency", "task_timeout_seconds", "retry_limit"}
 ADAPTERS = {"claude", "codex"}
+SETTINGS_VERSION = "0.4.5"
 IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 # A manifest is committable by design, so a credential-shaped assignment in one
 # is a leak that has already happened rather than a style problem.
@@ -42,6 +43,10 @@ def parse(path: Path) -> tuple[dict[str, str], dict[str, list[dict[str, str]]], 
             continue
         if raw == "schema_version: 1":
             scalars["schema_version"] = "1"
+            continue
+        settings_version_match = re.match(r"^settings_version:\s*([^\s#]+)\s*$", raw)
+        if settings_version_match:
+            scalars["settings_version"] = settings_version_match.group(1)
             continue
         project_match = re.match(r"^    ([A-Za-z0-9][A-Za-z0-9._-]*):$", raw)
         if project_match:
@@ -125,16 +130,20 @@ def validate_entries(kind: str, entries: list[dict[str, str]], profiles: set[str
         if missing:
             errors.append(f"{kind} {entry.get('id', '<unknown>')}: missing " + ", ".join(sorted(missing)))
             continue
-        targets = list_values(entry.get("adapters", "")) if profiles else set()
+        tagged = list_values(entry.get("adapters", ""))
         if profiles:
-            if not targets:
+            if not tagged:
                 errors.append(f"{kind} {entry['id']}: adapters is required when adapter_profiles is set")
                 continue
-            if not targets <= profiles:
+            if not tagged <= profiles:
                 errors.append(f"{kind} {entry['id']}: adapters must be declared in orchestration.adapter_profiles")
                 continue
+            targets = tagged
         else:
-            targets = set(ADAPTERS)
+            # Legacy untagged entries stay universal. Tagged entries are still
+            # provider-specific, so an explicit settings upgrade can safely add
+            # current defaults without changing old custom entries' meaning.
+            targets = tagged or set(ADAPTERS)
         for profile in targets:
             covered[profile] = covered.get(profile, 0) + 1
             if entry["id"] in ids.setdefault(profile, set()):
@@ -228,6 +237,10 @@ def main() -> int:
     scalars, groups, projects, errors = parse(args.settings)
     if scalars.get("schema_version") != "1":
         errors.append("schema_version must be 1")
+    if scalars.get("settings_version") != SETTINGS_VERSION:
+        errors.append(
+            f"settings_version must be {SETTINGS_VERSION}; run init_project_memory.py --upgrade-settings to fill missing defaults"
+        )
     if scalars.get("memory_root", "").strip("\"'") != "knowledge-base":
         errors.append("memory_root must be knowledge-base")
     if not projects:

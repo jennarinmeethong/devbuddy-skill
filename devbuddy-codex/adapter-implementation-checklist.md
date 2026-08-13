@@ -1,7 +1,7 @@
 # Adapter Implementation Checklist
 
 Target: Codex Skill
-Common specification version: `0.4.4`
+Common specification version: `0.4.5`
 
 ## Checklist
 
@@ -19,3 +19,6 @@ Common specification version: `0.4.4`
 - [x] `DBY-TOOLS-001` | `scripts/`, `tools/` | Manifest-bound project-local Python runtime tools and source-only development validation | Status: `done` | Location: `SKILL.md`, `references/policy.md`, `references/knowledge-model.md`, `scripts/init_project_memory.py`, `templates/project-tools/`, `tests/test_project_memory.py` | Evidence: runtime calls require an exact `.devbuddy/tools/` child and a matching manifest hash; safe task calls need no second DevBuddy confirmation, while write gates and Codex permission prompts remain; tests cover dry-run init, manifest hashes, safe upgrade conflicts, and an installed payload containing only the bootstrap initializer
 - [x] `DBY-TOOLS-002` | `references/custom-tools.md` | Custom-tool contract, workspace registry, approved runtimes, manifest schema, secret boundary, and untrusted-output handling | Status: `done` | Location: `references/custom-tools.md`, `references/settings.md`, `schemas/project-settings.schema.json`, `scripts/validate_project_settings.py` | Evidence: `CustomToolRegistryTests` in `tests/test_project_memory.py` asserts a registered tool validates and that an unapproved runtime, a missing or non-JSON manifest, a manifest missing a schema, a credential-shaped value in a manifest, and a `secret_file` without a committed template are each rejected
 - [x] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `done` | Location: `manual/` and `devbuddy-source-of-truth/manual/*/codex.html` | Evidence: `scripts/validate_manual.py`
+
+## Synced items
+- [x] `DBY-SET-003` | `settings.yaml`, `scripts/init_project_memory.py`, `scripts/validate_project_settings.py` | Versioned defaults, explicit non-destructive settings upgrade, and current provider allowlists | Status: `done` | Location: `settings.yaml`, `scripts/init_project_memory.py`, `scripts/validate_project_settings.py` | Evidence: initialized and upgraded settings validate; adapter conformance and project-memory tests cover the current default set.

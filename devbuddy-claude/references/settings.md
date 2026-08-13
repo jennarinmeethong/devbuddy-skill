@@ -4,6 +4,7 @@ Create the selected `.devbuddy/settings.yaml` before any dispatch. Register ever
 
 ```yaml
 schema_version: 1
+settings_version: 0.4.5
 workspace:
   projects:
     fe:
@@ -72,13 +73,13 @@ Both keys are optional; a workspace with no custom tools omits them. When `custo
 
 Read `references/custom-tools.md` before proposing, registering, or calling one.
 
-## Budgets are not defaulted
+## Settings upgrades
 
-`max_concurrency`, `task_timeout_seconds`, and `retry_limit` have no shipped default. They are commitments of the user's time and money, so DevBuddy asks rather than assumes. A missing budget is a dispatch block, not a value to invent.
+`settings_version` tracks the shipped default set independently of `schema_version`. When it differs, preview and then run `init_project_memory.py --upgrade-settings`; it adds only missing defaults and updates the version, never overwriting workspace values. A stale settings version blocks validation until the explicit upgrade is applied.
 
 ## About the shipped allowlist
 
-The adapter's own `settings.yaml` carries a ranked default of `haiku` / `sonnet` / `opus` and `low` / `medium` / `high` so the adapter is usable immediately. Treat it as an approval **boundary**, not a recommendation and not a cost waiver:
+The adapter's own `settings.yaml` carries a ranked default of `claude-haiku-4.5` / `claude-sonnet-5` / `claude-opus-5` / `claude-fable` and `low` / `medium` / `high` / `extra` / `max` / `ultracode` so the adapter is usable immediately. Treat it as an approval **boundary**, not a recommendation and not a cost waiver:
 
 - A project may narrow it. Widening it, adding a provider, or adding a model with different privacy or cost behaviour is a new Cost Approval decision that needs the user.
 - The allowlist says a pair is *permitted*, never that it is *appropriate*. The minimum-sufficient rule still picks the pair, per dispatch, with a recorded reason.

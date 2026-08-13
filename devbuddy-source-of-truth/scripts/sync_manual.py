@@ -42,6 +42,7 @@ def sync(source_root: Path, repository: Path, adapter: str, dry_run: bool) -> in
     target_root = repository / f"devbuddy-{adapter}" / "manual"
     names = [source_root / "index.html"]
     for language in ("en", "th"):
+        names.append(source_root / language / "index.html")
         names.extend(source_root / language / name for name in COMMON_PAGES)
         names.append(source_root / language / f"{adapter}.html")
     paths = names

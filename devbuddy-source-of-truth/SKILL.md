@@ -11,7 +11,7 @@ Treat this folder as canonical. Adapters may translate platform mechanics only; 
 
 1. Read `settings.yaml` and `references/policies.md`; validate settings before relying on them.
 2. Read `references/loading-matrix.md`, then only the task-specific reference it selects: `roles.md`, `knowledge-model.md`, `task-memory.md`, `adapter-contract.md`, or `scripts.md`.
-3. Change the common specification here first, then update the adapter checklist template and synchronise its item without overwriting adapter status or remarks.
+3. Change the common specification here first. On every Skill change, increment `skill.common_spec_version` and `skill.settings_version` together, then update each adapter's `source_spec_version` and `settings_version`. Update the adapter checklist template and synchronise its item without overwriting adapter status or remarks.
 4. Update both manual languages and relevant platform pages.
 5. Run the relevant validators, conformance checks, and tests; retain their evidence. Do not call an adapter complete while a required checklist item is incomplete.
 

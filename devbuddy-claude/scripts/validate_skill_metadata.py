@@ -21,11 +21,8 @@ import tempfile
 from pathlib import Path
 
 ROLES = ["ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"]
-TIERS = ["low", "medium", "high"]
-# Claude Code accepts xhigh and max as well. The adapter deliberately ships only
-# the three tiers above; the wider set stays legal here so raising the ceiling
-# later is a settings and generator change, not a validator change.
-EFFORTS = {"low", "medium", "high", "xhigh", "max"}
+TIERS = ["low", "medium", "high", "extra", "max", "ultracode"]
+EFFORTS = set(TIERS)
 SKILL_REQUIRED = {"name", "description", "disable-model-invocation"}
 SKILL_OPTIONAL = {"argument-hint"}
 CORE = ("Context.md", "KnowledgeBase.md")
