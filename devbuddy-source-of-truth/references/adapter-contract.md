@@ -10,6 +10,8 @@ The Claude adapter carries the canonical effort tier in the selected `devbuddy-<
 
 Each adapter must map per-dispatch model and effort selection to the platform capability and enforce the common `minimum_sufficient` policy. If the platform cannot represent or verify either selection, it must block dispatch and keep its checklist item incomplete.
 
+Each adapter must resolve `tools.is_rtk` from the selected workspace settings before every delivery command or specialist dispatch. The dispatch package carries the resolved value as `rtk_required`. A specialist with `rtk_required: true` uses RTK for all supported delivery shell commands and returns `waiting_user` if `rtk` is unavailable; it must not silently run the direct equivalent. This constraint is inherited by every specialist, regardless of platform.
+
 ## Shared workspace settings
 
 One `.devbuddy/settings.yaml` may serve both adapters. Its `orchestration.adapter_profiles` declares the installed profiles; entries in `approved_models` and `approved_effort_levels` may declare `adapters: [claude]`, `adapters: [codex]`, or both. At dispatch, select only entries for the active adapter. No mutable “active adapter” setting exists: the invoking adapter determines the profile. Legacy entries without `adapters` remain universal only when `adapter_profiles` is absent; a profile-aware workspace must tag every entry.

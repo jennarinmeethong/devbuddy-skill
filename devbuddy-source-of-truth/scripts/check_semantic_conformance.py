@@ -19,6 +19,8 @@ COMMON_TOKENS = (
     "record_path",
     "slice-record.schema.json",
     "adapter_profiles",
+    "is_rtk",
+    "rtk_required",
     "devbuddy-ref",
 )
 ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
