@@ -27,6 +27,12 @@ The automatic DevBuddy allowance covers help, validation, dry-run, repository in
 
 Use `templates/knowledge-entity.md`. IDs are immutable and globally unique. Every entity has a non-empty `project_ids` list; one shared fact may name multiple registered projects. Recommended prefixes: `DOM`, `FEAT`, `REQ`, `FLOW`, `BR`, `SCR`, `API`, `DB`, `EVT`, `TEST`, `ADR`, `REL`, and `INC`.
 
+New IDs use `<prefix>-<suffix>`, where `<suffix>` is 8 random characters from Crockford's Base32 alphabet (`0-9A-HJKMNP-TV-Z`, excluding `I L O U` to avoid misreads). Generate one independently per entity, for example: `python3 -c "import secrets; print(''.join(secrets.choice('0123456789ABCDEFGHJKMNPQRSTVWXYZ') for _ in range(8)))"`. This lets contributors on separate branches or repositories mint IDs without a shared counter, so two people never collide when their knowledge-base changes merge. Existing sequential IDs (e.g. `REQ-001`) are immutable and are never renamed to the new style.
+
+## Index
+
+Keep `Index.md` at the knowledge-base root: one line per entity, `- <id>: <one-sentence summary>`, seeded from `templates/knowledge-index.md`. Update its row in the same change that creates or edits the entity — this is what lets a reader find the right key without opening files that turn out irrelevant, and a stale row is worse than a missing one. `validate_knowledge.py` checks both directions: every indexed id must resolve to a real entity, and every entity must have an index row.
+
 ## Ownership
 
 - Architect: technical context, architecture, contracts, ADRs.
@@ -45,6 +51,6 @@ Before a potentially relevant implementation change, identify affected keys, ref
 
 ## Health and migration
 
-Validate IDs, YAML metadata, relations, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
+Validate IDs, YAML metadata, relations, the Index, `devbuddy-ref` comments, owners, sources, dates, and confidence. Schema/key/folder migrations need a versioned plan, approved backup, rollback, user approval, and validation.
 
 Use `analyze <project-id>` or `.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <root> --project-id <id> --dry-run` to prepare a reviewable repository inventory. It may identify manifests, runtimes, likely source/test directories, candidate commands, and architecture references, but it must not infer business intent or create typed knowledge entities. After approval, `--apply` appends a project-labelled observation section without replacing observations for other projects.

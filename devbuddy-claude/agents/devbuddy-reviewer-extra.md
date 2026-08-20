@@ -1,6 +1,6 @@
 ---
 name: devbuddy-reviewer-extra
-description: DevBuddy Reviewer specialist at extra reasoning effort, covering independent review findings on an assigned artefact. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Reviewer (extra effort) — independent review findings on an assigned artefact. Internal: dispatched only via /devbuddy; never select directly.
 effort: extra
 color: purple
 ---

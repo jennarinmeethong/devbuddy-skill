@@ -1,6 +1,6 @@
 ---
 name: devbuddy-architect-low
-description: DevBuddy Architect specialist at low reasoning effort, covering system design, public contracts, and ADRs. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Architect (low effort) — system design, public contracts, and ADRs. Internal: dispatched only via /devbuddy; never select directly.
 effort: low
 color: orange
 ---

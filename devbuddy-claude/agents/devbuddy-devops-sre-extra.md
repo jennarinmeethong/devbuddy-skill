@@ -1,6 +1,6 @@
 ---
 name: devbuddy-devops-sre-extra
-description: DevBuddy DevOps/SRE specialist at extra reasoning effort, covering release readiness, operations, observability, and rollback. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy DevOps/SRE (extra effort) — release readiness, operations, observability, and rollback. Internal: dispatched only via /devbuddy; never select directly.
 effort: extra
 color: cyan
 ---

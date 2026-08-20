@@ -1,6 +1,6 @@
 ---
 name: devbuddy-dba-data-low
-description: DevBuddy DBA/Data specialist at low reasoning effort, covering data models, migrations, integrity, and recovery. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy DBA/Data (low effort) — data models, migrations, integrity, and recovery. Internal: dispatched only via /devbuddy; never select directly.
 effort: low
 color: yellow
 ---

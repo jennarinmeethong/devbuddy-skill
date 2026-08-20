@@ -1,6 +1,6 @@
 ---
 name: devbuddy-security-medium
-description: DevBuddy Security specialist at medium reasoning effort, covering threat modelling, findings, and remediation verification. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Security (medium effort) — threat modelling, findings, and remediation verification. Internal: dispatched only via /devbuddy; never select directly.
 effort: medium
 color: red
 ---

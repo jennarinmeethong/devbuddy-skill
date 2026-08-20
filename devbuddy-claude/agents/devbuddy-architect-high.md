@@ -1,6 +1,6 @@
 ---
 name: devbuddy-architect-high
-description: DevBuddy Architect specialist at high reasoning effort, covering system design, public contracts, and ADRs. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Architect (high effort) — system design, public contracts, and ADRs. Internal: dispatched only via /devbuddy; never select directly.
 effort: high
 color: orange
 ---

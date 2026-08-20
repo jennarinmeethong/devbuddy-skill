@@ -1,6 +1,6 @@
 ---
 name: devbuddy-developer-medium
-description: DevBuddy Developer specialist at medium reasoning effort, covering implementation, developer tests, and code-level evidence. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Developer (medium effort) — implementation, developer tests, and code-level evidence. Internal: dispatched only via /devbuddy; never select directly.
 effort: medium
 color: blue
 ---

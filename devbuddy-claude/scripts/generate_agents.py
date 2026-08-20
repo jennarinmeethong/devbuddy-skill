@@ -86,7 +86,7 @@ def render(role: str, tier: str) -> str:
     label, scope, color = ROLES[role]
     return f"""---
 name: devbuddy-{role}-{tier}
-description: DevBuddy {label} specialist at {tier} reasoning effort, covering {scope}. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy {label} ({tier} effort) — {scope}. Internal: dispatched only via /devbuddy; never select directly.
 effort: {tier}
 color: {color}
 ---

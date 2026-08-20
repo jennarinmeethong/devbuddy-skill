@@ -1,6 +1,6 @@
 ---
 name: devbuddy-qa-extra
-description: DevBuddy QA specialist at extra reasoning effort, covering independent testing, defects, and quality evidence. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy QA (extra effort) — independent testing, defects, and quality evidence. Internal: dispatched only via /devbuddy; never select directly.
 effort: extra
 color: green
 ---

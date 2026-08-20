@@ -1,5 +1,5 @@
 ---
-id: TYPE-001
+id: TYPE-A1B2C3D4
 type: type
 status: active
 owner: role

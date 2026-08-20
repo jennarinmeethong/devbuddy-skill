@@ -1,6 +1,6 @@
 ---
 name: devbuddy-ba-pm-high
-description: DevBuddy BA/PM specialist at high reasoning effort, covering business analysis, scope, acceptance criteria, and priority. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy BA/PM (high effort) — business analysis, scope, acceptance criteria, and priority. Internal: dispatched only via /devbuddy; never select directly.
 effort: high
 color: purple
 ---

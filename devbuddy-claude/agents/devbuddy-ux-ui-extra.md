@@ -1,6 +1,6 @@
 ---
 name: devbuddy-ux-ui-extra
-description: DevBuddy UX/UI specialist at extra reasoning effort, covering user journeys, screens, states, and accessibility. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy UX/UI (extra effort) — user journeys, screens, states, and accessibility. Internal: dispatched only via /devbuddy; never select directly.
 effort: extra
 color: pink
 ---

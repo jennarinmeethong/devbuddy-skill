@@ -1,6 +1,6 @@
 ---
 name: devbuddy-ux-ui-low
-description: DevBuddy UX/UI specialist at low reasoning effort, covering user journeys, screens, states, and accessibility. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy UX/UI (low effort) — user journeys, screens, states, and accessibility. Internal: dispatched only via /devbuddy; never select directly.
 effort: low
 color: pink
 ---

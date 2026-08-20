@@ -1,6 +1,6 @@
 ---
 name: devbuddy-devops-sre-ultracode
-description: DevBuddy DevOps/SRE specialist at ultracode reasoning effort, covering release readiness, operations, observability, and rollback. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy DevOps/SRE (ultracode effort) — release readiness, operations, observability, and rollback. Internal: dispatched only via /devbuddy; never select directly.
 effort: ultracode
 color: cyan
 ---

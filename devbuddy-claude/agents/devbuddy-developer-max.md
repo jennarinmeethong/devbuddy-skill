@@ -1,6 +1,6 @@
 ---
 name: devbuddy-developer-max
-description: DevBuddy Developer specialist at max reasoning effort, covering implementation, developer tests, and code-level evidence. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Developer (max effort) — implementation, developer tests, and code-level evidence. Internal: dispatched only via /devbuddy; never select directly.
 effort: max
 color: blue
 ---

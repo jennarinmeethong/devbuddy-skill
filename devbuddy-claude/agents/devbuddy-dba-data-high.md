@@ -1,6 +1,6 @@
 ---
 name: devbuddy-dba-data-high
-description: DevBuddy DBA/Data specialist at high reasoning effort, covering data models, migrations, integrity, and recovery. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy DBA/Data (high effort) — data models, migrations, integrity, and recovery. Internal: dispatched only via /devbuddy; never select directly.
 effort: high
 color: yellow
 ---

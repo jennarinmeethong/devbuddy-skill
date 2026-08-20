@@ -1,6 +1,6 @@
 ---
 name: devbuddy-qa-medium
-description: DevBuddy QA specialist at medium reasoning effort, covering independent testing, defects, and quality evidence. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy QA (medium effort) — independent testing, defects, and quality evidence. Internal: dispatched only via /devbuddy; never select directly.
 effort: medium
 color: green
 ---

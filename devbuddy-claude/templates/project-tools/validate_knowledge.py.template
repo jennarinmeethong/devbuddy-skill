@@ -12,6 +12,8 @@ TYPED = ("domains", "features", "requirements", "flows", "business-rules", "scre
 FIELDS = {"id", "type", "status", "owner", "source", "project_ids", "last_verified", "confidence"}
 KEY_RE = re.compile(r"^(DOM|FEAT|REQ|FLOW|BR|SCR|API|DB|EVT|TEST|ADR|REL|INC)-[A-Za-z0-9][A-Za-z0-9._-]*$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+INDEX_FILE = "Index.md"
+INDEX_ENTRY_RE = re.compile(r"^- (\S+): (.+)$", re.MULTILINE)
 REFERENCE_RE = re.compile(r"devbuddy-ref:\s*([^\n]+)")
 WIKILINK_RE = re.compile(r"\[\[([A-Za-z][A-Za-z0-9._-]*)")
 
@@ -62,6 +64,27 @@ def validate_entity(path: Path, data: dict[str, str], errors: list[str]) -> None
         errors.append(f"{path}: project_ids must be a non-empty inline list")
 
 
+def validate_index(root: Path, seen: dict[str, Path], errors: list[str]) -> None:
+    index_path = root / INDEX_FILE
+    if not index_path.is_file():
+        if seen:
+            errors.append(f"{index_path}: missing; every typed entity needs a one-line summary here")
+        return
+    indexed: dict[str, str] = {}
+    for key, summary in INDEX_ENTRY_RE.findall(index_path.read_text(encoding="utf-8")):
+        if key in indexed:
+            errors.append(f"{index_path}: duplicate index entry {key}")
+        elif not summary.strip():
+            errors.append(f"{index_path}: empty summary for {key}")
+        indexed[key] = summary
+    for key in indexed:
+        if key not in seen:
+            errors.append(f"{index_path}: entry {key} has no matching knowledge entity")
+    for key in seen:
+        if key not in indexed:
+            errors.append(f"{index_path}: missing index entry for {key}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("memory_root", nargs="?", type=Path, help="legacy .devbuddy root positional form")
@@ -100,6 +123,7 @@ def main() -> int:
                 errors.append(f"duplicate id {key}: {seen[key]} and {path}")
             else:
                 seen[key] = path
+    validate_index(root, seen, errors)
     for path in markdown:
         body = path.read_text(encoding="utf-8")
         for match in REFERENCE_RE.finditer(body):

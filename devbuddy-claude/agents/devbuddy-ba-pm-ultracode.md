@@ -1,6 +1,6 @@
 ---
 name: devbuddy-ba-pm-ultracode
-description: DevBuddy BA/PM specialist at ultracode reasoning effort, covering business analysis, scope, acceptance criteria, and priority. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy BA/PM (ultracode effort) — business analysis, scope, acceptance criteria, and priority. Internal: dispatched only via /devbuddy; never select directly.
 effort: ultracode
 color: purple
 ---

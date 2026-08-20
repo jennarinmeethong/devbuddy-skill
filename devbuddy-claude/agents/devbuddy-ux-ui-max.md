@@ -1,6 +1,6 @@
 ---
 name: devbuddy-ux-ui-max
-description: DevBuddy UX/UI specialist at max reasoning effort, covering user journeys, screens, states, and accessibility. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy UX/UI (max effort) — user journeys, screens, states, and accessibility. Internal: dispatched only via /devbuddy; never select directly.
 effort: max
 color: pink
 ---

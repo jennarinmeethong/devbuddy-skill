@@ -178,6 +178,54 @@ class WorkspaceTests(unittest.TestCase):
             self.assertIn("unresolved devbuddy-ref FEAT-missing", result.stdout)
             self.assertIn("unresolved wiki-link API-missing", result.stdout)
 
+    def test_knowledge_validator_rejects_an_entity_missing_from_the_index(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _frontend, _backend = self.make_workspace(temporary)
+            entity = root / "knowledge-base" / "requirements" / "requirement.md"
+            entity.write_text(ENTITY.format(id="REQ-001", body=""), encoding="utf-8")
+            result = run(KNOWLEDGE_VALIDATOR, "--devbuddy-root", root)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("Index.md: missing", result.stdout)
+
+    def test_knowledge_validator_rejects_an_entity_omitted_from_an_existing_index(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _frontend, _backend = self.make_workspace(temporary)
+            first = root / "knowledge-base" / "requirements" / "first.md"
+            first.write_text(ENTITY.format(id="REQ-001", body=""), encoding="utf-8")
+            second = root / "knowledge-base" / "requirements" / "second.md"
+            second.write_text(ENTITY.format(id="REQ-002", body=""), encoding="utf-8")
+            (root / "knowledge-base" / "Index.md").write_text(
+                "# Knowledge Index\n\n- REQ-001: Covers the login requirement.\n", encoding="utf-8",
+            )
+            result = run(KNOWLEDGE_VALIDATOR, "--devbuddy-root", root)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("missing index entry for REQ-002", result.stdout)
+
+    def test_knowledge_validator_rejects_a_stale_index_entry(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _frontend, _backend = self.make_workspace(temporary)
+            entity = root / "knowledge-base" / "requirements" / "requirement.md"
+            entity.write_text(ENTITY.format(id="REQ-001", body=""), encoding="utf-8")
+            (root / "knowledge-base" / "Index.md").write_text(
+                "# Knowledge Index\n\n- REQ-001: Covers the login requirement.\n- REQ-002: No longer exists.\n",
+                encoding="utf-8",
+            )
+            result = run(KNOWLEDGE_VALIDATOR, "--devbuddy-root", root)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("entry REQ-002 has no matching knowledge entity", result.stdout)
+
+    def test_knowledge_validator_accepts_an_entity_listed_in_the_index(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root, _frontend, _backend = self.make_workspace(temporary)
+            entity = root / "knowledge-base" / "requirements" / "requirement.md"
+            entity.write_text(ENTITY.format(id="REQ-001", body=""), encoding="utf-8")
+            (root / "knowledge-base" / "Index.md").write_text(
+                "# Knowledge Index\n\n- REQ-001: Covers the login requirement.\n",
+                encoding="utf-8",
+            )
+            result = run(KNOWLEDGE_VALIDATOR, "--devbuddy-root", root)
+            self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
     def test_bootstrap_dry_run_scans_without_writing(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root, frontend, _backend = self.make_workspace(temporary)

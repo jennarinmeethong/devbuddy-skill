@@ -1,6 +1,6 @@
 ---
 name: devbuddy-devops-sre-medium
-description: DevBuddy DevOps/SRE specialist at medium reasoning effort, covering release readiness, operations, observability, and rollback. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy DevOps/SRE (medium effort) — release readiness, operations, observability, and rollback. Internal: dispatched only via /devbuddy; never select directly.
 effort: medium
 color: cyan
 ---

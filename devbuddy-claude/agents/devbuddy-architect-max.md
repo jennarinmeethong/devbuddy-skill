@@ -1,6 +1,6 @@
 ---
 name: devbuddy-architect-max
-description: DevBuddy Architect specialist at max reasoning effort, covering system design, public contracts, and ADRs. Dispatched only by the DevBuddy Orchestrator through /devbuddy with an explicit model; do not select it for ordinary requests.
+description: DevBuddy Architect (max effort) — system design, public contracts, and ADRs. Internal: dispatched only via /devbuddy; never select directly.
 effort: max
 color: orange
 ---
