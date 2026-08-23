@@ -715,8 +715,10 @@ external plugin/skill ไม่บังคับใน core และควร�
 
 สถานะ: Completed
 
-หลักฐานการตรวจ release ล่าสุดอยู่ที่ `reports/release-validation.json` และครอบคลุม package validation, secret exclusion, source preservation, drift detection, architecture tests, OpenCode compatibility และ .NET database build
+หลักฐานการตรวจ release ล่าสุดอยู่ที่ `reports/release-validation.json` และผ่าน package validation, secret exclusion, source preservation, drift detection, architecture tests (12/12), OpenCode compatibility และ .NET database build; การทดสอบติดตั้ง/discovery ใน Codex ยังต้องมี local marketplace ที่ชี้มายัง source plugin ก่อน
 
-มี template connection string แยกตาม database engine, คู่มือสร้าง local test fixture และ `scripts/build_plugin.py` สำหรับ publish database adapter แบบ self-contained ระหว่างขั้นตอนสร้าง plugin แล้ว
+มี template connection string แยกตาม database engine, คู่มือสร้าง local test fixture และ `scripts/build_plugin.py` สำหรับ publish database adapter แบบ self-contained ระหว่างขั้นตอนสร้าง plugin แล้ว โดย Windows build รองรับ `--sign-thumbprint` เพื่อเซ็นและ verify staged adapter ก่อน publish; การเซ็นจริงและ Application Control allowlist ยังต้องใช้ certificate/approval ขององค์กร
+
+สถานะ integration ล่าสุด: database adapter ผ่าน local Docker integration test ทั้ง SQL Server, PostgreSQL, MariaDB, Oracle, MongoDB และ Redis โดยทดสอบ fixture, read request, output redaction, invalid-limit rejection, write rejection และ multi-statement rejection สำหรับ relational engines ของแต่ละ engine แล้ว รายงานล่าสุดระบุ `adapter_mode: dotnet` เนื่องจาก Windows Application Control ของเครื่องทดสอบบล็อกไฟล์ self-contained `.exe`; runner มีโหมด explicit `-AdapterMode dotnet`, รองรับทั้ง Windows PowerShell 5 และ PowerShell 7, บันทึก path/SHA-256/modification time ของ adapter สำหรับ traceability และต้องขอ signed/approved adapter จากผู้ดูแลนโยบายหากไม่อนุญาต
 
 ข้อกำหนดก่อนใช้งาน database กับระบบจริง: ผู้ใช้ต้องสร้าง local-only `appsettings.json`, ใช้ database principal แบบ read-only และให้ approval แบบผูกกับ target สำหรับ Tier 2 ทุกครั้ง

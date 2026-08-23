@@ -76,4 +76,12 @@ node tests/test_opencode_adapter.mjs
 python scripts/release_validate.py
 ```
 
+For a Windows environment protected by Application Control, publish a signed adapter using an organization-provided code-signing certificate in the Windows certificate store. `SignTool` signs and verifies the staged executable before it replaces the packaged artifact:
+
+```powershell
+python scripts/build_plugin.py --runtime win-x64 --apply --sign-thumbprint <CERTIFICATE_THUMBPRINT>
+```
+
+Signing does not automatically change an organization's Application Control policy; the security administrator must still approve the publisher, certificate, hash, or deployment rule required by that policy.
+
 `profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`, and it refuses to overwrite an existing composition. `build_plugin.py` is the plugin-creation build step: it publishes the single self-contained database adapter with all supported database drivers into `plugin/devbuddy-database-core/runtime/<runtime>/`; database engine manifests select that shared, policy-enforced executable. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.

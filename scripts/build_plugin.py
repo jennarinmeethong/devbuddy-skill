@@ -27,9 +27,16 @@ def main() -> int:
     parser.add_argument("--runtime", default="win-x64", help=".NET runtime identifier to publish (default: win-x64)")
     parser.add_argument("--apply", action="store_true", help="publish the executable into the plugin package")
     parser.add_argument("--verify", action="store_true", help="verify an existing published executable without rebuilding")
+    parser.add_argument("--sign-thumbprint", help="Windows certificate thumbprint from the current-user or local-machine certificate store")
+    parser.add_argument("--signtool", default="signtool.exe", help="SignTool executable or absolute path (default: signtool.exe)")
+    parser.add_argument("--timestamp-url", default="http://timestamp.digicert.com", help="RFC 3161 timestamp server used when signing")
     args = parser.parse_args()
     if args.apply and args.verify:
         parser.error("--apply and --verify cannot be combined")
+    if args.sign_thumbprint and not args.apply:
+        parser.error("--sign-thumbprint requires --apply")
+    if args.sign_thumbprint and not args.runtime.startswith("win-"):
+        parser.error("--sign-thumbprint is supported only for Windows runtimes")
     output = ARTIFACT_ROOT / args.runtime
     executable = output / ("DevBuddy.Database.Policy.exe" if args.runtime.startswith("win-") else "DevBuddy.Database.Policy")
     if args.verify:
@@ -56,6 +63,21 @@ def main() -> int:
             if not staged_executable.is_file():
                 print(f"ERROR: publish did not produce {staged_executable.name}")
                 return 1
+            if args.sign_thumbprint:
+                signtool = shutil.which(args.signtool) or args.signtool
+                sign = [signtool, "sign", "/fd", "SHA256", "/sha", args.sign_thumbprint]
+                if args.timestamp_url:
+                    sign += ["/tr", args.timestamp_url, "/td", "SHA256"]
+                sign += [str(staged_executable)]
+                print("SIGN: " + " ".join(sign[:-1]) + f" {staged_executable.name}")
+                if subprocess.run(sign, cwd=ROOT, check=False).returncode:
+                    print("ERROR: SignTool could not sign the database adapter")
+                    return 1
+                verify = [signtool, "verify", "/pa", "/v", str(staged_executable)]
+                print(f"VERIFY SIGNATURE: {staged_executable.name}")
+                if subprocess.run(verify, cwd=ROOT, check=False).returncode:
+                    print("ERROR: SignTool could not verify the database adapter signature")
+                    return 1
             output.parent.mkdir(parents=True, exist_ok=True)
             if output.exists():
                 shutil.rmtree(output)
@@ -67,6 +89,8 @@ def main() -> int:
         "runtime": args.runtime,
         "executable": executable.name,
         "published_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "signed": bool(args.sign_thumbprint),
+        "signing_certificate_thumbprint": args.sign_thumbprint or None,
     }
     (output / "artifact-manifest.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     print(f"APPLIED: published database adapter: {executable.relative_to(ROOT)}")

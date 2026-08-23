@@ -113,7 +113,32 @@ internal static class Redactor
         var redacted = SensitiveJson.Replace(json, match => $"\"{match.Groups[1].Value}\":\"[REDACTED]\"");
         return JsonDocument.Parse(redacted).RootElement.Clone();
     }
-    public static JsonElement Value(object? value) => Json(JsonSerializer.Serialize(value));
+    public static JsonElement Value(object? value)
+    {
+        var text = value switch
+        {
+            RedisValue redisValue when redisValue.HasValue => redisValue.ToString(),
+            string stringValue => stringValue,
+            _ => null,
+        };
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            try
+            {
+                using var document = JsonDocument.Parse(text);
+                return Json(document.RootElement.GetRawText());
+            }
+            catch (JsonException) { }
+        }
+        return Json(JsonSerializer.Serialize(value));
+    }
+    public static JsonElement Redis(RedisValue value)
+    {
+        if (!value.HasValue) return Json("null");
+        var text = value.ToString();
+        try { return Json(text); }
+        catch (JsonException) { return Json(JsonSerializer.Serialize(text)); }
+    }
 }
 internal sealed record NoSqlRequest([property: JsonPropertyName("database_id")] string DatabaseId, [property: JsonPropertyName("database")] string Database, [property: JsonPropertyName("collection")] string Collection, [property: JsonPropertyName("operation")] string Operation, [property: JsonPropertyName("limit")] int Limit, [property: JsonPropertyName("max_rows")] int MaxRows, [property: JsonPropertyName("max_result_bytes")] int MaxResultBytes, [property: JsonPropertyName("timeout_seconds")] int TimeoutSeconds, [property: JsonPropertyName("filter")] JsonElement? Filter, [property: JsonPropertyName("pipeline")] JsonElement? Pipeline, [property: JsonPropertyName("field")] string? Field, [property: JsonPropertyName("command")] string? Command, [property: JsonPropertyName("key")] string? Key, [property: JsonPropertyName("key_prefix")] string? KeyPrefix, [property: JsonPropertyName("keys")] string[]? Keys, [property: JsonPropertyName("fields")] string[]? Fields);
 internal static class NoSqlExecutor
@@ -163,11 +188,24 @@ internal static class NoSqlExecutor
         if (string.IsNullOrWhiteSpace(request.Command) || !RedisCommands.Contains(request.Command) || string.IsNullOrWhiteSpace(request.Key) || string.IsNullOrWhiteSpace(request.KeyPrefix) || !request.Key.StartsWith(request.KeyPrefix, StringComparison.Ordinal))
             throw new PolicyException("policy_rejected", "Redis command or key prefix is not allowlisted");
         await using var multiplexer = await ConnectionMultiplexer.ConnectAsync(connection);
-        var database = multiplexer.GetDatabase(); var key = (RedisKey)request.Key; object? payload = request.Command.ToUpperInvariant() switch
+        var database = multiplexer.GetDatabase(); var key = (RedisKey)request.Key; var command = request.Command.ToUpperInvariant(); object? payload; JsonElement documents;
+        if (command == "GET")
         {
-            "GET" => await database.StringGetAsync(key), "HGET" when request.Fields?.Length == 1 => await database.HashGetAsync(key, request.Fields[0]), "HGETALL" => await database.HashGetAllAsync(key), "LRANGE" => await database.ListRangeAsync(key, 0, request.Limit - 1), "SCARD" => await database.SetLengthAsync(key), "SMEMBERS" => await database.SetMembersAsync(key), "ZRANGE" => await database.SortedSetRangeByRankAsync(key, 0, request.Limit - 1), "TTL" => await database.KeyTimeToLiveAsync(key), "EXISTS" => await database.KeyExistsAsync(key), "TYPE" => await database.KeyTypeAsync(key), "STRLEN" => await database.StringLengthAsync(key), _ => throw new PolicyException("policy_rejected", "Redis request arguments are not allowlisted"),
-        };
-        await JsonSerializer.SerializeAsync(Console.OpenStandardOutput(), new { database_id = request.DatabaseId, engine = "redis", operation = request.Command, documents = Redactor.Value(payload), row_count = Count(payload), truncated = false, duration_ms = watch.ElapsedMilliseconds, redaction_applied = true, adapter_version = "1.0.0", untrusted_result = true });
+            var value = await database.StringGetAsync(key); payload = value.HasValue ? value.ToString() : null; documents = Redactor.Redis(value);
+        }
+        else if (command == "HGET" && request.Fields?.Length == 1)
+        {
+            var value = await database.HashGetAsync(key, request.Fields[0]); payload = value.HasValue ? value.ToString() : null; documents = Redactor.Redis(value);
+        }
+        else
+        {
+            payload = command switch
+            {
+                "HGETALL" => await database.HashGetAllAsync(key), "LRANGE" => await database.ListRangeAsync(key, 0, request.Limit - 1), "SCARD" => await database.SetLengthAsync(key), "SMEMBERS" => await database.SetMembersAsync(key), "ZRANGE" => await database.SortedSetRangeByRankAsync(key, 0, request.Limit - 1), "TTL" => await database.KeyTimeToLiveAsync(key), "EXISTS" => await database.KeyExistsAsync(key), "TYPE" => await database.KeyTypeAsync(key), "STRLEN" => await database.StringLengthAsync(key), _ => throw new PolicyException("policy_rejected", "Redis request arguments are not allowlisted"),
+            };
+            documents = Redactor.Value(payload);
+        }
+        await JsonSerializer.SerializeAsync(Console.OpenStandardOutput(), new { database_id = request.DatabaseId, engine = "redis", operation = request.Command, documents, row_count = Count(payload), truncated = false, duration_ms = watch.ElapsedMilliseconds, redaction_applied = true, adapter_version = "1.0.0", untrusted_result = true });
     }
     private static int Count(object? value) => value switch { null => 0, Array array => array.Length, _ => 1 };
 }
