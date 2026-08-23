@@ -715,7 +715,7 @@ external plugin/skill ไม่บังคับใน core และควร�
 
 สถานะ: Completed
 
-หลักฐานการตรวจ release ล่าสุดอยู่ที่ `reports/release-validation.json` และผ่าน package validation, secret exclusion, source preservation, drift detection, architecture tests (12/12), OpenCode compatibility และ .NET database build; personal marketplace `personal` และ junction ไปยัง source `devbuddy-core` ถูกสร้างแล้ว พร้อม cachebuster `1.0.0+codex.20260823132430`; การติดตั้ง/discovery ผ่าน Codex CLI ยังต้องยืนยันจาก user terminal เนื่องจาก WindowsApps ปฏิเสธการเริ่ม CLI จาก environment validation
+หลักฐานการตรวจ release ล่าสุดอยู่ที่ `reports/release-validation.json` และผ่าน package validation, secret exclusion, source preservation, drift detection, architecture tests (12/12), OpenCode compatibility และ .NET database build; personal marketplace `personal` และ junction ไปยัง source `devbuddy-core` ถูกสร้างแล้ว พร้อม cachebuster `1.0.1+codex.20260823154400`; การติดตั้ง/discovery ผ่าน Codex CLI ยังต้องยืนยันจาก user terminal เนื่องจาก WindowsApps ปฏิเสธการเริ่ม CLI จาก environment validation
 
 มี template connection string แยกตาม database engine, คู่มือสร้าง local test fixture และ `scripts/build_plugin.py` สำหรับ publish database adapter แบบ self-contained ระหว่างขั้นตอนสร้าง plugin แล้ว โดย Windows build รองรับ `--sign-thumbprint` เพื่อเซ็นและ verify staged adapter ก่อน publish; การเซ็นจริงและ Application Control allowlist ยังต้องใช้ certificate/approval ขององค์กร
 

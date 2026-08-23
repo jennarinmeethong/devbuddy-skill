@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-core",
-  "version": "1.0.0+codex.20260823132430",
+  "version": "1.0.1+codex.20260823154400",
   "description": "Portable DevBuddy workflow, approval, evidence, and workspace policy.",
   "author": {
     "name": "DevBuddy"
