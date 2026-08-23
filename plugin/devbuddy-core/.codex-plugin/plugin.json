@@ -1,10 +1,16 @@
 {
   "name": "devbuddy-core",
-  "version": "1.0.0",
+  "version": "1.0.0+codex.20260823132430",
   "description": "Portable DevBuddy workflow, approval, evidence, and workspace policy.",
-  "author": {"name": "DevBuddy"},
+  "author": {
+    "name": "DevBuddy"
+  },
   "license": "MIT",
-  "keywords": ["devbuddy", "workflow", "governance"],
+  "keywords": [
+    "devbuddy",
+    "workflow",
+    "governance"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "DevBuddy Core",
@@ -12,7 +18,11 @@
     "longDescription": "Portable workflow, evidence, scope, and approval contracts for DevBuddy.",
     "developerName": "DevBuddy",
     "category": "Productivity",
-    "capabilities": ["Interactive"],
-    "defaultPrompt": ["Start a DevBuddy task with scope and evidence."]
+    "capabilities": [
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Start a DevBuddy task with scope and evidence."
+    ]
   }
 }
