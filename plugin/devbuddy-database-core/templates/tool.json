@@ -1,0 +1,11 @@
+{
+  "id": "devbuddy.database.<engine>.read",
+  "runtime": "dotnet",
+  "permission_tier": 2,
+  "risk": "database-read",
+  "scope": {
+    "database_id_required": true,
+    "approval": "target-specific",
+    "read_only": true
+  }
+}

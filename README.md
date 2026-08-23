@@ -49,3 +49,23 @@ python3 <workspace>/.devbuddy/tools/bootstrap_knowledge.py --devbuddy-root <work
 ```
 
 Bootstrap writes only `Context.md` and `KnowledgeBase.md` after explicit `--apply`, never overwrites non-empty existing files, and does not invent typed canonical entities or business policy. Business context and decisions belong in typed knowledge entities, so legacy `BusinessContext.md` and `DecisionLog.md` are no longer created or required. For a dedicated knowledge repository, register each source repository in its `.devbuddy/settings.yaml` and run bootstrap once per `--project-id`. Runtime task inputs and temporary artifacts must remain below `.devbuddy` on every supported platform.
+
+## Plugin packages and profiles
+
+The additive plugin implementation lives in `plugin/`, portable skills in `skills/`, and package composition profiles in `profiles/`. Existing adapters remain source-preserved.
+
+Run the safety checks with the bundled Python runtime (or any Python 3.11+):
+
+```text
+python scripts/check_source_preservation.py
+python scripts/generate_packages.py --apply
+python scripts/check_package_drift.py
+python scripts/validate_packages.py
+python scripts/scan_secret_exclusion.py
+python scripts/profile_resolver.py profiles/data-postgresql.yaml
+python scripts/workspace.py init --devbuddy-root <workspace>/.devbuddy --apply
+python scripts/workspace.py validate --devbuddy-root <workspace>/.devbuddy
+node tests/test_opencode_adapter.mjs
+```
+
+`profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`, and it refuses to overwrite an existing composition. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.

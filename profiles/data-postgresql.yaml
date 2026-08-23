@@ -1,0 +1,5 @@
+name: data-postgresql
+packages:
+  - devbuddy-core
+  - devbuddy-database-core
+  - devbuddy-database-postgresql

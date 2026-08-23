@@ -1,0 +1,8 @@
+{
+  "name": "devbuddy-core",
+  "version": "1.0.0",
+  "entry": "./index.js",
+  "skills": ["../../skills/devbuddy-core/SKILL.md"],
+  "agents": ["./agents/orchestrator.md"],
+  "tools": ["./tools/approval-contract.json"]
+}

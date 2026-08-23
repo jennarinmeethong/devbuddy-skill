@@ -1,0 +1,4 @@
+name: software-delivery
+packages:
+  - devbuddy-core
+  - devbuddy-security

@@ -1,0 +1,5 @@
+name: data-sqlserver
+packages:
+  - devbuddy-core
+  - devbuddy-database-core
+  - devbuddy-database-sqlserver

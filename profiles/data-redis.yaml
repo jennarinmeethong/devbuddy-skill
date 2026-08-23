@@ -1,0 +1,5 @@
+name: data-redis
+packages:
+  - devbuddy-core
+  - devbuddy-database-core
+  - devbuddy-database-redis

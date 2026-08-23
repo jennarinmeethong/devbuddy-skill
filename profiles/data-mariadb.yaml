@@ -1,0 +1,5 @@
+name: data-mariadb
+packages:
+  - devbuddy-core
+  - devbuddy-database-core
+  - devbuddy-database-mariadb

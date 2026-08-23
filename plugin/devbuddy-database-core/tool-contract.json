@@ -1,0 +1,9 @@
+{
+  "id": "devbuddy.database.read",
+  "runtime": "dotnet",
+  "permission_tier": 2,
+  "risk": "database-read",
+  "scope": {"database_id_required": true, "approval": "target-specific"},
+  "input": {"database_id": "string", "operation": "structured request"},
+  "output": {"database_id": "string", "engine": "string", "operation": "string", "row_count": "integer", "truncated": "boolean", "duration_ms": "integer", "redaction_applied": "boolean", "adapter_version": "string"}
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DevBuddy Package Manifest",
+  "type": "object",
+  "required": ["name", "version", "kind", "dependencies", "permissions", "compatibility"],
+  "properties": {
+    "name": {"type": "string", "pattern": "^devbuddy-[a-z0-9-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "kind": {"enum": ["core", "skill", "database-core", "database-adapter", "optional"]},
+    "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "permissions": {"type": "array", "items": {"enum": ["tier-0-read", "tier-1-workspace-write", "tier-2-database"]}, "uniqueItems": true},
+    "compatibility": {
+      "type": "object",
+      "required": ["core", "platforms"],
+      "properties": {
+        "core": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "platforms": {"type": "array", "items": {"enum": ["codex", "opencode"]}, "minItems": 1}
+      },
+      "additionalProperties": false
+    },
+    "database": {"type": "object"}
+  },
+  "additionalProperties": false
+}

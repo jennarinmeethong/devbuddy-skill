@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "packages": [
+    {
+      "name": "devbuddy-core",
+      "sources": [
+        { "from": "skills/devbuddy-core", "to": "plugin/devbuddy-core/skills/devbuddy-core" }
+      ]
+    },
+    {
+      "name": "devbuddy-database-core",
+      "sources": [
+        { "from": "skills/devbuddy-database", "to": "plugin/devbuddy-database-core/skills/devbuddy-database" }
+      ]
+    },
+    {
+      "name": "devbuddy-security",
+      "sources": [
+        { "from": "skills/devbuddy-security", "to": "plugin/devbuddy-security/skills/devbuddy-security" }
+      ]
+    }
+  ]
+}

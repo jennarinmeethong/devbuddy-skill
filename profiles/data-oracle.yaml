@@ -1,0 +1,5 @@
+name: data-oracle
+packages:
+  - devbuddy-core
+  - devbuddy-database-core
+  - devbuddy-database-oracle

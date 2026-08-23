@@ -1,0 +1,17 @@
+{
+  "target_framework": "net10.0",
+  "dotnet_sdk": "10.0.400",
+  "runtime": "10.0.11",
+  "self_contained": true,
+  "single_file": true,
+  "drivers": {
+    "Microsoft.Data.SqlClient": "7.0.2",
+    "Npgsql": "10.0.3",
+    "MySqlConnector": "2.6.2",
+    "Oracle.ManagedDataAccess.Core": "23.26.300",
+    "MongoDB.Driver": "3.11.0",
+    "StackExchange.Redis": "3.1.13"
+  },
+  "source_revision": "6ac1d6e859cdcc7bf0558fb0486c183bf1ecf13a",
+  "recorded_at": "2026-08-23T07:03:16+00:00"
+}

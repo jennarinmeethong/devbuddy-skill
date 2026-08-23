@@ -1,0 +1,1 @@
+{"id":"devbuddy.approval","permission_tier":2,"description":"Maps host approval events to the portable target-specific approval contract.","input":{"database_id":"required for database operations","approval":"must match target and be approved"},"output":{"untrusted_result":true}}

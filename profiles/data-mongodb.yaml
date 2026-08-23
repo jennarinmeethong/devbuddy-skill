@@ -1,0 +1,5 @@
+name: data-mongodb
+packages:
+  - devbuddy-core
+  - devbuddy-database-core
+  - devbuddy-database-mongodb

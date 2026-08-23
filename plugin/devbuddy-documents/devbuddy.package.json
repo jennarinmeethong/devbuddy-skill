@@ -1,0 +1,8 @@
+{
+  "name": "devbuddy-documents",
+  "version": "1.0.0",
+  "kind": "optional",
+  "dependencies": ["devbuddy-core"],
+  "permissions": ["tier-0-read"],
+  "compatibility": {"core": "1.0.0", "platforms": ["codex", "opencode"]}
+}

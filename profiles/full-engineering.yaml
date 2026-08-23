@@ -1,0 +1,9 @@
+name: full-engineering
+packages:
+  - devbuddy-core
+  - devbuddy-security
+  - devbuddy-documents
+  - devbuddy-browser
+  - devbuddy-deployment
+  - devbuddy-project-management
+  - devbuddy-database-core
