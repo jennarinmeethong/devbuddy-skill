@@ -10,8 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCAN_ROOTS = ("plugin", "profiles", "skills", "schemas", "scripts", "package-source-map.json", "generation-report.json")
 PATTERNS = (
-    re.compile(r"(?i)(?:password|pwd)\s*=\s*(?![|\[])[^\s;\"'|]{8,}"),
-    re.compile(r"(?i)(?:postgres(?:ql)?|mongodb(?:\+srv)?|redis|mysql|sqlserver)://[^\s\"']+"),
+    re.compile(r"(?i)(?:password|pwd)\s*=\s*(?![|\[<]|__[A-Z0-9_]+__)[^\s;\"'|]{8,}"),
+    re.compile(r"(?i)(?:postgres(?:ql)?|mongodb(?:\+srv)?|redis|mysql|sqlserver)://(?!__[A-Z0-9_]+__)[^\s\"']+"),
     re.compile(r"AKIA[0-9A-Z]{16}"),
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 )

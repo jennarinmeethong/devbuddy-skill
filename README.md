@@ -65,8 +65,15 @@ python scripts/scan_secret_exclusion.py
 python scripts/profile_resolver.py profiles/data-postgresql.yaml
 python scripts/workspace.py init --devbuddy-root <workspace>/.devbuddy --apply
 python scripts/workspace.py validate --devbuddy-root <workspace>/.devbuddy
+python scripts/build_plugin.py --runtime win-x86 --apply
+python scripts/build_plugin.py --runtime win-x64 --apply
+python scripts/build_plugin.py --runtime win-arm64 --apply
+python scripts/build_plugin.py --runtime linux-x64 --apply
+python scripts/build_plugin.py --runtime linux-arm64 --apply
+python scripts/build_plugin.py --runtime osx-x64 --apply
+python scripts/build_plugin.py --runtime osx-arm64 --apply
 node tests/test_opencode_adapter.mjs
 python scripts/release_validate.py
 ```
 
-`profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`, and it refuses to overwrite an existing composition. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.
+`profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`, and it refuses to overwrite an existing composition. `build_plugin.py` is the plugin-creation build step: it publishes the single self-contained database adapter with all supported database drivers into `plugin/devbuddy-database-core/runtime/<runtime>/`; database engine manifests select that shared, policy-enforced executable. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.

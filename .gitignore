@@ -17,6 +17,7 @@ __pycache__/
 *.env
 .devbuddy/
 **/appsettings.json
+plugin/devbuddy-database-core/runtime/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

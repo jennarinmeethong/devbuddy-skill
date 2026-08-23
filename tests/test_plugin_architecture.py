@@ -82,6 +82,20 @@ class PluginArchitectureTests(unittest.TestCase):
             settings.write_text(settings.read_text(encoding="utf-8").replace("approval: allow", "approval: ask"), encoding="utf-8")
             self.assertEqual(run("workspace.py", "validate", "--devbuddy-root", str(workspace)).returncode, 0)
 
+    def test_database_connection_templates_are_parseable_and_use_placeholders(self) -> None:
+        engines = ("sqlserver", "postgresql", "mariadb", "oracle", "mongodb", "redis")
+        for engine in engines:
+            template = ROOT / "plugin" / f"devbuddy-database-{engine}" / "appsettings.template.json"
+            data = json.loads(template.read_text(encoding="utf-8"))
+            connection = data["ConnectionStrings"]["Connection"]
+            self.assertIn("__LOCAL_SECRET__", connection, engine)
+            self.assertIn("_instructions", data, engine)
+
+    def test_plugin_build_is_dry_run_by_default(self) -> None:
+        result = run("build_plugin.py", "--runtime", "win-x64")
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("DRY RUN", result.stdout)
+
     def test_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             workspace = Path(temporary) / ".devbuddy"; workspace.mkdir()

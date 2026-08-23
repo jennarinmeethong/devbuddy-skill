@@ -717,4 +717,6 @@ external plugin/skill ไม่บังคับใน core และควร�
 
 หลักฐานการตรวจ release ล่าสุดอยู่ที่ `reports/release-validation.json` และครอบคลุม package validation, secret exclusion, source preservation, drift detection, architecture tests, OpenCode compatibility และ .NET database build
 
+มี template connection string แยกตาม database engine, คู่มือสร้าง local test fixture และ `scripts/build_plugin.py` สำหรับ publish database adapter แบบ self-contained ระหว่างขั้นตอนสร้าง plugin แล้ว
+
 ข้อกำหนดก่อนใช้งาน database กับระบบจริง: ผู้ใช้ต้องสร้าง local-only `appsettings.json`, ใช้ database principal แบบ read-only และให้ approval แบบผูกกับ target สำหรับ Tier 2 ทุกครั้ง
