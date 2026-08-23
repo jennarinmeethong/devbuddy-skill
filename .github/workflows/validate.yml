@@ -18,6 +18,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Validate generated skills and contracts
+        shell: bash
         run: |
           python devbuddy-source-of-truth/scripts/sync_adapter_skills.py --check
           python devbuddy-source-of-truth/scripts/validate_skill_contract.py
