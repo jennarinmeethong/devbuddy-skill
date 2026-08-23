@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-23T08:13:46+00:00",
+  "source_revision": "332e8b4f14a9047be352066b7a123e6a5fe28e3a",
+  "passed": true,
+  "checks": [
+    {
+      "name": "package_validation",
+      "passed": true,
+      "returncode": 0,
+      "output": "OK: validated 13 package manifests and Codex plugin metadata\n"
+    },
+    {
+      "name": "secret_exclusion",
+      "passed": true,
+      "returncode": 0,
+      "output": "{\n  \"clean\": true,\n  \"findings\": []\n}\n"
+    },
+    {
+      "name": "source_preservation",
+      "passed": true,
+      "returncode": 0,
+      "output": "OK: legacy DevBuddy source and adapters are unchanged\n"
+    },
+    {
+      "name": "package_drift",
+      "passed": true,
+      "returncode": 0,
+      "output": "OK: no package drift\n"
+    },
+    {
+      "name": "architecture_tests",
+      "passed": true,
+      "returncode": 0,
+      "output": "test_database_gate_rejects_writes_and_redis_escape (test_plugin_architecture.PluginArchitectureTests.test_database_gate_rejects_writes_and_redis_escape) ... ok\ntest_dotnet_adapter_rejects_unsafe_sql_before_opening_connection (test_plugin_architecture.PluginArchitectureTests.test_dotnet_adapter_rejects_unsafe_sql_before_opening_connection) ... ok\ntest_every_profile_resolves_and_apply_reports_changes (test_plugin_architecture.PluginArchitectureTests.test_every_profile_resolves_and_apply_reports_changes) ... ok\ntest_portable_task_lifecycle_requires_evidence_for_completion (test_plugin_architecture.PluginArchitectureTests.test_portable_task_lifecycle_requires_evidence_for_completion) ... ok\ntest_profile_resolution_is_deterministic_and_non_mutating (test_plugin_architecture.PluginArchitectureTests.test_profile_resolution_is_deterministic_and_non_mutating) ... ok\ntest_source_preservation_and_generated_skills (test_plugin_architecture.PluginArchitectureTests.test_source_preservation_and_generated_skills) ... ok\ntest_tier_two_approval_is_bound_to_operation_and_target (test_plugin_architecture.PluginArchitectureTests.test_tier_two_approval_is_bound_to_operation_and_target) ... ok\ntest_workspace_database_registry_requires_local_secret_and_production_approval (test_plugin_architecture.PluginArchitectureTests.test_workspace_database_registry_requires_local_secret_and_production_approval) ... ok\ntest_workspace_requires_apply_and_does_not_store_secrets (test_plugin_architecture.PluginArchitectureTests.test_workspace_requires_apply_and_does_not_store_secrets) ... ok\ntest_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe (test_plugin_architecture.PluginArchitectureTests.test_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 2.576s\n\nOK\n"
+    },
+    {
+      "name": "opencode_compatibility",
+      "passed": true,
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "name": "database_build",
+      "passed": true,
+      "returncode": 0,
+      "output": "  Determining projects to restore...\n  All projects are up-to-date for restore.\n  DevBuddy.Database.Policy -> C:\\Codes\\devbuddy-skill\\plugin\\devbuddy-database-core\\src\\DevBuddy.Database.Policy\\bin\\Debug\\net10.0\\DevBuddy.Database.Policy.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:00.62\n"
+    }
+  ]
+}

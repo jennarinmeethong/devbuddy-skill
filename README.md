@@ -66,6 +66,7 @@ python scripts/profile_resolver.py profiles/data-postgresql.yaml
 python scripts/workspace.py init --devbuddy-root <workspace>/.devbuddy --apply
 python scripts/workspace.py validate --devbuddy-root <workspace>/.devbuddy
 node tests/test_opencode_adapter.mjs
+python scripts/release_validate.py
 ```
 
 `profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`, and it refuses to overwrite an existing composition. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.

@@ -1,6 +1,6 @@
 # DevBuddy Plugin and Optional Packages Plan
 
-สถานะเอกสาร: Proposed implementation plan  
+สถานะเอกสาร: Implemented and release-validated (2026-08-23)
 ขอบเขต: Codex plugin, OpenCode adapter, portable skills, profile packages และ read-only database tools  
 หลักการสำคัญ: additive-only, preserve existing source, explicit approval สำหรับ mutation และ least privilege
 
@@ -711,3 +711,10 @@ external plugin/skill ไม่บังคับใน core และควร�
 
 การ release จะทำได้เมื่อ evidence ทั้งหมดผ่านและไม่มี unresolved critical security, data-loss หรือ source-preservation issue
 
+## 21. Implementation Status
+
+สถานะ: Completed
+
+หลักฐานการตรวจ release ล่าสุดอยู่ที่ `reports/release-validation.json` และครอบคลุม package validation, secret exclusion, source preservation, drift detection, architecture tests, OpenCode compatibility และ .NET database build
+
+ข้อกำหนดก่อนใช้งาน database กับระบบจริง: ผู้ใช้ต้องสร้าง local-only `appsettings.json`, ใช้ database principal แบบ read-only และให้ approval แบบผูกกับ target สำหรับ Tier 2 ทุกครั้ง

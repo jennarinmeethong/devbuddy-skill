@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DevBuddy Portable Task Contract",
+  "type": "object",
+  "required": ["schema_version", "task_id", "state", "requested_operation", "risk", "allowed_scope", "approval", "knowledge_impact", "required_evidence", "evidence", "closure"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "state": {"enum": ["planned", "running", "waiting_approval", "blocked", "completed"]},
+    "requested_operation": {"type": "string", "minLength": 1},
+    "risk": {"enum": ["low", "medium", "high", "critical"]},
+    "allowed_scope": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+    "approval": {"type": "object", "required": ["tier", "state"], "properties": {"tier": {"enum": [0, 1, 2]}, "state": {"enum": ["not_required", "pending", "approved", "denied"]}}},
+    "knowledge_impact": {"enum": ["none", "proposed", "approved"]},
+    "required_evidence": {"type": "array", "items": {"type": "string"}},
+    "evidence": {"type": "array", "items": {"type": "object", "required": ["ref", "outcome"]}},
+    "closure": {"type": "object", "required": ["criteria"], "properties": {"criteria": {"type": "array", "items": {"type": "object", "required": ["id", "status"]}}}}
+  },
+  "additionalProperties": false
+}

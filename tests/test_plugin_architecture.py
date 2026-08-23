@@ -97,6 +97,20 @@ class PluginArchitectureTests(unittest.TestCase):
             self.assertEqual(upgraded.returncode, 0, upgraded.stdout)
             self.assertIn("plugin_version: 1.0.0", (workspace / "settings.yaml").read_text(encoding="utf-8"))
 
+    def test_portable_task_lifecycle_requires_evidence_for_completion(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace = Path(temporary) / ".devbuddy"
+            created = run("task_lifecycle.py", "init", "--devbuddy-root", str(workspace), "--task-id", "task-1", "--operation", "review", "--risk", "low", "--scope", "src", "--tier", "0", "--apply")
+            self.assertEqual(created.returncode, 0, created.stdout)
+            running = run("task_lifecycle.py", "transition", "--devbuddy-root", str(workspace), "--task-id", "task-1", "--state", "running", "--apply")
+            self.assertEqual(running.returncode, 0, running.stdout)
+            blocked_completion = run("task_lifecycle.py", "transition", "--devbuddy-root", str(workspace), "--task-id", "task-1", "--state", "completed", "--apply")
+            self.assertNotEqual(blocked_completion.returncode, 0)
+            completed = run("task_lifecycle.py", "transition", "--devbuddy-root", str(workspace), "--task-id", "task-1", "--state", "completed", "--evidence", "tests", "--closure", "tests=passed", "--apply")
+            self.assertEqual(completed.returncode, 0, completed.stdout)
+            record = workspace / "tasks" / "task-1" / "task.json"
+            self.assertEqual(run("validate_task_contract.py", str(record)).returncode, 0)
+
     def test_database_gate_rejects_writes_and_redis_escape(self) -> None:
         limits = '"max_rows":500,"max_result_bytes":1048576,"timeout_seconds":30'
         allowed = run("validate_database_request.py", "postgresql", '{"database_id":"billing",' + limits + ',"sql":"SELECT id FROM reporting.invoice"}')

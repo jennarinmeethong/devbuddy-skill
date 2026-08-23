@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "states": ["planned", "running", "waiting_approval", "blocked", "completed"],
+  "transitions": {
+    "planned": ["running", "waiting_approval", "blocked"],
+    "running": ["waiting_approval", "blocked", "completed"],
+    "waiting_approval": ["running", "blocked"],
+    "blocked": ["running", "waiting_approval"],
+    "completed": []
+  },
+  "approval_tiers": {"0": "local read-only", "1": "workspace write with explicit apply", "2": "manifest, policy, and target-specific approval"}
+}
