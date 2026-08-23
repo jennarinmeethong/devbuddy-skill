@@ -8,7 +8,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = re.compile(r"^devbuddy-[a-z0-9-]+$")
-SEMVER = re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
+# SemVer 2.0.0, including optional prerelease and build metadata.  The Codex
+# manifest uses build metadata as its cache-buster, so accepting only the
+# core X.Y.Z form would reject a valid release manifest.
+SEMVER = re.compile(
+    r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)"
+    r"(?:-(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*))*)?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
+)
 
 
 def main() -> int:
