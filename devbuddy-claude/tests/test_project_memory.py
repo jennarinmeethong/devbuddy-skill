@@ -83,7 +83,7 @@ class WorkspaceTests(unittest.TestCase):
             applied = run(INIT, "--devbuddy-root", root, "--upgrade-settings")
             self.assertEqual(applied.returncode, 0, applied.stdout)
             content = settings.read_text(encoding="utf-8")
-            self.assertIn("settings_version: 0.4.5", content)
+            self.assertIn("settings_version: 0.4.6", content)
             self.assertIn("max_concurrency: 7", content)
             self.assertIn("is_rtk: true", content)
             self.assertIn("gpt-5.6-sol", content)
@@ -431,7 +431,7 @@ class CustomToolRegistryTests(unittest.TestCase):
     """
 
     BASE = """schema_version: 1
-settings_version: 0.4.5
+settings_version: 0.4.6
 workspace:
   projects:
     app:

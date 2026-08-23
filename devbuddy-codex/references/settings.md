@@ -4,7 +4,7 @@ Create the selected `.devbuddy/settings.yaml` before any dispatch. Register ever
 
 ```yaml
 schema_version: 1
-settings_version: 0.4.5
+settings_version: 0.4.6
 workspace:
   projects:
     fe:

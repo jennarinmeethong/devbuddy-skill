@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-23T06:32:55+00:00",
+  "generated_at": "2026-08-23T17:12:07+00:00",
   "mappings": [
     {
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "cca2b162ab6e42752061fc046eac041125ce4c863435283a396cfc7163014d76"
+          "sha256": "9251ab1468f399dbc857fbc92ed121edd04dc3336417baa647d43c47ba3899c4"
         }
       ],
       "source": "skills/devbuddy-core",
@@ -15,7 +15,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "c9cf5cdd9f65487ee6f9c0a4b7e49579a0c93d42736761fedeaacf502cb35c39"
+          "sha256": "517c0db45dd2afad9c51cf720d0163f99f6bf40b5e85e48f7bc4c69cc83e8ced"
         }
       ],
       "source": "skills/devbuddy-database",
@@ -33,5 +33,5 @@
     }
   ],
   "schema_version": 1,
-  "source_revision": "6ac1d6e859cdcc7bf0558fb0486c183bf1ecf13a"
+  "source_revision": "33ab358ddc2ce96c712d153eaa1c97718eaae39c"
 }

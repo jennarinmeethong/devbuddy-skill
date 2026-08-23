@@ -13,7 +13,7 @@ from pathlib import Path
 DEFAULT_ROOT = ".devbuddy"
 KNOWLEDGE = "knowledge-base"
 TOOL_VERSION = "1"
-SETTINGS_VERSION = "0.4.5"
+SETTINGS_VERSION = "0.4.6"
 PROJECT_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 CORE = {
     "Context.md": "# Technical Context\n\n",

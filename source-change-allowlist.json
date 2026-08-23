@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "change_id": "DBY-TOOLS-003",
+  "purpose": "Authorize the versioned database Plugin-ownership policy migration across canonical source and adapters.",
+  "files": [
+    {
+      "path": "devbuddy-claude/adapter-implementation-checklist.md",
+      "sha256": "f1da5ad61d6d032ff4164a36b94b7e44a792eb1aa0016c50667f2b64bd46360b"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/claude.html",
+      "sha256": "8198e856d6ca305874194e5b5c59b58c854f5e289ede472c98929242b94bad79"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/getting-started.html",
+      "sha256": "03407a8bcf67b835b5fedd93d5433b95845cfb96d610b476e7d83d94065f47ad"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/index.html",
+      "sha256": "009d37fb5d502dfdbf7b599e243b566b690523094921248160620a6e6c8a1831"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/migration.html",
+      "sha256": "c73128b74e3979ad0e93ff8aef586abd03be86da97df48485c3e809c864f7822"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/scripts.html",
+      "sha256": "a3807771b193e775c9bcdff3cfc343e8789081fb3db626e2f901c2ec91a4e111"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/tasks-and-knowledge.html",
+      "sha256": "67b8c0124e29de78db7c2d09a6c27f630f422d228e565bd57561b44023339f61"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/troubleshooting.html",
+      "sha256": "3fffac55a8a7ff8c80d81f00cb0e7e549d18b937ff1211c28949ff6c62f0f171"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/workspace.html",
+      "sha256": "168a941d0eafcdd15ed3820b15e9726f1f2eeec248d38f12e07f704779cf863d"
+    },
+    {
+      "path": "devbuddy-claude/manual/index.html",
+      "sha256": "8df169dac6dc64e7a1d545939abfb7a65d728ec44262a795ccebde2af81d6005"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/claude.html",
+      "sha256": "a21a42eab954b4c4edb162992724ae1780b1dae2864694d10ac3f025b3680667"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/getting-started.html",
+      "sha256": "29faf59ac947d38ccfa962048cd7c51a69dc88b3be8e486718bdabe41d5d2f75"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/index.html",
+      "sha256": "5d9ba6addea6c8abef0277c2a88956555d81f72be5674bbf161271645bc44190"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/migration.html",
+      "sha256": "752a5046ccd790bec1fb8f3888d1fcf020d059d1f4df880637f280c9a24c5e1b"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/scripts.html",
+      "sha256": "7f101b5df32edb2d6f04d0e34b447e744967b9b4e930fbd0c8a4bf77b8f702b4"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/tasks-and-knowledge.html",
+      "sha256": "b8a18625a6255aafb5a769641c39b8cb8df55a4e329ab7eb86410871f433e968"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/troubleshooting.html",
+      "sha256": "f3f9421c3ed7c2ef84d9ea799e3f6304d7646ca965a06bfbab8e0e90887cd874"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/workspace.html",
+      "sha256": "42e01a97d4d923b3c053e5a9f7d73fc90d564648945b29480196c28461769f41"
+    },
+    {
+      "path": "devbuddy-claude/references/custom-tools.md",
+      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+    },
+    {
+      "path": "devbuddy-claude/references/settings.md",
+      "sha256": "1df79d8649d13304290b14515cfadf4a56678fedd9e278309878a891731f730f"
+    },
+    {
+      "path": "devbuddy-claude/scripts/init_project_memory.py",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "path": "devbuddy-claude/scripts/validate_project_settings.py",
+      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+    },
+    {
+      "path": "devbuddy-claude/settings.yaml",
+      "sha256": "4cf59ce3294417a734e26a65a3fae8287c33a6f5468bdd4f94e744bb8545dd3b"
+    },
+    {
+      "path": "devbuddy-claude/templates/project-tools/init_project_memory.py.template",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "path": "devbuddy-claude/templates/project-tools/validate_project_settings.py.template",
+      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+    },
+    {
+      "path": "devbuddy-claude/tests/fixtures/missing-budget.yaml",
+      "sha256": "8083b6d42b2dcddb91eaa28c9633373278cc8333143b704cd9f352758eb801be"
+    },
+    {
+      "path": "devbuddy-claude/tests/fixtures/valid-settings.yaml",
+      "sha256": "2e1fb06a6f4ab2e19164adf4239a751b1dd2a305d49a123bb31ae9e3341ce8cf"
+    },
+    {
+      "path": "devbuddy-claude/tests/test_project_memory.py",
+      "sha256": "a51724071c73262d67208c443455784eea9e894cd5caf6218d3f4ad90c07b03b"
+    },
+    {
+      "path": "devbuddy-codex/adapter-implementation-checklist.md",
+      "sha256": "cf83ecb0e24f5bbd0ea432c6e38907466ff140c88134e5681dbb9649fbebcab1"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/codex.html",
+      "sha256": "4d4ff7a6082ff5eee8f495c8b6fdaa67ffa3cac77b683592fef8f0faad541c4b"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/getting-started.html",
+      "sha256": "57774d74248e2160d809d5f1bf6730562388cd3b5c88a98ec8bbcb6891e66d64"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/index.html",
+      "sha256": "8056b5e730392ccac3c288fea62c31a93b9c63b483d431bb5337b1c2dc687dee"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/migration.html",
+      "sha256": "10a58887085981c18afd9ad4c6c42ca708e62b2913927989d722f93cae49662f"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/scripts.html",
+      "sha256": "db0ff77d429f6fb82b8594692308ad36803cbab24afcdbe073104aaaaa5336ab"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/tasks-and-knowledge.html",
+      "sha256": "e5376ec7b9202d2009bee2963c7bae38dcb4581fcc70777e7cbbf75c64cbb923"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/troubleshooting.html",
+      "sha256": "c403b821ce48e5255141b7e8e90f8e7a0966ff36714d5b88e4a61c272d77f514"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/workspace.html",
+      "sha256": "a0d3012e4f2aa20374fc0bdabb7d3d1401ce29e383436af5ad4ddbbc286284b9"
+    },
+    {
+      "path": "devbuddy-codex/manual/index.html",
+      "sha256": "8df169dac6dc64e7a1d545939abfb7a65d728ec44262a795ccebde2af81d6005"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/codex.html",
+      "sha256": "c4f5b12a40eb434e0da574628c111cd25eaa47c3bebab1ef51fb6be5cd8700d3"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/getting-started.html",
+      "sha256": "4b21c91b0e94b9060014fcb4a3e16b8b9869052f106f37e56a083871d2ea5a88"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/index.html",
+      "sha256": "de0064c24ce50eb443b52e4c0a7d5519c7011ff0f2cbb92a5d608402b98e608c"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/migration.html",
+      "sha256": "05cb90e8ccd38b134fa9b71867879615ebf963244a94e71357fc6ca4033db7e2"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/scripts.html",
+      "sha256": "6e33b88ce6d87bb9cfe2ae30f625953ca51d60cf923869720969ad080bb603ad"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/tasks-and-knowledge.html",
+      "sha256": "052b891fdfc90906b279e33ea0431a966baaf22269d8f99ffaa1695295579d83"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/troubleshooting.html",
+      "sha256": "a6cf0fbcc7fdfbfe2d1c49a80b0cae541e1c316e9deaef7589f7a7551a9ba02f"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/workspace.html",
+      "sha256": "4487dab2b297374ab48fc1cd47d346a686d2d2944c958b28bb8e7b5f944330c4"
+    },
+    {
+      "path": "devbuddy-codex/references/custom-tools.md",
+      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+    },
+    {
+      "path": "devbuddy-codex/references/settings.md",
+      "sha256": "498a6a26d4ff585cf6f83526cf681753f0b9231f55769eb919dd9f4ae0ca25e9"
+    },
+    {
+      "path": "devbuddy-codex/scripts/init_project_memory.py",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "path": "devbuddy-codex/scripts/validate_project_settings.py",
+      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+    },
+    {
+      "path": "devbuddy-codex/settings.yaml",
+      "sha256": "a224c60f56c788ec9f0d073d62e11911e7bca355ec45ead82f1f945de12d76ce"
+    },
+    {
+      "path": "devbuddy-codex/templates/project-tools/init_project_memory.py.template",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "path": "devbuddy-codex/templates/project-tools/validate_project_settings.py.template",
+      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+    },
+    {
+      "path": "devbuddy-codex/tests/fixtures/missing-budget.yaml",
+      "sha256": "1e4b8cd0e7d1d83515b033edf43df4b6a3473d442e7fce915b241e7d8c0b81c7"
+    },
+    {
+      "path": "devbuddy-codex/tests/fixtures/valid-settings.yaml",
+      "sha256": "363a9c08ad585e5ed4248ec5ff76081c3dc94aadff578fa4224064cd80cd863c"
+    },
+    {
+      "path": "devbuddy-codex/tests/test_project_memory.py",
+      "sha256": "b84b62c096028579058d9a456a4039926782661692d633157ac200e0f97b15e0"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/claude.html",
+      "sha256": "2e5a7e07c27a4d2345f6ffa825a327b45ff2887bd26d6fddfab91076d89ac681"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/codex.html",
+      "sha256": "6a1335e02470b9046a1e60b19b097d270487a5be8bab14d32763afba2c94a433"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/getting-started.html",
+      "sha256": "ea2b9b01ea0da9948be92aedc41dec775c2904ba419d1172af9f9f8fd9b31bd2"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/index.html",
+      "sha256": "0ac199c016af41719e5ecc0b6a1902378b01da4b8596b1efe435b5e677ba77bc"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/migration.html",
+      "sha256": "d54022ad64e5b1f40348f0db02680a8af346116b35ca3034f534c6dda01097fa"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/scripts.html",
+      "sha256": "8205302c6c6d0c8293a26aaa2e9a006e07387cbe08d6509ee142e7cf5d787a5f"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/tasks-and-knowledge.html",
+      "sha256": "2d5e0fb11526e7d0d009b7e5923ac05fbc3e8c18f38fef993d88403de7b832ae"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/troubleshooting.html",
+      "sha256": "ef641e5a5059e0926971fd78569afd9e3d0d7fb657e4f315b96a4f1bb86b37cb"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/workspace.html",
+      "sha256": "966fcadbb68b26d2fa8a823ca1e17b4f61adad6b10d4167c2659e41c4969c94a"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/index.html",
+      "sha256": "8df169dac6dc64e7a1d545939abfb7a65d728ec44262a795ccebde2af81d6005"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/claude.html",
+      "sha256": "1b0a8f9d1f790e91aa9106d9f991716a03fe83912ffd1d21d41e34c2318b9a81"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/codex.html",
+      "sha256": "a71877e1d07181c756a16fe0794381fdd3d6a09d8c558b82ff4a35f3611b1865"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/getting-started.html",
+      "sha256": "3da3dc566c0db8b9c81f505e2187647ae04496dd888a1cbf105a521c72a4034e"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/index.html",
+      "sha256": "571e339a4e734aecb66b1a30a4316f40e52eb9e256b888af3c5bf57ec202b0de"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/migration.html",
+      "sha256": "9bf8e6e51b740d99188ff71085afc3b7109abdaeb46c639831b83587ee047c2b"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/scripts.html",
+      "sha256": "e6a4334133ea0a9edb7e733ed6052993fd834090c2a278f4522cea64807c3916"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/tasks-and-knowledge.html",
+      "sha256": "7dba28fe3e339c8869a6ceb184fea45b7d4dbff5cd2526db0e30d3265bb4df81"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/troubleshooting.html",
+      "sha256": "8b50ed17e88c4f870194c61a8cfb6119f09dfc01d8cc6e179ce349d9642d09e7"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/workspace.html",
+      "sha256": "8f61e520eb0871ce5f35412529d4f81b7cb738dfd44fbed26206d45ffed4cadd"
+    },
+    {
+      "path": "devbuddy-source-of-truth/references/custom-tools.md",
+      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/check_manual_conformance.py",
+      "sha256": "69aceacd2a6399e258c7a3db0dd0dff101273e1a24fcda62cf4066e8e2c37a87"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/init_project_memory.py",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/sync_adapter_skills.py",
+      "sha256": "63b5a57022fbeaca6ca3c0966352de8880eba518cf29caa8548178638514f84b"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
+      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+    },
+    {
+      "path": "devbuddy-source-of-truth/settings.yaml",
+      "sha256": "f6f34c25e9fceb64317c278d229877bd258dcf81c0388922dca4194b25a2a883"
+    },
+    {
+      "path": "devbuddy-source-of-truth/templates/adapter-implementation-checklist.md",
+      "sha256": "96c86e79b4e437ec75d81727ff00499d0e2bb24b7f54daa841ee71ed203c9f19"
+    },
+    {
+      "path": "devbuddy-source-of-truth/tests/test_project_memory.py",
+      "sha256": "f3b19dc21c015a937838f5dd61e1c45915ff3be5fb34e93e78349cd6c0be438f"
+    }
+  ]
+}

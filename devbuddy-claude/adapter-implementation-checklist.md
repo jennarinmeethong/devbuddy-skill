@@ -1,7 +1,7 @@
 # Adapter Implementation Checklist
 
 Target: Claude Code Skill
-Common specification version: `0.4.5`
+Common specification version: `0.4.6`
 
 ## Checklist
 
@@ -31,3 +31,6 @@ Common specification version: `0.4.5`
 
 ## Synced items
 - [x] `DBY-SET-003` | `settings.yaml`, `scripts/init_project_memory.py`, `scripts/validate_project_settings.py` | Versioned defaults, explicit non-destructive settings upgrade, and current provider allowlists | Status: `done` | Location: `settings.yaml`, `scripts/init_project_memory.py`, `scripts/validate_project_settings.py`, `agents/` | Evidence: initialized and upgraded settings validate; the 54 generated role/effort agents match the configured ladder.
+
+## Synced items
+- [x] `DBY-TOOLS-003` | `skills/devbuddy-database`, `references/custom-tools.md` | Database execution is Plugin-owned; skills provide policy gates only and block without the selected package, manifest, database ID, read-only principal, and target-specific approval | Status: `done` | Location: `SKILL.md`, `references/custom-tools.md`, `plugin/devbuddy-database-*` | Evidence: `PluginArchitectureTests.test_database_skill_is_policy_only_and_requires_plugin_owned_adapter` plus package manifest and database request-gate coverage; the adapter blocks as `waiting_user` until a compatible Plugin adapter is available.

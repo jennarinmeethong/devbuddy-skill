@@ -49,6 +49,7 @@ def main() -> int:
         "scripts/init_project_memory.py",
         "scripts/validate_project_settings.py",
     )
+    shared_references = ("custom-tools.md",)
     errors: list[str] = []
     for name, config in ADAPTERS.items():
         target = repository / config["directory"] / "SKILL.md"
@@ -66,6 +67,11 @@ def main() -> int:
                 for target_file in (adapter_file, template_file):
                     if not target_file.is_file() or target_file.read_bytes() != source_file.read_bytes():
                         errors.append(f"stale shared runtime tool: {target_file}; run sync_adapter_skills.py")
+            for name in shared_references:
+                source_file = source / "references" / name
+                adapter_file = repository / config["directory"] / "references" / name
+                if not adapter_file.is_file() or adapter_file.read_bytes() != source_file.read_bytes():
+                    errors.append(f"stale shared reference: {adapter_file}; run sync_adapter_skills.py")
             continue
         target.write_text(expected, encoding="utf-8")
         matrix_target.write_text(matrix, encoding="utf-8")
@@ -75,6 +81,10 @@ def main() -> int:
             template_file = repository / config["directory"] / "templates" / "project-tools" / f"{source_file.name}.template"
             adapter_file.write_bytes(source_file.read_bytes())
             template_file.write_bytes(source_file.read_bytes())
+        for name in shared_references:
+            source_file = source / "references" / name
+            adapter_file = repository / config["directory"] / "references" / name
+            adapter_file.write_bytes(source_file.read_bytes())
         print(f"OK: generated {target}")
     if errors:
         for error in errors:

@@ -6,6 +6,22 @@ Each tool must accept explicit parameters, validate input, provide `--help` or a
 
 Generic tools belong in this source folder; project-specific tools belong in the approved project location, normally `<devbuddy-root>/tools/<tool-name>/`.
 
+## Plugin-owned database capabilities
+
+Database access is not a bundled custom tool and must not be seeded through
+`init_project_memory.py --seed-custom-tool`. The portable core and database
+policy skills never ship or invoke a database executable. A database request
+uses an installed `devbuddy-database-core` package and the matching
+`devbuddy-database-<engine>` adapter selected by the workspace profile.
+
+Before dispatch, require the selected package, its Plugin-owned tool manifest,
+an explicit `database_id`, a least-privilege read-only principal, and a
+target-specific Tier 2 approval. If any of these cannot be verified, set the
+work to `waiting_user`; do not substitute a workspace `custom_tools` entry,
+direct driver call, or shell command. Connection configuration remains a
+local-only host file and is never read back into a skill, manifest, task
+ledger, or package artifact.
+
 ## Bundled tools
 
 An adapter may ship a ready-made tool under `templates/project-tools/<name>/`. Seeding one is always an explicit request — `init_project_memory.py --seed-custom-tool <name>` — because a bundled tool may need a runtime and a build step the workspace has not approved, and workspace initialisation should never make that decision quietly. Seeding refuses to overwrite an existing copy: the host may have edited it or built inside it, and the tool manifest cannot vouch for what changed.

@@ -168,7 +168,7 @@ class SettingsValidatorTests(unittest.TestCase):
             project = base / "project"; project.mkdir()
             settings = base / ".devbuddy" / "settings.yaml"; settings.parent.mkdir()
             settings.write_text(
-                "schema_version: 1\nsettings_version: 0.4.5\nworkspace:\n  projects:\n    app:\n      path: project\n"
+                "schema_version: 1\nsettings_version: 0.4.6\nworkspace:\n  projects:\n    app:\n      path: project\n"
                 "memory_root: knowledge-base\norchestration:\n  max_concurrency: 1\n  task_timeout_seconds: 60\n"
                 "  retry_limit: 0\n  adapter_profiles: [claude, codex]\n  approved_models:\n"
                 "    - id: claude-fast\n      adapters: [claude]\n      rank: 1\n      allowed_roles: [developer]\n      allowed_risks: [low]\n"

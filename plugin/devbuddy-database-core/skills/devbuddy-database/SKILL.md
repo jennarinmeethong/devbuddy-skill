@@ -1,11 +1,22 @@
 ---
 name: devbuddy-database
-description: Portable, read-only database policy for DevBuddy optional database adapters.
+description: Policy gate for Plugin-owned, read-only DevBuddy database adapters.
 ---
 
-# DevBuddy Database
+# DevBuddy Database Plugin Policy
 
-Database access is optional and always Tier 2. Require an explicit `database_id`, matching adapter package, tool manifest, read-only principal, and target-specific approval (production defaults to `ask`). Never accept or log credentials.
+This skill is policy only. It does not ship a database tool, driver, executable,
+connection configuration, or direct database invocation. Database execution is
+owned by an installed DevBuddy Plugin: `devbuddy-database-core` plus one
+matching `devbuddy-database-<engine>` adapter selected by the workspace
+profile.
+
+Database access is optional and always Tier 2. Before dispatch, require an
+explicit `database_id`, the selected adapter package, its Plugin-owned tool
+manifest, a read-only principal, and target-specific approval (production
+defaults to `ask`). If the required package, manifest, adapter, or approval is
+unavailable, return `waiting_user`; do not fall back to a workspace custom
+tool, a direct driver, or a shell command. Never accept or log credentials.
 
 - Relational requests must be parameterized, one read-only statement, time-limited, and result-limited.
 - MongoDB accepts only structured `find`, allowlisted `aggregate`, `count`, and `distinct` operations.

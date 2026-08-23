@@ -1,6 +1,6 @@
 # Adapter Implementation Checklist
 
-Common specification version: `0.4.5`
+Common specification version: `0.4.6`
 
 ## Status legend
 
@@ -37,6 +37,8 @@ Common specification version: `0.4.5`
 - [ ] `DBY-TOOLS-001` | `scripts/`, `tools/` | Manifest-bound project-local Python runtime tools and source-only development validation | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: enforce exact workspace-tool paths, manifest verification, and runtime/source separation.
 - [ ] `DBY-TOOLS-002` | `references/custom-tools.md` | Custom-tool contract, workspace registry, approved runtimes, manifest schema, secret boundary, and untrusted-output handling | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
+  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: carry the custom-tool contract and its explicit workspace registry into the adapter.
+- [ ] `DBY-TOOLS-003` | `skills/devbuddy-database`, `references/custom-tools.md` | Database execution is Plugin-owned; skills provide policy gates only and block without the selected package, manifest, database ID, read-only principal, and target-specific approval | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: carry the contract into the adapter and validate the workspace registry.
 - [ ] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: publish adapter-specific manual guidance.

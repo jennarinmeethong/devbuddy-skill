@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-database-core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "kind": "database-core",
   "dependencies": ["devbuddy-core"],
   "permissions": ["tier-2-database"],

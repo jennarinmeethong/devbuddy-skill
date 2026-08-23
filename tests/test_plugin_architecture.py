@@ -27,6 +27,14 @@ class PluginArchitectureTests(unittest.TestCase):
         self.assertTrue(generated.is_file())
         self.assertEqual(json.loads(generated.read_text(encoding="utf-8"))["provenance"], "skills/devbuddy-core")
 
+    def test_database_skill_is_policy_only_and_requires_plugin_owned_adapter(self) -> None:
+        skill = (ROOT / "skills" / "devbuddy-database" / "SKILL.md").read_text(encoding="utf-8")
+        core = (ROOT / "skills" / "devbuddy-core" / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("This skill is policy only", skill)
+        self.assertIn("devbuddy-database-core", skill)
+        self.assertIn("do not fall back to a workspace custom", skill)
+        self.assertIn("never ships, selects, or invokes a database executable", core)
+
     def test_profile_resolution_is_deterministic_and_non_mutating(self) -> None:
         result = run("profile_resolver.py", "profiles/data-postgresql.yaml")
         self.assertEqual(result.returncode, 0, result.stdout)

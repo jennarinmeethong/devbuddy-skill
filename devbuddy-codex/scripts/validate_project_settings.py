@@ -16,7 +16,7 @@ ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-s
 RISKS = {"low", "medium", "high", "critical"}
 SCALARS = {"max_concurrency", "task_timeout_seconds", "retry_limit"}
 ADAPTERS = {"claude", "codex"}
-SETTINGS_VERSION = "0.4.5"
+SETTINGS_VERSION = "0.4.6"
 IDENTIFIER = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 # A manifest is committable by design, so a credential-shaped assignment in one
 # is a leak that has already happened rather than a style problem.
