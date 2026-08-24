@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Install the DevBuddy Claude adapter into a Claude Code configuration root.
+"""Migration-aware compatibility shim for the legacy DevBuddy Claude adapter.
 
-Copies the skill to <root>/skills/devbuddy/ and the 54 subagent definitions to
-<root>/agents/. Dry-run is the default: nothing is written until --apply is
-given, so the user can see the exact file list first.
+New installations use the Claude Code Plugin in the DevBuddy marketplace. This
+shim reports that migration path by default and never changes the host. The
+legacy copier remains available only with --legacy-install during the declared
+compatibility window, and is still dry-run-first.
 
 Only the self-contained scripts travel with the install; see SKILL_SCRIPTS.
 
@@ -37,6 +38,25 @@ SKILL_EXTRAS = [Path("tests") / "scenarios.json"]
 SKIP_DIRS = {"__pycache__", "bin", "obj", "releases", ".venv", "node_modules"}
 SKIP_FILES = {"appsettings.json", ".DS_Store"}
 MARKER = "devbuddy"
+
+
+def migration_report(root: Path) -> dict[str, object]:
+    """Describe a recognized legacy install without changing it."""
+    skill = root / "skills" / "devbuddy" / "SKILL.md"
+    agents = sorted((root / "agents").glob("devbuddy-*-*.md"))
+    return {
+        "legacy_skill": skill.is_file() and is_devbuddy_artefact(skill),
+        "legacy_agents": len(agents),
+        "plugin": "devbuddy-claude-code@devbuddy",
+        "install": [
+            "claude plugin marketplace add <DevBuddy marketplace repository or local path>",
+            "claude plugin install devbuddy-claude-code@devbuddy --scope user",
+            "/reload-plugins",
+        ],
+        "entrypoint": "/devbuddy-claude-code:devbuddy",
+        "rollback": "claude plugin uninstall devbuddy-claude-code@devbuddy --keep-data",
+        "legacy_window": "supported through DevBuddy 1.x; no legacy files are removed by this shim",
+    }
 
 
 def is_devbuddy_artefact(path: Path, source: Path | None = None) -> bool:
@@ -87,6 +107,8 @@ def main() -> int:
     parser.add_argument("--claude-root", type=Path, default=Path.home() / ".claude",
                         help="Claude Code configuration root (default: ~/.claude)")
     parser.add_argument("--apply", action="store_true", help="write files; omit for a dry run")
+    parser.add_argument("--legacy-install", action="store_true", help="use the deprecated standalone copier during the DevBuddy 1.x compatibility window")
+    parser.add_argument("--migration-report", action="store_true", help="print the Plugin migration report and exit")
     parser.add_argument(
         "--replace-recognized-skill",
         action="store_true",
@@ -97,6 +119,20 @@ def main() -> int:
     root = args.claude_root.expanduser()
     skill_target = root / "skills" / "devbuddy"
     agent_target = root / "agents"
+
+    if args.migration_report or (not args.apply and not args.legacy_install):
+        if not args.migration_report:
+            preview_pairs = plan_skill(skill_target) + plan_agents(agent_target)
+            conflicts = [dst for src, dst in preview_pairs if dst.exists() and not is_devbuddy_artefact(dst, src)]
+            if conflicts:
+                for path in conflicts:
+                    print(f"ERROR: refusing to overwrite non-DevBuddy file: {path}")
+                return 1
+        import json
+        print(json.dumps(migration_report(root), indent=2))
+        if not args.legacy_install:
+            print("DRY RUN: no host files changed. Use the Plugin path above; --apply retains the legacy compatibility path.")
+        return 0
 
     pairs = plan_skill(skill_target) + plan_agents(agent_target)
     if not pairs:
@@ -119,7 +155,7 @@ def main() -> int:
     if not args.apply:
         for _, dst in pairs:
             print(f"{'REPLACE' if dst.exists() else 'CREATE '}: {dst}")
-        print(f"\nDry run: {len(pairs)} files. Re-run with --apply to install.")
+        print(f"\nLegacy dry run: {len(pairs)} files. Re-run with --legacy-install --apply to install.")
         return 0
 
     try:
@@ -134,6 +170,7 @@ def main() -> int:
     print(f"  skill:  {skill_target}")
     print(f"  agents: {agent_target}")
     print("Restart or refresh the Claude Code session so /devbuddy and the devbuddy-* agents load.")
+    print("DEPRECATED: migrate to the devbuddy-claude-code Plugin before DevBuddy 2.0.")
     return 0
 
 

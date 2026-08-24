@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DevBuddy Codex Project Settings",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "workspace",
+    "memory_root",
+    "orchestration"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "workspace": {
+      "type": "object",
+      "required": [
+        "projects"
+      ],
+      "properties": {
+        "projects": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "path"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "memory_root": {
+      "const": "knowledge-base"
+    },
+    "orchestration": {
+      "type": "object",
+      "required": [
+        "max_concurrency",
+        "task_timeout_seconds",
+        "retry_limit",
+        "approved_models",
+        "approved_effort_levels"
+      ],
+      "properties": {
+        "max_concurrency": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "task_timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retry_limit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "adapter_profiles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["claude", "codex"]}
+        },
+        "approved_models": {
+          "type": "array",
+          "minItems": 1
+        },
+        "approved_effort_levels": {
+          "type": "array",
+          "minItems": 1
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "properties": {
+        "approved_custom_tool_runtimes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "is_rtk": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "custom_tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "runtime",
+          "manifest"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+          },
+          "runtime": {
+            "type": "string",
+            "minLength": 1
+          },
+          "manifest": {
+            "type": "string",
+            "minLength": 1
+          },
+          "secret_file": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

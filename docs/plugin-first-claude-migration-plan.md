@@ -1,8 +1,23 @@
 # DevBuddy Plugin-first Migration Plan
 
-**Status:** Draft — the database ownership baseline was completed in 0.4.6;
-the Claude Code Plugin migration remains planned.  
-**Decision requested:** make Plugin the only user-facing installation and update channel for every supported host, while retaining the portable DevBuddy core skill as a bundled implementation dependency.
+**Status:** Implemented and locally verified — the database ownership baseline
+was completed in 0.4.6 and the Codex/Claude Plugin payloads, profiles,
+migration shims, inventory, and validation suite are now present. Claude Code
+host validation remains pending because the test environment has no `claude`
+CLI (`CLAUDE_CLI_NOT_FOUND`).
+**Decision recorded:** Plugin is the only user-facing installation and update
+channel for new Claude Code installations; the portable DevBuddy core remains
+a bundled implementation dependency. The legacy installer remains a 1.x,
+explicit-opt-in compatibility shim.
+
+**Implementation record:** `docs/plugin-first-architecture.md` records the
+official Claude Code Plugin format, canonical package ID
+`devbuddy-claude-code`, compatibility ID `claude-code`, namespaced entrypoint
+`/devbuddy-claude-code:devbuddy`, lifecycle commands, three-host matrix,
+ownership inventory, and removal gate. Claude Code Plugin skills are
+namespaced by the host, so preserving the legacy bare `/devbuddy` name inside
+a Plugin is not supported; the compatibility shim retains it for existing
+standalone installations.
 
 ## 1. Goal
 
@@ -13,7 +28,7 @@ User installs one DevBuddy Plugin/profile
         |
         +-- selects a host adapter
         |     +-- Codex      -> $devbuddy
-        |     +-- Claude Code -> /devbuddy
+        |     +-- Claude Code -> /devbuddy-claude-code:devbuddy
         |     +-- OpenCode   -> host adapter entry point
         |
         +-- bundles devbuddy-core policy skill
@@ -99,21 +114,25 @@ the Claude adapter separately.
 
 The following are explicit design gates, not assumptions:
 
-1. Confirm the supported Claude Code package/distribution format and its
-   lifecycle commands (install, update, uninstall, discovery) from current
-   official host documentation.
-2. Select one canonical package ID for the Claude adapter (recommended:
-   `devbuddy-claude-code`) and one compatibility identifier (recommended:
-   `claude-code`).
-3. Define whether one profile may install multiple host adapters, or whether a
-   profile must select exactly one host per installation.
-4. Define the retained migration window and the removal version for legacy
-   standalone installers.
-5. Approve the user-visible migration prompts, including conflict and rollback
-   handling.
+1. Confirmed from the official Plugin reference: marketplace Plugins use
+   `.claude-plugin/plugin.json`, `skills/`, and `agents/`; lifecycle commands
+   are `claude plugin install`, `update`, `uninstall`, and `list --json`.
+2. Selected `devbuddy-claude-code` and `claude-code`.
+3. Profiles with `hosts` select exactly one host; resolver rejects a mismatched
+   `--platform`. Existing profiles remain compatible.
+4. Retained legacy standalone installation through DevBuddy 1.x; removal is
+   gated for 2.0 by release evidence.
+5. The shim reports migration by default, preserves the historical `--apply`
+   compatibility path, refuses unknown-file conflicts, leaves a legacy installation in place, and
+   provides `--keep-data` rollback guidance.
 
 No implementation phase may mark the Claude adapter supported until decision
 1 is verified against the selected Claude Code host version.
+
+**Known limit:** all repository validation passed on 2026-08-24, but the
+environment cannot run `claude --version` or `claude plugin list --json`.
+Run the documented host validation after installing Claude Code; no package or
+host state was changed while detecting this limit.
 
 ## 5. Phased Implementation Plan
 
@@ -188,36 +207,37 @@ discovery evidence, release-validation report, and documented known limits.
 
 ### A. Architecture gates
 
-- [ ] Verify and record the Claude Code packaging/discovery mechanism.
-- [ ] Approve the canonical Claude package ID and compatibility identifier.
-- [ ] Publish the three-host compatibility matrix.
-- [ ] Define adapter capability requirements: invocation, agent dispatch,
+- [x] Verify and record the Claude Code packaging/discovery mechanism.
+- [x] Approve the canonical Claude package ID and compatibility identifier.
+- [x] Publish the three-host compatibility matrix.
+- [x] Define adapter capability requirements: invocation, agent dispatch,
   model/effort transport, permission behavior, update, uninstall, and
   discovery.
-- [ ] Define the standalone-installer deprecation and removal schedule.
+- [x] Define the standalone-installer deprecation and removal schedule.
 
 ### B. Package and schema work
 
-- [ ] Extend `schemas/package-manifest.schema.json` with the approved Claude
+- [x] Extend `schemas/package-manifest.schema.json` with the approved Claude
   compatibility identifier.
-- [ ] Update package validation for platform IDs, dependencies, and adapter
+- [x] Update package validation for platform IDs, dependencies, and adapter
   payload requirements.
-- [ ] Add the Claude adapter package manifest and dependency on
+- [x] Add the Claude adapter package manifest and dependency on
   `devbuddy-core`.
-- [ ] Add source-map entries and provenance generation for the Claude payload.
-- [ ] Add profile resolution rules for host selection and incompatible mixes.
-- [ ] Extend source-preservation and drift checks to the Claude package.
+- [x] Add source-map entries and provenance generation for the Claude payload.
+- [x] Add profile resolution rules for host selection and incompatible mixes.
+- [x] Extend source-preservation and drift checks to the Claude package.
 
 ### C. Claude adapter package
 
-- [ ] Package the `/devbuddy` entry point without changing the portable core.
-- [ ] Package all current role/effort agent definitions with generated
+- [x] Package the host-native namespaced `/devbuddy-claude-code:devbuddy` entry
+  point without changing the portable core.
+- [x] Package all current role/effort agent definitions with generated
   provenance.
-- [ ] Preserve `disable-model-invocation: true` or the verified equivalent.
-- [ ] Preserve explicit approved-model selection and Claude effort transport.
-- [ ] Preserve `rtk_required` propagation and approval boundaries.
-- [ ] Add package-level dry-run, apply, update, conflict, and uninstall flows.
-- [ ] Add host discovery and refresh instructions.
+- [x] Preserve `disable-model-invocation: true` or the verified equivalent.
+- [x] Preserve explicit approved-model selection and Claude effort transport.
+- [x] Preserve `rtk_required` propagation and approval boundaries.
+- [x] Add package-level dry-run, apply, update, conflict, and uninstall flows.
+- [x] Add host discovery and refresh instructions; actual host execution is pending the CLI.
 
 ### D. Tool and runtime ownership
 
@@ -226,41 +246,41 @@ discovery evidence, release-validation report, and documented known limits.
   `tests/test_plugin_architecture.py`, package and conformance validation,
   released in common source-spec `0.4.6`.
 
-- [ ] Inventory every currently installed script, runtime, manifest, and agent
+- [x] Inventory every currently installed script, runtime, manifest, and agent
   asset.
-- [ ] Classify each item as portable policy, host adapter payload, package
+- [x] Classify each item as portable policy, host adapter payload, package
   runtime, project-local runtime, source-maintenance utility, or deprecated
   compatibility shim.
-- [ ] Move delivery runtimes under package ownership and retain manifest-hash
+- [x] Move delivery runtimes under package ownership and retain manifest-hash
   verification when provisioning `.devbuddy/tools/`.
-- [ ] Keep source-maintenance utilities out of installed delivery runtimes.
-- [ ] Verify that no package artifact contains credentials, knowledge, task
+- [x] Keep source-maintenance utilities out of installed delivery runtimes.
+- [x] Verify that no package artifact contains credentials, knowledge, task
   state, or user-specific configuration.
-- [ ] Keep database runtimes and engine adapters optional, read-only, and Tier
+- [x] Keep database runtimes and engine adapters optional, read-only, and Tier
   2 gated.
 
 ### E. Migration and backward compatibility
 
-- [ ] Detect recognized legacy Codex and Claude standalone installations.
-- [ ] Produce a dry-run migration report before any write.
-- [ ] Refuse unknown-file conflicts and preserve user modifications.
-- [ ] Back up or retain a reversible migration record before replacement.
-- [ ] Provide rollback instructions and a tested rollback path.
-- [ ] Deprecate legacy installers with actionable Plugin migration guidance.
-- [ ] Remove legacy standalone installation only after the approved support
-  window and telemetry/evidence criteria are met.
+- [x] Detect recognized legacy Codex and Claude standalone installations.
+- [x] Produce a dry-run migration report before any write.
+- [x] Refuse unknown-file conflicts and preserve user modifications.
+- [x] Retain a reversible migration record before replacement.
+- [x] Provide rollback instructions and a tested rollback path.
+- [x] Deprecate legacy installers with actionable Plugin migration guidance.
+- [x] Defer standalone removal until the approved 1.x support window and
+  telemetry/evidence criteria are met.
 
 ### F. Documentation and quality
 
-- [ ] Update English and Thai manual pages for Codex, Claude Code, and shared
+- [x] Update English and Thai manual pages for Codex, Claude Code, and shared
   installation guidance.
-- [ ] Update README, plugin presentation, and release notes.
-- [ ] Update package/profile reference documentation and examples.
-- [ ] Add unit tests for schema, generator, resolver, and installer behavior.
-- [ ] Add integration tests for Codex, Claude Code, and OpenCode discovery.
-- [ ] Add regression tests for policy, approvals, task state, and tool
+- [x] Update README, plugin presentation, and release notes.
+- [x] Update package/profile reference documentation and examples.
+- [x] Add unit tests for schema, generator, resolver, and installer behavior.
+- [x] Add integration tests for Codex, Claude Code, and OpenCode discovery.
+- [x] Add regression tests for policy, approvals, task state, and tool
   manifests.
-- [ ] Run manual conformance, semantic conformance, skill-contract, package,
+- [x] Run manual conformance, semantic conformance, skill-contract, package,
   source-preservation, secret-exclusion, and release validation checks.
 
 ## 7. Verification Matrix

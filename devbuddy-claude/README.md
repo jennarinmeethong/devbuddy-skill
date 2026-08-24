@@ -11,19 +11,23 @@ Two platform mechanics shape this adapter:
 
 ## Install
 
-Preview the exact file list first:
+New Claude Code installations use the `devbuddy-claude-code@devbuddy` marketplace Plugin. It bundles the portable core dependency and all 54 generated agents; see `../docs/plugin-first-architecture.md` for the host contract and migration schedule.
 
 ```bash
-python3 scripts/install_claude_adapter.py
+claude plugin marketplace add <DevBuddy marketplace repository or local path>
+claude plugin install devbuddy-claude-code@devbuddy --scope user
+# in Claude Code
+/reload-plugins
 ```
 
-Apply only after reviewing the dry run:
+The standalone installer is a dry-run-first 1.x compatibility shim. It reports the Plugin migration and rollback path by default; its historical `--apply` path remains available:
 
 ```bash
+python3 scripts/install_claude_adapter.py --migration-report
 python3 scripts/install_claude_adapter.py --apply
 ```
 
-The default target is `~/.claude`: the skill lands in `skills/devbuddy/` and the 54 definitions in `agents/`. Use `--claude-root <path>` for another approved configuration root. The installer refuses to overwrite any file it cannot identify as a DevBuddy artefact; `--replace-recognized-skill` narrows that refusal to a skill root that already identifies itself as DevBuddy. Restart or refresh the session afterwards so `/devbuddy` and the `devbuddy-*` agents load.
+The compatibility shim never removes files and refuses unknown collisions. Plugin users discover installed components with `claude plugin list --json`, then invoke `/devbuddy-claude-code:devbuddy`; Plugin skills are namespaced by Claude Code.
 
 Only the self-contained scripts are installed (`SKILL_SCRIPTS` in the installer). The conformance and manual checkers compare this adapter against `devbuddy-source-of-truth/`, which no install contains, so they stay repository-only.
 
@@ -110,6 +114,8 @@ python3 ../devbuddy-source-of-truth/scripts/check_adapter_checklists.py --templa
 ```
 
 ## Use
+
+Plugin users invoke `/devbuddy-claude-code:devbuddy <task>`. The following unnamespaced forms apply only to existing standalone compatibility installations.
 
 ```text
 /devbuddy <task>

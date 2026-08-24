@@ -1,8 +1,12 @@
 {
   "schema_version": 1,
-  "change_id": "DBY-TOOLS-003",
-  "purpose": "Authorize the versioned database Plugin-ownership policy migration across canonical source and adapters.",
+  "change_id": "DBY-PLUGIN-001",
+  "purpose": "Authorize the Plugin-first Claude Code migration while retaining the prior database Plugin-ownership changes.",
   "files": [
+    {
+      "path": "devbuddy-claude/README.md",
+      "sha256": "5d557682bb4d0aa72dedebc068d5841d91a98c6ef3e3f602fdd7acec989197f0"
+    },
     {
       "path": "devbuddy-claude/adapter-implementation-checklist.md",
       "sha256": "f1da5ad61d6d032ff4164a36b94b7e44a792eb1aa0016c50667f2b64bd46360b"
@@ -13,7 +17,7 @@
     },
     {
       "path": "devbuddy-claude/manual/en/getting-started.html",
-      "sha256": "03407a8bcf67b835b5fedd93d5433b95845cfb96d610b476e7d83d94065f47ad"
+      "sha256": "2b4639705abb7a63c6b2a169b06303a665b3819f963ffb1284d5fe38c8c05f2b"
     },
     {
       "path": "devbuddy-claude/manual/en/index.html",
@@ -60,6 +64,10 @@
       "sha256": "752a5046ccd790bec1fb8f3888d1fcf020d059d1f4df880637f280c9a24c5e1b"
     },
     {
+      "path": "devbuddy-claude/manual/th/plugin-first.html",
+      "sha256": "14d64d1c097a51bd3492218f8b506d492597bfbd80135c276ae27d09e54af4b8"
+    },
+    {
       "path": "devbuddy-claude/manual/th/scripts.html",
       "sha256": "7f101b5df32edb2d6f04d0e34b447e744967b9b4e930fbd0c8a4bf77b8f702b4"
     },
@@ -82,6 +90,10 @@
     {
       "path": "devbuddy-claude/references/settings.md",
       "sha256": "1df79d8649d13304290b14515cfadf4a56678fedd9e278309878a891731f730f"
+    },
+    {
+      "path": "devbuddy-claude/scripts/install_claude_adapter.py",
+      "sha256": "72ade9941fa1019a7d6f52d82b2cbd6c2e992510b9ed2c41bae3b1e633a834ab"
     },
     {
       "path": "devbuddy-claude/scripts/init_project_memory.py",
@@ -118,6 +130,10 @@
     {
       "path": "devbuddy-codex/adapter-implementation-checklist.md",
       "sha256": "cf83ecb0e24f5bbd0ea432c6e38907466ff140c88134e5681dbb9649fbebcab1"
+    },
+    {
+      "path": "devbuddy-codex/README.md",
+      "sha256": "aaf511a5af1ba9e24847d9d3e15e86ebc73475746159db8b5ee0bf9458dfc2e4"
     },
     {
       "path": "devbuddy-codex/manual/en/codex.html",
@@ -194,6 +210,10 @@
     {
       "path": "devbuddy-codex/references/settings.md",
       "sha256": "498a6a26d4ff585cf6f83526cf681753f0b9231f55769eb919dd9f4ae0ca25e9"
+    },
+    {
+      "path": "devbuddy-codex/scripts/install_codex_adapter.py",
+      "sha256": "6c23752cc58a40c38ea5cb34d4e5ccceabc985b408a2d938eede0050e1de6f05"
     },
     {
       "path": "devbuddy-codex/scripts/init_project_memory.py",

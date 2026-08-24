@@ -1,0 +1,19 @@
+{
+  "name": "devbuddy-codex",
+  "version": "1.0.1",
+  "kind": "adapter",
+  "dependencies": ["devbuddy-core"],
+  "permissions": ["tier-0-read", "tier-1-workspace-write"],
+  "compatibility": {"core": "1.0.1", "platforms": ["codex"]},
+  "adapter": {
+    "host": "codex",
+    "entrypoint": "$devbuddy",
+    "dispatch_transport": "Codex specialist transport using the generated openai agent profile",
+    "model_transport": "explicit specialist model selection from approved workspace settings",
+    "effort_transport": "explicit specialist reasoning_effort selection from approved workspace settings",
+    "explicit_invocation": true,
+    "discovery": "codex plugin list; open a new thread after install or update",
+    "update": "update the local Plugin cachebuster then codex plugin add devbuddy-codex@<marketplace>",
+    "uninstall": "remove or disable the DevBuddy Codex Plugin/profile in the host Plugin manager"
+  }
+}

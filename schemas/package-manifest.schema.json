@@ -6,7 +6,7 @@
   "properties": {
     "name": {"type": "string", "pattern": "^devbuddy-[a-z0-9-]+$"},
     "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
-    "kind": {"enum": ["core", "skill", "database-core", "database-adapter", "optional"]},
+    "kind": {"enum": ["core", "adapter", "skill", "database-core", "database-adapter", "optional"]},
     "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
     "permissions": {"type": "array", "items": {"enum": ["tier-0-read", "tier-1-workspace-write", "tier-2-database"]}, "uniqueItems": true},
     "compatibility": {
@@ -14,11 +14,30 @@
       "required": ["core", "platforms"],
       "properties": {
         "core": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
-        "platforms": {"type": "array", "items": {"enum": ["codex", "opencode"]}, "minItems": 1}
+        "platforms": {"type": "array", "items": {"enum": ["codex", "claude-code", "opencode"]}, "minItems": 1, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "adapter": {
+      "type": "object",
+      "required": ["host", "entrypoint", "dispatch_transport", "model_transport", "effort_transport", "explicit_invocation", "discovery", "update", "uninstall"],
+      "properties": {
+        "host": {"enum": ["codex", "claude-code", "opencode"]},
+        "entrypoint": {"type": "string", "minLength": 1},
+        "dispatch_transport": {"type": "string", "minLength": 1},
+        "model_transport": {"type": "string", "minLength": 1},
+        "effort_transport": {"type": "string", "minLength": 1},
+        "explicit_invocation": {"type": "boolean"},
+        "discovery": {"type": "string", "minLength": 1},
+        "update": {"type": "string", "minLength": 1},
+        "uninstall": {"type": "string", "minLength": 1}
       },
       "additionalProperties": false
     },
     "database": {"type": "object"}
   },
+  "allOf": [
+    {"if": {"properties": {"kind": {"const": "adapter"}}}, "then": {"required": ["adapter"]}}
+  ],
   "additionalProperties": false
 }

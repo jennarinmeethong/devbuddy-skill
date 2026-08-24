@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Install the DevBuddy Codex skill with a dry-run-first workflow."""
+"""Migration-aware compatibility shim for the legacy DevBuddy Codex skill.
+
+New installations use the DevBuddy Plugin/profile workflow. This shim reports
+the migration path by default and retains the standalone copier only behind an
+explicit --legacy-install compatibility opt-in during the DevBuddy 1.x window.
+"""
 from __future__ import annotations
 
 import argparse
@@ -25,6 +30,28 @@ SKILL_CONTENT = [
 SKIP_DIRS = {"__pycache__", "bin", "obj", "releases", ".venv", "node_modules"}
 SKIP_FILES = {"appsettings.json", ".DS_Store"}
 MARKER = "devbuddy"
+
+
+def migration_report(root: Path) -> dict[str, object]:
+    """Describe the recognized legacy layout without mutating the host."""
+    skill = root / "skills" / "devbuddy" / "SKILL.md"
+    return {
+        "legacy_skill": skill.is_file() and is_devbuddy_artefact(skill),
+        "plugin_profile": "profiles/codex.yaml --platform codex",
+        "plugin_payload": "plugin/devbuddy-codex/.codex-plugin/plugin.json",
+        "install": [
+            "Install the DevBuddy Codex Plugin/profile using the host Plugin manager.",
+            "Resolve the selected profile before applying its workspace composition.",
+            "Refresh Codex and invoke $devbuddy <task>.",
+        ],
+        "rollback": "Disable or remove the Plugin/profile; the legacy skill is retained unchanged.",
+        "migration_record": {
+            "legacy_retained": True,
+            "host_files_replaced": False,
+            "reversible": True,
+        },
+        "legacy_window": "supported through DevBuddy 1.x; no legacy files are removed by this shim",
+    }
 
 
 def is_devbuddy_artefact(path: Path, source: Path | None = None) -> bool:
@@ -67,6 +94,8 @@ def main() -> int:
         help="Codex configuration root (default: ~/.codex)",
     )
     parser.add_argument("--apply", action="store_true", help="write files; omit for a dry run")
+    parser.add_argument("--legacy-install", action="store_true", help="use the deprecated standalone copier during the DevBuddy 1.x compatibility window")
+    parser.add_argument("--migration-report", action="store_true", help="print the Plugin/profile migration report and exit")
     parser.add_argument(
         "--replace-recognized-skill",
         action="store_true",
@@ -74,7 +103,21 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    target = args.codex_root.expanduser() / "skills" / "devbuddy"
+    root = args.codex_root.expanduser()
+    target = root / "skills" / "devbuddy"
+    if args.migration_report or (not args.apply and not args.legacy_install):
+        if not args.migration_report:
+            preview_pairs = plan(target)
+            conflicts = [destination for source, destination in preview_pairs if destination.exists() and not is_devbuddy_artefact(destination, source)]
+            if conflicts:
+                for path in conflicts:
+                    print(f"ERROR: refusing to overwrite non-DevBuddy file: {path}")
+                return 1
+        import json
+        print(json.dumps(migration_report(root), indent=2))
+        if not args.legacy_install:
+            print("DRY RUN: no host files changed. Use the Plugin/profile path above; --apply retains the legacy compatibility path.")
+        return 0
     pairs = plan(target)
     if not pairs:
         print("ERROR: no Codex adapter files found")
@@ -94,7 +137,7 @@ def main() -> int:
     if not args.apply:
         for _, destination in pairs:
             print(f"{'REPLACE' if destination.exists() else 'CREATE '}: {destination}")
-        print(f"\nDry run: {len(pairs)} files. Re-run with --apply to install.")
+        print(f"\nLegacy dry run: {len(pairs)} files. Re-run with --legacy-install --apply to install.")
         return 0
 
     try:
@@ -105,6 +148,7 @@ def main() -> int:
         print(f"ERROR: install failed: {error}")
         return 1
     print(f"OK: installed {len(pairs)} files at {target}")
+    print("DEPRECATED: migrate to the DevBuddy Plugin/profile before DevBuddy 2.0.")
     return 0
 
 

@@ -4,5 +4,5 @@
   "kind": "core",
   "dependencies": [],
   "permissions": ["tier-0-read", "tier-1-workspace-write"],
-  "compatibility": {"core": "1.0.1", "platforms": ["codex", "opencode"]}
+  "compatibility": {"core": "1.0.1", "platforms": ["codex", "claude-code", "opencode"]}
 }

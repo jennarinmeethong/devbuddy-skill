@@ -1,0 +1,74 @@
+schema_version: 1
+adapter:
+  name: devbuddy-codex
+  source_spec_version: 0.4.6
+  settings_version: 0.4.6
+  invocation: $devbuddy
+  entrypoint: orchestrator
+  explicit_subagent_model_and_effort: required
+governance:
+  git_mode: read_only
+  require_uncertainty_question: true
+  require_cost_approval: true
+  require_knowledge_impact_approval: true
+orchestration:
+  project_settings_path: .devbuddy/settings.yaml
+  # Ordered from the lowest-cost sufficient default.  The project allowlist
+  # may narrow these entries, but does not silently broaden them.
+  approved_models:
+    - id: gpt-5.6-luna
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low, medium]
+    - id: gpt-5.6-terra
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: gpt-5.6-sol
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+  approved_effort_levels:
+    - id: light
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low]
+    - id: medium
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium]
+    - id: high
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: extra-high
+      rank: 4
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: ultra
+      rank: 5
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
+  model_effort_selection_policy: minimum_sufficient
+  adapter_profile_selection: current_adapter
+  subagent_capability: required
+  model_transport: subagent.model_parameter
+  effort_transport: subagent.reasoning_effort_parameter
+memory:
+  default_root: .devbuddy
+  locator_key: memory_root
+  knowledge_root: knowledge-base
+  project_registry_key: workspace.projects
+tools:
+  # Prefer supported RTK command equivalents for delivery shell commands.
+  is_rtk: false
+  # Default approval boundary for custom tools. A workspace may add a runtime in
+  # its own settings after the user approves it; a tool whose runtime is not
+  # listed is a dispatch block, not a judgement call. See references/custom-tools.md.
+  approved_custom_tool_runtimes: [python, dotnet]
+  install_without_user_approval: false
+quality:
+  required_checks: [policy_compliance, knowledge_health, adapter_conformance, manual_conformance]

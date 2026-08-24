@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T17:12:07+00:00",
+  "generated_at": "2026-08-23T17:46:33+00:00",
   "mappings": [
     {
       "files": [
@@ -30,8 +30,602 @@
       ],
       "source": "skills/devbuddy-security",
       "target": "plugin/devbuddy-security/skills/devbuddy-security"
+    },
+    {
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "9758b2f9d208bb9772043a26cd290e4b4c8eded4237be5ad606c940df88ec094"
+        }
+      ],
+      "source": "devbuddy-claude/SKILL.md",
+      "target": "plugin/devbuddy-claude-code/skills/devbuddy/SKILL.md"
+    },
+    {
+      "files": [
+        {
+          "path": "settings.yaml",
+          "sha256": "4cf59ce3294417a734e26a65a3fae8287c33a6f5468bdd4f94e744bb8545dd3b"
+        }
+      ],
+      "source": "devbuddy-claude/settings.yaml",
+      "target": "plugin/devbuddy-claude-code/settings.yaml"
+    },
+    {
+      "files": [
+        {
+          "path": "devbuddy-architect-extra.md",
+          "sha256": "dc13a55c81feb9b8ddfeeee3b4af5af1b9f9f55e66494575faaa273ee3fa257f"
+        },
+        {
+          "path": "devbuddy-architect-high.md",
+          "sha256": "ec274be7478822df883cd53cde25d2d4f7f9b06706b607c8b22a08e08bf3fae9"
+        },
+        {
+          "path": "devbuddy-architect-low.md",
+          "sha256": "65357a2b148206ce71fb12e386593a8c46324d4469865999763a803a16f3c8d1"
+        },
+        {
+          "path": "devbuddy-architect-max.md",
+          "sha256": "3ea8979cc76e6bb017e8d4c027d449749c652d491a7701f48700967bd5818f90"
+        },
+        {
+          "path": "devbuddy-architect-medium.md",
+          "sha256": "e4a34cf79c8f347e7faea5f39bcc4ded3e5d3ab72917bbb0c67f46a1dc46426d"
+        },
+        {
+          "path": "devbuddy-architect-ultracode.md",
+          "sha256": "1a9612b9af2efd8727be51c83d5c1b4cac52521974c212a7cf85d3f7ceef2a78"
+        },
+        {
+          "path": "devbuddy-ba-pm-extra.md",
+          "sha256": "57df25486ca3c6cb14def0f5da683dfd4dcbfbe7ff795d46b138409e1492a999"
+        },
+        {
+          "path": "devbuddy-ba-pm-high.md",
+          "sha256": "865b1ecf6a57bc9f8cff331a2c874dcd71a8585e847af6988f1f3f7d29f2356f"
+        },
+        {
+          "path": "devbuddy-ba-pm-low.md",
+          "sha256": "8b46e5806910b0c2aae466d8e20efae40b006b8eb8790d9290eba3f65e078663"
+        },
+        {
+          "path": "devbuddy-ba-pm-max.md",
+          "sha256": "af7b8391e993ba1ca8b74de4c1fe4e8adc313901794070c5428c60ea271eca3e"
+        },
+        {
+          "path": "devbuddy-ba-pm-medium.md",
+          "sha256": "d5c13a1c0b03f27a205ce439089396f4886640d0e7898265c1ac8bb13a786a30"
+        },
+        {
+          "path": "devbuddy-ba-pm-ultracode.md",
+          "sha256": "03f930299b5f6938ca621321d1941eabe9b5c827398812df91108890540cecb3"
+        },
+        {
+          "path": "devbuddy-dba-data-extra.md",
+          "sha256": "94c05b8d9f04686faa4ae80bd9df0b75871b4c9353618788ad970ae4b5ef8b64"
+        },
+        {
+          "path": "devbuddy-dba-data-high.md",
+          "sha256": "906b0fd1262212f07fcb6996b4d99587e07cab596166f43c4df2f7b50b0c67d5"
+        },
+        {
+          "path": "devbuddy-dba-data-low.md",
+          "sha256": "26bc1f52da6c3294ec988ed8324d2b910c0ea3e9c370a301a694c85f49cec07b"
+        },
+        {
+          "path": "devbuddy-dba-data-max.md",
+          "sha256": "d89534ff552be9290e2bb00c6635696f7df5bad05a67531b9f3bce247fa913f7"
+        },
+        {
+          "path": "devbuddy-dba-data-medium.md",
+          "sha256": "0971c350d1fd463718fc62358694260b8f1729846579b7770b874ce384c88982"
+        },
+        {
+          "path": "devbuddy-dba-data-ultracode.md",
+          "sha256": "be1f40c077e82892b48c10f1dbcf2b456e1512c04f6f25b625e4aacd4f1f6fd0"
+        },
+        {
+          "path": "devbuddy-developer-extra.md",
+          "sha256": "a14cdd6a03ea4eef8c80cc14aa4eb637880cdf7c987d67b3958d65a8dc4957e2"
+        },
+        {
+          "path": "devbuddy-developer-high.md",
+          "sha256": "a3933fcae5a390c05c29c348b499010f2c1a0925cdf87d2d084183ff6a8ee9ca"
+        },
+        {
+          "path": "devbuddy-developer-low.md",
+          "sha256": "bef4ac8d40f9e133e99e97e6d988c4564627e33621149b631ae05759d9db506d"
+        },
+        {
+          "path": "devbuddy-developer-max.md",
+          "sha256": "57cce97c3663e41c7a967eb75ff0df354eed7fbb87bd68fb14c4306997e42ac5"
+        },
+        {
+          "path": "devbuddy-developer-medium.md",
+          "sha256": "0874c02c708a53f3231783c400a90f012ccbc3237d46e2dff024f7574c432602"
+        },
+        {
+          "path": "devbuddy-developer-ultracode.md",
+          "sha256": "d505daf608f5f7a637e0d31f7a5d0bde9e9e2da8ec9767b289add4bd68b0db4e"
+        },
+        {
+          "path": "devbuddy-devops-sre-extra.md",
+          "sha256": "6fa28823a051a84910e2f0a75517d3e813f47fd14adef1c7d4260a6f4e9d0ea0"
+        },
+        {
+          "path": "devbuddy-devops-sre-high.md",
+          "sha256": "c3cf019848251027061d75be826f94d91885350ef1922193f5d03f474eb209a5"
+        },
+        {
+          "path": "devbuddy-devops-sre-low.md",
+          "sha256": "cce99f9724c92edc2b6d62461af0c0eaafb951d4c4f3ba59b7a57e9c8f25af62"
+        },
+        {
+          "path": "devbuddy-devops-sre-max.md",
+          "sha256": "61860ce95c7a1d624c04bf1fd62c798bfa8970e4b6320dc7f5658cc4bde47070"
+        },
+        {
+          "path": "devbuddy-devops-sre-medium.md",
+          "sha256": "f4bba57e863963d6596043ba97bc0128ce8845d9e6ff43c2fe569106e2fa7e67"
+        },
+        {
+          "path": "devbuddy-devops-sre-ultracode.md",
+          "sha256": "11737099547210b27777e0c022ed555f9ec05dc546102dcd3fd5c32f09c4b27d"
+        },
+        {
+          "path": "devbuddy-qa-extra.md",
+          "sha256": "01dc186d573bbcbd70828222b82b6c20c886bf9111e5fa48867cab78a8747c08"
+        },
+        {
+          "path": "devbuddy-qa-high.md",
+          "sha256": "5f513260a7c382f03c81cbbab93b795909803b5f2405fe9a34868c8f80dbd7ee"
+        },
+        {
+          "path": "devbuddy-qa-low.md",
+          "sha256": "c12459fec898a340207ade9d406944c818436bbc2c2625ba2ba66f57129eff5d"
+        },
+        {
+          "path": "devbuddy-qa-max.md",
+          "sha256": "2c96a3c14e7ef183d89f6a99512d450dccf3fe3148bcb6ef5e429f5f47827318"
+        },
+        {
+          "path": "devbuddy-qa-medium.md",
+          "sha256": "d720ed1361ebd82fccf9f48c765566cf92dd54e2c62199796a8924e6683797a9"
+        },
+        {
+          "path": "devbuddy-qa-ultracode.md",
+          "sha256": "bff4511ab5aee69cefbf9b71942296abbf54fb6c6378d4f474f935570b8e8a44"
+        },
+        {
+          "path": "devbuddy-reviewer-extra.md",
+          "sha256": "a86bddee0f64f883e14a461d6a045d2dc7fd5e1f1b8371cc1e5ea757d1df2ea7"
+        },
+        {
+          "path": "devbuddy-reviewer-high.md",
+          "sha256": "7e66e4218d943a3de278dc5b3dfb94fc8801c8d65b808dfa8fbad4bb69714d6c"
+        },
+        {
+          "path": "devbuddy-reviewer-low.md",
+          "sha256": "919edc074412660f3a8cb2b2c4faf2ec8362fa5b1ed127487a37f80614b72c9a"
+        },
+        {
+          "path": "devbuddy-reviewer-max.md",
+          "sha256": "16c6078f36082622b66c5704ce0de81c3434ea599e2238458983f4caf7d0963d"
+        },
+        {
+          "path": "devbuddy-reviewer-medium.md",
+          "sha256": "d1be8a49428812fe8ecce9678adf92a4d2b3c14788eb3b9e9cb902c599aafe1f"
+        },
+        {
+          "path": "devbuddy-reviewer-ultracode.md",
+          "sha256": "c8df7fbbfbedadef5035bf5b351d8afb9e4dac2f5be98ed815f45ee065cf1ca1"
+        },
+        {
+          "path": "devbuddy-security-extra.md",
+          "sha256": "05de36e6129bdcdbf361ba80c457b610295d023040646b87c7c2760a7c0faeac"
+        },
+        {
+          "path": "devbuddy-security-high.md",
+          "sha256": "485a04da98401c125fd668ad4c69c999370da3633079b2a438f4d888e558f358"
+        },
+        {
+          "path": "devbuddy-security-low.md",
+          "sha256": "237bea539dc876550fd26e0db6c418d2cbdffb824a060b5982255c50aa698075"
+        },
+        {
+          "path": "devbuddy-security-max.md",
+          "sha256": "990a60a91b3fde39c4db38d2d6b70044f9af544f6c950b7892c386b70f2d7d36"
+        },
+        {
+          "path": "devbuddy-security-medium.md",
+          "sha256": "54a65cf4a526887fbdd91b10f60bf5cea38e4b902ea6beb9bfae2aa09f77e267"
+        },
+        {
+          "path": "devbuddy-security-ultracode.md",
+          "sha256": "42be152f6d7cfda97983c879589e82c2b93d3f3d0682434e4bc91ef3170d4299"
+        },
+        {
+          "path": "devbuddy-ux-ui-extra.md",
+          "sha256": "dfb73ff6e9b637ae0b3b878f01667dfc1c0df2a65c15ff0a1455d799bc835be1"
+        },
+        {
+          "path": "devbuddy-ux-ui-high.md",
+          "sha256": "473522b0092a9d7e245fc2e018fd5036be5d76255d17b04f3fa4dd8e3459aca5"
+        },
+        {
+          "path": "devbuddy-ux-ui-low.md",
+          "sha256": "7ff1e201f9b91de1664fc2756b9d2202630a0094273f72e0bf51a6c8f2171316"
+        },
+        {
+          "path": "devbuddy-ux-ui-max.md",
+          "sha256": "e1b22f7e400b38ff7cefe4d164672c293cd0f0c001a4517a773056f9fe22c288"
+        },
+        {
+          "path": "devbuddy-ux-ui-medium.md",
+          "sha256": "995126d8583b2cfef60bf81e89dbc19fd28be29633e3336592ed18f7a269f645"
+        },
+        {
+          "path": "devbuddy-ux-ui-ultracode.md",
+          "sha256": "51ff0104b486138d1a83eeebdcca1c881f00d6ba7f38e20d463d6639fd18b172"
+        }
+      ],
+      "source": "devbuddy-claude/agents",
+      "target": "plugin/devbuddy-claude-code/agents"
+    },
+    {
+      "files": [
+        {
+          "path": "claude-dispatch.md",
+          "sha256": "60f6046986512de28c6f5e447af7bef95bd1adae057046aaaabe735f49af1cbc"
+        },
+        {
+          "path": "custom-tools.md",
+          "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+        },
+        {
+          "path": "knowledge-model.md",
+          "sha256": "6fc891e2c831508941ff915a4bf7cb356ddf72e0dfa71e0671327cb3ecbfa60e"
+        },
+        {
+          "path": "loading-matrix.md",
+          "sha256": "d6e6a507720ac4cf19bdf4022e52da4aa93b773ac5285606242d01eb1d60ec30"
+        },
+        {
+          "path": "loop.md",
+          "sha256": "1729c4a7726031e64a11d807d9075623847d517dbbf81703c53f98e3525d12a4"
+        },
+        {
+          "path": "policy.md",
+          "sha256": "80ef40b4ce0f926f57e8a9072aeb77ee8170ca7bc9d8ac7d3af23f887c540c0d"
+        },
+        {
+          "path": "role-routing.md",
+          "sha256": "8bdc3e1c765f7c9edfa7b86e4e89cc6d4dd0da9f908d37ee27216ff0c9283d96"
+        },
+        {
+          "path": "settings.md",
+          "sha256": "1df79d8649d13304290b14515cfadf4a56678fedd9e278309878a891731f730f"
+        },
+        {
+          "path": "task-memory.md",
+          "sha256": "ebccc606ab7ad9bad87ed9fc65fa79e3194c088edf5a38f045476fa3f02ceaef"
+        }
+      ],
+      "source": "devbuddy-claude/references",
+      "target": "plugin/devbuddy-claude-code/references"
+    },
+    {
+      "files": [
+        {
+          "path": "architect.md",
+          "sha256": "cf304c8017d9883dcb2fb084e0129b2f873b8e83a3175fde7b537f5888b074ac"
+        },
+        {
+          "path": "ba-pm.md",
+          "sha256": "90eb1c076fdcc9792a5df01075df896174565c865158ea0476eab48fd9512851"
+        },
+        {
+          "path": "dba-data.md",
+          "sha256": "da92da099c8cef02378d639a7b04cf164aafbe3e23a1eb3a2dd22f265316f949"
+        },
+        {
+          "path": "developer.md",
+          "sha256": "dc9c8a4540bc3275902193d58da899b1f74cc9355382842e38deaa4e4c1f63bc"
+        },
+        {
+          "path": "devops-sre.md",
+          "sha256": "ba28b39ca84f0b403b0995726d5f849f714fe79eeb1adf4f937689805629caae"
+        },
+        {
+          "path": "orchestrator.md",
+          "sha256": "a29f367bb39eacea36ba3614590a4ea5efb31085e7fdda265867435595e23ba9"
+        },
+        {
+          "path": "qa.md",
+          "sha256": "7ea1b744940f7c8132d4c02c5ff990d9cf02580a201a69f79b115838c2cc2d2d"
+        },
+        {
+          "path": "reviewer.md",
+          "sha256": "5101b4be674f2f8b876c0f7326ee0d3dc894262d35f5198d50df48f93e9eed10"
+        },
+        {
+          "path": "security.md",
+          "sha256": "2ff781b8a60d17168d8c2acfb1a1579178ab4a5ac316f35b6fd1337e6c5c8401"
+        },
+        {
+          "path": "ux-ui.md",
+          "sha256": "41be82ac1fc824ec86ea50af695ff09e11253d9d52b0594d5bc90331321d5af7"
+        }
+      ],
+      "source": "devbuddy-claude/roles",
+      "target": "plugin/devbuddy-claude-code/roles"
+    },
+    {
+      "files": [
+        {
+          "path": "project-settings.schema.json",
+          "sha256": "3cf412b7511dc28999bf5cc8e0251a9d0bfd98316a271578525d3c323ff98115"
+        },
+        {
+          "path": "slice-record.schema.json",
+          "sha256": "c5179bdb4053923c853cd768d5959c8fabc822fe7590a3d634eef74748a144db"
+        }
+      ],
+      "source": "devbuddy-claude/schemas",
+      "target": "plugin/devbuddy-claude-code/schemas"
+    },
+    {
+      "files": [
+        {
+          "path": "knowledge-entity.md",
+          "sha256": "d546a53c45c0826a7514459d2c72a6913fc1a01e2614027f69f6300cdcfd7490"
+        }
+      ],
+      "source": "devbuddy-claude/templates/knowledge-entity.md",
+      "target": "plugin/devbuddy-claude-code/templates/knowledge-entity.md"
+    },
+    {
+      "files": [
+        {
+          "path": "knowledge-index.md",
+          "sha256": "4d656667099147acf3b6703c7dee9bd8e076d679e93a9bce1e2a6733ce26566d"
+        }
+      ],
+      "source": "devbuddy-claude/templates/knowledge-index.md",
+      "target": "plugin/devbuddy-claude-code/templates/knowledge-index.md"
+    },
+    {
+      "files": [
+        {
+          "path": "task-ledger.md",
+          "sha256": "502820ef3d186502dc46a0b32341bbe55e96a544b5b9fb1f9f8ce5cd830f2731"
+        }
+      ],
+      "source": "devbuddy-claude/templates/task-ledger.md",
+      "target": "plugin/devbuddy-claude-code/templates/task-ledger.md"
+    },
+    {
+      "files": [
+        {
+          "path": "init_project_memory.py",
+          "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+        }
+      ],
+      "source": "devbuddy-claude/scripts/init_project_memory.py",
+      "target": "plugin/devbuddy-claude-code/scripts/init_project_memory.py"
+    },
+    {
+      "files": [
+        {
+          "path": "validate_skill_metadata.py",
+          "sha256": "a54f3b64d93a2de4c6a74d359d0e3fffacd0e229f5a57a60a082b2d6e9e25d27"
+        }
+      ],
+      "source": "devbuddy-claude/scripts/validate_skill_metadata.py",
+      "target": "plugin/devbuddy-claude-code/scripts/validate_skill_metadata.py"
+    },
+    {
+      "files": [
+        {
+          "path": "run_scenarios.py",
+          "sha256": "dba89e8d5c0946dbae3b8d597715fb57b0300d05c04f4a8c1a30d62cf3c47a6a"
+        }
+      ],
+      "source": "devbuddy-claude/scripts/run_scenarios.py",
+      "target": "plugin/devbuddy-claude-code/scripts/run_scenarios.py"
+    },
+    {
+      "files": [
+        {
+          "path": "scenarios.json",
+          "sha256": "281fb2902a1703d0bb63dfa8a3761fc6395d00422fef978adeacf4dfc07644b1"
+        }
+      ],
+      "source": "devbuddy-claude/tests/scenarios.json",
+      "target": "plugin/devbuddy-claude-code/tests/scenarios.json"
+    },
+    {
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "a3ba777ab322ebc52168cc63f10403b50c077e04a2c1638e4094d9efc3ebc5e2"
+        }
+      ],
+      "source": "devbuddy-codex/SKILL.md",
+      "target": "plugin/devbuddy-codex/skills/devbuddy/SKILL.md"
+    },
+    {
+      "files": [
+        {
+          "path": "settings.yaml",
+          "sha256": "a224c60f56c788ec9f0d073d62e11911e7bca355ec45ead82f1f945de12d76ce"
+        }
+      ],
+      "source": "devbuddy-codex/settings.yaml",
+      "target": "plugin/devbuddy-codex/settings.yaml"
+    },
+    {
+      "files": [
+        {
+          "path": "openai.yaml",
+          "sha256": "6f013fe92aad024ad0db794b49cc69c3a8e1f658ee7ee77baa2a367c4934bfb0"
+        }
+      ],
+      "source": "devbuddy-codex/agents",
+      "target": "plugin/devbuddy-codex/agents"
+    },
+    {
+      "files": [
+        {
+          "path": "codex-dispatch.md",
+          "sha256": "72bfb86ab48c14816818d302a63f0d56000dc52880ee1229c0b5cb75a9c6f1a5"
+        },
+        {
+          "path": "custom-tools.md",
+          "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+        },
+        {
+          "path": "knowledge-model.md",
+          "sha256": "2c1633cb672d4a5a380bae8cc7c6147898dee220732a3e67cc063a5162160c43"
+        },
+        {
+          "path": "loading-matrix.md",
+          "sha256": "d6e6a507720ac4cf19bdf4022e52da4aa93b773ac5285606242d01eb1d60ec30"
+        },
+        {
+          "path": "loop.md",
+          "sha256": "f8998fbb339be561d8bc25fe51e322b5aa4b92693bc59010437f5cc58aff7a80"
+        },
+        {
+          "path": "policy.md",
+          "sha256": "39139d6cd3f834a3d064ccd874bfc107d322c9d6fada73691d8b88fb692ca64b"
+        },
+        {
+          "path": "role-routing.md",
+          "sha256": "19e28747b6303b7d5e6119ac70ccbfd4f6474aed2946d2de8245073ed125faff"
+        },
+        {
+          "path": "settings.md",
+          "sha256": "498a6a26d4ff585cf6f83526cf681753f0b9231f55769eb919dd9f4ae0ca25e9"
+        },
+        {
+          "path": "task-memory.md",
+          "sha256": "ebccc606ab7ad9bad87ed9fc65fa79e3194c088edf5a38f045476fa3f02ceaef"
+        }
+      ],
+      "source": "devbuddy-codex/references",
+      "target": "plugin/devbuddy-codex/references"
+    },
+    {
+      "files": [
+        {
+          "path": "architect.md",
+          "sha256": "8b6de8df46dce7b46e08ea99b09620ec2cefbf32716f7e63f1aed280d312e5ff"
+        },
+        {
+          "path": "ba-pm.md",
+          "sha256": "528fc6f187358e5de2ca1885067abaafde1bdceb05bb15defb24c705b7d0f9b8"
+        },
+        {
+          "path": "dba-data.md",
+          "sha256": "c5c4a15c2621438d6f16c10a3230ef5691fbedb5f05384c283ae150cdbe838d4"
+        },
+        {
+          "path": "developer.md",
+          "sha256": "30864b9741d71dea6a8a88a950639f9f2dbec3816fcc4a5247773fb9450ebc7c"
+        },
+        {
+          "path": "devops-sre.md",
+          "sha256": "df8a423ccedf33f96c0fbf2d4ee86616a419d0cb0d4ac480784a3c46dca8863c"
+        },
+        {
+          "path": "orchestrator.md",
+          "sha256": "e4531cfe902d25af0bd956159946daeaa7013a615c48539bd652e3b7f731e4d0"
+        },
+        {
+          "path": "qa.md",
+          "sha256": "16a7dbc9a6c32311683f701e0f100b1b3ea256bed99e77493f7943e7bed9955d"
+        },
+        {
+          "path": "reviewer.md",
+          "sha256": "d717808c1806f9bce0f07501a49cfe556e38292c1194bc8805c88b7bde30d8eb"
+        },
+        {
+          "path": "security.md",
+          "sha256": "3c576e96b144e72a559b0c4a4e8e6e70c66d491af5a2ca8bf37f479d34589caf"
+        },
+        {
+          "path": "ux-ui.md",
+          "sha256": "d67d743dd595010511c6a4a2a33f6011ff75808b60fd5cf8f5db883b971eee53"
+        }
+      ],
+      "source": "devbuddy-codex/roles",
+      "target": "plugin/devbuddy-codex/roles"
+    },
+    {
+      "files": [
+        {
+          "path": "project-settings.schema.json",
+          "sha256": "2cefcb0462dbe6b874abf76a1869b29817852590c2de513b2041a61efa7dfdec"
+        },
+        {
+          "path": "slice-record.schema.json",
+          "sha256": "c5179bdb4053923c853cd768d5959c8fabc822fe7590a3d634eef74748a144db"
+        }
+      ],
+      "source": "devbuddy-codex/schemas",
+      "target": "plugin/devbuddy-codex/schemas"
+    },
+    {
+      "files": [
+        {
+          "path": "knowledge-entity.md",
+          "sha256": "d546a53c45c0826a7514459d2c72a6913fc1a01e2614027f69f6300cdcfd7490"
+        },
+        {
+          "path": "knowledge-index.md",
+          "sha256": "4d656667099147acf3b6703c7dee9bd8e076d679e93a9bce1e2a6733ce26566d"
+        },
+        {
+          "path": "project-tools/bootstrap_knowledge.py.template",
+          "sha256": "c491b0a6b1e42e3ab1540c51921e6da14b1cb6a3f7145a8d6dc228d2c16a9239"
+        },
+        {
+          "path": "project-tools/init_project_memory.py.template",
+          "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+        },
+        {
+          "path": "project-tools/task_memory.py.template",
+          "sha256": "92868ce2de6a593868e0732bc4edadefb9b26e74f295cbbfb72888b03b78a1fd"
+        },
+        {
+          "path": "project-tools/validate_knowledge.py.template",
+          "sha256": "ebdfa895fac05fa71f8f891d48805b88e6c03f430cd025a1cc6e6c334fadef43"
+        },
+        {
+          "path": "project-tools/validate_project_settings.py.template",
+          "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+        },
+        {
+          "path": "task-ledger.md",
+          "sha256": "502820ef3d186502dc46a0b32341bbe55e96a544b5b9fb1f9f8ce5cd830f2731"
+        }
+      ],
+      "source": "devbuddy-codex/templates",
+      "target": "plugin/devbuddy-codex/templates"
+    },
+    {
+      "files": [
+        {
+          "path": "init_project_memory.py",
+          "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+        }
+      ],
+      "source": "devbuddy-codex/scripts/init_project_memory.py",
+      "target": "plugin/devbuddy-codex/scripts/init_project_memory.py"
     }
   ],
   "schema_version": 1,
-  "source_revision": "33ab358ddc2ce96c712d153eaa1c97718eaae39c"
+  "source_revision": "2c4d68f9526bf48ad411ee114bae150533b943bd"
 }

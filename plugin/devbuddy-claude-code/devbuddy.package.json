@@ -1,0 +1,19 @@
+{
+  "name": "devbuddy-claude-code",
+  "version": "1.0.1",
+  "kind": "adapter",
+  "dependencies": ["devbuddy-core"],
+  "permissions": ["tier-0-read", "tier-1-workspace-write"],
+  "compatibility": {"core": "1.0.1", "platforms": ["claude-code"]},
+  "adapter": {
+    "host": "claude-code",
+    "entrypoint": "/devbuddy-claude-code:devbuddy",
+    "dispatch_transport": "Claude Code Agent tool using generated devbuddy-<role>-<effort> agents",
+    "model_transport": "explicit Agent tool model parameter selected from approved settings",
+    "effort_transport": "generated agent frontmatter and task package selection",
+    "explicit_invocation": true,
+    "discovery": "claude plugin list --json; then /reload-plugins",
+    "update": "claude plugin update devbuddy-claude-code@devbuddy",
+    "uninstall": "claude plugin uninstall devbuddy-claude-code@devbuddy --keep-data"
+  }
+}

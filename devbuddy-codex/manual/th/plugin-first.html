@@ -1,0 +1,6 @@
+<!doctype html><html lang="th" data-manual-version="0.4.6"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Plugin-first · DevBuddy</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="article"><header class="article-header"><p class="eyebrow">Codex · Plugin-first</p><h1>ติดตั้ง DevBuddy ผ่าน Plugin/profile</h1><p class="lede">การติดตั้งใหม่ใช้ Codex Plugin และ profile ที่เลือก; portable core ถูก bundle มาแล้ว ไม่ต้องติดตั้งแยก</p></header><section><h2>ติดตั้งและเรียกใช้</h2><pre><code># ใน Codex Plugin manager ติดตั้ง plugin/devbuddy-codex
+python scripts/profile_resolver.py profiles/codex.yaml --platform codex
+# refresh Codex
+$devbuddy &lt;task&gt;</code></pre><p>เลือก optional capability ผ่าน profile เท่านั้น resolver จะ preview package composition ก่อนและต้องระบุ <code>--apply</code> ก่อนบันทึก workspace state</p></section><section><h2>Migration และ rollback</h2><pre><code>python3 devbuddy-codex/scripts/install_codex_adapter.py --migration-report
+# เฉพาะ legacy compatibility
+python3 devbuddy-codex/scripts/install_codex_adapter.py --legacy-install --apply</code></pre><p>Migration report เป็น read-only การ disable/remove Plugin/profile คือ rollback path; shim คง legacy skill ไว้และปฏิเสธ unknown-file conflict</p></section></main></body></html>

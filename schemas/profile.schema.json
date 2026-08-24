@@ -5,7 +5,8 @@
   "required": ["name", "packages"],
   "properties": {
     "name": {"type": "string", "pattern": "^[a-z0-9-]+$"},
-    "packages": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true}
+    "packages": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+    "hosts": {"type": "array", "items": {"enum": ["codex", "claude-code", "opencode"]}, "minItems": 1, "uniqueItems": true}
   },
   "additionalProperties": false
 }

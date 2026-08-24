@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "policy": "DBY-PLUGIN-001",
+  "assets": [
+    {"glob": "skills/devbuddy-core/**", "classification": "portable-policy", "owner": "devbuddy-core", "target": "bundled-source"},
+    {"glob": "skills/devbuddy-database/**", "classification": "portable-policy", "owner": "devbuddy-database-core", "target": "bundled-source"},
+    {"glob": "plugin/devbuddy-claude-code/{skills,agents,references,roles,schemas,templates,scripts,tests}/**", "classification": "host-adapter-payload", "owner": "devbuddy-claude-code", "target": "claude-plugin-cache"},
+    {"glob": "plugin/devbuddy-core/opencode/**", "classification": "host-adapter-payload", "owner": "devbuddy-core", "target": "opencode-plugin"},
+    {"glob": "plugin/devbuddy-database-*/**", "classification": "package-runtime", "owner": "database-core-and-engine-adapter", "target": ".devbuddy/tools", "permission_tier": 2},
+    {"glob": "scripts/**", "classification": "source-maintenance", "owner": "repository", "target": "never-delivered"},
+    {"glob": "devbuddy-*/scripts/install_*_adapter.py", "classification": "deprecated-compatibility-shim", "owner": "legacy-adapter", "target": "host-config-explicit-opt-in"},
+    {"glob": ".devbuddy/**", "classification": "workspace-state", "owner": "user-workspace", "target": "never-packaged"}
+  ],
+  "excluded": ["credentials", "knowledge", "task-state", "user-specific-configuration"]
+}

@@ -1,0 +1,94 @@
+schema_version: 1
+adapter:
+  name: devbuddy-claude
+  source_spec_version: 0.4.6
+  settings_version: 0.4.6
+  invocation: /devbuddy
+  entrypoint: orchestrator
+  explicit_subagent_model_and_effort: required
+  subagent_naming: devbuddy-<role>-<effort>
+  agent_install_scope: user
+governance:
+  git_mode: read_only
+  require_uncertainty_question: true
+  require_cost_approval: true
+  require_knowledge_impact_approval: true
+orchestration:
+  project_settings_path: .devbuddy/settings.yaml
+  max_concurrency: 2
+  task_timeout_seconds: 900
+  retry_limit: 1
+  model_effort_selection_policy: minimum_sufficient
+  adapter_profile_selection: current_adapter
+  subagent_capability: required
+  model_transport: agent_tool_model_parameter
+  effort_transport: agent_definition_frontmatter
+  # Default approval boundary. The selected workspace may narrow it in
+  # <workspace>/.devbuddy/settings.yaml, per registered project where needed,
+  # but never widen it silently.
+  # Listing a model here does not waive the Cost Approval Policy.
+  approved_models:
+    - id: claude-haiku-4.5
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low, medium]
+    - id: claude-sonnet-5
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: claude-opus-5
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: claude-fable
+      rank: 4
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [critical]
+  approved_effort_levels:
+    - id: low
+      rank: 1
+      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_risks: [low]
+    - id: medium
+      rank: 2
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [low, medium, high]
+    - id: high
+      rank: 3
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [medium, high, critical]
+    - id: extra
+      rank: 4
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: max
+      rank: 5
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [high, critical]
+    - id: ultracode
+      rank: 6
+      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_risks: [critical]
+loops:
+  enabled_roles: user_required
+  attempt_budget: user_required
+  external_or_destructive_loops: disabled_without_user_approval
+memory:
+  default_root: .devbuddy
+  locator_key: memory_root
+  knowledge_root: knowledge-base
+  project_registry_key: workspace.projects
+tools:
+  # Prefer supported RTK command equivalents for delivery shell commands.
+  is_rtk: false
+  # Default approval boundary for custom tools. A workspace may add a runtime in
+  # its own settings after the user approves it; a tool whose runtime is not
+  # listed is a dispatch block, not a judgement call. See references/custom-tools.md.
+  approved_custom_tool_runtimes: [python, dotnet]
+  install_without_user_approval: false
+environments:
+  default: local
+  approved_endpoints: user_required
+quality:
+  thresholds_by_risk: user_required
+  required_checks: [policy_compliance, knowledge_health, adapter_conformance, manual_conformance]

@@ -109,12 +109,12 @@
         <p class="slide-caption">05 <span>·</span> Knowledge with guardrails</p>
       </section>
 
-      <section class="slide" id="platforms" data-title="Platforms" data-note="DevBuddy มี common specification เดียว และ platform adapters เพียงแปลกลไกของแต่ละ platform. ดังนั้น intent และ policy ไม่แตกกันระหว่างทีมที่ใช้ Codex กับ Claude Code.">
-        <div class="slide-heading centered"><p class="eyebrow">One specification, two adapters</p><h2>ใช้ policy เดียวกัน<br>บนเครื่องมือที่ทีมเลือกใช้</h2></div>
+      <section class="slide" id="platforms" data-title="Platforms" data-note="DevBuddy มี common specification เดียว และ Plugin/profile เพียงแปลกลไกของแต่ละ platform. ดังนั้น intent และ policy ไม่แตกกันระหว่างทีมที่ใช้ Codex, Claude Code และ OpenCode.">
+        <div class="slide-heading centered"><p class="eyebrow">One specification, three host adapters</p><h2>ติดตั้ง Plugin/profile เดียว<br>แล้วใช้ policy เดียวกันบน host ที่เลือก</h2></div>
         <div class="adapter-stage">
-          <article class="adapter-card"><span class="adapter-number">01</span><h3>Claude Code</h3><p>เรียกผ่าน <code>/devbuddy</code> และใช้ role/effort agent definitions ตาม platform</p></article>
+          <article class="adapter-card"><span class="adapter-number">01</span><h3>Claude Code</h3><p>ติดตั้งผ่าน Plugin แล้วเรียก <code>/devbuddy-claude-code:devbuddy</code> พร้อม role/effort agents</p></article>
           <div class="shared-spec"><span>Common</span><strong>DevBuddy<br>specification</strong><small>policies · roles · memory</small></div>
-          <article class="adapter-card"><span class="adapter-number">02</span><h3>Codex</h3><p>เรียกผ่าน <code>$devbuddy</code> พร้อม model และ reasoning effort ที่กำหนดแบบ explicit</p></article>
+          <article class="adapter-card"><span class="adapter-number">02</span><h3>Codex / OpenCode</h3><p>เลือก profile ของ host แล้วเรียก <code>$devbuddy</code> หรือ OpenCode adapter พร้อม model/effort ที่ explicit</p></article>
         </div>
         <p class="slide-caption">06 <span>·</span> Platform-ready</p>
       </section>
@@ -123,7 +123,7 @@
         <div class="close-copy">
           <p class="eyebrow">Start small. Learn quickly.</p>
           <h2>เริ่มจากงานหนึ่งชิ้น<br>แล้วให้หลักฐานเป็นคนบอกว่า<br><em>DevBuddy ช่วยทีมได้แค่ไหน</em></h2>
-          <div class="next-steps"><span>01 เลือก workflow ที่ต้องการทำให้ชัด</span><span>02 ติดตั้ง adapter ที่ทีมใช้</span><span>03 ทดลอง dry-run และ validate</span></div>
+          <div class="next-steps"><span>01 เลือก workflow ที่ต้องการทำให้ชัด</span><span>02 ติดตั้ง Plugin/profile ของ host</span><span>03 ทดลอง dry-run และ validate</span></div>
           <a class="primary-link" href="../devbuddy-source-of-truth/manual/th/getting-started.html">เริ่มต้นใช้งาน <span aria-hidden="true">↗</span></a>
         </div>
         <div class="closing-mark" aria-hidden="true"><span>DEV</span><strong>Buddy</strong><i>delivery, with intent</i></div>

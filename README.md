@@ -1,11 +1,11 @@
 # DevBuddy Skill
 
-DevBuddy is a policy-driven software-delivery orchestrator with platform adapters for Claude Code and Codex.
+DevBuddy is a policy-driven software-delivery orchestrator with Plugin/profile installation for Codex, Claude Code, and OpenCode.
 
 ## Repository layout
 
 - `devbuddy-source-of-truth/` — common policies, roles, memory model, contracts, and checklist template
-- `devbuddy-claude/` — Claude Code `/devbuddy` adapter with 27 role/effort agents
+- `devbuddy-claude/` — legacy Claude Code `/devbuddy` compatibility source; its installer is now a migration shim
 - `devbuddy-codex/` — Codex `$devbuddy` adapter with one role profile per role and per-call model/effort selection
 
 ## Validate
@@ -25,21 +25,32 @@ python3 -m unittest discover devbuddy-codex/tests -v
 
 ## Install
 
-Claude uses a dry-run-first installer:
+Install one profile for the host. Claude Code is distributed through its native Plugin marketplace; the Plugin bundles the portable core dependency and generated role/effort agents, so users do not install either separately:
 
 ```text
-python3 devbuddy-claude/scripts/install_claude_adapter.py
+claude plugin marketplace add <DevBuddy marketplace repository or local path>
+claude plugin install devbuddy-claude-code@devbuddy --scope user
+# in Claude Code
+/reload-plugins
+# invoke explicitly
+/devbuddy-claude-code:devbuddy <task>
+```
+
+The legacy Claude installer reports the migration and rollback path by default. Its historical `--apply` invocation remains a 1.x compatibility path, never removes existing files, and may also be made explicit with `--legacy-install`:
+
+```text
+python3 devbuddy-claude/scripts/install_claude_adapter.py --migration-report
 python3 devbuddy-claude/scripts/install_claude_adapter.py --apply
 ```
 
-Codex uses the equivalent installer:
+Codex and OpenCode profiles remain available through their existing native adapters. Resolve a profile before applying its workspace composition:
 
 ```text
-python3 devbuddy-codex/scripts/install_codex_adapter.py
-python3 devbuddy-codex/scripts/install_codex_adapter.py --apply
+python scripts/profile_resolver.py profiles/claude-code.yaml --platform claude-code
+python scripts/profile_resolver.py profiles/codex.yaml --platform codex
 ```
 
-Both installers accept a platform configuration root and refuse non-DevBuddy file collisions. Initialise a selectable `.devbuddy` workspace with repeatable `--project id=path` values. Shared canonical knowledge lives under `.devbuddy/knowledge-base/`; task ledgers and project-local Python tools live under `.devbuddy/tasks/` and `.devbuddy/tools/`.
+Initialise a selectable `.devbuddy` workspace with repeatable `--project id=path` values. Shared canonical knowledge lives under `.devbuddy/knowledge-base/`; task ledgers and project-local Python tools live under `.devbuddy/tasks/` and `.devbuddy/tools/`.
 
 Prepare a reviewable knowledge inventory from an existing repository with the read-only-by-default bootstrap:
 
@@ -53,6 +64,10 @@ Bootstrap writes only `Context.md` and `KnowledgeBase.md` after explicit `--appl
 ## Plugin packages and profiles
 
 The additive plugin implementation lives in `plugin/`, portable skills in `skills/`, and package composition profiles in `profiles/`. Existing adapters remain source-preserved.
+
+The Claude marketplace catalog is `.claude-plugin/marketplace.json`. Host-package metadata, the compatibility matrix, runtime ownership, and the 1.x standalone-installer retirement schedule are recorded in [docs/plugin-first-architecture.md](docs/plugin-first-architecture.md). Package artifacts never contain secrets, project state, task ledgers, or canonical knowledge.
+
+Read [Plugin-first release notes](docs/release-notes-plugin-first.md) for upgrade and rollback guidance. The generated `reports/plugin-runtime-inventory.json` is the reviewable owner, permission-tier, provenance, and hash inventory for every packaged asset.
 
 Run the safety checks with the bundled Python runtime (or any Python 3.11+):
 

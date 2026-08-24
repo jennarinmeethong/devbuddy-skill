@@ -18,6 +18,37 @@
       "sources": [
         { "from": "skills/devbuddy-security", "to": "plugin/devbuddy-security/skills/devbuddy-security" }
       ]
+    },
+    {
+      "name": "devbuddy-claude-code",
+      "sources": [
+        { "from": "devbuddy-claude/SKILL.md", "to": "plugin/devbuddy-claude-code/skills/devbuddy/SKILL.md" },
+        { "from": "devbuddy-claude/settings.yaml", "to": "plugin/devbuddy-claude-code/settings.yaml" },
+        { "from": "devbuddy-claude/agents", "to": "plugin/devbuddy-claude-code/agents" },
+        { "from": "devbuddy-claude/references", "to": "plugin/devbuddy-claude-code/references" },
+        { "from": "devbuddy-claude/roles", "to": "plugin/devbuddy-claude-code/roles" },
+        { "from": "devbuddy-claude/schemas", "to": "plugin/devbuddy-claude-code/schemas" },
+        { "from": "devbuddy-claude/templates/knowledge-entity.md", "to": "plugin/devbuddy-claude-code/templates/knowledge-entity.md" },
+        { "from": "devbuddy-claude/templates/knowledge-index.md", "to": "plugin/devbuddy-claude-code/templates/knowledge-index.md" },
+        { "from": "devbuddy-claude/templates/task-ledger.md", "to": "plugin/devbuddy-claude-code/templates/task-ledger.md" },
+        { "from": "devbuddy-claude/scripts/init_project_memory.py", "to": "plugin/devbuddy-claude-code/scripts/init_project_memory.py" },
+        { "from": "devbuddy-claude/scripts/validate_skill_metadata.py", "to": "plugin/devbuddy-claude-code/scripts/validate_skill_metadata.py" },
+        { "from": "devbuddy-claude/scripts/run_scenarios.py", "to": "plugin/devbuddy-claude-code/scripts/run_scenarios.py" },
+        { "from": "devbuddy-claude/tests/scenarios.json", "to": "plugin/devbuddy-claude-code/tests/scenarios.json" }
+      ]
+    },
+    {
+      "name": "devbuddy-codex",
+      "sources": [
+        { "from": "devbuddy-codex/SKILL.md", "to": "plugin/devbuddy-codex/skills/devbuddy/SKILL.md" },
+        { "from": "devbuddy-codex/settings.yaml", "to": "plugin/devbuddy-codex/settings.yaml" },
+        { "from": "devbuddy-codex/agents", "to": "plugin/devbuddy-codex/agents" },
+        { "from": "devbuddy-codex/references", "to": "plugin/devbuddy-codex/references" },
+        { "from": "devbuddy-codex/roles", "to": "plugin/devbuddy-codex/roles" },
+        { "from": "devbuddy-codex/schemas", "to": "plugin/devbuddy-codex/schemas" },
+        { "from": "devbuddy-codex/templates", "to": "plugin/devbuddy-codex/templates" },
+        { "from": "devbuddy-codex/scripts/init_project_memory.py", "to": "plugin/devbuddy-codex/scripts/init_project_memory.py" }
+      ]
     }
   ]
 }

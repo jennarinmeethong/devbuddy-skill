@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = re.compile(r"^devbuddy-[a-z0-9-]+$")
+PLATFORMS = {"codex", "claude-code", "opencode"}
 # SemVer 2.0.0, including optional prerelease and build metadata.  The Codex
 # manifest uses build metadata as its cache-buster, so accepting only the
 # core X.Y.Z form would reject a valid release manifest.
@@ -32,6 +33,17 @@ def main() -> int:
         for required in ("kind", "dependencies", "permissions", "compatibility"):
             if required not in data: errors.append(f"{path}: missing {required}")
         if not isinstance(data.get("dependencies"), list) or not all(isinstance(item, str) and PACKAGE.fullmatch(item) for item in data.get("dependencies", [])): errors.append(f"{path}: invalid dependencies")
+        compatibility = data.get("compatibility")
+        platforms = compatibility.get("platforms") if isinstance(compatibility, dict) else None
+        if not isinstance(platforms, list) or not platforms or len(platforms) != len(set(platforms)) or not set(platforms) <= PLATFORMS:
+            errors.append(f"{path}: invalid compatibility platforms")
+        if data.get("kind") == "adapter":
+            adapter = data.get("adapter")
+            required_adapter = {"host", "entrypoint", "dispatch_transport", "model_transport", "effort_transport", "explicit_invocation", "discovery", "update", "uninstall"}
+            if not isinstance(adapter, dict) or set(adapter) != required_adapter:
+                errors.append(f"{path}: incomplete adapter contract")
+            elif adapter["host"] not in PLATFORMS or adapter["host"] not in platforms or not adapter["explicit_invocation"]:
+                errors.append(f"{path}: invalid adapter host or invocation gate")
     for path in sorted((ROOT / "plugin").glob("*/.codex-plugin/plugin.json")):
         try: data = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as error: errors.append(f"{path}: invalid JSON: {error.msg}"); continue
@@ -47,6 +59,35 @@ def main() -> int:
     opencode = ROOT / "plugin" / "devbuddy-core" / "opencode"
     for required in ("index.js", "package.json", "agents/orchestrator.md", "tools/approval-contract.json"):
         if not (opencode / required).is_file(): errors.append(f"missing OpenCode adapter component: {required}")
+    codex = ROOT / "plugin" / "devbuddy-codex"
+    codex_manifest = codex / ".codex-plugin" / "plugin.json"
+    codex_skill = codex / "skills" / "devbuddy" / "SKILL.md"
+    if not codex_manifest.is_file() or not codex_skill.is_file():
+        errors.append("missing Codex adapter package component")
+    else:
+        try:
+            data = json.loads(codex_manifest.read_text(encoding="utf-8"))
+            if data.get("name") != "devbuddy-codex" or not SEMVER.fullmatch(str(data.get("version", ""))):
+                errors.append(f"{codex_manifest}: invalid Codex adapter plugin metadata")
+        except json.JSONDecodeError as error:
+            errors.append(f"{codex_manifest}: invalid JSON: {error.msg}")
+        if "name: devbuddy" not in codex_skill.read_text(encoding="utf-8"):
+            errors.append(f"{codex_skill}: $devbuddy entrypoint metadata missing")
+    claude = ROOT / "plugin" / "devbuddy-claude-code"
+    manifest = claude / ".claude-plugin" / "plugin.json"
+    skill = claude / "skills" / "devbuddy" / "SKILL.md"
+    agents = sorted((claude / "agents").glob("devbuddy-*-*.md")) if (claude / "agents").is_dir() else []
+    if not manifest.is_file() or not skill.is_file() or len(agents) != 54:
+        errors.append("missing Claude Code adapter component or generated agent set")
+    else:
+        try:
+            claude_manifest = json.loads(manifest.read_text(encoding="utf-8"))
+            if claude_manifest.get("name") != "devbuddy-claude-code" or not SEMVER.fullmatch(str(claude_manifest.get("version", ""))):
+                errors.append(f"{manifest}: invalid Claude Code plugin metadata")
+        except json.JSONDecodeError as error:
+            errors.append(f"{manifest}: invalid JSON: {error.msg}")
+        if "disable-model-invocation: true" not in skill.read_text(encoding="utf-8"):
+            errors.append(f"{skill}: explicit invocation gate missing")
     for path in sorted((ROOT / "plugin").glob("devbuddy-database-*/tool.json")):
         try: data = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as error: errors.append(f"{path}: invalid JSON: {error.msg}"); continue
@@ -57,7 +98,7 @@ def main() -> int:
     if missing_dependencies: errors.append("missing dependency manifests: " + ", ".join(missing_dependencies))
     if errors:
         print("PACKAGE VALIDATION FAILED\n" + "\n".join(errors)); return 1
-    print(f"OK: validated {len(seen)} package manifests and Codex plugin metadata")
+    print(f"OK: validated {len(seen)} package manifests and host plugin metadata")
     return 0
 
 

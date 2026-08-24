@@ -1,0 +1,1927 @@
+{
+  "asset_count": 178,
+  "assets": [
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-browser",
+      "path": "plugin/devbuddy-browser/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "package-owned",
+      "sha256": "e6703dd1c6b3a8d920322908db3af0f6b491920b7b9e415814877d633a6b9f0e"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/.claude-plugin/plugin.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "d2b00afd72d1528ff2537faaa2b6644003ffb6f52c1a9437ff9f16b393d8f8e3"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/.devbuddy-generation.json",
+      "sha256": "ba91f3b1b5294bbd5c162ae83450b3ac10c317691e459923cd9238434af83fc9"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-architect-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-architect-extra.md",
+      "sha256": "dc13a55c81feb9b8ddfeeee3b4af5af1b9f9f55e66494575faaa273ee3fa257f"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-architect-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-architect-high.md",
+      "sha256": "ec274be7478822df883cd53cde25d2d4f7f9b06706b607c8b22a08e08bf3fae9"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-architect-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-architect-low.md",
+      "sha256": "65357a2b148206ce71fb12e386593a8c46324d4469865999763a803a16f3c8d1"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-architect-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-architect-max.md",
+      "sha256": "3ea8979cc76e6bb017e8d4c027d449749c652d491a7701f48700967bd5818f90"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-architect-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-architect-medium.md",
+      "sha256": "e4a34cf79c8f347e7faea5f39bcc4ded3e5d3ab72917bbb0c67f46a1dc46426d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-architect-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-architect-ultracode.md",
+      "sha256": "1a9612b9af2efd8727be51c83d5c1b4cac52521974c212a7cf85d3f7ceef2a78"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ba-pm-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ba-pm-extra.md",
+      "sha256": "57df25486ca3c6cb14def0f5da683dfd4dcbfbe7ff795d46b138409e1492a999"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ba-pm-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ba-pm-high.md",
+      "sha256": "865b1ecf6a57bc9f8cff331a2c874dcd71a8585e847af6988f1f3f7d29f2356f"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ba-pm-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ba-pm-low.md",
+      "sha256": "8b46e5806910b0c2aae466d8e20efae40b006b8eb8790d9290eba3f65e078663"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ba-pm-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ba-pm-max.md",
+      "sha256": "af7b8391e993ba1ca8b74de4c1fe4e8adc313901794070c5428c60ea271eca3e"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ba-pm-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ba-pm-medium.md",
+      "sha256": "d5c13a1c0b03f27a205ce439089396f4886640d0e7898265c1ac8bb13a786a30"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ba-pm-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ba-pm-ultracode.md",
+      "sha256": "03f930299b5f6938ca621321d1941eabe9b5c827398812df91108890540cecb3"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-dba-data-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-dba-data-extra.md",
+      "sha256": "94c05b8d9f04686faa4ae80bd9df0b75871b4c9353618788ad970ae4b5ef8b64"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-dba-data-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-dba-data-high.md",
+      "sha256": "906b0fd1262212f07fcb6996b4d99587e07cab596166f43c4df2f7b50b0c67d5"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-dba-data-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-dba-data-low.md",
+      "sha256": "26bc1f52da6c3294ec988ed8324d2b910c0ea3e9c370a301a694c85f49cec07b"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-dba-data-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-dba-data-max.md",
+      "sha256": "d89534ff552be9290e2bb00c6635696f7df5bad05a67531b9f3bce247fa913f7"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-dba-data-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-dba-data-medium.md",
+      "sha256": "0971c350d1fd463718fc62358694260b8f1729846579b7770b874ce384c88982"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-dba-data-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-dba-data-ultracode.md",
+      "sha256": "be1f40c077e82892b48c10f1dbcf2b456e1512c04f6f25b625e4aacd4f1f6fd0"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-developer-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-developer-extra.md",
+      "sha256": "a14cdd6a03ea4eef8c80cc14aa4eb637880cdf7c987d67b3958d65a8dc4957e2"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-developer-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-developer-high.md",
+      "sha256": "a3933fcae5a390c05c29c348b499010f2c1a0925cdf87d2d084183ff6a8ee9ca"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-developer-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-developer-low.md",
+      "sha256": "bef4ac8d40f9e133e99e97e6d988c4564627e33621149b631ae05759d9db506d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-developer-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-developer-max.md",
+      "sha256": "57cce97c3663e41c7a967eb75ff0df354eed7fbb87bd68fb14c4306997e42ac5"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-developer-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-developer-medium.md",
+      "sha256": "0874c02c708a53f3231783c400a90f012ccbc3237d46e2dff024f7574c432602"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-developer-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-developer-ultracode.md",
+      "sha256": "d505daf608f5f7a637e0d31f7a5d0bde9e9e2da8ec9767b289add4bd68b0db4e"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-devops-sre-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-devops-sre-extra.md",
+      "sha256": "6fa28823a051a84910e2f0a75517d3e813f47fd14adef1c7d4260a6f4e9d0ea0"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-devops-sre-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-devops-sre-high.md",
+      "sha256": "c3cf019848251027061d75be826f94d91885350ef1922193f5d03f474eb209a5"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-devops-sre-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-devops-sre-low.md",
+      "sha256": "cce99f9724c92edc2b6d62461af0c0eaafb951d4c4f3ba59b7a57e9c8f25af62"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-devops-sre-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-devops-sre-max.md",
+      "sha256": "61860ce95c7a1d624c04bf1fd62c798bfa8970e4b6320dc7f5658cc4bde47070"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-devops-sre-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-devops-sre-medium.md",
+      "sha256": "f4bba57e863963d6596043ba97bc0128ce8845d9e6ff43c2fe569106e2fa7e67"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-devops-sre-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-devops-sre-ultracode.md",
+      "sha256": "11737099547210b27777e0c022ed555f9ec05dc546102dcd3fd5c32f09c4b27d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-qa-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-qa-extra.md",
+      "sha256": "01dc186d573bbcbd70828222b82b6c20c886bf9111e5fa48867cab78a8747c08"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-qa-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-qa-high.md",
+      "sha256": "5f513260a7c382f03c81cbbab93b795909803b5f2405fe9a34868c8f80dbd7ee"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-qa-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-qa-low.md",
+      "sha256": "c12459fec898a340207ade9d406944c818436bbc2c2625ba2ba66f57129eff5d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-qa-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-qa-max.md",
+      "sha256": "2c96a3c14e7ef183d89f6a99512d450dccf3fe3148bcb6ef5e429f5f47827318"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-qa-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-qa-medium.md",
+      "sha256": "d720ed1361ebd82fccf9f48c765566cf92dd54e2c62199796a8924e6683797a9"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-qa-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-qa-ultracode.md",
+      "sha256": "bff4511ab5aee69cefbf9b71942296abbf54fb6c6378d4f474f935570b8e8a44"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-reviewer-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-reviewer-extra.md",
+      "sha256": "a86bddee0f64f883e14a461d6a045d2dc7fd5e1f1b8371cc1e5ea757d1df2ea7"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-reviewer-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-reviewer-high.md",
+      "sha256": "7e66e4218d943a3de278dc5b3dfb94fc8801c8d65b808dfa8fbad4bb69714d6c"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-reviewer-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-reviewer-low.md",
+      "sha256": "919edc074412660f3a8cb2b2c4faf2ec8362fa5b1ed127487a37f80614b72c9a"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-reviewer-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-reviewer-max.md",
+      "sha256": "16c6078f36082622b66c5704ce0de81c3434ea599e2238458983f4caf7d0963d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-reviewer-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-reviewer-medium.md",
+      "sha256": "d1be8a49428812fe8ecce9678adf92a4d2b3c14788eb3b9e9cb902c599aafe1f"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-reviewer-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-reviewer-ultracode.md",
+      "sha256": "c8df7fbbfbedadef5035bf5b351d8afb9e4dac2f5be98ed815f45ee065cf1ca1"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-security-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-security-extra.md",
+      "sha256": "05de36e6129bdcdbf361ba80c457b610295d023040646b87c7c2760a7c0faeac"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-security-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-security-high.md",
+      "sha256": "485a04da98401c125fd668ad4c69c999370da3633079b2a438f4d888e558f358"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-security-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-security-low.md",
+      "sha256": "237bea539dc876550fd26e0db6c418d2cbdffb824a060b5982255c50aa698075"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-security-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-security-max.md",
+      "sha256": "990a60a91b3fde39c4db38d2d6b70044f9af544f6c950b7892c386b70f2d7d36"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-security-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-security-medium.md",
+      "sha256": "54a65cf4a526887fbdd91b10f60bf5cea38e4b902ea6beb9bfae2aa09f77e267"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-security-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-security-ultracode.md",
+      "sha256": "42be152f6d7cfda97983c879589e82c2b93d3f3d0682434e4bc91ef3170d4299"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ux-ui-extra.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ux-ui-extra.md",
+      "sha256": "dfb73ff6e9b637ae0b3b878f01667dfc1c0df2a65c15ff0a1455d799bc835be1"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ux-ui-high.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ux-ui-high.md",
+      "sha256": "473522b0092a9d7e245fc2e018fd5036be5d76255d17b04f3fa4dd8e3459aca5"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ux-ui-low.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ux-ui-low.md",
+      "sha256": "7ff1e201f9b91de1664fc2756b9d2202630a0094273f72e0bf51a6c8f2171316"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ux-ui-max.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ux-ui-max.md",
+      "sha256": "e1b22f7e400b38ff7cefe4d164672c293cd0f0c001a4517a773056f9fe22c288"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ux-ui-medium.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ux-ui-medium.md",
+      "sha256": "995126d8583b2cfef60bf81e89dbc19fd28be29633e3336592ed18f7a269f645"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/agents/devbuddy-ux-ui-ultracode.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/agents/devbuddy-ux-ui-ultracode.md",
+      "sha256": "51ff0104b486138d1a83eeebdcca1c881f00d6ba7f38e20d463d6639fd18b172"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "6950f5ae59068d472654fa0c2c099a1b5d81006ff9606d3a959d89b1735019e4"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/.devbuddy-generation.json",
+      "sha256": "db55d5551e95001325eb6de802d0f01c75bddf2741993a0b9bc776390bd53686"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/claude-dispatch.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/claude-dispatch.md",
+      "sha256": "60f6046986512de28c6f5e447af7bef95bd1adae057046aaaabe735f49af1cbc"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/custom-tools.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/custom-tools.md",
+      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/knowledge-model.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/knowledge-model.md",
+      "sha256": "6fc891e2c831508941ff915a4bf7cb356ddf72e0dfa71e0671327cb3ecbfa60e"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/loading-matrix.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/loading-matrix.md",
+      "sha256": "d6e6a507720ac4cf19bdf4022e52da4aa93b773ac5285606242d01eb1d60ec30"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/loop.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/loop.md",
+      "sha256": "1729c4a7726031e64a11d807d9075623847d517dbbf81703c53f98e3525d12a4"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/policy.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/policy.md",
+      "sha256": "80ef40b4ce0f926f57e8a9072aeb77ee8170ca7bc9d8ac7d3af23f887c540c0d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/role-routing.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/role-routing.md",
+      "sha256": "8bdc3e1c765f7c9edfa7b86e4e89cc6d4dd0da9f908d37ee27216ff0c9283d96"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/settings.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/settings.md",
+      "sha256": "1df79d8649d13304290b14515cfadf4a56678fedd9e278309878a891731f730f"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/references/task-memory.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/references/task-memory.md",
+      "sha256": "ebccc606ab7ad9bad87ed9fc65fa79e3194c088edf5a38f045476fa3f02ceaef"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/.devbuddy-generation.json",
+      "sha256": "7e6f74f4083efc6db193b0cc7005dbefc4366ec9ab9fe89459f61cc0986deecd"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/architect.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/architect.md",
+      "sha256": "cf304c8017d9883dcb2fb084e0129b2f873b8e83a3175fde7b537f5888b074ac"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/ba-pm.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/ba-pm.md",
+      "sha256": "90eb1c076fdcc9792a5df01075df896174565c865158ea0476eab48fd9512851"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/dba-data.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/dba-data.md",
+      "sha256": "da92da099c8cef02378d639a7b04cf164aafbe3e23a1eb3a2dd22f265316f949"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/developer.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/developer.md",
+      "sha256": "dc9c8a4540bc3275902193d58da899b1f74cc9355382842e38deaa4e4c1f63bc"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/devops-sre.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/devops-sre.md",
+      "sha256": "ba28b39ca84f0b403b0995726d5f849f714fe79eeb1adf4f937689805629caae"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/orchestrator.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/orchestrator.md",
+      "sha256": "a29f367bb39eacea36ba3614590a4ea5efb31085e7fdda265867435595e23ba9"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/qa.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/qa.md",
+      "sha256": "7ea1b744940f7c8132d4c02c5ff990d9cf02580a201a69f79b115838c2cc2d2d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/reviewer.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/reviewer.md",
+      "sha256": "5101b4be674f2f8b876c0f7326ee0d3dc894262d35f5198d50df48f93e9eed10"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/security.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/security.md",
+      "sha256": "2ff781b8a60d17168d8c2acfb1a1579178ab4a5ac316f35b6fd1337e6c5c8401"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/roles/ux-ui.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/roles/ux-ui.md",
+      "sha256": "41be82ac1fc824ec86ea50af695ff09e11253d9d52b0594d5bc90331321d5af7"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/schemas/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/schemas/.devbuddy-generation.json",
+      "sha256": "873d5df8a2626121d83c22c06a26bbf6015abf178bc0fcbe327b3af556ec83da"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/schemas/project-settings.schema.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/schemas/project-settings.schema.json",
+      "sha256": "3cf412b7511dc28999bf5cc8e0251a9d0bfd98316a271578525d3c323ff98115"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/schemas/slice-record.schema.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/schemas/slice-record.schema.json",
+      "sha256": "c5179bdb4053923c853cd768d5959c8fabc822fe7590a3d634eef74748a144db"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/scripts/init_project_memory.py",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/scripts/init_project_memory.py",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/scripts/run_scenarios.py",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/scripts/run_scenarios.py",
+      "sha256": "dba89e8d5c0946dbae3b8d597715fb57b0300d05c04f4a8c1a30d62cf3c47a6a"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/scripts/validate_skill_metadata.py",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/scripts/validate_skill_metadata.py",
+      "sha256": "a54f3b64d93a2de4c6a74d359d0e3fffacd0e229f5a57a60a082b2d6e9e25d27"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/settings.yaml",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/settings.yaml",
+      "sha256": "4cf59ce3294417a734e26a65a3fae8287c33a6f5468bdd4f94e744bb8545dd3b"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/skills/devbuddy/SKILL.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/SKILL.md",
+      "sha256": "9758b2f9d208bb9772043a26cd290e4b4c8eded4237be5ad606c940df88ec094"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/templates/knowledge-entity.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/templates/knowledge-entity.md",
+      "sha256": "d546a53c45c0826a7514459d2c72a6913fc1a01e2614027f69f6300cdcfd7490"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/templates/knowledge-index.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/templates/knowledge-index.md",
+      "sha256": "4d656667099147acf3b6703c7dee9bd8e076d679e93a9bce1e2a6733ce26566d"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/templates/task-ledger.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/templates/task-ledger.md",
+      "sha256": "502820ef3d186502dc46a0b32341bbe55e96a544b5b9fb1f9f8ce5cd830f2731"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-claude-code",
+      "path": "plugin/devbuddy-claude-code/tests/scenarios.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-claude/tests/scenarios.json",
+      "sha256": "281fb2902a1703d0bb63dfa8a3761fc6395d00422fef978adeacf4dfc07644b1"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/.codex-plugin/plugin.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "68b5c63a4341077f01f34a49fd57a49dfdbc2f0934086bd6cd920a35ada241c8"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/agents/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/agents/.devbuddy-generation.json",
+      "sha256": "fafd3066dc8494bcd97ec4b1cb9c029e9b19dabbdc4273916c59c057a0df62b0"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/agents/openai.yaml",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/agents/openai.yaml",
+      "sha256": "6f013fe92aad024ad0db794b49cc69c3a8e1f658ee7ee77baa2a367c4934bfb0"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "2eb222857c13cb4a2807feae211a1f6811e4dfca7df34aa25221b2f03016f969"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/.devbuddy-generation.json",
+      "sha256": "001f64b4ac1fb37730b8f378190f00de1ebb055f42d4e8b7ac6b1f79a3c220f1"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/codex-dispatch.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/codex-dispatch.md",
+      "sha256": "72bfb86ab48c14816818d302a63f0d56000dc52880ee1229c0b5cb75a9c6f1a5"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/custom-tools.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/custom-tools.md",
+      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/knowledge-model.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/knowledge-model.md",
+      "sha256": "2c1633cb672d4a5a380bae8cc7c6147898dee220732a3e67cc063a5162160c43"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/loading-matrix.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/loading-matrix.md",
+      "sha256": "d6e6a507720ac4cf19bdf4022e52da4aa93b773ac5285606242d01eb1d60ec30"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/loop.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/loop.md",
+      "sha256": "f8998fbb339be561d8bc25fe51e322b5aa4b92693bc59010437f5cc58aff7a80"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/policy.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/policy.md",
+      "sha256": "39139d6cd3f834a3d064ccd874bfc107d322c9d6fada73691d8b88fb692ca64b"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/role-routing.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/role-routing.md",
+      "sha256": "19e28747b6303b7d5e6119ac70ccbfd4f6474aed2946d2de8245073ed125faff"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/settings.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/settings.md",
+      "sha256": "498a6a26d4ff585cf6f83526cf681753f0b9231f55769eb919dd9f4ae0ca25e9"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/references/task-memory.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/references/task-memory.md",
+      "sha256": "ebccc606ab7ad9bad87ed9fc65fa79e3194c088edf5a38f045476fa3f02ceaef"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/.devbuddy-generation.json",
+      "sha256": "cf301ee9e1e3db0096c38e71f4766dea7cc66503e21a8bc49df7a9e0223ce852"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/architect.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/architect.md",
+      "sha256": "8b6de8df46dce7b46e08ea99b09620ec2cefbf32716f7e63f1aed280d312e5ff"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/ba-pm.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/ba-pm.md",
+      "sha256": "528fc6f187358e5de2ca1885067abaafde1bdceb05bb15defb24c705b7d0f9b8"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/dba-data.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/dba-data.md",
+      "sha256": "c5c4a15c2621438d6f16c10a3230ef5691fbedb5f05384c283ae150cdbe838d4"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/developer.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/developer.md",
+      "sha256": "30864b9741d71dea6a8a88a950639f9f2dbec3816fcc4a5247773fb9450ebc7c"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/devops-sre.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/devops-sre.md",
+      "sha256": "df8a423ccedf33f96c0fbf2d4ee86616a419d0cb0d4ac480784a3c46dca8863c"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/orchestrator.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/orchestrator.md",
+      "sha256": "e4531cfe902d25af0bd956159946daeaa7013a615c48539bd652e3b7f731e4d0"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/qa.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/qa.md",
+      "sha256": "16a7dbc9a6c32311683f701e0f100b1b3ea256bed99e77493f7943e7bed9955d"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/reviewer.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/reviewer.md",
+      "sha256": "d717808c1806f9bce0f07501a49cfe556e38292c1194bc8805c88b7bde30d8eb"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/security.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/security.md",
+      "sha256": "3c576e96b144e72a559b0c4a4e8e6e70c66d491af5a2ca8bf37f479d34589caf"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/roles/ux-ui.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/roles/ux-ui.md",
+      "sha256": "d67d743dd595010511c6a4a2a33f6011ff75808b60fd5cf8f5db883b971eee53"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/schemas/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/schemas/.devbuddy-generation.json",
+      "sha256": "b234e0487f8150c41f9170ddc249b673736f848ae100cf8bb8a643a6b782826f"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/schemas/project-settings.schema.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/schemas/project-settings.schema.json",
+      "sha256": "2cefcb0462dbe6b874abf76a1869b29817852590c2de513b2041a61efa7dfdec"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/schemas/slice-record.schema.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/schemas/slice-record.schema.json",
+      "sha256": "c5179bdb4053923c853cd768d5959c8fabc822fe7590a3d634eef74748a144db"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/scripts/init_project_memory.py",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/scripts/init_project_memory.py",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/settings.yaml",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/settings.yaml",
+      "sha256": "a224c60f56c788ec9f0d073d62e11911e7bca355ec45ead82f1f945de12d76ce"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/skills/devbuddy/SKILL.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/SKILL.md",
+      "sha256": "a3ba777ab322ebc52168cc63f10403b50c077e04a2c1638e4094d9efc3ebc5e2"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/.devbuddy-generation.json",
+      "sha256": "97ba4a6e14d97378869e9d1da7d1e2c59256d7ea1e36781122f626e84596c648"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/knowledge-entity.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/knowledge-entity.md",
+      "sha256": "d546a53c45c0826a7514459d2c72a6913fc1a01e2614027f69f6300cdcfd7490"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/knowledge-index.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/knowledge-index.md",
+      "sha256": "4d656667099147acf3b6703c7dee9bd8e076d679e93a9bce1e2a6733ce26566d"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/project-tools/bootstrap_knowledge.py.template",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/project-tools/bootstrap_knowledge.py.template",
+      "sha256": "c491b0a6b1e42e3ab1540c51921e6da14b1cb6a3f7145a8d6dc228d2c16a9239"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/project-tools/init_project_memory.py.template",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/project-tools/init_project_memory.py.template",
+      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/project-tools/task_memory.py.template",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/project-tools/task_memory.py.template",
+      "sha256": "92868ce2de6a593868e0732bc4edadefb9b26e74f295cbbfb72888b03b78a1fd"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/project-tools/validate_knowledge.py.template",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/project-tools/validate_knowledge.py.template",
+      "sha256": "ebdfa895fac05fa71f8f891d48805b88e6c03f430cd025a1cc6e6c334fadef43"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/project-tools/validate_project_settings.py.template",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/project-tools/validate_project_settings.py.template",
+      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-codex",
+      "path": "plugin/devbuddy-codex/templates/task-ledger.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "devbuddy-codex/templates/task-ledger.md",
+      "sha256": "502820ef3d186502dc46a0b32341bbe55e96a544b5b9fb1f9f8ce5cd830f2731"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/.codex-plugin/plugin.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "0b7ab00df2205817b05aa9901ed5d7aea45b3c4cb5b4f0078f13da39bd7d70ac"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "c560ce361c582cf185199cfb8324d16e167057c480e111ac1078fc60020ba9a7"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/opencode/agents/orchestrator.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "fd8cd32b6688ae77ea2d1446a503b194124ee488f4ff8b18c409a2b2f70f9433"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/opencode/index.js",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "a8591150373ab0be41c74a8950d5c21a4752f361f0ccb5b766f71e847a2067fb"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/opencode/package.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "136670c65205d5fc4f96841a7f3c6e3903d3ddbf9401dfc0023315243962758f"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/opencode/plugin.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "01932a9981286e5aed6085c2addd2e658f44edf6390ef901e12e2cda486459ea"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/opencode/README.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "28cde644a791f5b349cbcae9eea22cd06229ed52fcccf8c0aa295bd567a3aa66"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/opencode/tools/approval-contract.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "1f468d8e9157145eb1a737c7b51eb37c22a364d8f70079206dd95fbe5b793972"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/skills/devbuddy-core/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "skills/devbuddy-core/.devbuddy-generation.json",
+      "sha256": "84dafc22cb310447ec82d8df0e4c94d31d3d76ced0d967336203b7696457a2e3"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/skills/devbuddy-core/SKILL.md",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "skills/devbuddy-core/SKILL.md",
+      "sha256": "9251ab1468f399dbc857fbc92ed121edd04dc3336417baa647d43c47ba3899c4"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-core",
+      "path": "plugin/devbuddy-core/task-contract.json",
+      "permissions": [
+        "tier-0-read",
+        "tier-1-workspace-write"
+      ],
+      "provenance": "package-owned",
+      "sha256": "c4be0c8fa48b43c32245e5c7c9dee243fbe396e794e6361247883e2f04f02d31"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/build-metadata.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "4ad8e6d7b5c3611376b655f764620e4fcdb70a3e3c0ebf5ca63b5157fca42686"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "09aeb3ea08c54bf9b7f3a8d0044b5c81b5f513ac2e674421794ef49878b2468e"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/README.md",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "608bb8f3e60d1a4f3c67d8afefd5ee0b7694297dbc35d96d819edefc5ccae709"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/skills/devbuddy-database/.devbuddy-generation.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "skills/devbuddy-database/.devbuddy-generation.json",
+      "sha256": "0e7a34446444e5f9e8cee500e4e12f302523051b7d1e54d0f32b98b1254ae93b"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/skills/devbuddy-database/SKILL.md",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "skills/devbuddy-database/SKILL.md",
+      "sha256": "517c0db45dd2afad9c51cf720d0163f99f6bf40b5e85e48f7bc4c69cc83e8ced"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/src/DevBuddy.Database.Policy/DevBuddy.Database.Policy.csproj",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "303c38ffed555059688a025e5b6d0d832b90c11f4c56636e5a5c7aa721ade153"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/src/DevBuddy.Database.Policy/packages.lock.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "df973c4fe68c14dc441188d7f33a16c3eff70e239b6fe6fe5c0b1b0a2892396a"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/src/DevBuddy.Database.Policy/Program.cs",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "7a9020aa1392dc1955d398b93ba42190a03c65e4aa85a9f93c59473828da51e7"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/src/DevBuddy.Database.Policy/ReadOnlyRequestPolicy.cs",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "9b65d5a7986b65e527fdf954cc5ed50e8662b830aa473e6860d1ab046d00b112"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/templates/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "3509d0332f6db20841754693d824cf3b2b9623d87f4b33c3a273a2a917c0a028"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/templates/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "9a1e1042ac9a88c164de7fa2826dc0da61333e5555358fe7a36abfc79ed854f9"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-core",
+      "path": "plugin/devbuddy-database-core/tool-contract.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "cf5e11785cad6b0a91fcb8f1708e24cd9ad37af3b5ad88775e926aa620fc798b"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-mariadb",
+      "path": "plugin/devbuddy-database-mariadb/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "23d230052cb85f38681f2fd72acd71d3b8ab07d34e78459e6e0493325493b3e3"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-mariadb",
+      "path": "plugin/devbuddy-database-mariadb/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "d01fe34e59c2735f9d02a60d218e011113d30841c2411e881b8ad56031dcb329"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-mariadb",
+      "path": "plugin/devbuddy-database-mariadb/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "c04779f31e5ae71266aa626981d07efeea7f562f66fac5847159da3c87305af0"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-mongodb",
+      "path": "plugin/devbuddy-database-mongodb/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "91c5b5d6ecb96d3f4a83be99522b2712127f3db9a92b7de9b048b90c40bd0967"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-mongodb",
+      "path": "plugin/devbuddy-database-mongodb/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "061e7cb0af3e66830a777aeceeb388fb6a64572d29471f6a0fb1226e02080e70"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-mongodb",
+      "path": "plugin/devbuddy-database-mongodb/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "743c6675bdd5ddb7dd4e77048d9875fbbcc702b6f7324f778237dcb332f3b904"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-oracle",
+      "path": "plugin/devbuddy-database-oracle/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "6500666e76dc738cd8a0e2488bb633f3a212c0fb03667b821b2ea46077b25b1b"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-oracle",
+      "path": "plugin/devbuddy-database-oracle/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "331233c4b76e2431dc6ea4454a12c9d18a2abe0be45b1d1b2824b6297bd0eb3c"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-oracle",
+      "path": "plugin/devbuddy-database-oracle/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "8a265d5c7c77e8caebbf5384270c3597017c06ce4f0bacd30e45bf9f42456990"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-postgresql",
+      "path": "plugin/devbuddy-database-postgresql/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "84db7f60cb5f8af370381668bdbb4d9e0dbdf566cf9542244dd2c0c02602a834"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-postgresql",
+      "path": "plugin/devbuddy-database-postgresql/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "cc816777a615f23ce46ef0042094fc83d3d8bb9c75794851da8b644be49cbf95"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-postgresql",
+      "path": "plugin/devbuddy-database-postgresql/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "de3f3096916f56f90a0d93a245506b770440b549d2947fd317caf1caa4e082c7"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-redis",
+      "path": "plugin/devbuddy-database-redis/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "5f85a7d24c41d93ea3fbb17221ee20bc65de5da3da435b7478e0ddbe2e24cf91"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-redis",
+      "path": "plugin/devbuddy-database-redis/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "569bfa7ee3ef8c5b998481ffd54eb6d49259089ae8d7a5fc9449466b33b7fdb4"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-redis",
+      "path": "plugin/devbuddy-database-redis/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "a8e1cee4f66001c308b31a543df327b0bbb3ccbfa8ebb8b684fe0b4abf0ae8a1"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-sqlserver",
+      "path": "plugin/devbuddy-database-sqlserver/appsettings.template.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "6e95bac8438e77b32d307c0b8804640818c0b97fc8fe223662ab8f240887c30f"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-database-sqlserver",
+      "path": "plugin/devbuddy-database-sqlserver/devbuddy.package.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "4fb9fda3c5bc6e49b18fc51245da18cb6c3d4543c15ded56d48d0e0006e37c6c"
+    },
+    {
+      "classification": "package-runtime",
+      "owner": "devbuddy-database-sqlserver",
+      "path": "plugin/devbuddy-database-sqlserver/tool.json",
+      "permissions": [
+        "tier-2-database"
+      ],
+      "provenance": "package-owned",
+      "sha256": "994f3457ddf4aef4171538ea8f63a2355212859d2aef7b0c360b5cac4b5c0462"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-deployment",
+      "path": "plugin/devbuddy-deployment/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "package-owned",
+      "sha256": "6198acb22e49d99c6fbc14e50987f05cccf2be62e208c5abac8f6e573ebbfa10"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-documents",
+      "path": "plugin/devbuddy-documents/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "package-owned",
+      "sha256": "f9a3eaeb851d8c92b2f26cb1743008e8033c72b6e510cb8c83270f8eae982f5b"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-project-management",
+      "path": "plugin/devbuddy-project-management/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "package-owned",
+      "sha256": "99fefff9f0cbffe092218cc011a8c6ba084fbb66edd8c84647aaf1eae55bd6d2"
+    },
+    {
+      "classification": "package-control-metadata",
+      "owner": "devbuddy-security",
+      "path": "plugin/devbuddy-security/devbuddy.package.json",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "package-owned",
+      "sha256": "f556862ea4241224a20137ade80867740a0551f3d930a255c98509864ba30c0b"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-security",
+      "path": "plugin/devbuddy-security/skills/devbuddy-security/.devbuddy-generation.json",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "skills/devbuddy-security/.devbuddy-generation.json",
+      "sha256": "fd91cf0fb5c4b8e8a413af3e1c19ffe80e4a29515c8e7423f62e2f9adfbeb9a8"
+    },
+    {
+      "classification": "host-adapter-payload",
+      "owner": "devbuddy-security",
+      "path": "plugin/devbuddy-security/skills/devbuddy-security/SKILL.md",
+      "permissions": [
+        "tier-0-read"
+      ],
+      "provenance": "skills/devbuddy-security/SKILL.md",
+      "sha256": "90034bda6f824fe0154b5eaf322f94d19e8576bd7283095180cf050799ba43d4"
+    }
+  ],
+  "schema_version": 1
+}

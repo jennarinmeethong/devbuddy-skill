@@ -1,0 +1,5 @@
+name: opencode
+hosts:
+  - opencode
+packages:
+  - devbuddy-core

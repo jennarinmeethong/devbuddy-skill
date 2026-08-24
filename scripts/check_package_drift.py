@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def hashes(directory: Path) -> dict[str, str]:
+    if directory.is_file():
+        return {directory.name: hashlib.sha256(directory.read_bytes()).hexdigest()}
     return {item.relative_to(directory).as_posix(): hashlib.sha256(item.read_bytes()).hexdigest() for item in directory.rglob("*") if item.is_file() and "__pycache__" not in item.parts and item.name != ".devbuddy-generation.json"}
 
 
@@ -19,7 +21,7 @@ def main() -> int:
     for package in mapping["packages"]:
         for entry in package["sources"]:
             source, target = ROOT / entry["from"], ROOT / entry["to"]
-            if not target.is_dir():
+            if not target.exists() or (source.is_dir() and not target.is_dir()) or (source.is_file() and not target.is_file()):
                 problems.append(f"missing generated target: {target.relative_to(ROOT)}")
                 continue
             left, right = hashes(source), hashes(target)

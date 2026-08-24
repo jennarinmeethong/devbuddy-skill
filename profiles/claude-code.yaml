@@ -1,0 +1,5 @@
+name: claude-code
+hosts:
+  - claude-code
+packages:
+  - devbuddy-claude-code

@@ -1,0 +1,7 @@
+<!doctype html><html lang="th" data-manual-version="0.4.6"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Plugin-first · DevBuddy</title><link rel="stylesheet" href="../assets/style.css"></head><body><main class="article"><header class="article-header"><p class="eyebrow">Claude Code · Plugin-first</p><h1>ติดตั้ง DevBuddy ผ่าน Plugin</h1><p class="lede">การติดตั้งใหม่ใช้ Plugin/profile เดียว; ไม่ต้องติดตั้ง core skill หรือ Claude adapter แยกต่างหาก</p></header><section><h2>ติดตั้งและเรียกใช้</h2><pre><code>claude plugin marketplace add &lt;DevBuddy marketplace repository or local path&gt;
+claude plugin install devbuddy-claude-code@devbuddy --scope user
+# ใน Claude Code
+/reload-plugins
+/devbuddy-claude-code:devbuddy &lt;task&gt;</code></pre><p>Claude Code จะ namespace skill ของ Plugin จึงใช้คำสั่ง <code>/devbuddy-claude-code:devbuddy</code> สำหรับ Plugin ใหม่ ไม่ใช่ <code>/devbuddy</code> แบบ standalone เดิม</p></section><section><h2>ตรวจสอบ อัปเดต และ rollback</h2><pre><code>claude plugin list --json
+claude plugin update devbuddy-claude-code@devbuddy
+claude plugin uninstall devbuddy-claude-code@devbuddy --keep-data</code></pre><p>Installer เดิมเป็น compatibility shim ตลอด DevBuddy 1.x: จะ preview migration ก่อนเสมอ, ต้องระบุ <code>--legacy-install</code> จึงจะคัดลอกไฟล์, ไม่เขียนทับไฟล์ที่ไม่รู้จัก และไม่ลบ installation เดิม</p></section></main></body></html>

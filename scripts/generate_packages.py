@@ -25,7 +25,11 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def copy_tree(source: Path, destination: Path) -> list[dict[str, str]]:
+def copy_source(source: Path, destination: Path) -> list[dict[str, str]]:
+    if source.is_file():
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+        return [{"path": destination.name, "sha256": digest(source)}]
     entries: list[dict[str, str]] = []
     for item in sorted(source.rglob("*")):
         if not item.is_file() or "__pycache__" in item.parts:
@@ -66,7 +70,7 @@ def main() -> int:
         for entry in package.get("sources", []):
             source = ROOT / entry["from"]
             destination = output_root / entry["to"]
-            if not source.is_dir():
+            if not source.exists() or not (source.is_dir() or source.is_file()):
                 print(f"ERROR: mapped source does not exist: {source}")
                 return 1
             plans.append((source, destination))
@@ -83,15 +87,16 @@ def main() -> int:
     source_revision = revision()
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     for source, target in plans:
-        if target.exists():
+        if target.exists() and target.is_dir():
             shutil.rmtree(target)
-        files = copy_tree(source, target)
-        (target / ".devbuddy-generation.json").write_text(json.dumps({
-            "schema_version": 1,
-            "provenance": str(source.relative_to(ROOT)).replace("\\", "/"),
-            "source_revision": source_revision,
-            "generated_at": generated_at,
-        }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        files = copy_source(source, target)
+        if source.is_dir():
+            (target / ".devbuddy-generation.json").write_text(json.dumps({
+                "schema_version": 1,
+                "provenance": str(source.relative_to(ROOT)).replace("\\", "/"),
+                "source_revision": source_revision,
+                "generated_at": generated_at,
+            }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         records.append({"source": str(source.relative_to(ROOT)).replace("\\", "/"), "target": str(target.relative_to(output_root)).replace("\\", "/"), "files": files})
     report = {"schema_version": 1, "source_revision": source_revision, "generated_at": generated_at, "mappings": records}
     (output_root / "generation-report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

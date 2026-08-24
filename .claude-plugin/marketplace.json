@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "devbuddy",
+  "owner": {"name": "DevBuddy"},
+  "metadata": {"description": "DevBuddy Plugin-first distribution for supported hosts."},
+  "plugins": [
+    {
+      "name": "devbuddy-claude-code",
+      "source": "./plugin/devbuddy-claude-code",
+      "description": "Policy-driven DevBuddy orchestration for Claude Code.",
+      "version": "1.0.1",
+      "category": "development",
+      "tags": ["devbuddy", "orchestration"]
+    }
+  ]
+}

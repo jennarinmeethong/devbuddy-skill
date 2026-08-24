@@ -12,14 +12,16 @@ ROOT = Path(__file__).resolve().parents[1]
 NAME = re.compile(r"^[a-z0-9-]+$")
 
 
-def profile(path: Path) -> tuple[str, list[str]]:
-    name = ""; packages: list[str] = []; active = False
+def profile(path: Path) -> tuple[str, list[str], list[str]]:
+    name = ""; packages: list[str] = []; hosts: list[str] = []; active = False
     for raw in path.read_text(encoding="utf-8").splitlines():
         if match := re.match(r"^name:\s*([a-z0-9-]+)\s*$", raw): name = match.group(1)
+        elif raw.strip() == "hosts:": active = False
         elif raw.strip() == "packages:": active = True
+        elif not active and (match := re.match(r"^\s*-\s*(codex|claude-code|opencode)\s*$", raw)): hosts.append(match.group(1))
         elif active and (match := re.match(r"^\s*-\s*([a-z0-9-]+)\s*$", raw)): packages.append(match.group(1))
-    if not NAME.fullmatch(name) or not packages or len(set(packages)) != len(packages): raise ValueError(f"invalid profile: {path}")
-    return name, packages
+    if not NAME.fullmatch(name) or not packages or len(set(packages)) != len(packages) or len(set(hosts)) != len(hosts): raise ValueError(f"invalid profile: {path}")
+    return name, packages, hosts
 
 
 def manifests() -> dict[str, dict[str, object]]:
@@ -68,15 +70,18 @@ def resolve(requested: list[str], catalog: dict[str, dict[str, object]]) -> list
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", type=Path)
-    parser.add_argument("--platform", choices=("codex", "opencode"), default="codex")
+    parser.add_argument("--platform", choices=("codex", "claude-code", "opencode"), help="host to resolve; defaults to a profile's sole declared host or codex")
     parser.add_argument("--devbuddy-root", type=Path, help="workspace .devbuddy root")
     parser.add_argument("--operation", choices=("install", "upgrade", "uninstall"), default="install")
     parser.add_argument("--apply", action="store_true", help="write package composition; otherwise dry-run")
     args = parser.parse_args()
     try:
-        name, requested = profile(args.profile)
+        name, requested, hosts = profile(args.profile)
+        platform = args.platform or (hosts[0] if len(hosts) == 1 else "codex")
+        if hosts and platform not in hosts:
+            raise ValueError(f"profile {name} does not select platform {platform}")
         catalog = manifests(); validate_catalog(catalog); packages = resolve(requested, catalog)
-        incompatible = [item for item in packages if args.platform not in catalog[item]["compatibility"]["platforms"]]
+        incompatible = [item for item in packages if platform not in catalog[item]["compatibility"]["platforms"]]
         if incompatible: raise ValueError("platform incompatible: " + ", ".join(incompatible))
     except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
         print(f"ERROR: {error}"); return 1
@@ -95,7 +100,8 @@ def main() -> int:
     result = {
         "profile": name,
         "operation": args.operation,
-        "platform": args.platform,
+        "platform": platform,
+        "profile_hosts": hosts,
         "packages": desired,
         "permissions": permissions if desired else [],
         "changes": {"add": [item for item in desired if item not in current], "keep": [item for item in desired if item in current], "remove": [item for item in current if item not in desired]},

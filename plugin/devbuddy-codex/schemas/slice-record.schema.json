@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DevBuddy Slice Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task_id", "slice_id", "attempt", "parent_revision", "role", "model", "effort", "status", "result", "evidence", "next_slice", "knowledge_keys", "knowledge_proposal", "blockers", "required_approval"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "task_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "slice_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "attempt": {"type": "integer", "minimum": 1},
+    "parent_revision": {"type": "integer", "minimum": 0},
+    "role": {"type": "string", "minLength": 1},
+    "model": {"type": "string", "minLength": 1},
+    "effort": {"type": "string", "minLength": 1},
+    "status": {"enum": ["completed", "blocked", "failed", "waiting_user"]},
+    "result": {"type": "string", "minLength": 1},
+    "evidence": {"type": "array", "maxItems": 16, "items": {"type": "object", "additionalProperties": false, "required": ["ref", "outcome"], "properties": {"ref": {"type": "string", "minLength": 1}, "outcome": {"type": "string", "minLength": 1}}}},
+    "next_slice": {"type": "object", "additionalProperties": false, "required": ["summary", "read_paths", "read_keys"], "properties": {"summary": {"type": "string", "minLength": 1}, "read_paths": {"type": "array", "maxItems": 32, "items": {"type": "string", "minLength": 1}}, "read_keys": {"type": "array", "maxItems": 32, "items": {"type": "string", "minLength": 1}}}},
+    "knowledge_keys": {"type": "array", "maxItems": 32, "items": {"type": "string", "minLength": 1}},
+    "knowledge_proposal": {"type": ["string", "null"]},
+    "blockers": {"type": "array", "maxItems": 16, "items": {"type": "string", "minLength": 1}},
+    "required_approval": {"type": ["string", "null"]}
+  }
+}

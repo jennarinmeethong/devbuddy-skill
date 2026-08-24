@@ -4,19 +4,21 @@ DevBuddy is an explicitly invoked Codex skill for policy-driven software deliver
 
 ## Install
 
-Preview the exact files first:
+New installations use the DevBuddy Plugin/profile workflow. The standalone
+copier is retained only as a 1.x compatibility shim; inspect its migration
+report first:
 
 ```text
-python3 scripts/install_codex_adapter.py
+python3 scripts/install_codex_adapter.py --migration-report
 ```
 
-Apply the installation only after reviewing the dry run:
+The historical apply command retains the legacy skill during the compatibility window:
 
 ```text
 python3 scripts/install_codex_adapter.py --apply
 ```
 
-The default target is `~/.codex/skills/devbuddy`. Use `--codex-root <path>` for another approved Codex configuration root. The installer is non-destructive by default and refuses to overwrite files that are not recognised as DevBuddy artefacts.
+Resolve `profiles/codex.yaml --platform codex` with the DevBuddy Plugin manager for new work. The shim's default target is `~/.codex/skills/devbuddy`; it never removes that legacy skill, and refuses to overwrite files that are not recognised as DevBuddy artefacts.
 
 ## Configure and validate
 
