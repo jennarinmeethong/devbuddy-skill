@@ -45,6 +45,8 @@ def sync(source_root: Path, repository: Path, adapter: str, dry_run: bool) -> in
         names.append(source_root / language / "index.html")
         names.extend(source_root / language / name for name in COMMON_PAGES)
         names.append(source_root / language / f"{adapter}.html")
+        if adapter == "claude":
+            names.append(source_root / language / "plugin-first.html")
     paths = names
     paths.extend((source_root / "assets" / name for name in ("style.css", "manual.js")))
     for source in paths:

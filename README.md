@@ -67,6 +67,8 @@ The additive plugin implementation lives in `plugin/`, portable skills in `skill
 
 The Claude marketplace catalog is `.claude-plugin/marketplace.json`. Host-package metadata, the compatibility matrix, runtime ownership, and the 1.x standalone-installer retirement schedule are recorded in [docs/plugin-first-architecture.md](docs/plugin-first-architecture.md). Package artifacts never contain secrets, project state, task ledgers, or canonical knowledge.
 
+For the complete marketplace lifecycle, see the bilingual [English Plugin-first manual](devbuddy-source-of-truth/manual/en/plugin-first.html) or [คู่มือ Plugin-first ภาษาไทย](devbuddy-source-of-truth/manual/th/plugin-first.html).
+
 Read [Plugin-first release notes](docs/release-notes-plugin-first.md) for upgrade and rollback guidance. The generated `reports/plugin-runtime-inventory.json` is the reviewable owner, permission-tier, provenance, and hash inventory for every packaged asset.
 
 Run the safety checks with the bundled Python runtime (or any Python 3.11+):

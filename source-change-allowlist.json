@@ -340,6 +340,10 @@
       "sha256": "a54b3b67f1e28bdf26aeb5671dfb795e20b34b193462ab3c5c37eee8b0abfcc9"
     },
     {
+      "path": "devbuddy-source-of-truth/scripts/sync_manual.py",
+      "sha256": "3c654c3e2aadb8b2c96c9d5f3e71072cc9bd95ab19435d26111daa8bd07f65a4"
+    },
+    {
       "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
       "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
     },
@@ -358,6 +362,14 @@
     {
       "path": "devbuddy-claude/SKILL.md",
       "sha256": "9775ac57b71f5f3187f95c40eeabf9a3318deae74a5d215c106a11bd56c485ba"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/getting-started.html",
+      "sha256": "8aea456eeee172c0028933b9292858954d62c0dc21a3b975af474e772ff68d6c"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/plugin-first.html",
+      "sha256": "5c3d6eda254a5485753b2c0d26873521e737ee108f4d15fce466e9d85076a59c"
     }
   ]
 }
