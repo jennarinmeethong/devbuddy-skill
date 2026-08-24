@@ -56,6 +56,32 @@ def main() -> int:
         if not isinstance(interface, dict) or any(not interface.get(key) for key in ("displayName", "shortDescription", "longDescription", "developerName", "category", "capabilities")): errors.append(f"{path}: incomplete interface metadata")
         skills = data.get("skills")
         if skills and not (path.parents[1] / str(skills)).is_dir(): errors.append(f"{path}: missing skill path {skills}")
+    marketplace_path = ROOT / ".agents" / "plugins" / "marketplace.json"
+    try:
+        marketplace = json.loads(marketplace_path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        errors.append("missing repository Codex marketplace manifest")
+        marketplace = None
+    except json.JSONDecodeError as error:
+        errors.append(f"{marketplace_path}: invalid JSON: {error.msg}")
+        marketplace = None
+    if marketplace is not None:
+        entries = marketplace.get("plugins") if isinstance(marketplace, dict) else None
+        if marketplace.get("name") != "devbuddy" or not isinstance(entries, list):
+            errors.append(f"{marketplace_path}: invalid DevBuddy marketplace metadata")
+        else:
+            expected = next((entry for entry in entries if isinstance(entry, dict) and entry.get("name") == "devbuddy-codex"), None)
+            if not isinstance(expected, dict):
+                errors.append(f"{marketplace_path}: missing devbuddy-codex marketplace entry")
+            else:
+                source = expected.get("source")
+                policy = expected.get("policy")
+                if source != {"source": "local", "path": "./plugins/devbuddy-codex"}:
+                    errors.append(f"{marketplace_path}: invalid devbuddy-codex source")
+                elif not (ROOT / "plugins" / "devbuddy-codex" / ".codex-plugin" / "plugin.json").is_file():
+                    errors.append(f"{marketplace_path}: devbuddy-codex source manifest is missing")
+                if policy != {"installation": "AVAILABLE", "authentication": "ON_INSTALL"} or not expected.get("category"):
+                    errors.append(f"{marketplace_path}: incomplete devbuddy-codex marketplace policy")
     opencode = ROOT / "plugin" / "devbuddy-core" / "opencode"
     for required in ("index.js", "package.json", "agents/orchestrator.md", "tools/approval-contract.json"):
         if not (opencode / required).is_file(): errors.append(f"missing OpenCode adapter component: {required}")
