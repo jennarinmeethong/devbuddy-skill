@@ -1,10 +1,11 @@
 # DevBuddy Plugin-first Migration Plan
 
-**Status:** Implemented and locally verified — the database ownership baseline
+**Status:** Implemented and host-verified — the database ownership baseline
 was completed in 0.4.6 and the Codex/Claude Plugin payloads, profiles,
-migration shims, inventory, and validation suite are now present. Claude Code
-host validation remains pending because the test environment has no `claude`
-CLI (`CLAUDE_CLI_NOT_FOUND`).
+migration shims, inventory, and validation suite are now present. On
+2026-08-24, the authenticated Claude Code CLI validated the manifest, added
+the repository marketplace, installed `devbuddy-claude-code@devbuddy` in local
+scope, and confirmed it enabled successfully.
 **Decision recorded:** Plugin is the only user-facing installation and update
 channel for new Claude Code installations; the portable DevBuddy core remains
 a bundled implementation dependency. The legacy installer remains a 1.x,
@@ -129,10 +130,13 @@ The following are explicit design gates, not assumptions:
 No implementation phase may mark the Claude adapter supported until decision
 1 is verified against the selected Claude Code host version.
 
-**Known limit:** all repository validation passed on 2026-08-24, but the
-environment cannot run `claude --version` or `claude plugin list --json`.
-Run the documented host validation after installing Claude Code; no package or
-host state was changed while detecting this limit.
+**Host validation evidence:** on 2026-08-24, `claude plugin validate
+plugin/devbuddy-claude-code`, `claude plugin marketplace add ./`,
+`claude plugin install devbuddy-claude-code@devbuddy --scope local --yes`, and
+`claude plugin list` all succeeded. A read-only invocation through
+`/devbuddy-claude-code:devbuddy` selected the `reviewer` role with the
+`devbuddy-reviewer-low` agent and the approved low-risk model/effort pair, and
+completed a documentation review without modifying repository files.
 
 ## 5. Phased Implementation Plan
 
@@ -237,7 +241,9 @@ discovery evidence, release-validation report, and documented known limits.
 - [x] Preserve explicit approved-model selection and Claude effort transport.
 - [x] Preserve `rtk_required` propagation and approval boundaries.
 - [x] Add package-level dry-run, apply, update, conflict, and uninstall flows.
-- [x] Add host discovery and refresh instructions; actual host execution is pending the CLI.
+- [x] Add host discovery and refresh instructions and verify actual host execution.
+  Evidence: authenticated CLI install/list plus a read-only namespaced
+  invocation on 2026-08-24 (see Host validation evidence above).
 
 ### D. Tool and runtime ownership
 

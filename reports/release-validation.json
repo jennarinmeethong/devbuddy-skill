@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-23T17:50:06+00:00",
-  "source_revision": "2c4d68f9526bf48ad411ee114bae150533b943bd",
+  "generated_at": "2026-08-24T06:38:29+00:00",
+  "source_revision": "e2ae3507aad0fca609e3af472e2d1a44d8778b22",
   "passed": true,
   "checks": [
     {
@@ -20,7 +20,7 @@
       "name": "source_preservation",
       "passed": true,
       "returncode": 0,
-      "output": "OK: 5 approved legacy source change(s) match source-change-allowlist.json\n"
+      "output": "OK: 2 approved legacy source change(s) match source-change-allowlist.json\n"
     },
     {
       "name": "package_drift",
@@ -32,7 +32,7 @@
       "name": "architecture_tests",
       "passed": true,
       "returncode": 0,
-      "output": "test_asset_inventory_is_complete_and_dry_run_first (test_claude_plugin_migration.ClaudePluginMigrationTests.test_asset_inventory_is_complete_and_dry_run_first) ... ok\ntest_claude_profile_selects_only_the_claude_adapter (test_claude_plugin_migration.ClaudePluginMigrationTests.test_claude_profile_selects_only_the_claude_adapter) ... ok\ntest_codex_legacy_shim_previews_and_retains_rollback_path (test_claude_plugin_migration.ClaudePluginMigrationTests.test_codex_legacy_shim_previews_and_retains_rollback_path) ... ok\ntest_codex_legacy_shim_requires_opt_in_and_refuses_conflicts (test_claude_plugin_migration.ClaudePluginMigrationTests.test_codex_legacy_shim_requires_opt_in_and_refuses_conflicts) ... ok\ntest_codex_plugin_layout_and_profile_are_valid (test_claude_plugin_migration.ClaudePluginMigrationTests.test_codex_plugin_layout_and_profile_are_valid) ... ok\ntest_legacy_installer_previews_migration_without_writing (test_claude_plugin_migration.ClaudePluginMigrationTests.test_legacy_installer_previews_migration_without_writing) ... ok\ntest_legacy_installer_refuses_unknown_file_conflicts (test_claude_plugin_migration.ClaudePluginMigrationTests.test_legacy_installer_refuses_unknown_file_conflicts) ... ok\ntest_legacy_installer_requires_explicit_compatibility_opt_in (test_claude_plugin_migration.ClaudePluginMigrationTests.test_legacy_installer_requires_explicit_compatibility_opt_in) ... ok\ntest_plugin_layout_and_discovery_are_valid (test_claude_plugin_migration.ClaudePluginMigrationTests.test_plugin_layout_and_discovery_are_valid) ... ok\ntest_database_connection_templates_are_parseable_and_use_placeholders (test_plugin_architecture.PluginArchitectureTests.test_database_connection_templates_are_parseable_and_use_placeholders) ... ok\ntest_database_gate_rejects_writes_and_redis_escape (test_plugin_architecture.PluginArchitectureTests.test_database_gate_rejects_writes_and_redis_escape) ... ok\ntest_database_skill_is_policy_only_and_requires_plugin_owned_adapter (test_plugin_architecture.PluginArchitectureTests.test_database_skill_is_policy_only_and_requires_plugin_owned_adapter) ... ok\ntest_dotnet_adapter_rejects_unsafe_sql_before_opening_connection (test_plugin_architecture.PluginArchitectureTests.test_dotnet_adapter_rejects_unsafe_sql_before_opening_connection) ... ok\ntest_every_profile_resolves_and_apply_reports_changes (test_plugin_architecture.PluginArchitectureTests.test_every_profile_resolves_and_apply_reports_changes) ... ok\ntest_plugin_build_is_dry_run_by_default (test_plugin_architecture.PluginArchitectureTests.test_plugin_build_is_dry_run_by_default) ... ok\ntest_portable_task_lifecycle_requires_evidence_for_completion (test_plugin_architecture.PluginArchitectureTests.test_portable_task_lifecycle_requires_evidence_for_completion) ... ok\ntest_profile_resolution_is_deterministic_and_non_mutating (test_plugin_architecture.PluginArchitectureTests.test_profile_resolution_is_deterministic_and_non_mutating) ... ok\ntest_source_preservation_and_generated_skills (test_plugin_architecture.PluginArchitectureTests.test_source_preservation_and_generated_skills) ... ok\ntest_tier_two_approval_is_bound_to_operation_and_target (test_plugin_architecture.PluginArchitectureTests.test_tier_two_approval_is_bound_to_operation_and_target) ... ok\ntest_workspace_database_registry_requires_local_secret_and_production_approval (test_plugin_architecture.PluginArchitectureTests.test_workspace_database_registry_requires_local_secret_and_production_approval) ... ok\ntest_workspace_requires_apply_and_does_not_store_secrets (test_plugin_architecture.PluginArchitectureTests.test_workspace_requires_apply_and_does_not_store_secrets) ... ok\ntest_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe (test_plugin_architecture.PluginArchitectureTests.test_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 3.386s\n\nOK\n"
+      "output": "test_asset_inventory_is_complete_and_dry_run_first (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_claude_profile_selects_only_the_claude_adapter (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_codex_legacy_shim_previews_and_retains_rollback_path (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_codex_legacy_shim_requires_opt_in_and_refuses_conflicts (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_codex_plugin_layout_and_profile_are_valid (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_legacy_installer_previews_migration_without_writing (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_legacy_installer_refuses_unknown_file_conflicts (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_legacy_installer_requires_explicit_compatibility_opt_in (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_plugin_layout_and_discovery_are_valid (test_claude_plugin_migration.ClaudePluginMigrationTests) ... ok\ntest_database_connection_templates_are_parseable_and_use_placeholders (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_database_gate_rejects_writes_and_redis_escape (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_database_skill_is_policy_only_and_requires_plugin_owned_adapter (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_dotnet_adapter_rejects_unsafe_sql_before_opening_connection (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_every_profile_resolves_and_apply_reports_changes (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_plugin_build_is_dry_run_by_default (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_portable_task_lifecycle_requires_evidence_for_completion (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_profile_resolution_is_deterministic_and_non_mutating (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_source_preservation_and_generated_skills (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_tier_two_approval_is_bound_to_operation_and_target (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_workspace_database_registry_requires_local_secret_and_production_approval (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_workspace_requires_apply_and_does_not_store_secrets (test_plugin_architecture.PluginArchitectureTests) ... ok\ntest_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe (test_plugin_architecture.PluginArchitectureTests) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 1.935s\n\nOK\n"
     },
     {
       "name": "opencode_compatibility",
@@ -56,7 +56,7 @@
       "name": "asset_ownership",
       "passed": true,
       "returncode": 0,
-      "output": "{\n  \"asset_count\": 178,\n  \"output\": \"C:\\\\Codes\\\\devbuddy-skill\\\\reports\\\\plugin-runtime-inventory.json\",\n  \"status\": \"dry-run\"\n}\n"
+      "output": "{\n  \"asset_count\": 178,\n  \"output\": \"/Users/jm/Desktop/MyFiles/Codes/devbuddy-skill/reports/plugin-runtime-inventory.json\",\n  \"status\": \"dry-run\"\n}\n"
     },
     {
       "name": "semantic_conformance",
@@ -74,19 +74,19 @@
       "name": "claude_manual",
       "passed": true,
       "returncode": 0,
-      "output": "OK: manual 0.4.6 conformance passed for devbuddy-claude\\manual\n"
+      "output": "OK: manual 0.4.6 conformance passed for devbuddy-claude/manual\n"
     },
     {
       "name": "codex_manual",
       "passed": true,
       "returncode": 0,
-      "output": "OK: manual 0.4.6 conformance passed for devbuddy-codex\\manual\n"
+      "output": "OK: manual 0.4.6 conformance passed for devbuddy-codex/manual\n"
     },
     {
       "name": "database_build",
       "passed": true,
       "returncode": 0,
-      "output": "  Determining projects to restore...\n  All projects are up-to-date for restore.\n  DevBuddy.Database.Policy -> C:\\Codes\\devbuddy-skill\\plugin\\devbuddy-database-core\\src\\DevBuddy.Database.Policy\\bin\\Debug\\net10.0\\DevBuddy.Database.Policy.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:00.60\n"
+      "output": "  Determining projects to restore...\n  All projects are up-to-date for restore.\n  DevBuddy.Database.Policy -> /Users/jm/Desktop/MyFiles/Codes/devbuddy-skill/plugin/devbuddy-database-core/src/DevBuddy.Database.Policy/bin/Debug/net10.0/DevBuddy.Database.Policy.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:00.46\nCSSM_ModuleLoad(): One or more parameters passed to a function were not valid.\n"
     }
   ]
 }

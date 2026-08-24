@@ -7,7 +7,7 @@ argument-hint: <task> | loop <task> | analyze <project> | <role> <task>
 
 # DevBuddy for Claude Code
 
-Use only through `/devbuddy <task>`, `/devbuddy loop <task>`, or `/devbuddy analyze <project>`. Advanced forms are `/devbuddy <role> <task>`, `/devbuddy owner <task>`, and `/devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer`; aliases are defined in `references/role-routing.md`.
+When installed through the Claude Code Plugin, use `/devbuddy-claude-code:devbuddy <task>`, `/devbuddy-claude-code:devbuddy loop <task>`, or `/devbuddy-claude-code:devbuddy analyze <project>`. The legacy standalone compatibility shim alone uses `/devbuddy <task>`, `/devbuddy loop <task>`, or `/devbuddy analyze <project>`; its advanced forms are `/devbuddy <role> <task>`, `/devbuddy owner <task>`, and `/devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer`; aliases are defined in `references/role-routing.md`.
 
 ## Execute
 

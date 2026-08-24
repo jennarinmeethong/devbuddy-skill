@@ -337,7 +337,7 @@
     },
     {
       "path": "devbuddy-source-of-truth/scripts/sync_adapter_skills.py",
-      "sha256": "63b5a57022fbeaca6ca3c0966352de8880eba518cf29caa8548178638514f84b"
+      "sha256": "a54b3b67f1e28bdf26aeb5671dfb795e20b34b193462ab3c5c37eee8b0abfcc9"
     },
     {
       "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
@@ -354,6 +354,10 @@
     {
       "path": "devbuddy-source-of-truth/tests/test_project_memory.py",
       "sha256": "f3b19dc21c015a937838f5dd61e1c45915ff3be5fb34e93e78349cd6c0be438f"
+    },
+    {
+      "path": "devbuddy-claude/SKILL.md",
+      "sha256": "9775ac57b71f5f3187f95c40eeabf9a3318deae74a5d215c106a11bd56c485ba"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T17:46:33+00:00",
+  "generated_at": "2026-08-24T06:38:26+00:00",
   "mappings": [
     {
       "files": [
@@ -35,7 +35,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "9758b2f9d208bb9772043a26cd290e4b4c8eded4237be5ad606c940df88ec094"
+          "sha256": "9775ac57b71f5f3187f95c40eeabf9a3318deae74a5d215c106a11bd56c485ba"
         }
       ],
       "source": "devbuddy-claude/SKILL.md",
@@ -45,7 +45,7 @@
       "files": [
         {
           "path": "settings.yaml",
-          "sha256": "4cf59ce3294417a734e26a65a3fae8287c33a6f5468bdd4f94e744bb8545dd3b"
+          "sha256": "9127750baf78b7c5105f2fba781639cbaf78102d9b03c29fa0a9caa694f8b2b3"
         }
       ],
       "source": "devbuddy-claude/settings.yaml",
@@ -55,219 +55,219 @@
       "files": [
         {
           "path": "devbuddy-architect-extra.md",
-          "sha256": "dc13a55c81feb9b8ddfeeee3b4af5af1b9f9f55e66494575faaa273ee3fa257f"
+          "sha256": "2507dcfebef5150cb9e8d756ee53a48e9927fbdf2d9487673b0b3fbef271cdb2"
         },
         {
           "path": "devbuddy-architect-high.md",
-          "sha256": "ec274be7478822df883cd53cde25d2d4f7f9b06706b607c8b22a08e08bf3fae9"
+          "sha256": "3df41f1e2f8d8da2ca028d0556cd6e1c88bfde0355b1ef8cc7ebee20763859e4"
         },
         {
           "path": "devbuddy-architect-low.md",
-          "sha256": "65357a2b148206ce71fb12e386593a8c46324d4469865999763a803a16f3c8d1"
+          "sha256": "13d6cb81c7242e88f5efd3c3e59d5f28fa6fc722e756ec944626e1041087acca"
         },
         {
           "path": "devbuddy-architect-max.md",
-          "sha256": "3ea8979cc76e6bb017e8d4c027d449749c652d491a7701f48700967bd5818f90"
+          "sha256": "a0f2835969924717e472a8f1ffa1ed0ffd5b4dd0ac420d39446def14e8c02e0c"
         },
         {
           "path": "devbuddy-architect-medium.md",
-          "sha256": "e4a34cf79c8f347e7faea5f39bcc4ded3e5d3ab72917bbb0c67f46a1dc46426d"
+          "sha256": "74774e28a62c502b166e37418da62ef019f510b4d3bd94139f3b93b5dadb0847"
         },
         {
           "path": "devbuddy-architect-ultracode.md",
-          "sha256": "1a9612b9af2efd8727be51c83d5c1b4cac52521974c212a7cf85d3f7ceef2a78"
+          "sha256": "3efa758d410450c37f0decef4b8766f6598046f780e5fb65fb2420fa2a1c7b7d"
         },
         {
           "path": "devbuddy-ba-pm-extra.md",
-          "sha256": "57df25486ca3c6cb14def0f5da683dfd4dcbfbe7ff795d46b138409e1492a999"
+          "sha256": "bd2e9e39b2c16483638e1d0dc69abf208ad40d8d92ef36ee5c2038d66e0d0b81"
         },
         {
           "path": "devbuddy-ba-pm-high.md",
-          "sha256": "865b1ecf6a57bc9f8cff331a2c874dcd71a8585e847af6988f1f3f7d29f2356f"
+          "sha256": "639d3b3690c6730a1c01dfa093109f74d5a784fde2c9077e01ba10544b012f98"
         },
         {
           "path": "devbuddy-ba-pm-low.md",
-          "sha256": "8b46e5806910b0c2aae466d8e20efae40b006b8eb8790d9290eba3f65e078663"
+          "sha256": "afb30567b8abcf6adbabbdf0c977256a1098afbd0a61aa8b9e3c1a1cb4f6eb39"
         },
         {
           "path": "devbuddy-ba-pm-max.md",
-          "sha256": "af7b8391e993ba1ca8b74de4c1fe4e8adc313901794070c5428c60ea271eca3e"
+          "sha256": "5a9991d06be3d3a38fb1e010e0ea4e38fe54db1276dfcd12d5ff5a4dfcf669ec"
         },
         {
           "path": "devbuddy-ba-pm-medium.md",
-          "sha256": "d5c13a1c0b03f27a205ce439089396f4886640d0e7898265c1ac8bb13a786a30"
+          "sha256": "3f2db7c747a9a370c3a72a1d96760d4aea0ecedf9ad7ad2d27c98cd2fb59e5a3"
         },
         {
           "path": "devbuddy-ba-pm-ultracode.md",
-          "sha256": "03f930299b5f6938ca621321d1941eabe9b5c827398812df91108890540cecb3"
+          "sha256": "cdfbe35c0a47a7495b109265b61939f49ac8630b4167fa00744df1d7782dcc32"
         },
         {
           "path": "devbuddy-dba-data-extra.md",
-          "sha256": "94c05b8d9f04686faa4ae80bd9df0b75871b4c9353618788ad970ae4b5ef8b64"
+          "sha256": "242d92c95778428bd54cbd2de52517d771e3022a627801a07497dfcdf53794ff"
         },
         {
           "path": "devbuddy-dba-data-high.md",
-          "sha256": "906b0fd1262212f07fcb6996b4d99587e07cab596166f43c4df2f7b50b0c67d5"
+          "sha256": "a651ef077dac542500f19303e8389b8b94abe4c10b12a24156d6832e76dbe39d"
         },
         {
           "path": "devbuddy-dba-data-low.md",
-          "sha256": "26bc1f52da6c3294ec988ed8324d2b910c0ea3e9c370a301a694c85f49cec07b"
+          "sha256": "e1b6ec353c4e7bc69584cb4231984f6da8f1e6868637f74aacd727a197853238"
         },
         {
           "path": "devbuddy-dba-data-max.md",
-          "sha256": "d89534ff552be9290e2bb00c6635696f7df5bad05a67531b9f3bce247fa913f7"
+          "sha256": "67220fa08029d17095a8752b24d202785e216e9bcb105082dcf994b8f25d0470"
         },
         {
           "path": "devbuddy-dba-data-medium.md",
-          "sha256": "0971c350d1fd463718fc62358694260b8f1729846579b7770b874ce384c88982"
+          "sha256": "21dcbd5152e0efee19a89a5788e1c3f250b9e195885c4b8981d2b4d7b914e660"
         },
         {
           "path": "devbuddy-dba-data-ultracode.md",
-          "sha256": "be1f40c077e82892b48c10f1dbcf2b456e1512c04f6f25b625e4aacd4f1f6fd0"
+          "sha256": "c9ae3ce65c853ec0b206391033b2e53e3f31a47ae643e636827d7dbcd1f5258b"
         },
         {
           "path": "devbuddy-developer-extra.md",
-          "sha256": "a14cdd6a03ea4eef8c80cc14aa4eb637880cdf7c987d67b3958d65a8dc4957e2"
+          "sha256": "6376fd001294f6808ff50e5f5dc4ab0ce885e23d99c437683d5a653587f4f930"
         },
         {
           "path": "devbuddy-developer-high.md",
-          "sha256": "a3933fcae5a390c05c29c348b499010f2c1a0925cdf87d2d084183ff6a8ee9ca"
+          "sha256": "16ec0adb24e61861b95f7e05a5c68d8857609496cf6f6ac6ee5b2190804881ad"
         },
         {
           "path": "devbuddy-developer-low.md",
-          "sha256": "bef4ac8d40f9e133e99e97e6d988c4564627e33621149b631ae05759d9db506d"
+          "sha256": "64503907b499ec5a13b193d06be8b22aaaa817eeccffb5543a3d3699acba7ef7"
         },
         {
           "path": "devbuddy-developer-max.md",
-          "sha256": "57cce97c3663e41c7a967eb75ff0df354eed7fbb87bd68fb14c4306997e42ac5"
+          "sha256": "31c15d973a3e03860dbde4ed0ab5dc546d13ff109f8cc20e95ade41747e4d0ba"
         },
         {
           "path": "devbuddy-developer-medium.md",
-          "sha256": "0874c02c708a53f3231783c400a90f012ccbc3237d46e2dff024f7574c432602"
+          "sha256": "d741541a93783339b0208723e05f72adf2a5b4617eb5c4240e55cebe08eb94da"
         },
         {
           "path": "devbuddy-developer-ultracode.md",
-          "sha256": "d505daf608f5f7a637e0d31f7a5d0bde9e9e2da8ec9767b289add4bd68b0db4e"
+          "sha256": "d79bebe113fdd9434196e228239c44eaaebdd6173726d3b67ab9de6c3a700b6b"
         },
         {
           "path": "devbuddy-devops-sre-extra.md",
-          "sha256": "6fa28823a051a84910e2f0a75517d3e813f47fd14adef1c7d4260a6f4e9d0ea0"
+          "sha256": "03beeb19eb5ab87005271ccfa9916550573b98c8eff415c4bc8ecd69a58b3887"
         },
         {
           "path": "devbuddy-devops-sre-high.md",
-          "sha256": "c3cf019848251027061d75be826f94d91885350ef1922193f5d03f474eb209a5"
+          "sha256": "bba1d07c932b60bfc09c3d4d67aeb95af6c47637dcde1195632ea9937a7adc81"
         },
         {
           "path": "devbuddy-devops-sre-low.md",
-          "sha256": "cce99f9724c92edc2b6d62461af0c0eaafb951d4c4f3ba59b7a57e9c8f25af62"
+          "sha256": "e15e1a468e09c69c23d37e569c4caa3e0e63f69ce475341f2a54a2e89423d86c"
         },
         {
           "path": "devbuddy-devops-sre-max.md",
-          "sha256": "61860ce95c7a1d624c04bf1fd62c798bfa8970e4b6320dc7f5658cc4bde47070"
+          "sha256": "6f07e83dcf99a206bab83512a726ce030f03087b7a9c047c9774dc48b44a6142"
         },
         {
           "path": "devbuddy-devops-sre-medium.md",
-          "sha256": "f4bba57e863963d6596043ba97bc0128ce8845d9e6ff43c2fe569106e2fa7e67"
+          "sha256": "b4d8daef9d0489417baa834e85efe2dac9d5bbd0cc7ac521d19784dc73aded55"
         },
         {
           "path": "devbuddy-devops-sre-ultracode.md",
-          "sha256": "11737099547210b27777e0c022ed555f9ec05dc546102dcd3fd5c32f09c4b27d"
+          "sha256": "5fbe1595e2173bc7f30ee9ebf9c3158740a857470c3540f68de96e1b48125d53"
         },
         {
           "path": "devbuddy-qa-extra.md",
-          "sha256": "01dc186d573bbcbd70828222b82b6c20c886bf9111e5fa48867cab78a8747c08"
+          "sha256": "3d38dec925e0cec41cfac78f50ed64c586a4c962c2f33e285bdbd200f0290c43"
         },
         {
           "path": "devbuddy-qa-high.md",
-          "sha256": "5f513260a7c382f03c81cbbab93b795909803b5f2405fe9a34868c8f80dbd7ee"
+          "sha256": "7d7da96eb8cec75023e5f91b0c1478a45d6ad6d618988700be9a3c65c9ee8d26"
         },
         {
           "path": "devbuddy-qa-low.md",
-          "sha256": "c12459fec898a340207ade9d406944c818436bbc2c2625ba2ba66f57129eff5d"
+          "sha256": "5c897766adb217cf361a0b74d70cd157168ef43f45265e44240be4c60f6fde36"
         },
         {
           "path": "devbuddy-qa-max.md",
-          "sha256": "2c96a3c14e7ef183d89f6a99512d450dccf3fe3148bcb6ef5e429f5f47827318"
+          "sha256": "616545f4fd5a1cac4a71e279cf18e20993fd519c4a9453a1de7101df6a3f69a4"
         },
         {
           "path": "devbuddy-qa-medium.md",
-          "sha256": "d720ed1361ebd82fccf9f48c765566cf92dd54e2c62199796a8924e6683797a9"
+          "sha256": "f19d0762ba2e5fbccc5c786522a608160cfed47d9c538f609d29ea52d79ce4f7"
         },
         {
           "path": "devbuddy-qa-ultracode.md",
-          "sha256": "bff4511ab5aee69cefbf9b71942296abbf54fb6c6378d4f474f935570b8e8a44"
+          "sha256": "1d95043ac65a50fc6691fd78fe11f58f55c4e2ce6e5d58923ae2384209dbe644"
         },
         {
           "path": "devbuddy-reviewer-extra.md",
-          "sha256": "a86bddee0f64f883e14a461d6a045d2dc7fd5e1f1b8371cc1e5ea757d1df2ea7"
+          "sha256": "33ff1afe2ccde8da5e6a794ef4be6e86f2cde0fb377d6d5512dfcaf83253e95b"
         },
         {
           "path": "devbuddy-reviewer-high.md",
-          "sha256": "7e66e4218d943a3de278dc5b3dfb94fc8801c8d65b808dfa8fbad4bb69714d6c"
+          "sha256": "b530b2b25661e4a2dcd95c6520f388db3cf56ecd2b246f89d92533729949d5c6"
         },
         {
           "path": "devbuddy-reviewer-low.md",
-          "sha256": "919edc074412660f3a8cb2b2c4faf2ec8362fa5b1ed127487a37f80614b72c9a"
+          "sha256": "1978f30eb678e0fef1d01962fe4d44275b64df30610b501963eb11219e99e3ec"
         },
         {
           "path": "devbuddy-reviewer-max.md",
-          "sha256": "16c6078f36082622b66c5704ce0de81c3434ea599e2238458983f4caf7d0963d"
+          "sha256": "3bb4d898e44c56dbbaa450760d8fe35d1497180a6ff40f65f0f83f1c0f4c3f8a"
         },
         {
           "path": "devbuddy-reviewer-medium.md",
-          "sha256": "d1be8a49428812fe8ecce9678adf92a4d2b3c14788eb3b9e9cb902c599aafe1f"
+          "sha256": "de9a62d8a53ff4a5c9cfe1845ef601e7f0987c382a5f0b16dd2bc18364a567f9"
         },
         {
           "path": "devbuddy-reviewer-ultracode.md",
-          "sha256": "c8df7fbbfbedadef5035bf5b351d8afb9e4dac2f5be98ed815f45ee065cf1ca1"
+          "sha256": "fd245c5fde71a15f2452792af268a932082fdbc541ddd4af7ba07272fb8efb5b"
         },
         {
           "path": "devbuddy-security-extra.md",
-          "sha256": "05de36e6129bdcdbf361ba80c457b610295d023040646b87c7c2760a7c0faeac"
+          "sha256": "1502f173dd2f8c9519bbe1318fc3cb9511251f79a27ae7a6f7e1ede87d93f156"
         },
         {
           "path": "devbuddy-security-high.md",
-          "sha256": "485a04da98401c125fd668ad4c69c999370da3633079b2a438f4d888e558f358"
+          "sha256": "6eaf860877efc1135b396ddc8072f912d5a44491602ec996cf1c95dd0d26e1ab"
         },
         {
           "path": "devbuddy-security-low.md",
-          "sha256": "237bea539dc876550fd26e0db6c418d2cbdffb824a060b5982255c50aa698075"
+          "sha256": "28ecdf70d3b71b588712bb4ee7c8d48b86427b2871f782835c918acc4dd0b641"
         },
         {
           "path": "devbuddy-security-max.md",
-          "sha256": "990a60a91b3fde39c4db38d2d6b70044f9af544f6c950b7892c386b70f2d7d36"
+          "sha256": "c80baadd4dea9dcbcc1c7e3282f4cacbbadad996b1742ae6c85fd58bcf8a24fc"
         },
         {
           "path": "devbuddy-security-medium.md",
-          "sha256": "54a65cf4a526887fbdd91b10f60bf5cea38e4b902ea6beb9bfae2aa09f77e267"
+          "sha256": "5bb2b434098eadf420a6d0157c6b2e290600ca8a8d2a3176883b53dd5d566291"
         },
         {
           "path": "devbuddy-security-ultracode.md",
-          "sha256": "42be152f6d7cfda97983c879589e82c2b93d3f3d0682434e4bc91ef3170d4299"
+          "sha256": "38792e733edb3e2ddf4494194905404a88c2ce961cbb5a84687b3d69f37116ae"
         },
         {
           "path": "devbuddy-ux-ui-extra.md",
-          "sha256": "dfb73ff6e9b637ae0b3b878f01667dfc1c0df2a65c15ff0a1455d799bc835be1"
+          "sha256": "97920e84fafc28afb5d3cdd3fbe7c7dc018fef0e23f41054bdea8d4be94cce53"
         },
         {
           "path": "devbuddy-ux-ui-high.md",
-          "sha256": "473522b0092a9d7e245fc2e018fd5036be5d76255d17b04f3fa4dd8e3459aca5"
+          "sha256": "850864697897b1543dd6a6fe3db806656f272916dae20770f00c2fe4d984137b"
         },
         {
           "path": "devbuddy-ux-ui-low.md",
-          "sha256": "7ff1e201f9b91de1664fc2756b9d2202630a0094273f72e0bf51a6c8f2171316"
+          "sha256": "dd310f8568eadc88d5818e3e60cbc7b56466f41982f96e40eb1aa2a116c81b7f"
         },
         {
           "path": "devbuddy-ux-ui-max.md",
-          "sha256": "e1b22f7e400b38ff7cefe4d164672c293cd0f0c001a4517a773056f9fe22c288"
+          "sha256": "25843e24005e8750790209d147eb6f31e39a10e2328bba940858f073d3bfad5c"
         },
         {
           "path": "devbuddy-ux-ui-medium.md",
-          "sha256": "995126d8583b2cfef60bf81e89dbc19fd28be29633e3336592ed18f7a269f645"
+          "sha256": "ca959380f44bcd8ab9266dfce1226093a4cad8ecfff3dca3bd22528792b2941c"
         },
         {
           "path": "devbuddy-ux-ui-ultracode.md",
-          "sha256": "51ff0104b486138d1a83eeebdcca1c881f00d6ba7f38e20d463d6639fd18b172"
+          "sha256": "f543d0b35d263b7d40dd24a869e2c89363c71a90f6a0a42649f69169157b7f07"
         }
       ],
       "source": "devbuddy-claude/agents",
@@ -277,39 +277,39 @@
       "files": [
         {
           "path": "claude-dispatch.md",
-          "sha256": "60f6046986512de28c6f5e447af7bef95bd1adae057046aaaabe735f49af1cbc"
+          "sha256": "24780d44d6bf34bd2936bd72001647302309c93c2de1864fd6f034c445e333d2"
         },
         {
           "path": "custom-tools.md",
-          "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+          "sha256": "d5e129660af0672b9c0693c96ba1a5eafa9c8142e8deba2288644ade8b19b00c"
         },
         {
           "path": "knowledge-model.md",
-          "sha256": "6fc891e2c831508941ff915a4bf7cb356ddf72e0dfa71e0671327cb3ecbfa60e"
+          "sha256": "2e440592263124d967ac9b2a8a5baab71cf5ba3bf3f423134c195c6756732ccd"
         },
         {
           "path": "loading-matrix.md",
-          "sha256": "d6e6a507720ac4cf19bdf4022e52da4aa93b773ac5285606242d01eb1d60ec30"
+          "sha256": "1970789ea4bdca1b967c8d43cef2c834f918241599b70c280dccfcd37f1395c3"
         },
         {
           "path": "loop.md",
-          "sha256": "1729c4a7726031e64a11d807d9075623847d517dbbf81703c53f98e3525d12a4"
+          "sha256": "87af1d50ac8d3f6161a387d91a674e3ccdbc40578bb2dbdf113bf9ec95b6286c"
         },
         {
           "path": "policy.md",
-          "sha256": "80ef40b4ce0f926f57e8a9072aeb77ee8170ca7bc9d8ac7d3af23f887c540c0d"
+          "sha256": "b1ca5fa86334eb30891f9035ad44a58d82f4ec159e815785a223edd8d8603aaa"
         },
         {
           "path": "role-routing.md",
-          "sha256": "8bdc3e1c765f7c9edfa7b86e4e89cc6d4dd0da9f908d37ee27216ff0c9283d96"
+          "sha256": "a489d1273e6f41c9ad5ba505f6873f72ef74a6f4c67bcef42d1c799d84d92548"
         },
         {
           "path": "settings.md",
-          "sha256": "1df79d8649d13304290b14515cfadf4a56678fedd9e278309878a891731f730f"
+          "sha256": "1a26567574d4ac1350907e7e0a9378ea422902a2629d250ce72bc3bd2b26f740"
         },
         {
           "path": "task-memory.md",
-          "sha256": "ebccc606ab7ad9bad87ed9fc65fa79e3194c088edf5a38f045476fa3f02ceaef"
+          "sha256": "3791c47dd05d0c601b8d70ae6a774e9739935f320812235a6c6d3bc92f62f31d"
         }
       ],
       "source": "devbuddy-claude/references",
@@ -319,43 +319,43 @@
       "files": [
         {
           "path": "architect.md",
-          "sha256": "cf304c8017d9883dcb2fb084e0129b2f873b8e83a3175fde7b537f5888b074ac"
+          "sha256": "7b71844a7764644a10f251efed3480430bf6e51eb354ccca25b8a6a7238a8b6d"
         },
         {
           "path": "ba-pm.md",
-          "sha256": "90eb1c076fdcc9792a5df01075df896174565c865158ea0476eab48fd9512851"
+          "sha256": "d4e00a53cc553e50dbd06da36e292d2458bfb36c009dd12968529ebe1f155936"
         },
         {
           "path": "dba-data.md",
-          "sha256": "da92da099c8cef02378d639a7b04cf164aafbe3e23a1eb3a2dd22f265316f949"
+          "sha256": "ba6d8d7725cbad30c0205f5754e1569b2fdf54b25a3865d7bdd01bee93f2535d"
         },
         {
           "path": "developer.md",
-          "sha256": "dc9c8a4540bc3275902193d58da899b1f74cc9355382842e38deaa4e4c1f63bc"
+          "sha256": "38e35879878ae30d67af9d0f641d748a867773eb23f157391a2c39a45e197f87"
         },
         {
           "path": "devops-sre.md",
-          "sha256": "ba28b39ca84f0b403b0995726d5f849f714fe79eeb1adf4f937689805629caae"
+          "sha256": "64efffff1179ac0206d5730595d4804391c4f0b91d873bc4f7f9a0dff9996a66"
         },
         {
           "path": "orchestrator.md",
-          "sha256": "a29f367bb39eacea36ba3614590a4ea5efb31085e7fdda265867435595e23ba9"
+          "sha256": "13b22b16a44476b679905a4b7800b566495b818d439c38e7a25d7c95405ae66e"
         },
         {
           "path": "qa.md",
-          "sha256": "7ea1b744940f7c8132d4c02c5ff990d9cf02580a201a69f79b115838c2cc2d2d"
+          "sha256": "560802a2c1cf74ab6c492dc7db782aea1a1d7a97749afd0732bc000a3297f0ba"
         },
         {
           "path": "reviewer.md",
-          "sha256": "5101b4be674f2f8b876c0f7326ee0d3dc894262d35f5198d50df48f93e9eed10"
+          "sha256": "d8570f25ef0f1105a12325a83cfb2b91122cf31e6743a8df2e76b417e600133e"
         },
         {
           "path": "security.md",
-          "sha256": "2ff781b8a60d17168d8c2acfb1a1579178ab4a5ac316f35b6fd1337e6c5c8401"
+          "sha256": "4ae6d445d60d911baa59be8e9650b7e85bb4e66106c13da74b70cec0958cd48c"
         },
         {
           "path": "ux-ui.md",
-          "sha256": "41be82ac1fc824ec86ea50af695ff09e11253d9d52b0594d5bc90331321d5af7"
+          "sha256": "ff52487a47708739bfd610bf0e5dfa74426f1651a248ac1cc164bb5514d2e1fa"
         }
       ],
       "source": "devbuddy-claude/roles",
@@ -365,11 +365,11 @@
       "files": [
         {
           "path": "project-settings.schema.json",
-          "sha256": "3cf412b7511dc28999bf5cc8e0251a9d0bfd98316a271578525d3c323ff98115"
+          "sha256": "030d29cc29d303ea1deeedb2b94bdba1c6516edb82ec4d96ab27d78027c9fb2f"
         },
         {
           "path": "slice-record.schema.json",
-          "sha256": "c5179bdb4053923c853cd768d5959c8fabc822fe7590a3d634eef74748a144db"
+          "sha256": "cb2b4ca296429a09f3251a45151ccd0d5b464236025272c3d67c7a0b71f27482"
         }
       ],
       "source": "devbuddy-claude/schemas",
@@ -379,7 +379,7 @@
       "files": [
         {
           "path": "knowledge-entity.md",
-          "sha256": "d546a53c45c0826a7514459d2c72a6913fc1a01e2614027f69f6300cdcfd7490"
+          "sha256": "7c0748a7e429176ad1becb1a55726d5ba3cca0df74567bd6b3f99205a1308bb8"
         }
       ],
       "source": "devbuddy-claude/templates/knowledge-entity.md",
@@ -389,7 +389,7 @@
       "files": [
         {
           "path": "knowledge-index.md",
-          "sha256": "4d656667099147acf3b6703c7dee9bd8e076d679e93a9bce1e2a6733ce26566d"
+          "sha256": "3e967a24f00c48b61ac2670cbb215f488c2ffbaaad3e2fb4455d1c833283b764"
         }
       ],
       "source": "devbuddy-claude/templates/knowledge-index.md",
@@ -399,7 +399,7 @@
       "files": [
         {
           "path": "task-ledger.md",
-          "sha256": "502820ef3d186502dc46a0b32341bbe55e96a544b5b9fb1f9f8ce5cd830f2731"
+          "sha256": "143b96925bc6387f37ab3e4d45c4a94e2fe324d61ce01bd1db74ff18b6ea4e4a"
         }
       ],
       "source": "devbuddy-claude/templates/task-ledger.md",
@@ -409,7 +409,7 @@
       "files": [
         {
           "path": "init_project_memory.py",
-          "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+          "sha256": "461edd8c4d49e9f568f4ff259ee1f8803bdf7a9c2e55496469b1f92442691344"
         }
       ],
       "source": "devbuddy-claude/scripts/init_project_memory.py",
@@ -419,7 +419,7 @@
       "files": [
         {
           "path": "validate_skill_metadata.py",
-          "sha256": "a54f3b64d93a2de4c6a74d359d0e3fffacd0e229f5a57a60a082b2d6e9e25d27"
+          "sha256": "84493758068f63c069a4f5cfcfdbbb1d8afa0cabfab3acb1f020e6417e9ab867"
         }
       ],
       "source": "devbuddy-claude/scripts/validate_skill_metadata.py",
@@ -429,7 +429,7 @@
       "files": [
         {
           "path": "run_scenarios.py",
-          "sha256": "dba89e8d5c0946dbae3b8d597715fb57b0300d05c04f4a8c1a30d62cf3c47a6a"
+          "sha256": "cc199b469117f0ef3c701c2a3b07fac45e1d866e6dcc23589eedd84c6cbcca33"
         }
       ],
       "source": "devbuddy-claude/scripts/run_scenarios.py",
@@ -439,7 +439,7 @@
       "files": [
         {
           "path": "scenarios.json",
-          "sha256": "281fb2902a1703d0bb63dfa8a3761fc6395d00422fef978adeacf4dfc07644b1"
+          "sha256": "e52a95697393596937dc842559afd752e7896afa2a769a7c955e4d133117af9d"
         }
       ],
       "source": "devbuddy-claude/tests/scenarios.json",
@@ -449,7 +449,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "a3ba777ab322ebc52168cc63f10403b50c077e04a2c1638e4094d9efc3ebc5e2"
+          "sha256": "676857a212053355756ba19c404b2d44a9ac59407cf81a77a7c405f8ef10078a"
         }
       ],
       "source": "devbuddy-codex/SKILL.md",
@@ -459,7 +459,7 @@
       "files": [
         {
           "path": "settings.yaml",
-          "sha256": "a224c60f56c788ec9f0d073d62e11911e7bca355ec45ead82f1f945de12d76ce"
+          "sha256": "0bdcf39176df3e5169aaeda379204ef1c3a27bfd27b573c41d1d3cc9d390839c"
         }
       ],
       "source": "devbuddy-codex/settings.yaml",
@@ -469,7 +469,7 @@
       "files": [
         {
           "path": "openai.yaml",
-          "sha256": "6f013fe92aad024ad0db794b49cc69c3a8e1f658ee7ee77baa2a367c4934bfb0"
+          "sha256": "d9acb0501fe4d91884d36478b4189be8813051208ec025f445f9085745e05b59"
         }
       ],
       "source": "devbuddy-codex/agents",
@@ -479,39 +479,39 @@
       "files": [
         {
           "path": "codex-dispatch.md",
-          "sha256": "72bfb86ab48c14816818d302a63f0d56000dc52880ee1229c0b5cb75a9c6f1a5"
+          "sha256": "ee8c37b5571e5ed2e521f689b4c663c6e73e53b4c4833170b56385b5252cfbb3"
         },
         {
           "path": "custom-tools.md",
-          "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+          "sha256": "d5e129660af0672b9c0693c96ba1a5eafa9c8142e8deba2288644ade8b19b00c"
         },
         {
           "path": "knowledge-model.md",
-          "sha256": "2c1633cb672d4a5a380bae8cc7c6147898dee220732a3e67cc063a5162160c43"
+          "sha256": "b1e35692493bf6f023661845e7724b95226f59a8d157836879c5f7a895ca1163"
         },
         {
           "path": "loading-matrix.md",
-          "sha256": "d6e6a507720ac4cf19bdf4022e52da4aa93b773ac5285606242d01eb1d60ec30"
+          "sha256": "1970789ea4bdca1b967c8d43cef2c834f918241599b70c280dccfcd37f1395c3"
         },
         {
           "path": "loop.md",
-          "sha256": "f8998fbb339be561d8bc25fe51e322b5aa4b92693bc59010437f5cc58aff7a80"
+          "sha256": "9edff8b92b2fe4290cb4d908447132005f0a27f8d9c5eab167c6bf12e02638be"
         },
         {
           "path": "policy.md",
-          "sha256": "39139d6cd3f834a3d064ccd874bfc107d322c9d6fada73691d8b88fb692ca64b"
+          "sha256": "c1bd623229b32987c07d65d940233411cac03ab6abab89343dcb5cebf076ef21"
         },
         {
           "path": "role-routing.md",
-          "sha256": "19e28747b6303b7d5e6119ac70ccbfd4f6474aed2946d2de8245073ed125faff"
+          "sha256": "9c62f60d910926c741710adf2368f45e7bd4d45271bc29bd6055ec4d4c62e542"
         },
         {
           "path": "settings.md",
-          "sha256": "498a6a26d4ff585cf6f83526cf681753f0b9231f55769eb919dd9f4ae0ca25e9"
+          "sha256": "ffd1b11782bda5aa8d8e51b03fea339110ce6fcc4b4077f677b5eeafe46c4c39"
         },
         {
           "path": "task-memory.md",
-          "sha256": "ebccc606ab7ad9bad87ed9fc65fa79e3194c088edf5a38f045476fa3f02ceaef"
+          "sha256": "3791c47dd05d0c601b8d70ae6a774e9739935f320812235a6c6d3bc92f62f31d"
         }
       ],
       "source": "devbuddy-codex/references",
@@ -521,43 +521,43 @@
       "files": [
         {
           "path": "architect.md",
-          "sha256": "8b6de8df46dce7b46e08ea99b09620ec2cefbf32716f7e63f1aed280d312e5ff"
+          "sha256": "75d377eb7351fe7ee9e71ce6aa492dba9569e2323f08206c6c0d0dc3e58c8b9b"
         },
         {
           "path": "ba-pm.md",
-          "sha256": "528fc6f187358e5de2ca1885067abaafde1bdceb05bb15defb24c705b7d0f9b8"
+          "sha256": "fc99a21f23dc95929fcba97862e01ef52145bfea17298cc906df9c26e33ba3da"
         },
         {
           "path": "dba-data.md",
-          "sha256": "c5c4a15c2621438d6f16c10a3230ef5691fbedb5f05384c283ae150cdbe838d4"
+          "sha256": "29a8a47a1d3d00656b7021131c6704d16d17cb9eac23dd8745d4c9fa5c638de0"
         },
         {
           "path": "developer.md",
-          "sha256": "30864b9741d71dea6a8a88a950639f9f2dbec3816fcc4a5247773fb9450ebc7c"
+          "sha256": "93682df556289e6e948a321894b77bf658e4f65e661493b5895f5a198fe5fa1c"
         },
         {
           "path": "devops-sre.md",
-          "sha256": "df8a423ccedf33f96c0fbf2d4ee86616a419d0cb0d4ac480784a3c46dca8863c"
+          "sha256": "2c4fb11ccedce8374fc0d8c3c022f76278415331002c7ecdff1f7fc39a66e620"
         },
         {
           "path": "orchestrator.md",
-          "sha256": "e4531cfe902d25af0bd956159946daeaa7013a615c48539bd652e3b7f731e4d0"
+          "sha256": "7516f17678f32ef0631966ca779db652948bb9f19c01c996244a20cfc2cb76ca"
         },
         {
           "path": "qa.md",
-          "sha256": "16a7dbc9a6c32311683f701e0f100b1b3ea256bed99e77493f7943e7bed9955d"
+          "sha256": "91237202a0667f24a5423b8325ed4c9131ed0a7d5f157087cf0321d70bdbfe51"
         },
         {
           "path": "reviewer.md",
-          "sha256": "d717808c1806f9bce0f07501a49cfe556e38292c1194bc8805c88b7bde30d8eb"
+          "sha256": "832979ba5d4c80f212a233b8a7d865b6a34ea74b488875fa29c7bd7d79916a4e"
         },
         {
           "path": "security.md",
-          "sha256": "3c576e96b144e72a559b0c4a4e8e6e70c66d491af5a2ca8bf37f479d34589caf"
+          "sha256": "0758c32fce85aef2d31dc2dad2f5b144ed4054da2e8373c7f6f39b2ea62e5a27"
         },
         {
           "path": "ux-ui.md",
-          "sha256": "d67d743dd595010511c6a4a2a33f6011ff75808b60fd5cf8f5db883b971eee53"
+          "sha256": "d525f578f9a4602bf92e02a502b7b10c2f250f2691d4649cfaaf96fed6391b03"
         }
       ],
       "source": "devbuddy-codex/roles",
@@ -567,11 +567,11 @@
       "files": [
         {
           "path": "project-settings.schema.json",
-          "sha256": "2cefcb0462dbe6b874abf76a1869b29817852590c2de513b2041a61efa7dfdec"
+          "sha256": "e7828c2082f19576ce77e68e07646f5102df84862fd6b24e2b3e5eb737c010ec"
         },
         {
           "path": "slice-record.schema.json",
-          "sha256": "c5179bdb4053923c853cd768d5959c8fabc822fe7590a3d634eef74748a144db"
+          "sha256": "cb2b4ca296429a09f3251a45151ccd0d5b464236025272c3d67c7a0b71f27482"
         }
       ],
       "source": "devbuddy-codex/schemas",
@@ -581,35 +581,35 @@
       "files": [
         {
           "path": "knowledge-entity.md",
-          "sha256": "d546a53c45c0826a7514459d2c72a6913fc1a01e2614027f69f6300cdcfd7490"
+          "sha256": "7c0748a7e429176ad1becb1a55726d5ba3cca0df74567bd6b3f99205a1308bb8"
         },
         {
           "path": "knowledge-index.md",
-          "sha256": "4d656667099147acf3b6703c7dee9bd8e076d679e93a9bce1e2a6733ce26566d"
+          "sha256": "3e967a24f00c48b61ac2670cbb215f488c2ffbaaad3e2fb4455d1c833283b764"
         },
         {
           "path": "project-tools/bootstrap_knowledge.py.template",
-          "sha256": "c491b0a6b1e42e3ab1540c51921e6da14b1cb6a3f7145a8d6dc228d2c16a9239"
+          "sha256": "d4a31d650d2b071495a92236af8eece56314704cc5a188c1d5d6581765511344"
         },
         {
           "path": "project-tools/init_project_memory.py.template",
-          "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+          "sha256": "461edd8c4d49e9f568f4ff259ee1f8803bdf7a9c2e55496469b1f92442691344"
         },
         {
           "path": "project-tools/task_memory.py.template",
-          "sha256": "92868ce2de6a593868e0732bc4edadefb9b26e74f295cbbfb72888b03b78a1fd"
+          "sha256": "674968ae0bd23eac7f3fd3fcf99530f9347c0a22bd2e50bf344df7cf06eeffc4"
         },
         {
           "path": "project-tools/validate_knowledge.py.template",
-          "sha256": "ebdfa895fac05fa71f8f891d48805b88e6c03f430cd025a1cc6e6c334fadef43"
+          "sha256": "da9d90893d90793df5926ad1ee8662a381026f1bb2fb511dff339b14e1bca344"
         },
         {
           "path": "project-tools/validate_project_settings.py.template",
-          "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+          "sha256": "9f5945dae6ed604d98b99aafa8c56c0d3892192aacae7e228bb28d3ebd1fff61"
         },
         {
           "path": "task-ledger.md",
-          "sha256": "502820ef3d186502dc46a0b32341bbe55e96a544b5b9fb1f9f8ce5cd830f2731"
+          "sha256": "143b96925bc6387f37ab3e4d45c4a94e2fe324d61ce01bd1db74ff18b6ea4e4a"
         }
       ],
       "source": "devbuddy-codex/templates",
@@ -619,7 +619,7 @@
       "files": [
         {
           "path": "init_project_memory.py",
-          "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+          "sha256": "461edd8c4d49e9f568f4ff259ee1f8803bdf7a9c2e55496469b1f92442691344"
         }
       ],
       "source": "devbuddy-codex/scripts/init_project_memory.py",
@@ -627,5 +627,5 @@
     }
   ],
   "schema_version": 1,
-  "source_revision": "2c4d68f9526bf48ad411ee114bae150533b943bd"
+  "source_revision": "e2ae3507aad0fca609e3af472e2d1a44d8778b22"
 }
