@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T10:23:32+00:00",
+  "generated_at": "2026-08-26T11:19:28+00:00",
   "mappings": [
     {
       "files": [
@@ -305,7 +305,7 @@
         },
         {
           "path": "settings.md",
-          "sha256": "1a26567574d4ac1350907e7e0a9378ea422902a2629d250ce72bc3bd2b26f740"
+          "sha256": "79ab24926769d5e310bd0a4f454a54b256e1dd41d6c72763eb7682c63625b0be"
         },
         {
           "path": "task-memory.md",
@@ -418,6 +418,36 @@
     {
       "files": [
         {
+          "path": "migration_report.py",
+          "sha256": "7c2bd33224ec65d301c4ea077e0aa2f97e1c1652bb006d089db8a520279738ec"
+        }
+      ],
+      "source": "scripts/migration_report.py",
+      "target": "plugin/devbuddy-claude-code/scripts/migration_report.py"
+    },
+    {
+      "files": [
+        {
+          "path": "register_database_adapter.py",
+          "sha256": "fc595eb1b9cb133ea0122c8e83109fcebbd2c84748e426293a3562cc1f7a2e5e"
+        }
+      ],
+      "source": "scripts/register_database_adapter.py",
+      "target": "plugin/devbuddy-claude-code/scripts/register_database_adapter.py"
+    },
+    {
+      "files": [
+        {
+          "path": "workspace.py",
+          "sha256": "78e081b753604dc6384eb7599c757c68f11dfb6a93e9986264f73e3a7047fa39"
+        }
+      ],
+      "source": "scripts/workspace.py",
+      "target": "plugin/devbuddy-claude-code/scripts/workspace.py"
+    },
+    {
+      "files": [
+        {
           "path": "new_knowledge_key.py",
           "sha256": "6c45b4cb8c8d476dc67e5d23dc53d1009db52fff0971d19cb46c4cbb3b7e657b"
         }
@@ -517,7 +547,7 @@
         },
         {
           "path": "settings.md",
-          "sha256": "ffd1b11782bda5aa8d8e51b03fea339110ce6fcc4b4077f677b5eeafe46c4c39"
+          "sha256": "1d121c3e58c3eb380db16e1a5ae8bcc95a2d39ace574c14461028e5dd9960c67"
         },
         {
           "path": "task-memory.md",
@@ -638,6 +668,36 @@
     {
       "files": [
         {
+          "path": "migration_report.py",
+          "sha256": "7c2bd33224ec65d301c4ea077e0aa2f97e1c1652bb006d089db8a520279738ec"
+        }
+      ],
+      "source": "scripts/migration_report.py",
+      "target": "plugin/devbuddy-codex/scripts/migration_report.py"
+    },
+    {
+      "files": [
+        {
+          "path": "register_database_adapter.py",
+          "sha256": "fc595eb1b9cb133ea0122c8e83109fcebbd2c84748e426293a3562cc1f7a2e5e"
+        }
+      ],
+      "source": "scripts/register_database_adapter.py",
+      "target": "plugin/devbuddy-codex/scripts/register_database_adapter.py"
+    },
+    {
+      "files": [
+        {
+          "path": "workspace.py",
+          "sha256": "78e081b753604dc6384eb7599c757c68f11dfb6a93e9986264f73e3a7047fa39"
+        }
+      ],
+      "source": "scripts/workspace.py",
+      "target": "plugin/devbuddy-codex/scripts/workspace.py"
+    },
+    {
+      "files": [
+        {
           "path": "new_knowledge_key.py",
           "sha256": "6c45b4cb8c8d476dc67e5d23dc53d1009db52fff0971d19cb46c4cbb3b7e657b"
         }
@@ -647,5 +707,5 @@
     }
   ],
   "schema_version": 1,
-  "source_revision": "6667db99c4492bff8c40100b4b8f16c57f3b726f"
+  "source_revision": "40d58e23a3b0e89324892564c169badb2adeefa0"
 }

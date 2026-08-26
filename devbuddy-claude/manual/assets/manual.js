@@ -26,4 +26,16 @@
     }),{rootMargin:"-15% 0px -70%"});
     hs.forEach(h=>io.observe(h));
   }
+  if(!d.querySelector('.header-nav a[href="database-profiles.html"]')){
+    const nav=d.querySelector(".header-nav"),link=d.createElement("a");
+    link.href="database-profiles.html";
+    link.textContent=r.lang==="th"?"Database Profile":"Database profiles";
+    nav?.append(link);
+  }
+  const openCodeRow=[...d.querySelectorAll("#distribution tbody tr")].find(row=>row.cells[0]?.textContent.trim()==="OpenCode");
+  if(openCodeRow){
+    const thai=r.lang==="th";
+    openCodeRow.cells[1].innerHTML=thai?'<code class="inline">opencode</code> profile / package จาก Git subdirectory':'<code class="inline">opencode</code> profile / Git subdirectory package';
+    openCodeRow.cells[3].textContent=thai?"ติดตั้งจาก Git package ที่ pin แล้วใช้ workflow native ของ host":"Install the pinned Git package, then use the host-native workflow";
+  }
 })();

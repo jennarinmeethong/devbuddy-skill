@@ -32,6 +32,9 @@
         { "from": "devbuddy-claude/templates/knowledge-index.md", "to": "plugin/devbuddy-claude-code/templates/knowledge-index.md" },
         { "from": "devbuddy-claude/templates/task-ledger.md", "to": "plugin/devbuddy-claude-code/templates/task-ledger.md" },
         { "from": "devbuddy-claude/scripts/init_project_memory.py", "to": "plugin/devbuddy-claude-code/scripts/init_project_memory.py" },
+        { "from": "scripts/migration_report.py", "to": "plugin/devbuddy-claude-code/scripts/migration_report.py" },
+        { "from": "scripts/register_database_adapter.py", "to": "plugin/devbuddy-claude-code/scripts/register_database_adapter.py" },
+        { "from": "scripts/workspace.py", "to": "plugin/devbuddy-claude-code/scripts/workspace.py" },
         { "from": "scripts/new_knowledge_key.py", "to": "plugin/devbuddy-claude-code/scripts/new_knowledge_key.py" },
         { "from": "devbuddy-claude/scripts/validate_skill_metadata.py", "to": "plugin/devbuddy-claude-code/scripts/validate_skill_metadata.py" },
         { "from": "devbuddy-claude/scripts/run_scenarios.py", "to": "plugin/devbuddy-claude-code/scripts/run_scenarios.py" },
@@ -49,6 +52,9 @@
         { "from": "devbuddy-codex/schemas", "to": "plugin/devbuddy-codex/schemas" },
         { "from": "devbuddy-codex/templates", "to": "plugin/devbuddy-codex/templates" },
         { "from": "devbuddy-codex/scripts/init_project_memory.py", "to": "plugin/devbuddy-codex/scripts/init_project_memory.py" },
+        { "from": "scripts/migration_report.py", "to": "plugin/devbuddy-codex/scripts/migration_report.py" },
+        { "from": "scripts/register_database_adapter.py", "to": "plugin/devbuddy-codex/scripts/register_database_adapter.py" },
+        { "from": "scripts/workspace.py", "to": "plugin/devbuddy-codex/scripts/workspace.py" },
         { "from": "scripts/new_knowledge_key.py", "to": "plugin/devbuddy-codex/scripts/new_knowledge_key.py" }
       ]
     }

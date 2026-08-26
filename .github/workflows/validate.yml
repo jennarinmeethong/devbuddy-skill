@@ -17,6 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
       - name: Validate generated skills and contracts
         shell: bash
         run: |
@@ -38,3 +41,5 @@ jobs:
         run: python -m unittest discover devbuddy-codex/tests -v
       - name: Run Claude adapter tests
         run: python -m unittest discover devbuddy-claude/tests -v
+      - name: Run repository release gate
+        run: python scripts/release_validate.py

@@ -97,7 +97,7 @@
     },
     {
       "path": "devbuddy-claude/references/settings.md",
-      "sha256": "1df79d8649d13304290b14515cfadf4a56678fedd9e278309878a891731f730f"
+      "sha256": "79ab24926769d5e310bd0a4f454a54b256e1dd41d6c72763eb7682c63625b0be"
     },
     {
       "path": "devbuddy-claude/scripts/init_project_memory.py",
@@ -225,7 +225,7 @@
     },
     {
       "path": "devbuddy-codex/references/settings.md",
-      "sha256": "498a6a26d4ff585cf6f83526cf681753f0b9231f55769eb919dd9f4ae0ca25e9"
+      "sha256": "1d121c3e58c3eb380db16e1a5ae8bcc95a2d39ace574c14461028e5dd9960c67"
     },
     {
       "path": "devbuddy-codex/scripts/init_project_memory.py",
@@ -233,7 +233,7 @@
     },
     {
       "path": "devbuddy-codex/scripts/install_codex_adapter.py",
-      "sha256": "6c23752cc58a40c38ea5cb34d4e5ccceabc985b408a2d938eede0050e1de6f05"
+      "sha256": "fe3aec4ac27d1d29c365135cfdad46923df50bf8464f52247b55a5b28b6ace05"
     },
     {
       "path": "devbuddy-codex/scripts/validate_project_settings.py",
@@ -261,7 +261,7 @@
     },
     {
       "path": "devbuddy-codex/tests/test_project_memory.py",
-      "sha256": "b84b62c096028579058d9a456a4039926782661692d633157ac200e0f97b15e0"
+      "sha256": "3aa4357dbc26531793e99220bc5925fc32f72452f8d0105a415d29ae559d8788"
     },
     {
       "path": "devbuddy-source-of-truth/manual/en/claude.html",
@@ -353,7 +353,7 @@
     },
     {
       "path": "devbuddy-source-of-truth/scripts/check_manual_conformance.py",
-      "sha256": "924723307a483a0c844db3015c9a3ad374dfc7fa5b44d71faf19311c8d74bdcb"
+      "sha256": "1d209cd0977b473c0d6809faf4531a52081c3898c7191ad5239cbc515cf48ec9"
     },
     {
       "path": "devbuddy-source-of-truth/scripts/init_project_memory.py",
@@ -365,7 +365,7 @@
     },
     {
       "path": "devbuddy-source-of-truth/scripts/sync_manual.py",
-      "sha256": "8c80950e1a8f434fa622f75ebdc1b43e314dfbd9e85045327c81a767837cb4e0"
+      "sha256": "0bdfc9da5866cba04932aaa2d3ec50ba4070539360937d8372465c3c51817908"
     },
     {
       "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
@@ -385,27 +385,27 @@
     },
     {
       "path": "devbuddy-claude/manual/en/git-install.html",
-      "sha256": "d348f333232a3f263f571aacc3d69eb7e8da305e6455f6ffc0859875f0c0f9b8"
+      "sha256": "e551992daef7289fc3d0be7ae23df91ce82e861082de491a3236923d4dd09771"
     },
     {
       "path": "devbuddy-claude/manual/th/git-install.html",
-      "sha256": "60b3083c4071d919e964f1eadfd3736ccd89f4ef4cb285b3cdc63db90bf170c4"
+      "sha256": "3dee70160435c4ba23896d53a90f2e97279758fae59209eef4b189778052012c"
     },
     {
       "path": "devbuddy-codex/manual/en/git-install.html",
-      "sha256": "d348f333232a3f263f571aacc3d69eb7e8da305e6455f6ffc0859875f0c0f9b8"
+      "sha256": "e551992daef7289fc3d0be7ae23df91ce82e861082de491a3236923d4dd09771"
     },
     {
       "path": "devbuddy-codex/manual/th/git-install.html",
-      "sha256": "60b3083c4071d919e964f1eadfd3736ccd89f4ef4cb285b3cdc63db90bf170c4"
+      "sha256": "3dee70160435c4ba23896d53a90f2e97279758fae59209eef4b189778052012c"
     },
     {
       "path": "devbuddy-source-of-truth/manual/en/git-install.html",
-      "sha256": "d348f333232a3f263f571aacc3d69eb7e8da305e6455f6ffc0859875f0c0f9b8"
+      "sha256": "e551992daef7289fc3d0be7ae23df91ce82e861082de491a3236923d4dd09771"
     },
     {
       "path": "devbuddy-source-of-truth/manual/th/git-install.html",
-      "sha256": "60b3083c4071d919e964f1eadfd3736ccd89f4ef4cb285b3cdc63db90bf170c4"
+      "sha256": "3dee70160435c4ba23896d53a90f2e97279758fae59209eef4b189778052012c"
     },
     {
       "path": "devbuddy-claude/SKILL.md",
@@ -441,11 +441,47 @@
     },
     {
       "path": "devbuddy-codex/scripts/install_codex_adapter.py",
-      "sha256": "cce81541559207910c945cd2eac999e7f3d40c27c295f370e3934c3782539385"
+      "sha256": "fe3aec4ac27d1d29c365135cfdad46923df50bf8464f52247b55a5b28b6ace05"
     },
     {
       "path": "devbuddy-codex/templates/knowledge-entity.md",
       "sha256": "2aef863cefa43eeb8b782b9b9ce81acfac5eae5a91917946e90ed0c887055af4"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/database-profiles.html",
+      "sha256": "295269c2fb873a9956baff271590c346e8a2c250c1b9112c145092e7a0961ab2"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/database-profiles.html",
+      "sha256": "16526cb8d3ebdef413f17a08a76fc0e3417603ec786fdb83f9e8183d402e28f2"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/database-profiles.html",
+      "sha256": "295269c2fb873a9956baff271590c346e8a2c250c1b9112c145092e7a0961ab2"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/database-profiles.html",
+      "sha256": "16526cb8d3ebdef413f17a08a76fc0e3417603ec786fdb83f9e8183d402e28f2"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/database-profiles.html",
+      "sha256": "295269c2fb873a9956baff271590c346e8a2c250c1b9112c145092e7a0961ab2"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/database-profiles.html",
+      "sha256": "16526cb8d3ebdef413f17a08a76fc0e3417603ec786fdb83f9e8183d402e28f2"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/assets/manual.js",
+      "sha256": "68bd926547d430594c70bce216303e3b27b8db349cec6bf728b1c78109a048cc"
+    },
+    {
+      "path": "devbuddy-codex/manual/assets/manual.js",
+      "sha256": "68bd926547d430594c70bce216303e3b27b8db349cec6bf728b1c78109a048cc"
+    },
+    {
+      "path": "devbuddy-claude/manual/assets/manual.js",
+      "sha256": "68bd926547d430594c70bce216303e3b27b8db349cec6bf728b1c78109a048cc"
     }
   ]
 }

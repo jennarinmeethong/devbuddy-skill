@@ -58,13 +58,14 @@ A workspace that owns custom tools declares them, so the Orchestrator knows whic
 tools:
   is_rtk: false
   approved_custom_tool_runtimes: [python, dotnet]
-custom_tools:
-  - name: readonly_database_query
-    runtime: dotnet
-    manifest: tools/db-query-tool/tool.json
-    secret_file: tools/db-query-tool/appsettings.json
+databases:
+  - id: billing
+    engine: postgresql
+    adapter_package: devbuddy-database-postgresql
+    manifest: tools/databases/billing/tool.json
+    secret_file: tools/databases/billing/appsettings.json
 ```
 
-Both keys are optional; omit them when the workspace has no custom tools. When `custom_tools` is present, every entry needs a runtime from `approved_custom_tool_runtimes` and a manifest that parses as JSON and declares `name`, `description`, `command`, `inputSchema`, and `outputSchema`. A declared `secret_file` also needs a committed `*.template.*` sibling, and a manifest holding a credential-shaped value is rejected — a manifest is meant to be committed, so a leaked one has already leaked. Paths resolve from the `.devbuddy` root.
+Both keys are optional; omit them when the workspace has no custom tools or databases. Register a materialized Plugin-owned database adapter with `register_database_adapter.py`, not as a `custom_tools` entry. The legacy `readonly_database_query` and `tools/db-query-tool/` example is retired and must not be invoked. A declared `secret_file` needs a committed `*.template.*` sibling, and a manifest holding a credential-shaped value is rejected — a manifest is meant to be committed, so a leaked one has already leaked. Paths resolve from the `.devbuddy` root.
 
 Read `references/custom-tools.md` before proposing, registering, or calling one.

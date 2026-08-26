@@ -20,6 +20,7 @@ COMMON_PAGES = (
     "troubleshooting.html",
     "plugin-first.html",
     "git-install.html",
+    "database-profiles.html",
 )
 
 

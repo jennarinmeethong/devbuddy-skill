@@ -28,7 +28,8 @@ python3 devbuddy-release/scripts/retire_legacy_host_skill.py --host codex --appl
 # Claude Code legacy skill and DevBuddy agents
 python3 devbuddy-release/scripts/retire_legacy_host_skill.py --host claude-code
 python3 devbuddy-release/scripts/retire_legacy_host_skill.py --host claude-code --apply</code></pre></section>
-<section id="migrate"><h2>Migrate legacy workspace documents</h2><p>Use the reserved host command: <code class="inline">$devbuddy migrate &lt;workspace&gt;</code> in Codex or <code class="inline">/devbuddy-claude-code:devbuddy migrate &lt;workspace&gt;</code> in Claude Code. It first inventories legacy documents and presents a mapping; it preserves old documents as evidence and requires approval before creating typed replacements. Structural operations stay separate and dry-run-first:</p><pre><code>python3 devbuddy-release/scripts/migrate_legacy_database_tools.py --devbuddy-root &lt;workspace&gt;/.devbuddy
+<section id="migrate"><h2>Migrate legacy workspace documents</h2><p>Use the reserved host command: <code class="inline">$devbuddy migrate &lt;workspace&gt;</code> in Codex or <code class="inline">/devbuddy-claude-code:devbuddy migrate &lt;workspace&gt;</code> in Claude Code. It first inventories legacy documents and presents a mapping; it preserves old documents as evidence and requires approval before creating typed replacements. Use the same read-only report outside the host workflow. Structural operations stay separate and dry-run-first:</p><pre><code>python3 &lt;installed-plugin-root&gt;/scripts/migration_report.py --devbuddy-root &lt;workspace&gt;/.devbuddy
+python3 devbuddy-release/scripts/migrate_legacy_database_tools.py --devbuddy-root &lt;workspace&gt;/.devbuddy
 python3 &lt;installed-plugin-root&gt;/scripts/init_project_memory.py --devbuddy-root &lt;workspace&gt;/.devbuddy --migrate-layout --dry-run
 
 # Apply each approved operation separately

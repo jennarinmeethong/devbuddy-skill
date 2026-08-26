@@ -35,6 +35,16 @@ class PluginArchitectureTests(unittest.TestCase):
         self.assertIn("do not fall back to a workspace custom", skill)
         self.assertIn("never ships, selects, or invokes a database executable", core)
 
+    def test_packaged_hosts_exclude_the_retired_database_tool_from_guidance(self) -> None:
+        for host in ("devbuddy-codex", "devbuddy-claude-code"):
+            with self.subTest(host=host):
+                reference = (ROOT / "plugin" / host / "references" / "settings.md").read_text(encoding="utf-8")
+                self.assertIn("register_database_adapter.py", reference)
+                self.assertIn("must not be invoked", reference)
+                self.assertNotIn("manifest: tools/db-query-tool/tool.json", reference)
+                self.assertTrue((ROOT / "plugin" / host / "scripts" / "migration_report.py").is_file())
+                self.assertTrue((ROOT / "plugin" / host / "scripts" / "register_database_adapter.py").is_file())
+
     def test_profile_resolution_is_deterministic_and_non_mutating(self) -> None:
         result = run("profile_resolver.py", "profiles/data-postgresql.yaml")
         self.assertEqual(result.returncode, 0, result.stdout)
@@ -157,6 +167,32 @@ class PluginArchitectureTests(unittest.TestCase):
         self.assertEqual(second.returncode, 0, second.stdout)
         self.assertRegex(first.stdout.strip(), r"^INC-\d{8}T\d{6}Z-[0-9A-F]{32}$")
         self.assertNotEqual(first.stdout, second.stdout)
+
+    def test_profile_catalog_and_migration_report_are_read_only(self) -> None:
+        catalog = run("profile_resolver.py", "--list")
+        self.assertEqual(catalog.returncode, 0, catalog.stdout)
+        self.assertIn("data-mariadb", catalog.stdout)
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace = Path(temporary) / ".devbuddy"
+            self.assertEqual(run("workspace.py", "init", "--devbuddy-root", str(workspace), "--apply").returncode, 0)
+            (workspace / "BusinessContext.md").write_text("legacy\n", encoding="utf-8")
+            report = run("migration_report.py", "--devbuddy-root", str(workspace))
+            self.assertEqual(report.returncode, 0, report.stdout)
+            self.assertIn("BusinessContext.md", report.stdout)
+            self.assertTrue((workspace / "BusinessContext.md").is_file())
+
+    def test_database_registration_requires_materialized_adapter_and_is_dry_run_first(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace = Path(temporary) / ".devbuddy"
+            self.assertEqual(run("workspace.py", "init", "--devbuddy-root", str(workspace), "--apply").returncode, 0)
+            adapter = workspace / "tools" / "databases" / "billing"; adapter.mkdir(parents=True)
+            (adapter / "tool.json").write_text("{}\n", encoding="utf-8")
+            preview = run("register_database_adapter.py", "--devbuddy-root", str(workspace), "--database-id", "billing", "--engine", "postgresql")
+            self.assertEqual(preview.returncode, 0, preview.stdout)
+            self.assertIn("DRY RUN", preview.stdout)
+            applied = run("register_database_adapter.py", "--devbuddy-root", str(workspace), "--database-id", "billing", "--engine", "postgresql", "--apply")
+            self.assertEqual(applied.returncode, 0, applied.stdout)
+            self.assertIn("adapter_package: devbuddy-database-postgresql", (workspace / "settings.yaml").read_text(encoding="utf-8"))
 
     def test_legacy_host_skill_retirement_is_dry_run_first_and_reversible(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

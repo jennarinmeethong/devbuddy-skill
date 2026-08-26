@@ -544,7 +544,7 @@ orchestration:
 class InstallerTests(unittest.TestCase):
     def install(self, temporary: str) -> Path:
         configured = Path(temporary) / "codex"
-        result = run(INSTALLER, "--codex-root", configured, "--apply")
+        result = run(INSTALLER, "--codex-root", configured, "--legacy-install", "--apply")
         self.assertEqual(result.returncode, 0, result.stdout)
         return configured / "skills" / "devbuddy"
 
@@ -583,13 +583,14 @@ class InstallerTests(unittest.TestCase):
             target = configured / "skills" / "devbuddy"
             target.mkdir(parents=True)
             (target / "SKILL.md").write_text("---\nname: devbuddy\n---\nold DevBuddy skill\n", encoding="utf-8")
-            (target / "roles").mkdir()
-            (target / "roles" / "ba-pm.md").write_text("old custom content", encoding="utf-8")
-            blocked = run(INSTALLER, "--codex-root", configured, "--apply")
+            template = target / "templates" / "project-tools" / "task_memory.py.template"
+            template.parent.mkdir(parents=True)
+            template.write_text("old custom content", encoding="utf-8")
+            blocked = run(INSTALLER, "--codex-root", configured, "--legacy-install", "--apply")
             self.assertNotEqual(blocked.returncode, 0)
-            replaced = run(INSTALLER, "--codex-root", configured, "--apply", "--replace-recognized-skill")
+            replaced = run(INSTALLER, "--codex-root", configured, "--legacy-install", "--apply", "--replace-recognized-skill")
             self.assertEqual(replaced.returncode, 0, replaced.stderr or replaced.stdout)
-            self.assertIn("BA/PM", (target / "roles" / "ba-pm.md").read_text(encoding="utf-8"))
+            self.assertIn("Create, coordinate, and validate compact DevBuddy task memory", template.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

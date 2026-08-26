@@ -111,6 +111,25 @@ profile. Materialize the selected Plugin adapter afterwards, configure its
 local secret file yourself, and keep any standalone DevBuddy skill disabled or
 uninstalled so its old instructions cannot win dispatch.
 
+### Inspect, migrate, and register workspace capabilities
+
+List profiles before selecting one, and use the read-only migration report to
+review legacy host files, documents, and database tooling together:
+
+```text
+python3 scripts/profile_resolver.py --list
+python3 scripts/migration_report.py --devbuddy-root <workspace>/.devbuddy
+```
+
+After materializing an adapter, preview its registry entry before applying it.
+The command never creates or reads `appsettings.json`; create that local,
+git-ignored file yourself before validating the workspace:
+
+```text
+python3 scripts/register_database_adapter.py --devbuddy-root <workspace>/.devbuddy --database-id billing --engine postgresql
+python3 scripts/register_database_adapter.py --devbuddy-root <workspace>/.devbuddy --database-id billing --engine postgresql --apply
+```
+
 For a later Codex release, refresh the marketplace snapshot before installing again:
 
 ```text
@@ -137,9 +156,10 @@ The additive plugin implementation lives in `plugin/`, portable skills in `skill
 
 The Claude marketplace catalog is `.claude-plugin/marketplace.json`. Host-package metadata, the compatibility matrix, runtime ownership, and the 1.x standalone-installer retirement schedule are recorded in [docs/plugin-first-architecture.md](docs/plugin-first-architecture.md). Package artifacts never contain secrets, project state, task ledgers, or canonical knowledge.
 
-For the complete marketplace lifecycle, see the bilingual [English Plugin-first manual](devbuddy-source-of-truth/manual/en/plugin-first.html) or [คู่มือ Plugin-first ภาษาไทย](devbuddy-source-of-truth/manual/th/plugin-first.html).
+For the complete marketplace lifecycle, see the bilingual [English Plugin-first manual](devbuddy-source-of-truth/manual/en/plugin-first.html), [Database profiles](devbuddy-source-of-truth/manual/en/database-profiles.html), or [คู่มือภาษาไทย](devbuddy-source-of-truth/manual/th/database-profiles.html).
 
 Read [Plugin-first release notes](docs/release-notes-plugin-first.md) for upgrade and rollback guidance. The generated `reports/plugin-runtime-inventory.json` is the reviewable owner, permission-tier, provenance, and hash inventory for every packaged asset.
+Use the [release checklist](docs/release-checklist.md) to collect the required validation and post-tag installation evidence.
 
 Run the safety checks with the bundled Python runtime (or any Python 3.11+):
 

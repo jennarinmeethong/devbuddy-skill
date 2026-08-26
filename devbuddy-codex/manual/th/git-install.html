@@ -28,7 +28,8 @@ python3 devbuddy-release/scripts/retire_legacy_host_skill.py --host codex --appl
 # Claude Code legacy skill และ DevBuddy agents
 python3 devbuddy-release/scripts/retire_legacy_host_skill.py --host claude-code
 python3 devbuddy-release/scripts/retire_legacy_host_skill.py --host claude-code --apply</code></pre></section>
-<section id="migrate"><h2>ย้ายเอกสารจาก workspace เก่า</h2><p>ใช้คำสั่งที่สงวนไว้: Codex คือ <code class="inline">$devbuddy migrate &lt;workspace&gt;</code> และ Claude Code คือ <code class="inline">/devbuddy-claude-code:devbuddy migrate &lt;workspace&gt;</code> คำสั่งจะ inventory เอกสารเก่าก่อนและเสนอ mapping โดยเก็บเอกสารเดิมไว้เป็น evidence และต้องขอ approval ก่อนสร้าง typed document ใหม่ การย้ายโครงสร้างเป็นคนละขั้นและเริ่มจาก dry-run:</p><pre><code>python3 devbuddy-release/scripts/migrate_legacy_database_tools.py --devbuddy-root &lt;workspace&gt;/.devbuddy
+<section id="migrate"><h2>ย้ายเอกสารจาก workspace เก่า</h2><p>ใช้คำสั่งที่สงวนไว้: Codex คือ <code class="inline">$devbuddy migrate &lt;workspace&gt;</code> และ Claude Code คือ <code class="inline">/devbuddy-claude-code:devbuddy migrate &lt;workspace&gt;</code> คำสั่งจะ inventory เอกสารเก่าก่อนและเสนอ mapping โดยเก็บเอกสารเดิมไว้เป็น evidence และต้องขอ approval ก่อนสร้าง typed document ใหม่ หากไม่ได้เรียกผ่าน host ให้ใช้ report แบบ read-only เดียวกัน การย้ายโครงสร้างเป็นคนละขั้นและเริ่มจาก dry-run:</p><pre><code>python3 &lt;installed-plugin-root&gt;/scripts/migration_report.py --devbuddy-root &lt;workspace&gt;/.devbuddy
+python3 devbuddy-release/scripts/migrate_legacy_database_tools.py --devbuddy-root &lt;workspace&gt;/.devbuddy
 python3 &lt;installed-plugin-root&gt;/scripts/init_project_memory.py --devbuddy-root &lt;workspace&gt;/.devbuddy --migrate-layout --dry-run
 
 # apply แต่ละงานที่อนุมัติแล้วแยกกัน

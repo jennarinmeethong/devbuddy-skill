@@ -69,12 +69,23 @@ def resolve(requested: list[str], catalog: dict[str, dict[str, object]]) -> list
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("profile", type=Path)
+    parser.add_argument("profile", type=Path, nargs="?")
+    parser.add_argument("--list", action="store_true", help="list available profiles and their package selections")
     parser.add_argument("--platform", choices=("codex", "claude-code", "opencode"), help="host to resolve; defaults to a profile's sole declared host or codex")
     parser.add_argument("--devbuddy-root", type=Path, help="workspace .devbuddy root")
     parser.add_argument("--operation", choices=("install", "upgrade", "uninstall"), default="install")
     parser.add_argument("--apply", action="store_true", help="write package composition; otherwise dry-run")
     args = parser.parse_args()
+    if args.list:
+        if args.profile is not None:
+            print("ERROR: --list does not accept a profile path"); return 1
+        try:
+            print(json.dumps([{"profile": profile(path)[0], "packages": profile(path)[1], "hosts": profile(path)[2]} for path in sorted((ROOT / "profiles").glob("*.yaml"))], indent=2))
+            return 0
+        except (OSError, ValueError) as error:
+            print(f"ERROR: {error}"); return 1
+    if args.profile is None:
+        print("ERROR: profile path is required unless --list is used"); return 1
     try:
         name, requested, hosts = profile(args.profile)
         platform = args.platform or (hosts[0] if len(hosts) == 1 else "codex")

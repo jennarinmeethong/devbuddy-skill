@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL_CONTENT = ["legacy-SKILL.md"]
+SKILL_CONTENT = ["legacy-SKILL.md", "templates"]
 # Never installed. A bundled custom tool carries real project files, so a local
 # build or an editor's restore can leave output beside them; shipping that would
 # put stale binaries in the user's configuration. Host-owned configuration is
@@ -115,6 +115,11 @@ def main() -> int:
         print("ERROR: no Codex adapter files found")
         return 1
     recognized_skill = is_devbuddy_artefact(target / "SKILL.md")
+    source_skill = ROOT / "legacy-SKILL.md"
+    existing_skill = target / "SKILL.md"
+    if recognized_skill and existing_skill.is_file() and existing_skill.read_bytes() != source_skill.read_bytes() and not args.replace_recognized_skill:
+        print(f"ERROR: {target} is a recognized legacy DevBuddy skill; re-run with --replace-recognized-skill to replace it")
+        return 1
     conflicts = [destination for source, destination in pairs if destination.exists() and not is_devbuddy_artefact(destination, source)]
     if args.replace_recognized_skill and recognized_skill:
         conflicts = [destination for destination in conflicts if target not in destination.parents and destination != target]
@@ -139,7 +144,7 @@ def main() -> int:
     except OSError as error:
         print(f"ERROR: install failed: {error}")
         return 1
-    print(f"OK: installed {len(pairs)} migration-only file at {target}")
+    print(f"OK: installed {len(pairs)} migration-only file(s) at {target}")
     print("DEPRECATED: install the DevBuddy Plugin/profile, start a new task, then use $devbuddy migrate <workspace>.")
     return 0
 
