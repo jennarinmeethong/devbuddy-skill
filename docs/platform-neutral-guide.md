@@ -23,6 +23,15 @@ The portable role catalogue includes compatibility roles plus specialised preset
 
 Use `product-delivery`, `cloud-operations`, `data-ai`, or `support-knowledge` to expose the relevant role set to the Orchestrator. Profiles describe selection only; they do not grant tools, cost, write, production, data, or external permissions.
 
+For OpenCode, materialize the selected role presets into the project directory after installing the adapter:
+
+```text
+python3 <plugin-directory>/scripts/materialize_agents.py --preset data-ai --project-root <project>
+python3 <plugin-directory>/scripts/materialize_agents.py --preset data-ai --project-root <project> --apply
+```
+
+The first command is a dry run and the second refuses to overwrite an existing agent file.
+
 ## Host mapping
 
 | Concern | Codex | Claude Code | OpenCode |

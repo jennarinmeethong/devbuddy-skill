@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-codex",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "kind": "adapter",
   "dependencies": ["devbuddy-core"],
   "permissions": ["tier-0-read", "tier-1-workspace-write"],

@@ -18,12 +18,16 @@ RUNTIME_FILES = (
 def main() -> int:
     errors: list[str] = []
     manifest_path = PLUGIN / ".codex-plugin" / "plugin.json"
+    package_path = PLUGIN / "devbuddy.package.json"
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        package = json.loads(package_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        print(f"ERROR: invalid Codex Plugin manifest: {error}")
+        print(f"ERROR: invalid Codex Plugin metadata: {error}")
         return 1
-    if manifest.get("name") != "devbuddy-codex" or not str(manifest.get("version", "")).startswith("1.0.2+"):
+    package_version = package.get("version")
+    expected_prefix = f"{package_version}+codex." if isinstance(package_version, str) else ""
+    if manifest.get("name") != "devbuddy-codex" or not expected_prefix or not str(manifest.get("version", "")).startswith(expected_prefix):
         errors.append("manifest must declare the canonical Codex package ID and cache-busted version")
     if manifest.get("skills") != "./skills/":
         errors.append("manifest must expose the generated skills directory")

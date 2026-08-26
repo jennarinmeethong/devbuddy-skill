@@ -49,14 +49,14 @@ python scripts/profile_resolver.py --remove-profile data-ai --devbuddy-root <wor
 Codex:
 
 ```text
-codex plugin marketplace add jennarinmeethong/devbuddy-skill --ref v1.0.2 --json
+codex plugin marketplace add jennarinmeethong/devbuddy-skill --ref v1.0.3 --json
 codex plugin add devbuddy-codex@devbuddy --json
 ```
 
 Claude Code:
 
 ```text
-claude plugin marketplace add jennarinmeethong/devbuddy-skill@v1.0.2 --scope user --sparse .claude-plugin plugin/devbuddy-claude-code
+claude plugin marketplace add jennarinmeethong/devbuddy-skill@v1.0.3 --scope user --sparse .claude-plugin plugin/devbuddy-claude-code
 claude plugin install devbuddy-claude-code@devbuddy --scope user
 # in Claude Code
 /reload-plugins
@@ -66,14 +66,18 @@ claude plugin install devbuddy-claude-code@devbuddy --scope user
 OpenCode:
 
 ```text
-opencode plugin 'github:jennarinmeethong/devbuddy-skill#v1.0.2::path:plugin/devbuddy-core/opencode' --global
+opencode plugin 'github:jennarinmeethong/devbuddy-skill#v1.0.3::path:plugin/devbuddy-core/opencode' --global
 ```
 
-These examples pin the release tag. Replace `v1.0.2` with an approved release
+These examples pin the release tag. Replace `v1.0.3` with an approved release
 tag or full commit SHA; do not use a mutable branch for production. The
 OpenCode command uses the Git subdirectory package specification so it
 installs only the host adapter from this monorepo. Use `--global` for a
 user-wide installation, or omit it to install into the current project.
+
+`v1.0.3` is the next package version in this repository; publish the matching
+Git tag before using these install commands externally. During development,
+use the reviewed full commit SHA instead.
 
 ### Materialize a database adapter
 
@@ -83,7 +87,7 @@ when database execution is needed, initialize the workspace, then preview the
 selected adapter before using `--apply`:
 
 ```text
-git clone --depth 1 --branch v1.0.2 https://github.com/jennarinmeethong/devbuddy-skill.git devbuddy-release
+git clone --depth 1 --branch v1.0.3 https://github.com/jennarinmeethong/devbuddy-skill.git devbuddy-release
 python3 devbuddy-release/scripts/workspace.py init --devbuddy-root <workspace>/.devbuddy --apply
 python3 devbuddy-release/scripts/materialize_database_adapter.py --devbuddy-root <workspace>/.devbuddy --database-id billing --engine postgresql
 python3 devbuddy-release/scripts/materialize_database_adapter.py --devbuddy-root <workspace>/.devbuddy --database-id billing --engine postgresql --apply

@@ -23,6 +23,15 @@ catalog กลางมีทั้ง role เดิมเพื่อควา
 
 ใช้ `product-delivery`, `cloud-operations`, `data-ai` หรือ `support-knowledge` เพื่อให้ Orchestrator เลือกชุด role ที่เหมาะสม Profile เป็นเพียง metadata สำหรับเลือกความสามารถ ไม่ได้ให้สิทธิ์ tool, ค่าใช้จ่าย, การเขียน, production, data หรือ external action เพิ่มเอง
 
+สำหรับ OpenCode ให้ materialize preset ที่เลือกไปยัง project หลังติดตั้ง adapter:
+
+```text
+python3 <plugin-directory>/scripts/materialize_agents.py --preset data-ai --project-root <project>
+python3 <plugin-directory>/scripts/materialize_agents.py --preset data-ai --project-root <project> --apply
+```
+
+คำสั่งแรกเป็น dry run และคำสั่งที่สองจะไม่เขียนทับ agent file เดิม
+
 ## การ map ตาม host
 
 | เรื่อง | Codex | Claude Code | OpenCode |

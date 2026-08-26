@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-codex",
-  "version": "1.0.2+codex.20260826130627",
+  "version": "1.0.3+codex.20260826131913",
   "description": "Policy-driven DevBuddy software-delivery adapter for Codex.",
   "author": {
     "name": "DevBuddy"

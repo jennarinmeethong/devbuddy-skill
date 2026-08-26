@@ -10,11 +10,20 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = re.compile(r"^[a-z0-9-]+$")
 PLATFORMS = ("codex", "claude-code", "opencode")
+
+
+def known_roles() -> set[str]:
+    return {
+        path.stem
+        for path in (ROOT / "devbuddy-source-of-truth" / "roles").glob("*.md")
+        if path.stem != "orchestrator"
+    }
 
 
 def read_profile(path: Path) -> tuple[str, list[str], list[str], list[str]]:
@@ -34,7 +43,8 @@ def read_profile(path: Path) -> tuple[str, list[str], list[str], list[str]]:
     hosts, packages, roles = values["hosts"], values["packages"], values["roles"]
     if (not NAME.fullmatch(name) or not packages or len(set(packages)) != len(packages)
             or len(set(hosts)) != len(hosts) or len(set(roles)) != len(roles)
-            or any(host not in PLATFORMS for host in hosts)):
+            or any(host not in PLATFORMS for host in hosts)
+            or any(role not in known_roles() for role in roles)):
         raise ValueError(f"invalid profile: {path}")
     return name, packages, hosts, roles
 
@@ -125,6 +135,15 @@ def unique(items: list[str]) -> list[str]:
     return list(dict.fromkeys(items))
 
 
+def write_state(target: Path, result: dict[str, object]) -> None:
+    """Atomically replace the workspace composition after all validation passes."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=target.parent, delete=False) as staged:
+        staged.write(json.dumps(result, indent=2) + "\n")
+        temporary = Path(staged.name)
+    temporary.replace(target)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", nargs="?", help="profile path or built-in profile name")
@@ -193,8 +212,8 @@ def main() -> int:
     print(json.dumps(result, indent=2))
     if not args.apply:
         print("DRY RUN: no workspace changes"); return 0
-    target = args.devbuddy_root.resolve() / "packages.json"; target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    target = args.devbuddy_root.resolve() / "packages.json"
+    write_state(target, result)
     print(f"APPLIED: {target}"); return 0
 
 

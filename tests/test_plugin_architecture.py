@@ -99,6 +99,14 @@ class PluginArchitectureTests(unittest.TestCase):
             state = json.loads((root / "packages.json").read_text(encoding="utf-8"))
             self.assertEqual(state["platform"], "opencode")
 
+    def test_profile_rejects_an_unknown_agent_role(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            profile = Path(temporary) / "invalid-role.yaml"
+            profile.write_text("name: invalid-role\nroles:\n  - invented-role\npackages:\n  - devbuddy-core\n", encoding="utf-8")
+            result = run("profile_resolver.py", str(profile))
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("invalid profile", result.stdout)
+
     def test_workspace_requires_apply_and_does_not_store_secrets(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             workspace = Path(temporary) / ".devbuddy"

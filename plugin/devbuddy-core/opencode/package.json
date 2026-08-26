@@ -1,10 +1,10 @@
 {
   "name": "@devbuddy/opencode-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "OpenCode adapter for the portable DevBuddy workflow contract.",
   "type": "module",
   "exports": "./index.js",
-  "files": ["index.js", "agents", "tools", "README.md"],
+  "files": ["index.js", "agents", "tools", "scripts", "agent-presets.json", "README.md"],
   "engines": {"node": ">=20"},
   "keywords": ["opencode", "devbuddy", "workflow", "approval"],
   "license": "MIT"

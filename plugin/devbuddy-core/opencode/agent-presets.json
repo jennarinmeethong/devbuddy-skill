@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "presets": {
+    "cloud-operations": [
+      "devops-engineer",
+      "cloud-infrastructure",
+      "site-reliability",
+      "vulnerability-scanner",
+      "security-incident-response"
+    ],
+    "data-ai": [
+      "data-pipeline",
+      "data-analyst",
+      "model-evaluator",
+      "dba-data",
+      "compliance-policy"
+    ],
+    "product-delivery": [
+      "requirements-analyst",
+      "ba-pm",
+      "ux-ui",
+      "architect",
+      "frontend-engineer",
+      "backend-engineer",
+      "qa",
+      "code-reviewer"
+    ],
+    "support-knowledge": [
+      "helpdesk-support",
+      "knowledge-base",
+      "requirements-analyst"
+    ]
+  }
+}
