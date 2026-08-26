@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the generated Claude Code manual using the common checker."""
+"""Validate the canonical DevBuddy manual; adapter manual copies are retired."""
 from __future__ import annotations
 
 import argparse
@@ -10,11 +10,11 @@ ROOT = Path(__file__).resolve().parents[2] / "devbuddy-source-of-truth" / "scrip
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("manual_root", type=Path)
-    args = parser.parse_args()
+    parser.add_argument("manual_root", nargs="?", type=Path, help="deprecated; the central manual is always checked")
+    parser.parse_args()
     namespace = {"__name__": "manual_checker", "__file__": str(ROOT)}
     exec(compile(ROOT.read_text(encoding="utf-8"), str(ROOT), "exec"), namespace)
-    return int(namespace["check_root"](args.manual_root, ("claude",)))
+    return int(namespace["check_root"](ROOT.parent.parent / "manual"))
 
 
 if __name__ == "__main__":

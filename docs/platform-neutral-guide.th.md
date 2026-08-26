@@ -15,7 +15,7 @@ python3 scripts/profile_resolver.py --remove-profile data-ai --platform <host> -
 python3 scripts/profile_resolver.py --status --devbuddy-root <workspace>/.devbuddy
 ```
 
-`<host>` คือ `codex`, `claude-code` หรือ `opencode` หาก profile หรือ package ไม่รองรับ host ที่เลือก resolver จะหยุดพร้อมข้อผิดพลาด การลบ profile จะคำนวณ dependency ใหม่ จึงเก็บ shared dependency ไว้จนไม่มี profile ใดใช้งานแล้ว
+`<host>` คือ `codex`, `claude-code` หรือ `opencode` profile เชิงความสามารถทุกชุด รวมถึง `full-engineering` ใช้ได้กับทั้งสาม host ส่วน profile เริ่มต้นสามชุด (`codex`, `claude-code`, `opencode`) ตั้งใจให้ผูกกับ host เดียว เพราะใช้เลือก native adapter ของ host นั้น Resolver จะหยุดเมื่อพบ package อื่นที่ไม่รองรับ host ที่เลือก การลบ profile จะคำนวณ dependency ใหม่ จึงเก็บ shared dependency ไว้จนไม่มี profile ใดใช้งานแล้ว
 
 ## Preset บทบาท
 

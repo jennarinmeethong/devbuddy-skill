@@ -60,6 +60,17 @@ class PluginArchitectureTests(unittest.TestCase):
                     result = run("profile_resolver.py", str(profile), "--platform", platform)
                     self.assertEqual(result.returncode, 0, result.stdout)
 
+    def test_every_portable_profile_supports_every_host_platform(self) -> None:
+        """Capability profiles are portable; host-adapter bootstrap profiles are not."""
+        host_bootstrap_profiles = {"codex.yaml", "claude-code.yaml", "opencode.yaml"}
+        for profile in (ROOT / "profiles").glob("*.yaml"):
+            if profile.name in host_bootstrap_profiles:
+                continue
+            for platform in ("codex", "claude-code", "opencode"):
+                with self.subTest(profile=profile.name, platform=platform):
+                    result = run("profile_resolver.py", str(profile), "--platform", platform)
+                    self.assertEqual(result.returncode, 0, result.stdout)
+
     def test_every_profile_resolves_and_apply_reports_changes(self) -> None:
         for profile in (ROOT / "profiles").glob("*.yaml"):
             self.assertEqual(run("profile_resolver.py", str(profile)).returncode, 0, profile)

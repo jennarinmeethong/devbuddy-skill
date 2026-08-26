@@ -1,6 +1,7 @@
 name: cloud-operations
 hosts:
   - codex
+  - claude-code
   - opencode
 roles:
   - devops-engineer

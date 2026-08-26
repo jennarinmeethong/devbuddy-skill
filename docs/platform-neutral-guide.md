@@ -15,7 +15,7 @@ python3 scripts/profile_resolver.py --remove-profile data-ai --platform <host> -
 python3 scripts/profile_resolver.py --status --devbuddy-root <workspace>/.devbuddy
 ```
 
-`<host>` is `codex`, `claude-code`, or `opencode`. The resolver rejects a profile or package that is incompatible with the selected host. Removing a profile recalculates the complete graph, so a shared dependency stays installed until the last profile using it is removed.
+`<host>` is `codex`, `claude-code`, or `opencode`. Every portable capability profile, including `full-engineering`, supports all three hosts. The three bootstrap profiles (`codex`, `claude-code`, and `opencode`) intentionally remain host-specific because they select that host's native adapter. The resolver rejects any other incompatible package selection. Removing a profile recalculates the complete graph, so a shared dependency stays installed until the last profile using it is removed.
 
 ## Role presets
 

@@ -4,5 +4,5 @@
   "kind": "optional",
   "dependencies": ["devbuddy-core"],
   "permissions": ["tier-0-read"],
-  "compatibility": {"core": "1.0.1", "platforms": ["codex", "opencode"]}
+  "compatibility": {"core": "1.0.1", "platforms": ["codex", "claude-code", "opencode"]}
 }

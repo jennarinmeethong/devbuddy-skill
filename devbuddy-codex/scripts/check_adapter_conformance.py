@@ -32,7 +32,6 @@ REQUIRED = [
     "scripts/run_scenarios.py",
     "scripts/validate_manual.py",
     "scripts/install_codex_adapter.py",
-    "manual/index.html",
     "tests/scenarios.json",
     "tests/test_project_memory.py",
 ]

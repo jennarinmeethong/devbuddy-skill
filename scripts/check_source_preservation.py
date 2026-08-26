@@ -32,14 +32,33 @@ def approved_changes() -> dict[str, str]:
     }
 
 
+def retired_paths() -> tuple[str, ...]:
+    """Return explicitly retired legacy paths, including directory prefixes."""
+    if not ALLOWLIST.is_file():
+        return ()
+    try:
+        data = json.loads(ALLOWLIST.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return ()
+    values = data.get("retired_paths", [])
+    if not isinstance(values, list):
+        return ()
+    return tuple(value.rstrip("/") for value in values if isinstance(value, str) and value and not value.startswith("/") and ".." not in Path(value).parts)
+
+
 def main() -> int:
     changed = subprocess.run(["git", "diff", "--name-only", "--", *LEGACY], cwd=ROOT, capture_output=True, text=True, check=False)
     staged = subprocess.run(["git", "diff", "--cached", "--name-only", "--", *LEGACY], cwd=ROOT, capture_output=True, text=True, check=False)
     untracked = subprocess.run(["git", "ls-files", "--others", "--exclude-standard", "--", *LEGACY], cwd=ROOT, capture_output=True, text=True, check=False)
     files = sorted({*changed.stdout.splitlines(), *staged.stdout.splitlines(), *untracked.stdout.splitlines()} - {""})
     approved = approved_changes()
+    retired = retired_paths()
     unexpected = []
     for relative in files:
+        if any(relative == prefix or relative.startswith(prefix + "/") for prefix in retired):
+            if (ROOT / relative).exists():
+                unexpected.append(relative)
+            continue
         expected = approved.get(relative)
         path = ROOT / relative
         if expected is None or not path.is_file() or sha256(path) != expected:

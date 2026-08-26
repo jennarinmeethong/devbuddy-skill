@@ -102,7 +102,7 @@ Run from this directory, with the `devbuddy-source-of-truth/` sibling present:
 python3 scripts/generate_agents.py --check
 python3 scripts/validate_skill_metadata.py . --exercise-task-memory
 python3 scripts/check_adapter_conformance.py
-python3 scripts/validate_manual.py manual
+python3 ../devbuddy-source-of-truth/scripts/check_manual_conformance.py ../devbuddy-source-of-truth/manual
 python3 -m unittest discover tests -v
 ```
 
@@ -138,4 +138,4 @@ Pass the complete task after the command; the Orchestrator picks the route. The 
 | `scripts/` | Installer, generator, validators, workspace initializer, task-memory tool |
 | `templates/` | Slice record, task ledger, knowledge entity, the `project-tools/` runtime payload, and opt-in bundled custom tools |
 | `tests/` | Workspace, task-memory, settings, metadata, and installer regression tests plus static scenarios |
-| `manual/` | Bilingual Thai/English offline manual |
+| `../devbuddy-source-of-truth/manual/` | One bilingual central manual for every host |

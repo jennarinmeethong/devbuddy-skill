@@ -1,7 +1,12 @@
 {
   "schema_version": 1,
-  "change_id": "DBY-ROLE-PROFILE-001",
-  "purpose": "Authorize portable role presets, profile composition controls, and synchronized adapter payloads.",
+  "change_id": "DBY-ROLE-PROFILE-001; DBY-BEGINNER-MANUAL-002",
+  "purpose": "Authorize portable role presets, profile composition controls, synchronized adapter payloads, and bilingual beginner manual improvements.",
+  "retired_paths": [
+    "devbuddy-claude/manual",
+    "devbuddy-codex/manual",
+    "devbuddy-source-of-truth/scripts/sync_manual.py"
+  ],
   "files": [
     {
       "path": "devbuddy-claude/README.md",
@@ -962,6 +967,118 @@
     {
       "path": "devbuddy-source-of-truth/scripts/verify_installed_adapters.py",
       "sha256": "5c34b31cc661cea75c239cb59ece000b9e6f4bbdc409febd9feee100c5b9f4ef"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/getting-started.html",
+      "sha256": "d2458e1163577879fefcaebae19b6dbabafde1136727175c6bf2a7b13cf428c7"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/index.html",
+      "sha256": "a063da4be5c8958c3b5053e99373f641e67395ae22726db73d0bdc930e9b99f3"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/getting-started.html",
+      "sha256": "87c45469f19fe78c1f53ebaf5afafe1b9e8780edcc227685859d519e162801e3"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/index.html",
+      "sha256": "29f3c4b6765bae43860be959d6c520b902c1e9c2f8dda13d7cf0193de5df2dc2"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/getting-started.html",
+      "sha256": "695e8fe2590461dd6d7c9ab46111b919b643024dbda71b1bead711b7e922fff3"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/index.html",
+      "sha256": "cd31a7b3fb70e19924492d9d5dfff8e6208e29a980b8974d16332995652e9bd3"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/getting-started.html",
+      "sha256": "93944055fad08e5903cf75f102634dac36b24c9afcca28aa5689053fdd6be92e"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/index.html",
+      "sha256": "6f9c74a0b07656f2e6910422f62be30e91e24bf0ab4b3fc2c4b0ccb3e550a7a1"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/getting-started.html",
+      "sha256": "8892828482491902d5c2d9ba0828e2195fcd975fa9f62441fddec8dab45e95e1"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/index.html",
+      "sha256": "d5286cc0445ef08400ba4e0b7f692e011a5846a8d4ccb628a396960ff3b93557"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/getting-started.html",
+      "sha256": "1aa7fa7888f6b2a622fae61a8a37694b5ad9307b0378f8ffb8450ab03758bc7d"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/index.html",
+      "sha256": "2ab7971f8dafd7affb6ad3011c80944c2dcc437a53bd9960b8ea842175120e6c"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/sync_manual.py",
+      "sha256": "fec47fafd2bb36d6662f30153555b390d2b7a3a2ac887a2fb3a87ede9bb2173b"
+    },
+    {
+      "path": "devbuddy-claude/README.md",
+      "sha256": "2ca3bebf9ae45fad1f8d64a825db3fd5983ea5b994155c197cf348426285f5ab"
+    },
+    {
+      "path": "devbuddy-claude/adapter-implementation-checklist.md",
+      "sha256": "fde7e637ede5c944ef9452c447c9f5bd48a1b329a2719a0a66d49b07250c59e7"
+    },
+    {
+      "path": "devbuddy-claude/scripts/validate_manual.py",
+      "sha256": "5968eedf1b0d548589a2dbcd114e9bc2f3d8f15cb2beaefbe032164df5cc78b4"
+    },
+    {
+      "path": "devbuddy-codex/adapter-implementation-checklist.md",
+      "sha256": "00b294e338f3f8de2aab7c0042cb65ba7c015fd5d0dad690598ffbfedded0916"
+    },
+    {
+      "path": "devbuddy-codex/scripts/check_adapter_conformance.py",
+      "sha256": "381107247fa78c4c6cb3083d0fc36c5a7c064dd838017f4b008b0932d0687a8d"
+    },
+    {
+      "path": "devbuddy-codex/scripts/validate_manual.py",
+      "sha256": "e0b4d1b88b6c18056ad5ddbd1b9f09526ec08571b58cbca3a560ca1cf63fa98e"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/opencode.html",
+      "sha256": "c6ee9cf052cd32d8abf15e1e579743cffb71bc307b40bf1a1ff284b5986cb812"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/profiles.html",
+      "sha256": "4234405e2049a6c3fe3f9da540f5d0da495cf33e9292bf985081d12faff060b3"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/opencode.html",
+      "sha256": "04d13291e66280666c41d7a67a184f91b4b42b8a2aa3dba0fc4b5ea689f0ec45"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/profiles.html",
+      "sha256": "93668f942a99955037a2c24d963341e8ed1afc15d061833dae11cb8f007040dd"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/scripts.html",
+      "sha256": "1bff921bbd4ade97cd574693272bcbbd15c0b79ffe21de36453166bdb4f0634c"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/scripts.html",
+      "sha256": "efdc69ce094a32f7f174d19df1e6a4b54acfb2e9863a5534a96ebf81d6d6c869"
+    },
+    {
+      "path": "devbuddy-source-of-truth/references/scripts.md",
+      "sha256": "3a58f6987d7e5dd59da345b8243c8d83b563fe713652e3a276e238a75880b70f"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/check_manual_conformance.py",
+      "sha256": "db6ee6ebf58edfb4c576ae4a9ccb8d03a7bc92775eddf1699951bf9c31a56c4f"
+    },
+    {
+      "path": "devbuddy-source-of-truth/templates/adapter-implementation-checklist.md",
+      "sha256": "a2ec81cef476a65a5eae6b574c0aaa4c3b3fe5b5a0a031c54d7d9e03a4a86a93"
     }
   ]
 }

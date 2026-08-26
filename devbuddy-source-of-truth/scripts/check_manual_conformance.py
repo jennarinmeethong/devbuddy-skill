@@ -7,29 +7,25 @@ import re
 from pathlib import Path
 
 VERSION = "0.4.6"
-COMMON = ["index", "getting-started", "workspace", "scripts", "tasks-and-knowledge", "migration", "troubleshooting", "plugin-first", "git-install", "database-profiles"]
+COMMON = ["index", "getting-started", "profiles", "workspace", "scripts", "tasks-and-knowledge", "migration", "troubleshooting", "plugin-first", "git-install", "database-profiles"]
+PLATFORMS = ["codex", "claude", "opencode"]
 REQUIRED_SCRIPTS = ("init_project_memory.py", "bootstrap_knowledge.py", "task_memory.py", "validate_project_settings.py", "validate_knowledge.py")
 HREF = re.compile(r'href="([^"]+)"')
 ANCHOR = re.compile(r'id="([^"]+)"')
 
 
-def pages(root: Path, adapters: tuple[str, ...] = ("codex", "claude")) -> list[str]:
+def pages(root: Path) -> list[str]:
     result = ["index.html"]
     for language in ("en", "th"):
         result.extend(f"{language}/{page}.html" for page in COMMON)
-        result.extend(f"{language}/{page}.html" for page in adapters)
+        result.extend(f"{language}/{page}.html" for page in PLATFORMS)
     return result
 
 
-def check_root(root: Path, adapters: tuple[str, ...] = ("codex", "claude")) -> int:
-    """Validate one manual root.
-
-    Adapters call this directly with their own single-adapter tuple, so the
-    arguments must be honoured as passed; re-reading sys.argv here would ignore
-    the caller and silently validate the wrong root.
-    """
+def check_root(root: Path) -> int:
+    """Validate the one canonical manual root shared by every host."""
     errors: list[str] = []
-    expected = pages(root, adapters)
+    expected = pages(root)
     texts: dict[str, str] = {}
     for relative in expected:
         path = root / relative
@@ -61,10 +57,10 @@ def check_root(root: Path, adapters: tuple[str, ...] = ("codex", "claude")) -> i
                     errors.append(f"{relative}: missing runtime script inventory entry {script}")
         if re.search(r"scripts/(?:bootstrap_knowledge|task_memory|validate_knowledge|validate_project_settings)\.py", text):
             errors.append(f"{relative}: runtime command still points at global scripts/")
-        if "--project-root" in text:
-            errors.append(f"{relative}: legacy --project-root command remains")
+        if re.search(r"init_project_memory\.py.{0,400}?--project-root", text, flags=re.DOTALL):
+            errors.append(f"{relative}: legacy init_project_memory --project-root command remains")
 
-    for page in COMMON + list(adapters):
+    for page in COMMON + PLATFORMS:
         en = texts.get(f"en/{page}.html", "")
         th = texts.get(f"th/{page}.html", "")
         en_ids = set(ANCHOR.findall(en))

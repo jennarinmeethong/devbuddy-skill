@@ -25,8 +25,7 @@ CHECKS = [
     ("asset_ownership", [PYTHON, "scripts/inventory_plugin_assets.py"]),
     ("semantic_conformance", [PYTHON, "devbuddy-source-of-truth/scripts/check_semantic_conformance.py"]),
     ("skill_contract", [PYTHON, "devbuddy-source-of-truth/scripts/validate_skill_contract.py"]),
-    ("claude_manual", [PYTHON, "devbuddy-claude/scripts/validate_manual.py", "devbuddy-claude/manual"]),
-    ("codex_manual", [PYTHON, "devbuddy-codex/scripts/validate_manual.py", "devbuddy-codex/manual"]),
+    ("central_manual", [PYTHON, "devbuddy-source-of-truth/scripts/check_manual_conformance.py", "devbuddy-source-of-truth/manual"]),
     ("database_build", ["dotnet", "build", "plugin/devbuddy-database-core/src/DevBuddy.Database.Policy/DevBuddy.Database.Policy.csproj", "--nologo"]),
 ]
 

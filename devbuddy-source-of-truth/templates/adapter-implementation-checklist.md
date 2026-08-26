@@ -40,5 +40,5 @@ Common specification version: `0.4.6`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: carry the custom-tool contract and its explicit workspace registry into the adapter.
 - [ ] `DBY-TOOLS-003` | `skills/devbuddy-database`, `references/custom-tools.md` | Database execution is Plugin-owned; skills provide policy gates only and block without the selected package, manifest, database ID, read-only principal, and target-specific approval | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
   - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: carry the contract into the adapter and validate the workspace registry.
-- [ ] `DBY-MANUAL-001` | `manual/` | Thai/English HTML manual and platform installation pages | Status: `not_started` | Location: `<adapter path>` | Evidence: `<evidence>`
-  - Remark: Reason/blocker: Adapter not implemented; Owner: adapter maintainer; Next action: publish adapter-specific manual guidance.
+- [ ] `DBY-MANUAL-001` | `devbuddy-source-of-truth/manual/` | One central Thai/English HTML manual with Codex, Claude Code, and OpenCode installation pages | Status: `not_started` | Location: `devbuddy-source-of-truth/manual/` | Evidence: `check_manual_conformance.py`
+  - Remark: Reason/blocker: Central manual not implemented; Owner: documentation maintainer; Next action: publish and validate shared platform guidance.
