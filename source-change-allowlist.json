@@ -353,7 +353,7 @@
     },
     {
       "path": "devbuddy-source-of-truth/scripts/check_manual_conformance.py",
-      "sha256": "7ceb2b8222e2dcbe18a8e6872779b12f67df8253184ee42cfff797c9f4d8f254"
+      "sha256": "924723307a483a0c844db3015c9a3ad374dfc7fa5b44d71faf19311c8d74bdcb"
     },
     {
       "path": "devbuddy-source-of-truth/scripts/init_project_memory.py",
@@ -365,7 +365,7 @@
     },
     {
       "path": "devbuddy-source-of-truth/scripts/sync_manual.py",
-      "sha256": "8d62b611b241dbc5aa2b7ec8ac7726eb1c02b205778f8eee475a7ea5400e17da"
+      "sha256": "8c80950e1a8f434fa622f75ebdc1b43e314dfbd9e85045327c81a767837cb4e0"
     },
     {
       "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
@@ -382,6 +382,30 @@
     {
       "path": "devbuddy-source-of-truth/tests/test_project_memory.py",
       "sha256": "f3b19dc21c015a937838f5dd61e1c45915ff3be5fb34e93e78349cd6c0be438f"
+    },
+    {
+      "path": "devbuddy-claude/manual/en/git-install.html",
+      "sha256": "66aadcba32cc3d17c8dba5582b7b6bcc13129846b67d30fcaa768b4cb3677327"
+    },
+    {
+      "path": "devbuddy-claude/manual/th/git-install.html",
+      "sha256": "c6a9702d3bc557a9c47c60bd47afb122f0ab14d5b903c20237bd746c0c3340f5"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/git-install.html",
+      "sha256": "66aadcba32cc3d17c8dba5582b7b6bcc13129846b67d30fcaa768b4cb3677327"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/git-install.html",
+      "sha256": "c6a9702d3bc557a9c47c60bd47afb122f0ab14d5b903c20237bd746c0c3340f5"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/en/git-install.html",
+      "sha256": "66aadcba32cc3d17c8dba5582b7b6bcc13129846b67d30fcaa768b4cb3677327"
+    },
+    {
+      "path": "devbuddy-source-of-truth/manual/th/git-install.html",
+      "sha256": "c6a9702d3bc557a9c47c60bd47afb122f0ab14d5b903c20237bd746c0c3340f5"
     }
   ]
 }

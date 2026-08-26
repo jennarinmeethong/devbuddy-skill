@@ -113,6 +113,18 @@ class PluginArchitectureTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertIn("DRY RUN", result.stdout)
 
+    def test_database_materializer_is_explicit_and_dry_run_safe(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace = Path(temporary) / ".devbuddy"
+            self.assertEqual(run("workspace.py", "init", "--devbuddy-root", str(workspace), "--apply").returncode, 0)
+            result = run(
+                "materialize_database_adapter.py", "--devbuddy-root", str(workspace),
+                "--database-id", "billing", "--engine", "postgresql", "--runtime", "linux-x64",
+            )
+            self.assertEqual(result.returncode, 0, result.stdout)
+            self.assertIn("DRY RUN", result.stdout)
+            self.assertFalse((workspace / "tools" / "databases" / "billing").exists())
+
     def test_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             workspace = Path(temporary) / ".devbuddy"; workspace.mkdir()

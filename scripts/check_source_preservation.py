@@ -35,7 +35,8 @@ def approved_changes() -> dict[str, str]:
 def main() -> int:
     changed = subprocess.run(["git", "diff", "--name-only", "--", *LEGACY], cwd=ROOT, capture_output=True, text=True, check=False)
     staged = subprocess.run(["git", "diff", "--cached", "--name-only", "--", *LEGACY], cwd=ROOT, capture_output=True, text=True, check=False)
-    files = sorted({*changed.stdout.splitlines(), *staged.stdout.splitlines()} - {""})
+    untracked = subprocess.run(["git", "ls-files", "--others", "--exclude-standard", "--", *LEGACY], cwd=ROOT, capture_output=True, text=True, check=False)
+    files = sorted({*changed.stdout.splitlines(), *staged.stdout.splitlines(), *untracked.stdout.splitlines()} - {""})
     approved = approved_changes()
     unexpected = []
     for relative in files:

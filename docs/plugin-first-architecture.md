@@ -21,11 +21,17 @@ After install or update, `/reload-plugins` makes the payload available. Claude C
 |---|---|---|---|---|
 | Codex | `codex` | `$devbuddy` | Generated Codex adapter; explicit model and reasoning-effort transport | `codex plugin list`; start a new thread after install or update |
 | Claude Code | `claude-code` | `/devbuddy-claude-code:devbuddy` | Agent tool; explicit approved model; generated role/effort agents | `claude plugin list --json`, `/reload-plugins`, `claude plugin update/uninstall` |
-| OpenCode | `opencode` | OpenCode adapter entry point | Existing OpenCode Plugin transport | Existing OpenCode Plugin workflow |
+| OpenCode | `opencode` | OpenCode adapter entry point | Existing OpenCode Plugin transport | Install the versioned Git subdirectory package or use the native Plugin workflow |
 
 Every adapter uses `devbuddy-core` as its policy dependency. The Codex and Claude package source maps generate host commands and adapter assets from the recognized source directories; each package manifest records its transport contract. `disable-model-invocation: true` preserves Claude's explicit gate; Codex keeps the `$devbuddy` explicit entrypoint. Missing agents, models, effort, `rtk_required`, or approvals still fail closed.
 
 Profiles select exactly one host when they declare `hosts`; the resolver rejects a different `--platform`. Existing profiles without `hosts` remain compatible and are filtered by each package's compatibility declaration.
+
+Git installation is release-pinned on every host. Codex uses its marketplace
+Git source, Claude Code uses its Git marketplace source, and OpenCode uses the
+Git package `::path:` selector for `plugin/devbuddy-core/opencode`. Production
+instructions must name an immutable release tag or full commit SHA rather than
+a mutable branch.
 
 The optional `devbuddy-database-core` package and every
 `devbuddy-database-<engine>` adapter support all three platform IDs: `codex`,
@@ -41,7 +47,7 @@ principal, and target-specific Tier 2 approval.
 | `skills/devbuddy-database/` | Portable policy | `devbuddy-database-core` | Bundled package source only |
 | `plugin/devbuddy-claude-code/skills`, `agents`, policy references, schemas, and delivery scripts | Host adapter payload | `devbuddy-claude-code` | Claude Plugin cache via marketplace |
 | `plugin/devbuddy-core/opencode/` | Host adapter payload | `devbuddy-core` | OpenCode Plugin location |
-| `plugin/devbuddy-database-*/tool.json` and database runtime | Optional Tier 2 runtime | Database core and selected engine adapter | `.devbuddy/tools/` only after manifest/approval validation |
+| `plugin/devbuddy-database-*/tool.json` and database runtime | Optional Tier 2 runtime | Database core and selected engine adapter | Materialized in `.devbuddy/tools/databases/<database-id>/` only after explicit `--apply` |
 | `scripts/generate_packages.py`, validators, build/release scripts | Source-maintenance utility | Repository only | Never installed as delivery runtime |
 | `devbuddy-claude/scripts/install_claude_adapter.py` and Codex equivalent | Deprecated compatibility shim | Legacy adapter | Existing host configuration, explicit legacy opt-in only |
 | `.devbuddy/` | Workspace state | User workspace | Never package artifact |

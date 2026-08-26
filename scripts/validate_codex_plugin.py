@@ -23,7 +23,7 @@ def main() -> int:
     except (OSError, json.JSONDecodeError) as error:
         print(f"ERROR: invalid Codex Plugin manifest: {error}")
         return 1
-    if manifest.get("name") != "devbuddy-codex" or not str(manifest.get("version", "")).startswith("1.0.1+"):
+    if manifest.get("name") != "devbuddy-codex" or not str(manifest.get("version", "")).startswith("1.0.2+"):
         errors.append("manifest must declare the canonical Codex package ID and cache-busted version")
     if manifest.get("skills") != "./skills/":
         errors.append("manifest must expose the generated skills directory")

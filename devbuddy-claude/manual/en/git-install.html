@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" data-manual-version="0.4.6">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Git installation · DevBuddy</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#main">Skip to main content</a>
+<header class="site-header"><a class="brand" href="index.html">DevBuddy <span>· Manual</span></a><nav class="header-nav"><a href="plugin-first.html">Plugin-first</a><a href="git-install.html" aria-current="page">Git install</a></nav><div class="header-actions"><a href="../th/git-install.html">ไทย</a></div></header>
+<div class="layout"><aside class="sidebar"><h2>Documentation</h2><nav class="nav-group"><div class="nav-group-title">Distribution</div><a href="plugin-first.html">Plugin-first</a><a href="git-install.html" aria-current="page">Git install</a></nav></aside>
+<main class="article" id="main"><div class="breadcrumbs"><a href="index.html">DevBuddy</a><span>›</span><span>Git install</span></div><header class="article-header"><p class="eyebrow">Immutable release · host-native install</p><h1>Install from Git</h1><p class="lede">Use an approved release tag or full commit SHA. Do not use a mutable branch in production.</p></header>
+<section id="hosts"><h2>Install the host adapter</h2><pre><code># Codex
+codex plugin marketplace add jennarinmeethong/devbuddy-skill --ref v1.0.2 --json
+codex plugin add devbuddy-codex@devbuddy --json
+
+# Claude Code
+claude plugin marketplace add jennarinmeethong/devbuddy-skill@v1.0.2 --scope user --sparse .claude-plugin plugin/devbuddy-claude-code
+claude plugin install devbuddy-claude-code@devbuddy --scope user
+
+# OpenCode
+opencode plugin 'github:jennarinmeethong/devbuddy-skill#v1.0.2::path:plugin/devbuddy-core/opencode' --global</code></pre><p>Replace <code class="inline">v1.0.2</code> with the approved release tag or full commit SHA. Reload Claude Code after installation and start a fresh Codex task after an install or update.</p></section>
+<section id="database"><h2>Materialize a database adapter</h2><p>Database execution is optional and Tier 2. Clone the same approved release, initialize the workspace, preview the operation, then explicitly apply it.</p><pre><code>git clone --depth 1 --branch v1.0.2 https://github.com/jennarinmeethong/devbuddy-skill.git devbuddy-release
+python3 devbuddy-release/scripts/workspace.py init --devbuddy-root &lt;workspace&gt;/.devbuddy --apply
+python3 devbuddy-release/scripts/materialize_database_adapter.py --devbuddy-root &lt;workspace&gt;/.devbuddy --database-id billing --engine postgresql
+python3 devbuddy-release/scripts/materialize_database_adapter.py --devbuddy-root &lt;workspace&gt;/.devbuddy --database-id billing --engine postgresql --apply</code></pre><p>The materializer publishes a self-contained executable and writes only a read-only manifest and non-secret template below <code class="inline">.devbuddy/tools/databases/billing/</code>. It refuses to overwrite an existing adapter. Copy the template to the local, git-ignored <code class="inline">appsettings.json</code> yourself and provide a least-privilege read-only principal.</p></section>
+<section id="verify"><h2>Verify</h2><p>Resolve the desired data profile for the host, verify the workspace, and retain the host's normal approval prompts for every target-specific Tier 2 database request.</p></section>
+<nav class="next-prev"><a href="plugin-first.html"><small>Previous</small>Plugin-first</a></nav></main><aside class="toc"><h2>In this article</h2><a href="#hosts">Host adapters</a><a href="#database">Database adapter</a><a href="#verify">Verify</a></aside></div><script src="../assets/manual.js" defer></script></body></html>

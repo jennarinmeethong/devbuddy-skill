@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="th" data-manual-version="0.4.6">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ติดตั้งจาก Git · DevBuddy</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#main">ข้ามไปเนื้อหาหลัก</a>
+<header class="site-header"><a class="brand" href="index.html">DevBuddy <span>· Manual</span></a><nav class="header-nav"><a href="plugin-first.html">Plugin-first</a><a href="git-install.html" aria-current="page">ติดตั้งจาก Git</a></nav><div class="header-actions"><a href="../en/git-install.html">English</a></div></header>
+<div class="layout"><aside class="sidebar"><h2>เอกสาร</h2><nav class="nav-group"><div class="nav-group-title">การแจกจ่าย</div><a href="plugin-first.html">Plugin-first</a><a href="git-install.html" aria-current="page">ติดตั้งจาก Git</a></nav></aside>
+<main class="article" id="main"><div class="breadcrumbs"><a href="index.html">DevBuddy</a><span>›</span><span>ติดตั้งจาก Git</span></div><header class="article-header"><p class="eyebrow">Immutable release · host-native install</p><h1>ติดตั้งจาก Git</h1><p class="lede">ใช้ release tag หรือ commit SHA ที่อนุมัติแล้ว ห้ามใช้ branch ที่เปลี่ยนค่าได้ใน production</p></header>
+<section id="hosts"><h2>ติดตั้ง host adapter</h2><pre><code># Codex
+codex plugin marketplace add jennarinmeethong/devbuddy-skill --ref v1.0.2 --json
+codex plugin add devbuddy-codex@devbuddy --json
+
+# Claude Code
+claude plugin marketplace add jennarinmeethong/devbuddy-skill@v1.0.2 --scope user --sparse .claude-plugin plugin/devbuddy-claude-code
+claude plugin install devbuddy-claude-code@devbuddy --scope user
+
+# OpenCode
+opencode plugin 'github:jennarinmeethong/devbuddy-skill#v1.0.2::path:plugin/devbuddy-core/opencode' --global</code></pre><p>แทน <code class="inline">v1.0.2</code> ด้วย release tag หรือ commit SHA ที่อนุมัติแล้ว หลังติดตั้งให้ reload Claude Code และเปิด Codex task ใหม่หลัง install หรือ update</p></section>
+<section id="database"><h2>Materialize database adapter</h2><p>การใช้งาน database เป็นความสามารถเสริมระดับ Tier 2 ให้ clone release เดียวกัน, initialize workspace, ดูแผนก่อน แล้วจึงสั่ง apply อย่างชัดเจน</p><pre><code>git clone --depth 1 --branch v1.0.2 https://github.com/jennarinmeethong/devbuddy-skill.git devbuddy-release
+python3 devbuddy-release/scripts/workspace.py init --devbuddy-root &lt;workspace&gt;/.devbuddy --apply
+python3 devbuddy-release/scripts/materialize_database_adapter.py --devbuddy-root &lt;workspace&gt;/.devbuddy --database-id billing --engine postgresql
+python3 devbuddy-release/scripts/materialize_database_adapter.py --devbuddy-root &lt;workspace&gt;/.devbuddy --database-id billing --engine postgresql --apply</code></pre><p>Materializer จะ publish executable แบบ self-contained และเขียนเฉพาะ manifest แบบ read-only กับ template ที่ไม่มี secret ไว้ใต้ <code class="inline">.devbuddy/tools/databases/billing/</code> โดยจะไม่ overwrite adapter เดิม ให้คัดลอก template เป็น <code class="inline">appsettings.json</code> ที่ git-ignore ในเครื่องเอง และใช้ principal ที่มีสิทธิ์ read-only เท่าที่จำเป็น</p></section>
+<section id="verify"><h2>ตรวจสอบ</h2><p>Resolve data profile สำหรับ host ที่ใช้, validate workspace และคง approval prompt ปกติของ host ไว้สำหรับ database request ระดับ Tier 2 ที่อ้าง target เฉพาะ</p></section>
+<nav class="next-prev"><a href="plugin-first.html"><small>ก่อนหน้า</small>Plugin-first</a></nav></main><aside class="toc"><h2>ในหน้านี้</h2><a href="#hosts">Host adapters</a><a href="#database">Database adapter</a><a href="#verify">ตรวจสอบ</a></aside></div><script src="../assets/manual.js" defer></script></body></html>

@@ -114,6 +114,30 @@ def main() -> int:
             errors.append(f"{manifest}: invalid JSON: {error.msg}")
         if "disable-model-invocation: true" not in skill.read_text(encoding="utf-8"):
             errors.append(f"{skill}: explicit invocation gate missing")
+    try:
+        claude_package = json.loads((claude / "devbuddy.package.json").read_text(encoding="utf-8"))
+        claude_manifest = json.loads((claude / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
+        marketplace = json.loads((ROOT / ".claude-plugin" / "marketplace.json").read_text(encoding="utf-8"))
+        entry = next(item for item in marketplace["plugins"] if item.get("name") == "devbuddy-claude-code")
+        versions = {str(claude_package.get("version")), str(claude_manifest.get("version")), str(entry.get("version"))}
+        if len(versions) != 1:
+            errors.append("Claude Code package, plugin, and marketplace versions must match")
+    except (OSError, StopIteration, KeyError, TypeError, json.JSONDecodeError):
+        errors.append("invalid Claude Code release metadata")
+    try:
+        codex_package = json.loads((codex / "devbuddy.package.json").read_text(encoding="utf-8"))
+        codex_manifest = json.loads(codex_manifest.read_text(encoding="utf-8"))
+        if not str(codex_manifest.get("version", "")).split("+", 1)[0] == codex_package.get("version"):
+            errors.append("Codex package version must match the cache-buster base version")
+    except (OSError, json.JSONDecodeError):
+        errors.append("invalid Codex release metadata")
+    try:
+        opencode_package = json.loads((opencode / "package.json").read_text(encoding="utf-8"))
+        opencode_manifest = json.loads((opencode / "plugin.json").read_text(encoding="utf-8"))
+        if opencode_package.get("version") != opencode_manifest.get("version"):
+            errors.append("OpenCode package and plugin versions must match")
+    except (OSError, json.JSONDecodeError):
+        errors.append("invalid OpenCode release metadata")
     for path in sorted((ROOT / "plugin").glob("devbuddy-database-*/tool.json")):
         try: data = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as error: errors.append(f"{path}: invalid JSON: {error.msg}"); continue

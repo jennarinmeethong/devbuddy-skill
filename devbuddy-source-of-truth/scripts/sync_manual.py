@@ -19,6 +19,7 @@ COMMON_PAGES = (
     "migration.html",
     "troubleshooting.html",
     "plugin-first.html",
+    "git-install.html",
 )
 
 
