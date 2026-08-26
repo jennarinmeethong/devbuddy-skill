@@ -27,6 +27,12 @@ Every adapter uses `devbuddy-core` as its policy dependency. The Codex and Claud
 
 Profiles select exactly one host when they declare `hosts`; the resolver rejects a different `--platform`. Existing profiles without `hosts` remain compatible and are filtered by each package's compatibility declaration.
 
+The optional `devbuddy-database-core` package and every
+`devbuddy-database-<engine>` adapter support all three platform IDs: `codex`,
+`claude-code`, and `opencode`. Their execution policy is host-neutral: it
+remains read-only and requires a selected adapter, a local least-privilege
+principal, and target-specific Tier 2 approval.
+
 ## Runtime ownership inventory
 
 | Asset boundary | Classification | Owner | Installation target |

@@ -42,6 +42,15 @@ class PluginArchitectureTests(unittest.TestCase):
         self.assertEqual(data["packages"], ["devbuddy-core", "devbuddy-database-core", "devbuddy-database-postgresql"])
         self.assertIn("tier-2-database", data["permissions"])
 
+    def test_database_profiles_support_every_host_platform(self) -> None:
+        profiles = sorted((ROOT / "profiles").glob("data-*.yaml"))
+        self.assertEqual(len(profiles), 6)
+        for profile in profiles:
+            for platform in ("codex", "claude-code", "opencode"):
+                with self.subTest(profile=profile.name, platform=platform):
+                    result = run("profile_resolver.py", str(profile), "--platform", platform)
+                    self.assertEqual(result.returncode, 0, result.stdout)
+
     def test_every_profile_resolves_and_apply_reports_changes(self) -> None:
         for profile in (ROOT / "profiles").glob("*.yaml"):
             self.assertEqual(run("profile_resolver.py", str(profile)).returncode, 0, profile)

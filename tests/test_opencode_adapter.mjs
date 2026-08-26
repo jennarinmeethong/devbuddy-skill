@@ -1,4 +1,5 @@
 import assert from "node:assert/strict"
+import { readFile } from "node:fs/promises"
 import plugin from "../plugin/devbuddy-core/opencode/index.js"
 
 const hooks = new Map()
@@ -16,3 +17,9 @@ await hooks.get("execute.before")({ tool: "devbuddy.database.postgresql.read", i
 const result = {}
 await hooks.get("execute.after")({ tool: "devbuddy.database.postgresql.read", result })
 assert.equal(result.untrusted_result, true)
+
+const manifest = JSON.parse(await readFile(new URL("../plugin/devbuddy-core/opencode/package.json", import.meta.url)))
+assert.equal(manifest.name, "@devbuddy/opencode-plugin")
+assert.equal(manifest.type, "module")
+assert.equal(manifest.exports, "./index.js")
+assert.ok(manifest.files.includes("index.js"))

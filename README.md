@@ -25,16 +25,7 @@ python3 -m unittest discover devbuddy-codex/tests -v
 
 ## Install
 
-Install one profile for the host. Claude Code is distributed through its native Plugin marketplace; the Plugin bundles the portable core dependency and generated role/effort agents, so users do not install either separately:
-
-```text
-claude plugin marketplace add <DevBuddy marketplace repository or local path>
-claude plugin install devbuddy-claude-code@devbuddy --scope user
-# in Claude Code
-/reload-plugins
-# invoke explicitly
-/devbuddy-claude-code:devbuddy <task>
-```
+Install one host-native Plugin. Both Codex and Claude Code can install DevBuddy directly from this Git repository; the host package bundles its required portable core dependency and generated role/effort agents.
 
 The legacy Claude installer reports the migration and rollback path by default. Its historical `--apply` invocation remains a 1.x compatibility path, never removes existing files, and may also be made explicit with `--legacy-install`:
 
@@ -49,6 +40,44 @@ Codex and OpenCode profiles remain available through their existing native adapt
 python scripts/profile_resolver.py profiles/claude-code.yaml --platform claude-code
 python scripts/profile_resolver.py profiles/codex.yaml --platform codex
 ```
+
+### Install DevBuddy from Git
+
+Codex:
+
+```text
+codex plugin marketplace add jennarinmeethong/devbuddy-skill --ref plugin --json
+codex plugin add devbuddy-codex@devbuddy --json
+```
+
+Claude Code:
+
+```text
+claude plugin marketplace add jennarinmeethong/devbuddy-skill@plugin --scope user --sparse .claude-plugin plugin/devbuddy-claude-code
+claude plugin install devbuddy-claude-code@devbuddy --scope user
+# in Claude Code
+/reload-plugins
+/devbuddy-claude-code:devbuddy <task>
+```
+
+OpenCode:
+
+```text
+opencode plugin 'github:jennarinmeethong/devbuddy-skill#plugin::path:plugin/devbuddy-core/opencode' --global
+```
+
+The OpenCode command uses the Git subdirectory package specification so it
+installs only the host adapter from this monorepo. Use `--global` for a
+user-wide installation, or omit it to install into the current project.
+
+For a later Codex release, refresh the marketplace snapshot before installing again:
+
+```text
+codex plugin marketplace upgrade devbuddy
+codex plugin add devbuddy-codex@devbuddy --json
+```
+
+Start a new Codex task after installing or updating, then invoke it with `$devbuddy <task>`. Claude Code loads its Plugin after `/reload-plugins`.
 
 Initialise a selectable `.devbuddy` workspace with repeatable `--project id=path` values. Shared canonical knowledge lives under `.devbuddy/knowledge-base/`; task ledgers and project-local Python tools live under `.devbuddy/tasks/` and `.devbuddy/tools/`.
 
