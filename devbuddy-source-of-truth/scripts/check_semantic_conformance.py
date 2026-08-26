@@ -23,7 +23,14 @@ COMMON_TOKENS = (
     "rtk_required",
     "devbuddy-ref",
 )
-ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
+ROLES = {
+    "ba-pm", "requirements-analyst", "ux-ui", "architect", "developer",
+    "frontend-engineer", "backend-engineer", "qa", "security",
+    "vulnerability-scanner", "compliance-policy", "security-incident-response",
+    "devops-sre", "devops-engineer", "cloud-infrastructure", "site-reliability",
+    "dba-data", "data-pipeline", "data-analyst", "model-evaluator",
+    "helpdesk-support", "knowledge-base", "reviewer", "code-reviewer",
+}
 RECORD_FIELDS = {"schema_version", "task_id", "slice_id", "attempt", "parent_revision", "role", "model", "effort", "status", "result", "evidence", "next_slice", "knowledge_keys", "knowledge_proposal", "blockers", "required_approval"}
 
 

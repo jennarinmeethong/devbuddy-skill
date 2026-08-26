@@ -4,7 +4,7 @@ DevBuddy is an explicitly invoked Claude Code skill for policy-driven software d
 
 Two platform mechanics shape this adapter:
 
-- **Effort is fixed per agent definition.** Claude Code sets reasoning effort in the `effort` frontmatter field, not as a per-call parameter, so the adapter ships one subagent per role and effort tier — 9 roles x 6 tiers = 54 definitions. Choosing `devbuddy-<role>-<effort>` *is* choosing the effort level.
+- **Effort is fixed per agent definition.** Claude Code sets reasoning effort in the `effort` frontmatter field, not as a per-call parameter, so the adapter ships one subagent per role and effort tier. The generator derives the current role count from `roles/` (24 specialist roles × 6 tiers = 144 definitions). Choosing `devbuddy-<role>-<effort>` *is* choosing the effort level.
 - **Model is chosen per call.** The Agent tool's `model` parameter overrides frontmatter, so agent definitions deliberately leave `model` unset and `scripts/validate_skill_metadata.py` rejects any that pin one. Minimum-sufficient model selection stays a live decision the ledger records.
 
 `SKILL.md` carries `disable-model-invocation: true`, so only an explicit `/devbuddy` opens the workflow. The approval gates assume a user who chose to start a delivery task.
@@ -106,7 +106,7 @@ python3 scripts/validate_manual.py manual
 python3 -m unittest discover tests -v
 ```
 
-`generate_agents.py` regenerates the 54 definitions from `roles/`; `--check` asserts the committed files still match. Cross-adapter conformance lives in the source repository:
+`generate_agents.py` regenerates all role/effort definitions from `roles/`; `--check` asserts the committed files still match. Cross-adapter conformance lives in the source repository:
 
 ```bash
 python3 ../devbuddy-source-of-truth/scripts/check_semantic_conformance.py
@@ -131,8 +131,8 @@ Pass the complete task after the command; the Orchestrator picks the route. The 
 |---|---|
 | `SKILL.md` | Orchestrator entrypoint, required sequence, dispatch blocks, core policy |
 | `settings.yaml` | Adapter identity, governance, orchestration transport, approved model and effort allowlists |
-| `agents/` | 54 generated `devbuddy-<role>-<effort>.md` subagent definitions |
-| `roles/` | Orchestrator plus 9 canonical role workflows, the generator's source |
+| `agents/` | 144 generated `devbuddy-<role>-<effort>.md` subagent definitions |
+| `roles/` | Orchestrator plus 24 canonical specialist workflows, the generator's source |
 | `references/` | Dispatch contract, policy, routing, settings, knowledge model, task memory, loop engineering, custom tools |
 | `schemas/` | JSON Schema for a project's `.devbuddy/settings.yaml` |
 | `scripts/` | Installer, generator, validators, workspace initializer, task-memory tool |

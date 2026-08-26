@@ -1,6 +1,6 @@
 # DevBuddy Skill
 
-DevBuddy is a policy-driven software-delivery orchestrator with Plugin/profile installation for Codex, Claude Code, and OpenCode.
+DevBuddy is a policy-driven software-delivery orchestrator. Its portable core, role presets, package profiles, and workspace composition work consistently across Codex, Claude Code, and OpenCode; only installation and invocation are host-specific.
 
 ## Repository layout
 
@@ -34,11 +34,14 @@ python3 devbuddy-claude/scripts/install_claude_adapter.py --migration-report
 python3 devbuddy-claude/scripts/install_claude_adapter.py --apply
 ```
 
-Codex and OpenCode profiles remain available through their existing native adapters. Resolve a profile before applying its workspace composition:
+Resolve a portable profile before applying its workspace composition. Profiles can be combined or removed later without copying package manifests into the workspace:
 
 ```text
 python scripts/profile_resolver.py profiles/claude-code.yaml --platform claude-code
 python scripts/profile_resolver.py profiles/codex.yaml --platform codex
+python scripts/profile_resolver.py product-delivery --devbuddy-root <workspace>/.devbuddy --apply
+python scripts/profile_resolver.py --add-profile data-ai --devbuddy-root <workspace>/.devbuddy --apply
+python scripts/profile_resolver.py --remove-profile data-ai --devbuddy-root <workspace>/.devbuddy --apply
 ```
 
 ### Install DevBuddy from Git
@@ -152,7 +155,7 @@ Bootstrap writes only `Context.md` and `KnowledgeBase.md` after explicit `--appl
 
 ## Plugin packages and profiles
 
-The additive plugin implementation lives in `plugin/`, portable skills in `skills/`, and package composition profiles in `profiles/`. Existing adapters remain source-preserved.
+The additive plugin implementation lives in `plugin/`, portable skills in `skills/`, and package composition profiles in `profiles/`. `profile_resolver.py --list` shows each profile's packages, role presets, and compatible hosts; `--status`, `--add-profile`, and `--remove-profile` manage the selected workspace composition with dry-run-by-default behaviour. Existing adapters remain source-preserved. See [the platform-neutral guide](docs/platform-neutral-guide.md) or [คู่มือกลางภาษาไทย](docs/platform-neutral-guide.th.md).
 
 The Claude marketplace catalog is `.claude-plugin/marketplace.json`. Host-package metadata, the compatibility matrix, runtime ownership, and the 1.x standalone-installer retirement schedule are recorded in [docs/plugin-first-architecture.md](docs/plugin-first-architecture.md). Package artifacts never contain secrets, project state, task ledgers, or canonical knowledge.
 
@@ -191,4 +194,4 @@ python scripts/build_plugin.py --runtime win-x64 --apply --sign-thumbprint <CERT
 
 Signing does not automatically change an organization's Application Control policy; the security administrator must still approve the publisher, certificate, hash, or deployment rule required by that policy.
 
-`profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`, and it refuses to overwrite an existing composition. `build_plugin.py` is the plugin-creation build step: it publishes the single self-contained database adapter with all supported database drivers into `plugin/devbuddy-database-core/runtime/<runtime>/`; database engine manifests select that shared, policy-enforced executable. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.
+`profile_resolver.py` is dry-run by default. Writing a selected composition requires `--apply --devbuddy-root <workspace>/.devbuddy`; the resolver records profile names, calculates the dependency graph, and reports packages that will be added, retained, or removed. `full-engineering` intentionally excludes the Tier 2 database policy; use one explicit `data-<engine>` profile when database access is required. `build_plugin.py` is the plugin-creation build step: it publishes the single self-contained database adapter with all supported database drivers into `plugin/devbuddy-database-core/runtime/<runtime>/`; database engine manifests select that shared, policy-enforced executable. Database requests must pass `scripts/validate_database_request.py` before an adapter attempts execution; the policy gate complements, never replaces, a least-privilege read-only database principal.

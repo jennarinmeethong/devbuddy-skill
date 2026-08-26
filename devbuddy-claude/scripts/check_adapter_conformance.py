@@ -38,7 +38,7 @@ REQUIRED = [
     "tests/test_project_memory.py",
 ]
 
-ROLES = ["ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"]
+ROLES = sorted(path.stem for path in (Path(__file__).resolve().parents[1] / "roles").glob("*.md") if path.stem != "orchestrator")
 TIERS = ["low", "medium", "high"]
 
 

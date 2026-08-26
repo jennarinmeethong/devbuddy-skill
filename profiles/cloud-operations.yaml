@@ -1,0 +1,14 @@
+name: cloud-operations
+hosts:
+  - codex
+  - opencode
+roles:
+  - devops-engineer
+  - cloud-infrastructure
+  - site-reliability
+  - vulnerability-scanner
+  - security-incident-response
+packages:
+  - devbuddy-core
+  - devbuddy-security
+  - devbuddy-deployment

@@ -19,7 +19,7 @@ This is the extra-effort tier: lower tiers were insufficient for the recorded hi
 4. Verify remediation and escalate unresolved risk for authorised acceptance.
 5. Record to the responsible role without implementing its fix.
 
-Never accept material risk silently or expose sensitive data. If sensitive data is found in an unsafe location, report the location and risk without copying it, and wait for direction.
+Never accept material risk silently or expose sensitive data.
 
 ## Required guardrails
 

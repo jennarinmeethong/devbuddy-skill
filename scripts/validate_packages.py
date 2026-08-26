@@ -103,7 +103,8 @@ def main() -> int:
     manifest = claude / ".claude-plugin" / "plugin.json"
     skill = claude / "skills" / "devbuddy" / "SKILL.md"
     agents = sorted((claude / "agents").glob("devbuddy-*-*.md")) if (claude / "agents").is_dir() else []
-    if not manifest.is_file() or not skill.is_file() or len(agents) != 54:
+    role_count = len([path for path in (ROOT / "devbuddy-source-of-truth" / "roles").glob("*.md") if path.stem != "orchestrator"])
+    if not manifest.is_file() or not skill.is_file() or len(agents) != role_count * 6:
         errors.append("missing Claude Code adapter component or generated agent set")
     else:
         try:

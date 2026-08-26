@@ -12,7 +12,7 @@ import json
 import re
 from pathlib import Path
 
-ROLES = {"ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer"}
+ROLES = {"ba-pm", "requirements-analyst", "ux-ui", "architect", "developer", "frontend-engineer", "backend-engineer", "qa", "security", "vulnerability-scanner", "compliance-policy", "security-incident-response", "devops-sre", "devops-engineer", "cloud-infrastructure", "site-reliability", "dba-data", "data-pipeline", "data-analyst", "model-evaluator", "helpdesk-support", "knowledge-base", "reviewer", "code-reviewer"}
 RISKS = {"low", "medium", "high", "critical"}
 SCALARS = {"max_concurrency", "task_timeout_seconds", "retry_limit"}
 ADAPTERS = {"claude", "codex"}

@@ -53,8 +53,7 @@ class PluginArchitectureTests(unittest.TestCase):
         self.assertIn("tier-2-database", data["permissions"])
 
     def test_database_profiles_support_every_host_platform(self) -> None:
-        profiles = sorted((ROOT / "profiles").glob("data-*.yaml"))
-        self.assertEqual(len(profiles), 6)
+        profiles = [ROOT / "profiles" / f"data-{engine}.yaml" for engine in ("sqlserver", "postgresql", "mariadb", "oracle", "mongodb", "redis")]
         for profile in profiles:
             for platform in ("codex", "claude-code", "opencode"):
                 with self.subTest(profile=profile.name, platform=platform):
@@ -73,6 +72,32 @@ class PluginArchitectureTests(unittest.TestCase):
             removed = run("profile_resolver.py", "profiles/minimal.yaml", "--devbuddy-root", str(root), "--operation", "uninstall", "--apply")
             self.assertEqual(removed.returncode, 0, removed.stdout)
             self.assertEqual(json.loads((root / "packages.json").read_text(encoding="utf-8"))["packages"], [])
+
+    def test_profile_composition_can_add_and_remove_presets(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / ".devbuddy"
+            initial = run("profile_resolver.py", "product-delivery", "--devbuddy-root", str(root), "--apply")
+            self.assertEqual(initial.returncode, 0, initial.stdout)
+            added = run("profile_resolver.py", "--add-profile", "data-ai", "--devbuddy-root", str(root), "--apply")
+            self.assertEqual(added.returncode, 0, added.stdout)
+            state = json.loads((root / "packages.json").read_text(encoding="utf-8"))
+            self.assertEqual(state["profiles"], ["product-delivery", "data-ai"])
+            self.assertIn("model-evaluator", state["agent_roles"])
+            removed = run("profile_resolver.py", "--remove-profile", "data-ai", "--devbuddy-root", str(root), "--apply")
+            self.assertEqual(removed.returncode, 0, removed.stdout)
+            state = json.loads((root / "packages.json").read_text(encoding="utf-8"))
+            self.assertEqual(state["profiles"], ["product-delivery"])
+            self.assertNotIn("model-evaluator", state["agent_roles"])
+
+    def test_profile_composition_preserves_the_active_host(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / ".devbuddy"
+            initial = run("profile_resolver.py", "opencode", "--devbuddy-root", str(root), "--apply")
+            self.assertEqual(initial.returncode, 0, initial.stdout)
+            added = run("profile_resolver.py", "--add-profile", "cloud-operations", "--devbuddy-root", str(root), "--apply")
+            self.assertEqual(added.returncode, 0, added.stdout)
+            state = json.loads((root / "packages.json").read_text(encoding="utf-8"))
+            self.assertEqual(state["platform"], "opencode")
 
     def test_workspace_requires_apply_and_does_not_store_secrets(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

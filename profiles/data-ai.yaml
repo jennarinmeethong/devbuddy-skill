@@ -1,0 +1,9 @@
+name: data-ai
+roles:
+  - data-pipeline
+  - data-analyst
+  - model-evaluator
+  - dba-data
+  - compliance-policy
+packages:
+  - devbuddy-core

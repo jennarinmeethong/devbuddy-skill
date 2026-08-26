@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-codex",
-  "version": "1.0.2+codex.20260826000000",
+  "version": "1.0.2+codex.20260826130627",
   "description": "Policy-driven DevBuddy software-delivery adapter for Codex.",
   "author": {
     "name": "DevBuddy"
@@ -12,7 +12,12 @@
     "longDescription": "DevBuddy orchestration with approved model/effort transport, evidence, and workspace safety gates.",
     "developerName": "DevBuddy",
     "category": "Productivity",
-    "capabilities": ["Interactive", "Write"],
-    "defaultPrompt": ["Start a DevBuddy task with scope and evidence."]
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Start a DevBuddy task with scope and evidence."
+    ]
   }
 }

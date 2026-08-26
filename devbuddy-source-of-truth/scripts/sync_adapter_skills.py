@@ -5,12 +5,22 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+CANONICAL_ROLES = (
+    "ba-pm", "requirements-analyst", "ux-ui", "architect", "developer",
+    "frontend-engineer", "backend-engineer", "qa", "security",
+    "vulnerability-scanner", "compliance-policy", "security-incident-response",
+    "devops-sre", "devops-engineer", "cloud-infrastructure", "site-reliability",
+    "dba-data", "data-pipeline", "data-analyst", "model-evaluator",
+    "helpdesk-support", "knowledge-base", "reviewer", "code-reviewer",
+)
+ROLE_LIST = ", ".join(f"`{role}`" for role in CANONICAL_ROLES)
+
 
 ADAPTERS = {
     "codex": {
         "directory": "devbuddy-codex",
         "frontmatter": "---\nname: devbuddy\ndescription: Policy-driven Codex software-delivery orchestrator. Use only for an explicit $devbuddy invocation to assess work, route specialist subagents, enforce approvals, select approved minimum-sufficient model and effort, preserve project memory, and verify delivery evidence.\n---\n",
-        "heading": "# DevBuddy for Codex\n\nUse only through `$devbuddy <task>`, `$devbuddy loop <task>`, or `$devbuddy analyze <project>`. Advanced forms are `$devbuddy <role> <task>`, `$devbuddy owner <task>`, and `$devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer`; aliases are defined in `references/role-routing.md`.\n\n",
+        "heading": "# DevBuddy for Codex\n\nUse only through `$devbuddy <task>`, `$devbuddy loop <task>`, or `$devbuddy analyze <project>`. Advanced forms are `$devbuddy <role> <task>`, `$devbuddy owner <task>`, and `$devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are " + ROLE_LIST + "; aliases are defined in `references/role-routing.md`.\n\n",
         "adapter_name": "Codex",
         "dispatch_reference": "codex-dispatch.md",
         "dispatch_instruction": "Dispatch a real specialist with explicit `model` and `reasoning_effort`; the Orchestrator never performs specialist work.",
@@ -20,7 +30,7 @@ ADAPTERS = {
     "claude": {
         "directory": "devbuddy-claude",
         "frontmatter": "---\nname: devbuddy\ndescription: Policy-driven Claude Code software-delivery orchestrator for an explicit /devbuddy invocation. Assess the task, route specialist subagents, enforce approvals, select approved minimum-sufficient model and effort, preserve project memory, and verify delivery evidence.\ndisable-model-invocation: true\nargument-hint: <task> | loop <task> | analyze <project> | <role> <task>\n---\n",
-        "heading": "# DevBuddy for Claude Code\n\nWhen installed through the Claude Code Plugin, use `/devbuddy-claude-code:devbuddy <task>`, `/devbuddy-claude-code:devbuddy loop <task>`, or `/devbuddy-claude-code:devbuddy analyze <project>`. The legacy standalone compatibility shim alone uses `/devbuddy <task>`, `/devbuddy loop <task>`, or `/devbuddy analyze <project>`; its advanced forms are `/devbuddy <role> <task>`, `/devbuddy owner <task>`, and `/devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer`; aliases are defined in `references/role-routing.md`.\n\n",
+        "heading": "# DevBuddy for Claude Code\n\nWhen installed through the Claude Code Plugin, use `/devbuddy-claude-code:devbuddy <task>`, `/devbuddy-claude-code:devbuddy loop <task>`, or `/devbuddy-claude-code:devbuddy analyze <project>`. The legacy standalone compatibility shim alone uses `/devbuddy <task>`, `/devbuddy loop <task>`, or `/devbuddy analyze <project>`; its advanced forms are `/devbuddy <role> <task>`, `/devbuddy owner <task>`, and `/devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are " + ROLE_LIST + "; aliases are defined in `references/role-routing.md`.\n\n",
         "adapter_name": "Claude",
         "dispatch_reference": "claude-dispatch.md",
         "dispatch_instruction": "Dispatch a real specialist through the Agent tool as `devbuddy-<role>-<effort>` with explicit `model`; the Orchestrator never performs specialist work.",
@@ -49,7 +59,7 @@ def main() -> int:
         "scripts/init_project_memory.py",
         "scripts/validate_project_settings.py",
     )
-    shared_references = ("custom-tools.md",)
+    shared_references = ("custom-tools.md", "role-routing.md")
     errors: list[str] = []
     for name, config in ADAPTERS.items():
         target = repository / config["directory"] / "SKILL.md"
@@ -72,6 +82,10 @@ def main() -> int:
                 adapter_file = repository / config["directory"] / "references" / name
                 if not adapter_file.is_file() or adapter_file.read_bytes() != source_file.read_bytes():
                     errors.append(f"stale shared reference: {adapter_file}; run sync_adapter_skills.py")
+            for role_file in sorted((source / "roles").glob("*.md")):
+                target_role = repository / config["directory"] / "roles" / role_file.name
+                if not target_role.is_file() or target_role.read_bytes() != role_file.read_bytes():
+                    errors.append(f"stale role definition: {target_role}; run sync_adapter_skills.py")
             continue
         target.write_text(expected, encoding="utf-8")
         matrix_target.write_text(matrix, encoding="utf-8")
@@ -85,6 +99,9 @@ def main() -> int:
             source_file = source / "references" / name
             adapter_file = repository / config["directory"] / "references" / name
             adapter_file.write_bytes(source_file.read_bytes())
+        for role_file in sorted((source / "roles").glob("*.md")):
+            target_role = repository / config["directory"] / "roles" / role_file.name
+            target_role.write_bytes(role_file.read_bytes())
         print(f"OK: generated {target}")
     if errors:
         for error in errors:

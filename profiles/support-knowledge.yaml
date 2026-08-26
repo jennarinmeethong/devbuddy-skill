@@ -1,0 +1,7 @@
+name: support-knowledge
+roles:
+  - helpdesk-support
+  - knowledge-base
+  - requirements-analyst
+packages:
+  - devbuddy-core

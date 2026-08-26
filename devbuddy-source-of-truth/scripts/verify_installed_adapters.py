@@ -11,7 +11,6 @@ from pathlib import Path
 
 
 CORE = ("Context.md", "KnowledgeBase.md")
-ROLES = ("ba-pm", "ux-ui", "architect", "developer", "qa", "security", "devops-sre", "dba-data", "reviewer")
 EFFORTS = ("low", "medium", "high", "extra", "max", "ultracode")
 
 
@@ -84,7 +83,8 @@ def main() -> int:
             exercise(installed / "scripts" / "task_memory.py", label, errors)
 
     claude_agents = args.claude_root.expanduser() / "agents"
-    for role in ROLES:
+    roles = tuple(sorted(path.stem for path in (source / "roles").glob("*.md") if path.stem != "orchestrator"))
+    for role in roles:
         for effort in EFFORTS:
             agent = claude_agents / f"devbuddy-{role}-{effort}.md"
             if not agent.is_file():

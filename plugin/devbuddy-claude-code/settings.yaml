@@ -30,44 +30,44 @@ orchestration:
   approved_models:
     - id: claude-haiku-4.5
       rank: 1
-      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, developer, frontend-engineer, backend-engineer, qa, helpdesk-support, knowledge-base, code-reviewer, reviewer, devops-engineer, data-analyst, data-pipeline, dba-data]
       allowed_risks: [low, medium]
     - id: claude-sonnet-5
       rank: 2
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [low, medium, high]
     - id: claude-opus-5
       rank: 3
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [high, critical]
     - id: claude-fable
       rank: 4
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [critical]
   approved_effort_levels:
     - id: low
       rank: 1
-      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, developer, frontend-engineer, backend-engineer, qa, helpdesk-support, knowledge-base, code-reviewer, reviewer, devops-engineer, data-analyst, data-pipeline, dba-data]
       allowed_risks: [low]
     - id: medium
       rank: 2
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [low, medium, high]
     - id: high
       rank: 3
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [medium, high, critical]
     - id: extra
       rank: 4
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [high, critical]
     - id: max
       rank: 5
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [high, critical]
     - id: ultracode
       rank: 6
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [critical]
 loops:
   enabled_roles: user_required

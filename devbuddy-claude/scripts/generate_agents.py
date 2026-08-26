@@ -18,14 +18,29 @@ TIERS = ("low", "medium", "high", "extra", "max", "ultracode")
 
 ROLES = {
     "ba-pm": ("BA/PM", "business analysis, scope, acceptance criteria, and priority", "purple"),
+    "requirements-analyst": ("Requirements Analyst", "requirements, user stories, acceptance criteria, and traceability", "purple"),
     "ux-ui": ("UX/UI", "user journeys, screens, states, and accessibility", "pink"),
     "architect": ("Architect", "system design, public contracts, and ADRs", "orange"),
     "developer": ("Developer", "implementation, developer tests, and code-level evidence", "blue"),
+    "frontend-engineer": ("Frontend Engineer", "client implementation, accessibility, and UI evidence", "blue"),
+    "backend-engineer": ("Backend Engineer", "service implementation, contracts, and integration evidence", "blue"),
     "qa": ("QA", "independent testing, defects, and quality evidence", "green"),
     "security": ("Security", "threat modelling, findings, and remediation verification", "red"),
+    "vulnerability-scanner": ("Vulnerability Scanner", "approved vulnerability scanning, triage, and evidence", "red"),
+    "compliance-policy": ("Compliance & Policy", "control mapping, policy conformance, and audit evidence", "red"),
+    "security-incident-response": ("Security Incident Response", "incident coordination, containment, recovery, and evidence", "red"),
     "devops-sre": ("DevOps/SRE", "release readiness, operations, observability, and rollback", "cyan"),
+    "devops-engineer": ("DevOps Engineer", "CI/CD, delivery automation, and deployment evidence", "cyan"),
+    "cloud-infrastructure": ("Cloud Infrastructure", "infrastructure as code, resilience, and recovery", "cyan"),
+    "site-reliability": ("Site Reliability", "SLOs, observability, and incident coordination", "cyan"),
     "dba-data": ("DBA/Data", "data models, migrations, integrity, and recovery", "yellow"),
+    "data-pipeline": ("Data Pipeline Engineer", "ETL/ELT, data quality, lineage, and recovery", "yellow"),
+    "data-analyst": ("Data Analyst", "reproducible analysis, metrics, and insight limits", "yellow"),
+    "model-evaluator": ("Model Evaluator", "AI model evaluation, safety, and performance evidence", "yellow"),
+    "helpdesk-support": ("Helpdesk Support", "first-line diagnosis, guidance, and escalation", "green"),
+    "knowledge-base": ("Knowledge Base", "verified documentation, FAQs, and content health", "purple"),
     "reviewer": ("Reviewer", "independent review findings on an assigned artefact", "purple"),
+    "code-reviewer": ("Code Reviewer", "independent code-level findings and review evidence", "purple"),
 }
 
 TIER_GUIDANCE = {

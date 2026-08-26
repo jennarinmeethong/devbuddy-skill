@@ -7,13 +7,7 @@ argument-hint: <task> | loop <task> | analyze <project> | <role> <task>
 
 # DevBuddy for Claude Code
 
-When installed through the Claude Code Plugin, use `/devbuddy-claude-code:devbuddy <task>`, `/devbuddy-claude-code:devbuddy loop <task>`, `/devbuddy-claude-code:devbuddy analyze <project>`, or `/devbuddy-claude-code:devbuddy migrate <workspace>`. The legacy standalone compatibility shim alone uses `/devbuddy`; its advanced forms are `/devbuddy <role> <task>`, `/devbuddy owner <task>`, and `/devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer`; aliases are defined in `references/role-routing.md`.
-
-`migrate` is a reserved Plugin-first migration workflow, not a generic implementation task. First inventory the legacy host skill and `.devbuddy` layout without writing. Then present a document-by-document mapping from legacy notes to the current typed knowledge folders, retain old notes as source evidence, generate every new entity key with `new_knowledge_key.py`, and require explicit approval before writing. Preview and apply host cleanup, workspace layout migration, and legacy database-tool retirement separately; never read credentials, silently delete a legacy file, or invoke the old SQL tool.
-
-Do not treat a standalone legacy `/devbuddy <task>` as a delivery entrypoint. It
-is retained solely so `/devbuddy migrate <workspace>` can direct the user to
-the Plugin command above.
+When installed through the Claude Code Plugin, use `/devbuddy-claude-code:devbuddy <task>`, `/devbuddy-claude-code:devbuddy loop <task>`, or `/devbuddy-claude-code:devbuddy analyze <project>`. The legacy standalone compatibility shim alone uses `/devbuddy <task>`, `/devbuddy loop <task>`, or `/devbuddy analyze <project>`; its advanced forms are `/devbuddy <role> <task>`, `/devbuddy owner <task>`, and `/devbuddy owner loop <task>`. The bare form is the Orchestrator entrypoint; it chooses the role graph. `analyze` is read-only; only `owner` promotes approved observations. Canonical roles are `ba-pm`, `requirements-analyst`, `ux-ui`, `architect`, `developer`, `frontend-engineer`, `backend-engineer`, `qa`, `security`, `vulnerability-scanner`, `compliance-policy`, `security-incident-response`, `devops-sre`, `devops-engineer`, `cloud-infrastructure`, `site-reliability`, `dba-data`, `data-pipeline`, `data-analyst`, `model-evaluator`, `helpdesk-support`, `knowledge-base`, `reviewer`, `code-reviewer`; aliases are defined in `references/role-routing.md`.
 
 ## Execute
 

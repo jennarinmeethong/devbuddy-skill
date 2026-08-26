@@ -1,487 +1,967 @@
 {
   "schema_version": 1,
-  "change_id": "DBY-PLUGIN-001",
-  "purpose": "Authorize the Plugin-first manual rework, migration-only legacy shims, and generated bilingual adapter manuals.",
+  "change_id": "DBY-ROLE-PROFILE-001",
+  "purpose": "Authorize portable role presets, profile composition controls, and synchronized adapter payloads.",
   "files": [
     {
       "path": "devbuddy-claude/README.md",
-      "sha256": "5d557682bb4d0aa72dedebc068d5841d91a98c6ef3e3f602fdd7acec989197f0"
+      "sha256": "4a0d52ff7277da9a87fa5d02d59aba018f84290f5522920f32935d77ff989e0f"
     },
     {
       "path": "devbuddy-claude/SKILL.md",
-      "sha256": "9775ac57b71f5f3187f95c40eeabf9a3318deae74a5d215c106a11bd56c485ba"
+      "sha256": "eb7baa66f0c882e609b8d5238883cbb92434c8483acdd938a22a1b4c54339e85"
     },
     {
-      "path": "devbuddy-claude/adapter-implementation-checklist.md",
-      "sha256": "f1da5ad61d6d032ff4164a36b94b7e44a792eb1aa0016c50667f2b64bd46360b"
+      "path": "devbuddy-claude/agents/devbuddy-architect-extra.md",
+      "sha256": "3f06c1ddbe99e49b9b1d360f40eef97045b29a82fa93cc1207c32384d8d462ca"
     },
     {
-      "path": "devbuddy-claude/manual/en/claude.html",
-      "sha256": "3b99e1f7c8282adfd3ba0818aa5cf18fa43ad5b53a4b72495869fc920618dd86"
+      "path": "devbuddy-claude/agents/devbuddy-architect-high.md",
+      "sha256": "1fe4c4aeba95962cd22b1f07d1d048c9417dc7a1ba8081a6ce1bc56371b2e0c6"
     },
     {
-      "path": "devbuddy-claude/manual/en/getting-started.html",
-      "sha256": "b0558c70ce5c4a73cb4058652a97fa26176bcc6fabb22c9bab5ac4d15fb83f20"
+      "path": "devbuddy-claude/agents/devbuddy-architect-low.md",
+      "sha256": "79b4537be991f79e7b102b0ed96cc2fbef47ad3a75ee390ec1a4f3da1b0c1be2"
     },
     {
-      "path": "devbuddy-claude/manual/en/index.html",
-      "sha256": "c1da51e829cbd6091c847f78f7c5f99bcec838afa9b6681ba2ed269c8a0c91b7"
+      "path": "devbuddy-claude/agents/devbuddy-architect-max.md",
+      "sha256": "8d7db11957ea616a67ec9476744ffb7d126dc15e7669539cbed2300ca70b2342"
     },
     {
-      "path": "devbuddy-claude/manual/en/migration.html",
-      "sha256": "847d68d83d8785f25982c26ce94b11bef43cd21bdf5af8c4387da81d81c4ddcd"
+      "path": "devbuddy-claude/agents/devbuddy-architect-medium.md",
+      "sha256": "5a7c7be9be550cd70b41b1666ee4de199d14d10460971a65a42f08b9fb059db8"
     },
     {
-      "path": "devbuddy-claude/manual/en/plugin-first.html",
-      "sha256": "52d99c4146d8a175f3da75e44db00462799f869156428aefee8582fe99fbb410"
+      "path": "devbuddy-claude/agents/devbuddy-architect-ultracode.md",
+      "sha256": "1a63df8fbc7f0f8636ac6969e513db1e44999c8a17e70ddc8b5a5554d469c96d"
     },
     {
-      "path": "devbuddy-claude/manual/en/scripts.html",
-      "sha256": "9a424460ecfc54fabc9742fccb3d2df5c9cf839a401595a215080ddd0e3bb60d"
+      "path": "devbuddy-claude/agents/devbuddy-ba-pm-extra.md",
+      "sha256": "226ee5253f23b7bf2ff56e0ee52e347e1d8e9d5ba71aef90db0bac8f51d5a354"
     },
     {
-      "path": "devbuddy-claude/manual/en/tasks-and-knowledge.html",
-      "sha256": "84d4bf08f352d1d94f693a2ce05b44f3daa61403b2b8fb0c344d208219c97ff1"
+      "path": "devbuddy-claude/agents/devbuddy-ba-pm-high.md",
+      "sha256": "847773cda4316d7b24cffa0b68fac521c6fc47d1a6d95cb344182504d475b0c9"
     },
     {
-      "path": "devbuddy-claude/manual/en/troubleshooting.html",
-      "sha256": "74d388a1bc8cf9ab30726ef0083aba3d3269cc2e6391e32f35c1d34067fdb027"
+      "path": "devbuddy-claude/agents/devbuddy-ba-pm-low.md",
+      "sha256": "2860af9d69da3207610c9e34c13c7ae945eb596917c070da6046ca654fda97e7"
     },
     {
-      "path": "devbuddy-claude/manual/en/workspace.html",
-      "sha256": "5cd8fab2c0fa44be327d29d4eea3f449eefa27e0c10f886149267175e64db39d"
+      "path": "devbuddy-claude/agents/devbuddy-ba-pm-max.md",
+      "sha256": "b0544d66d37fd3546ecbabf1f544878a436fba871e0059b28f5d8cfabbfcba98"
     },
     {
-      "path": "devbuddy-claude/manual/index.html",
-      "sha256": "8df169dac6dc64e7a1d545939abfb7a65d728ec44262a795ccebde2af81d6005"
+      "path": "devbuddy-claude/agents/devbuddy-ba-pm-medium.md",
+      "sha256": "9b73d01dcc984d8bca867441c4a92c1089d7a4892ec702b4156209133652ffc5"
     },
     {
-      "path": "devbuddy-claude/manual/th/claude.html",
-      "sha256": "0783fb929e5acf5b7d967d7930e87c9eeeff741cfdd9788798f6bd90096177cd"
+      "path": "devbuddy-claude/agents/devbuddy-ba-pm-ultracode.md",
+      "sha256": "0ada9f3a1c3a8ab147f094dcdd6938e9219955729d4cd0c4def3cd39491aff45"
     },
     {
-      "path": "devbuddy-claude/manual/th/getting-started.html",
-      "sha256": "a97bcf0878139bd52579eafd948637f5ce673be840c79294cbd3c862b0322d97"
+      "path": "devbuddy-claude/agents/devbuddy-backend-engineer-extra.md",
+      "sha256": "12a1e4207fc0cc978285a5d574ddb1d9dc1d612daf0e0bf73aee506441301bea"
     },
     {
-      "path": "devbuddy-claude/manual/th/index.html",
-      "sha256": "3f7dbe2b9f6a4ca806928edaf771b01cdd6062c6a0150ab29a51ad917781e715"
+      "path": "devbuddy-claude/agents/devbuddy-backend-engineer-high.md",
+      "sha256": "9381ffcd524e7731ed104f6b6bf7e8dc839e59e8622e291fc2f65cf296c8b9f5"
     },
     {
-      "path": "devbuddy-claude/manual/th/migration.html",
-      "sha256": "6cf5a58579b2bb025199406a6a88ab024ab2a4c53b423845eaa4e398ecfc08bc"
+      "path": "devbuddy-claude/agents/devbuddy-backend-engineer-low.md",
+      "sha256": "29950f6565a658983cf799df36f92f6bb01ea1aab6d25bc7c4e5f29649f7a83f"
     },
     {
-      "path": "devbuddy-claude/manual/th/plugin-first.html",
-      "sha256": "96b89f25e3ec84f8af22c86a09b86f9e08528ee300e7112aa82e42779517f3b9"
+      "path": "devbuddy-claude/agents/devbuddy-backend-engineer-max.md",
+      "sha256": "1b7ea7dfdaeeb87bc402ffe8d2cc82fa1a02ce3169d7140fb0e3292b71a8b5af"
     },
     {
-      "path": "devbuddy-claude/manual/th/scripts.html",
-      "sha256": "36e74671146dc58d899d15b06829746d5e84452b02c5a236cc32e6599fadad30"
+      "path": "devbuddy-claude/agents/devbuddy-backend-engineer-medium.md",
+      "sha256": "bfecd45407cb3b186db0d484869b0c74925cd71402b44fbefaf8b85fdf3fb40d"
     },
     {
-      "path": "devbuddy-claude/manual/th/tasks-and-knowledge.html",
-      "sha256": "22e9317e9119e0809038b70219f3fe4a4a28c90a8a166785541ee99bdeb2680a"
+      "path": "devbuddy-claude/agents/devbuddy-backend-engineer-ultracode.md",
+      "sha256": "c147ca26e762f23b275aca2af68551c6565e16a1d7f2be3e64d0c13c2b62a6a2"
     },
     {
-      "path": "devbuddy-claude/manual/th/troubleshooting.html",
-      "sha256": "fc160d660494c799a8124c81caf0231eef5bb1f0948264b33e76fddca0b8fcbb"
+      "path": "devbuddy-claude/agents/devbuddy-cloud-infrastructure-extra.md",
+      "sha256": "57b5a61523992ca2f5c7fd1c5282636cb5d73f77ef58400a952c8b3b11653b3b"
     },
     {
-      "path": "devbuddy-claude/manual/th/workspace.html",
-      "sha256": "3760e968ffeaba7a4015ce43a4e14f0b615aaf98f0fc2f76b3848d546327a75c"
+      "path": "devbuddy-claude/agents/devbuddy-cloud-infrastructure-high.md",
+      "sha256": "ff15a3465d3f3ebc3c6268a92d6fb7d9aa88e449969579205b4254b269e2bb78"
     },
     {
-      "path": "devbuddy-claude/references/custom-tools.md",
-      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
+      "path": "devbuddy-claude/agents/devbuddy-cloud-infrastructure-low.md",
+      "sha256": "01d097c2ab33be0b51b2b13d581ed97d0bf9a8deefef274153b00cf0501b1704"
     },
     {
-      "path": "devbuddy-claude/references/settings.md",
-      "sha256": "79ab24926769d5e310bd0a4f454a54b256e1dd41d6c72763eb7682c63625b0be"
+      "path": "devbuddy-claude/agents/devbuddy-cloud-infrastructure-max.md",
+      "sha256": "f3f24190b9a1437fbf70c3239f0149fab8104ffd5c343b2845ec2d46fed25d24"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-cloud-infrastructure-medium.md",
+      "sha256": "7e7f80dcd435a87fe8658be79c233d316f3fb804b68866e751025f78d8e83d6f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-cloud-infrastructure-ultracode.md",
+      "sha256": "73a9b46038c29effe3a7f1b55ef835ef7f073c230f982cc7d4249774bd8054e9"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-code-reviewer-extra.md",
+      "sha256": "669984fae79481236de91e5518ec2149253de73765e6097bf0388f9e9ea8185c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-code-reviewer-high.md",
+      "sha256": "ded7f3ee9b0b1d0822b27cb206071221278f35cf66f6798d746d2abd7fad5c1c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-code-reviewer-low.md",
+      "sha256": "918d209252b484a54f038a8437289c26b5efd27e7630ff3550f361f6fc57cb8c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-code-reviewer-max.md",
+      "sha256": "0f2016a11d389a7fef86282c22576602b5e7a8174a1b4e7d1c2524e6801d5bb7"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-code-reviewer-medium.md",
+      "sha256": "b8c399f0184ced75a8ef7b145ca77079dc258b49563ad061ddd927301adea5cd"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-code-reviewer-ultracode.md",
+      "sha256": "1c6f2f469111f82d2b4f037fc21a6a5b5e2b021837d8895a15164b7d92bff547"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-compliance-policy-extra.md",
+      "sha256": "387a31d3032c5e557a02461a1e12bb4245e93eb7cd2a8768f98f71d832ab2249"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-compliance-policy-high.md",
+      "sha256": "e5bc9afb4fd6c71dd24a238b3c8ab220bdc3c5d569aad977e6158d095e8d3b0f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-compliance-policy-low.md",
+      "sha256": "4d79cb0d1d9a997e84e94b976ca331a136c3ee09feef1d3ef3647b7d8047b79c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-compliance-policy-max.md",
+      "sha256": "11db863e100004f7174b829f44319b4a9e15bb77b0bf98849f804bec9b851b04"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-compliance-policy-medium.md",
+      "sha256": "312d85d96281e3f0708f8c061967ae61e64b5daa365326bf80e563e0eedb1939"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-compliance-policy-ultracode.md",
+      "sha256": "e49ea7bf0c79cf494a7eb828f5045f97acf595fc2645a0fb04e3216d1fe412fa"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-analyst-extra.md",
+      "sha256": "c075c63bb48a626ab09782432bb2ad75946d152d8fee5f8aeddb67d573c4a13b"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-analyst-high.md",
+      "sha256": "3d1f8d2ab752ee1f89361fab5f2a20317ea9c77b3b36fadbd611275997303cc0"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-analyst-low.md",
+      "sha256": "7d0cceed73cafd0d1318ab9ff951308539378ce0f2ad3c181f28629ca2b5b188"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-analyst-max.md",
+      "sha256": "0dc0dd9fd519e819ffa209592aac3ee1fe9329dfce56272adaf1e4d0e828d69b"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-analyst-medium.md",
+      "sha256": "ce706c0a03b01664d843920aafb37fcd5e2f4de800bde9b9ca3894639a8fdc8e"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-analyst-ultracode.md",
+      "sha256": "b24de450022766d6c3223d7872a7e93dd7205580a2ccf9508b976aa4273166f1"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-pipeline-extra.md",
+      "sha256": "911777f27cfc619d4c46b07fa378390cc2cba7ce178d97bf3b9bb78f400c51d5"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-pipeline-high.md",
+      "sha256": "19dbd07d00f3d0a80adefce6b971347daaff19c1ebf349ef26f1fa665daa318a"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-pipeline-low.md",
+      "sha256": "48f58e5fd7890a1d5956083bd3f1a2401428a895539cb4b26c624a7cd541636f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-pipeline-max.md",
+      "sha256": "f0736696de135e87d6becad6f892d2b9b1f200a1a2d2f57ca7e813e7a397d101"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-pipeline-medium.md",
+      "sha256": "7eac9d6ecb2d62f9d788c40042852189c22bf5eff91227d175769457430687c4"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-data-pipeline-ultracode.md",
+      "sha256": "743554330d3243b8bc67fbcc4fa99a3032e22fa69815a65a2411a6d777973aee"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-dba-data-extra.md",
+      "sha256": "3301ae7b551566703c671172931a52b061297ab322fae175342a8489389c017c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-dba-data-high.md",
+      "sha256": "29de7d7906646613cc5373874d25009bdbc0ef309b71a99b4bdf3713bca6fd0e"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-dba-data-low.md",
+      "sha256": "f0aa203a977ba59cd08d3ad67b9f7f6f3f6a6a5bf90b12d622b9991b3ee954e8"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-dba-data-max.md",
+      "sha256": "cd0ad1f60a4216e8bba85b6d5632985b1cf1aa9fb80b9ecc21df425026c6a297"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-dba-data-medium.md",
+      "sha256": "6d191d2c06bc348c5bcf58bba537285e8ff31840b8b53afaee356eb725826951"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-dba-data-ultracode.md",
+      "sha256": "3231d2c7344318e7560acc8eea4b464e974bddf2c19dcb26cd087e14e38884f1"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-developer-extra.md",
+      "sha256": "db6bbb8430d701d024d15c0a713f7aff5d7b5170b1d6de5834c4d8c6cdb5afec"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-developer-high.md",
+      "sha256": "ca3b724bd0e7f510a8b31c54abd62d54673d78a43262ce59e5297930a67bb550"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-developer-low.md",
+      "sha256": "967d1291c4b53ce35bce2590edcf812f55eef05f29e12792337cf291570c407a"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-developer-max.md",
+      "sha256": "f554fd73508e36b369965d5a6a2d0230def8d0dd41b634b405022f158bf4cf05"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-developer-medium.md",
+      "sha256": "3eeb509e842b42753f5736badd860ffac9d78586d6ef0ceb960d4f6166584767"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-developer-ultracode.md",
+      "sha256": "9b28078f4aed456330c55afabe123a61976c2e798e82170e143ec2ac32cbb807"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-engineer-extra.md",
+      "sha256": "2bc838c1768a4b009738b14eb69c823eeaa839fc1486c19421e55833049f5056"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-engineer-high.md",
+      "sha256": "21dd88c66d0be3fe0e83cf8d6be1054e7ead41b6e156166cb70c70c4fb37ad4f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-engineer-low.md",
+      "sha256": "03e1a401287f44d966cbbd742f89be9e59a0e99d095d02ef267d1a9b289049f3"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-engineer-max.md",
+      "sha256": "ca0a7378d053a32ef62a002d167fe77151543dd3d1531a66f59813b9d2231caa"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-engineer-medium.md",
+      "sha256": "9c080103c2f8e701fa085c8e4ffd0c726cd618c6a3bc1cfa13ee53bd694d771d"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-engineer-ultracode.md",
+      "sha256": "45172c0001207871dcdef6bb976018a5ec3120ce2eb14286377bff229ab6736f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-sre-extra.md",
+      "sha256": "c3a03ed216848529428871b51f010eb9d7fe0dd424cc65cf2dfb554d26e76498"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-sre-high.md",
+      "sha256": "ec011cd7b1f83ae98836b35d845745b839ace8eee4288fd88c7d68b2f35291b3"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-sre-low.md",
+      "sha256": "189a18a4751603a5ed171b643c210b331d8c11017dbf597fbc2fe885e71290ac"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-sre-max.md",
+      "sha256": "71ab4f02defdad6d32cb44629d01d1cfcfd8f2eb1dc0fd7bda9472b869fb1515"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-sre-medium.md",
+      "sha256": "660f9248df27573b2208c5a5d7c4da04a3b4bb562fd2f757c57925fb754cf1c0"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-devops-sre-ultracode.md",
+      "sha256": "361291de7f33c3c798e798b27e98d17fbddabf8075c9f8647b28565896c5f8cb"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-frontend-engineer-extra.md",
+      "sha256": "bcfb956d494b91d1ad8ba5f89bb275a945823e43af8463a6ff5fbee5719eac9e"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-frontend-engineer-high.md",
+      "sha256": "3e1ce95b547876f65aef25e7a142eb3284c85e35a2628f6bfeb4707bc362d3ef"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-frontend-engineer-low.md",
+      "sha256": "2e6397410f1f6211165e8ff0bcbcbd34584a6593a14acee78545c04f5e7e956c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-frontend-engineer-max.md",
+      "sha256": "afdf577400f4dd674f29908982b49885b5f15085d97d6e831fbc6c20ccccd3cd"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-frontend-engineer-medium.md",
+      "sha256": "3bfe0a8acd0259a6f1f66883075a68dc9c05854454281932dce8f056239a4971"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-frontend-engineer-ultracode.md",
+      "sha256": "f6ed4d555f23b35883cb0c8db61e335b39dfb98d1f92c3e2063df689eaa4df86"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-helpdesk-support-extra.md",
+      "sha256": "05a25824526f1e19fe86c4e89bf1f334d54f0a0994269bd79c485781cff080e6"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-helpdesk-support-high.md",
+      "sha256": "ad651d967b371f50a14d9a03b3c95396e5aff2fbbb9681ae55ab8d35be7d831b"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-helpdesk-support-low.md",
+      "sha256": "df42023b036be3dc19dfab59d91a414b0b6336564a16ceaa0c86ddcbb9a0c4c3"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-helpdesk-support-max.md",
+      "sha256": "0ca7c9159677fe43c9b352019ba4d2399f03b9fc68000ae63d169ed38ff0f6d8"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-helpdesk-support-medium.md",
+      "sha256": "60f30414b8a6be1c1c414d753c45c393b78fc012a27e3f0317c16ba4e1a7b3a0"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-helpdesk-support-ultracode.md",
+      "sha256": "e16a523a32f0df615ffab3998c6a952bfee5968e92fa89f3d0812b478e83bd9b"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-knowledge-base-extra.md",
+      "sha256": "7b69ad9571eabf163c2a44625822383fb4486f67c5f39237b21732d5ca04c50a"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-knowledge-base-high.md",
+      "sha256": "440d20e1f3bd4d8510de33c495274ee8f3531c936f60e66ca643f819638d4c28"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-knowledge-base-low.md",
+      "sha256": "7710a692fc6e07bc013eb599ef16b4b3c0bb492114d1a18b3c5d31b0f5335d21"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-knowledge-base-max.md",
+      "sha256": "1083c703e31dd95c1bfa2675ea9af6e1871a3aad2e82ca391c8abbde02d581d7"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-knowledge-base-medium.md",
+      "sha256": "89ab6bbefdd74841655a7fb135e02436c6c8b7058296290e42f8e0e773412095"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-knowledge-base-ultracode.md",
+      "sha256": "122a988cbf0f0c84fcfc66c74716ab98d6aeb28ea844ce6410154a0a5e8addcb"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-model-evaluator-extra.md",
+      "sha256": "28060085e1178841b7aaf5430cc75e6c9cfde1806fb60353d16916ddaa4e6578"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-model-evaluator-high.md",
+      "sha256": "72296afd1c601ba2f85b14e75addd52620c1b8b76d157df2aa68d939285fc0ed"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-model-evaluator-low.md",
+      "sha256": "46ea6f4e1c527c3883df75b6ea8ba193c21360209472b888750a85fa461604ea"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-model-evaluator-max.md",
+      "sha256": "b3b1973bd7fbaffe6a9d0e9dfdcdf405f104aaed995f88d72b414b0a055bc692"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-model-evaluator-medium.md",
+      "sha256": "ec3b3dbede1235b1499307241bdb0c37d5bd21a32bda5a2c42cc8d753a8f910c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-model-evaluator-ultracode.md",
+      "sha256": "e653dfbc857d808e74a358486fd418747550aa1c49b09f80dde7d3ccec550cbc"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-qa-extra.md",
+      "sha256": "a2e7a4e1ce54d4b578748f1900a829e772b3e3099551c7ee2f5956818cc53f01"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-qa-high.md",
+      "sha256": "0a54b48df0cc0e3709124d83fae8c407c80456e43eb2a5d64b89ec6b745e58ac"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-qa-low.md",
+      "sha256": "8824235fd8ff1a109bbf91edb2de9d796e8a1a4693db8c618c9e869e713ccd3e"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-qa-max.md",
+      "sha256": "19d4895535e4e365da24a3e7ccc32d5c1fc42777815fda63e08761d447d933f5"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-qa-medium.md",
+      "sha256": "3bf8f1a0edcec292e90f44cdd095daea4fcb07cde39e21914835d475df8fd014"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-qa-ultracode.md",
+      "sha256": "abf67f4df0b85eb7695ea8db51e4ce8048e2687da3c06918445f4a51026d4364"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-requirements-analyst-extra.md",
+      "sha256": "32f83209998c8644ede5639f47be4d116a09c68c809971a154f44b8acfd9d7bc"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-requirements-analyst-high.md",
+      "sha256": "9219dca35988c4c60bf178c9f577ffed27fbafb80874802c52a12baedb4a979e"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-requirements-analyst-low.md",
+      "sha256": "dcdc4b0734439cae46a38438e1ac8a095f1eb9a6929fb581c881a44c07f477ea"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-requirements-analyst-max.md",
+      "sha256": "4c9ac08a3040a8473d6363989ea582fa079bd07a765e8887a2fc6b844be67a36"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-requirements-analyst-medium.md",
+      "sha256": "3458b5bcc398746b7c3ec1246956b2e6f56b3ead5f7f9efa91061f492b575005"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-requirements-analyst-ultracode.md",
+      "sha256": "4ded53391f9c20e77812b223c764c10d7841791556e9d76783c2ac70078dfb25"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-reviewer-extra.md",
+      "sha256": "2ede1fbf4afd141f5eb675f102e80185f024a2c4fb9c3ef47d327e6701cda830"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-reviewer-high.md",
+      "sha256": "622986319b7105a301a1e6d606bc51691244b4cd3f22f7afa0cd48ce5210b6ca"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-reviewer-low.md",
+      "sha256": "b75f6ec896194748ab0e2fca832e11568801f9149ea0007695dbc190b2384b5d"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-reviewer-max.md",
+      "sha256": "b2fa55bf93e659ae1d709f90a69f77a1f9cb2f93f182b7df51169b5f10712738"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-reviewer-medium.md",
+      "sha256": "67e7f03738f80b99fbedaa849b56b7bf54205269c25038b05717d32b3c191f04"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-reviewer-ultracode.md",
+      "sha256": "1a2c5b8d6341aeba0ab649e9be926a678d73a1712f3368ef69e6acff1e5b6a9a"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-extra.md",
+      "sha256": "a50ffbc94bff0b95607ea265a8a2592c1683a205cef81944a467e288aadb5c03"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-high.md",
+      "sha256": "812d6a5bbb649c7d686829f3d3dcee80c8b82ba403d48f07d412a523cd67e13b"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-incident-response-extra.md",
+      "sha256": "27408b6536f130e46e6414edfe14693fa49b69d6456818afd1a7590d233d6182"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-incident-response-high.md",
+      "sha256": "734e428157f4b630978f30fd02946d9f74e255dfd92406b0ed98756e35fc2b6a"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-incident-response-low.md",
+      "sha256": "60f9fabac51c261873d289f8f65c4319b3b6b1ea97e9c974ae1b7f6c0aa52d0f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-incident-response-max.md",
+      "sha256": "1f7c66dee26c62a5fb7e946f28d8bf44230f35a96a916eac3d1e4013166a700c"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-incident-response-medium.md",
+      "sha256": "6a28fbfa6de6b06afec2ec1058cda7f4edb0a39d7a71b9a8affb2f889d2ba3ee"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-incident-response-ultracode.md",
+      "sha256": "7b919d1a4949f4d51cad560b5ebe47f187f09b7819031d709dffdaa677af42b8"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-low.md",
+      "sha256": "3810df90c4bb4a8c15f9ed5483a7879644d22dcb40f0a81da0708e00afc6fbd2"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-max.md",
+      "sha256": "c03ee4073e4f8d1227da8e334c6c05ae240603e41014a1df3a7f58c6c3d2e57d"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-medium.md",
+      "sha256": "68ae379e675603bbd99de5223825b3d99425c6c066557e216e244124f29e0185"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-security-ultracode.md",
+      "sha256": "e47f25d60f86736c8e6668d863f5ba8bddb9f2cbf27afcf9393cc86b87c85b6f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-site-reliability-extra.md",
+      "sha256": "6982025b06dbb080f12f9d7ac94da1685867368c3d8b21aba3c15300c1b1d372"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-site-reliability-high.md",
+      "sha256": "cc0f98b81a6c56e37a30dead131b77954f83fe41973df591eaf932ec6fc43ed8"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-site-reliability-low.md",
+      "sha256": "96b1aa1897b5f90f61e013da8898813dd6a506858ac17b2af4d96132b8f8d61e"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-site-reliability-max.md",
+      "sha256": "9f2606372953c9b3001826354c1ff562390aade663607afc78c5c455a5d73f86"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-site-reliability-medium.md",
+      "sha256": "f64e93484bca2cfe9b4a0e443230ef709c9b316d20ec0137a3bf37422a5656bb"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-site-reliability-ultracode.md",
+      "sha256": "1c11fb5e7111595d43caaef834b2262531ba5eb5ecba51c606dae1671ea69ef9"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-ux-ui-extra.md",
+      "sha256": "350be61b02071c0fd07d55be090f865624a289184873b4906c3152926dd322ce"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-ux-ui-high.md",
+      "sha256": "8c8c676b06fa849fbfc3e9e5358dbc64d2adc1bf901e46bbe8929c36cd9db37a"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-ux-ui-low.md",
+      "sha256": "1c3470be0be431289e6816d999d5313ff42a2da84f4d817815ce4f3ffe799bc2"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-ux-ui-max.md",
+      "sha256": "92032738314e7f8d8038ff214fca1fa32a83b406795950550364e816a44fa23f"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-ux-ui-medium.md",
+      "sha256": "1d5b12e41c0ecac1008c7183fd9b28f1ce3d0dfa145feec598027108aee4e3ba"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-ux-ui-ultracode.md",
+      "sha256": "2e7ec2fbd14507d2364e0e9b1af0b6d6a0479d2a8949e9053dda56b7583ef739"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-vulnerability-scanner-extra.md",
+      "sha256": "3045d78b805cf99c621e02b1a9988b8371fea11c54e38d7546fc4f9bdf81e518"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-vulnerability-scanner-high.md",
+      "sha256": "94295c3b423401a5c2a02817ce59a65e4fad67cf4a3ab9fb766442d9c69876a5"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-vulnerability-scanner-low.md",
+      "sha256": "395642817485ec8a65b72f3300056da30999c29e7b9e66044d1e43bb1d61855d"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-vulnerability-scanner-max.md",
+      "sha256": "3dd07081dafbf2df91fc47923c7d8800de179017a88ebb65e35fe5fb88da5f22"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-vulnerability-scanner-medium.md",
+      "sha256": "33a5030b90d10e4f425f8dbcd3fed1389560fa75886af21e073268839eb3ba07"
+    },
+    {
+      "path": "devbuddy-claude/agents/devbuddy-vulnerability-scanner-ultracode.md",
+      "sha256": "516e5f1cd7087c2ac68ee1a9cb4dd68c03f54c842a4b86b99048f0db631ba3cb"
+    },
+    {
+      "path": "devbuddy-claude/references/role-routing.md",
+      "sha256": "6f159a4222cdf65b0cd97f43512dc85a1f389ae3b81e3e46781c7e419d4aac56"
+    },
+    {
+      "path": "devbuddy-claude/roles/architect.md",
+      "sha256": "c2111deeef3e48bb07199998c07725d9c926cc431d0ae82f5e3be83b01c9cc45"
+    },
+    {
+      "path": "devbuddy-claude/roles/ba-pm.md",
+      "sha256": "ed7148d3ca1b1ad5f79ed098d6f20619c5b97578480864986d5af4b904319c1e"
+    },
+    {
+      "path": "devbuddy-claude/roles/backend-engineer.md",
+      "sha256": "ff6feed28fbcf678d0a4eea67dcd7f8cdf54d5b83d81ab9c8ec3e9e5cc66cb15"
+    },
+    {
+      "path": "devbuddy-claude/roles/cloud-infrastructure.md",
+      "sha256": "299f2e6281b84bdc7a907f9764686d4c9c3db85282a25af780e334741649a231"
+    },
+    {
+      "path": "devbuddy-claude/roles/code-reviewer.md",
+      "sha256": "595dc900eeae3898457bf487b1f9abafb0d6fbb5f28e7e30ebdf6603a0a09a7e"
+    },
+    {
+      "path": "devbuddy-claude/roles/compliance-policy.md",
+      "sha256": "866266771d94d21b987b3fb94741610c293e5e22f22235ab78bcc57af05a47a3"
+    },
+    {
+      "path": "devbuddy-claude/roles/data-analyst.md",
+      "sha256": "1e6cc150b68bb6280d932be4c22ada703cc88642d12919877f4cfad733ca192d"
+    },
+    {
+      "path": "devbuddy-claude/roles/data-pipeline.md",
+      "sha256": "f209c3e7d40519e3baf53c9ae5787927e00ca4327e2f99b8945bca3a969e9548"
+    },
+    {
+      "path": "devbuddy-claude/roles/dba-data.md",
+      "sha256": "f4d5346468b6b176a528d05c155c6c42279b5a096253a77525014bedbcc12646"
+    },
+    {
+      "path": "devbuddy-claude/roles/developer.md",
+      "sha256": "d119ab57b5f3960a886e50d37dd9375bef7f00fe45f829aee8058de02b821f6b"
+    },
+    {
+      "path": "devbuddy-claude/roles/devops-engineer.md",
+      "sha256": "b58d62583d8d86bd3792cf153ddb09fce51f516b1a7164c8dc96af520572d926"
+    },
+    {
+      "path": "devbuddy-claude/roles/devops-sre.md",
+      "sha256": "896d99923631f3ad9bc7bf3dff5e84e80cb9718bad718df93f62fc7a36b6962b"
+    },
+    {
+      "path": "devbuddy-claude/roles/frontend-engineer.md",
+      "sha256": "7426776b274644e108009c52e92bf60559c64bccdae27ec4d0627b367e64baf6"
+    },
+    {
+      "path": "devbuddy-claude/roles/helpdesk-support.md",
+      "sha256": "b9980de929c3de37856073f203147fe211b32d90552832e5ce71553eb645b15b"
+    },
+    {
+      "path": "devbuddy-claude/roles/knowledge-base.md",
+      "sha256": "d778f31370814576dba8011267d7095e57064e6c5e9b1b4f1c2be9791ad72fde"
+    },
+    {
+      "path": "devbuddy-claude/roles/model-evaluator.md",
+      "sha256": "c39114cc354aa4f9663ac4ae9e64f7001dd4b583f6eaa62245fb914ba4b103aa"
+    },
+    {
+      "path": "devbuddy-claude/roles/orchestrator.md",
+      "sha256": "4a0b973fc2ac796ef1877dea079b9e21fd83ff74927d6a411f5932650a7fa0eb"
+    },
+    {
+      "path": "devbuddy-claude/roles/qa.md",
+      "sha256": "b37abd9853809bb78df2586beff160b4c69894904365d408117d1a93dabd653a"
+    },
+    {
+      "path": "devbuddy-claude/roles/requirements-analyst.md",
+      "sha256": "c15e3d8fb728c220a1dd434662877ce07d4d475f0d1c2ae0dd62d84d8595f260"
+    },
+    {
+      "path": "devbuddy-claude/roles/reviewer.md",
+      "sha256": "c5a88221d80480ca4fcadb63b348e5d0564ed74f936066da3c0593f8685a2cb1"
+    },
+    {
+      "path": "devbuddy-claude/roles/security-incident-response.md",
+      "sha256": "7250f276efd5f01bef9e58c83f3c06dd83aa058b71b7d0461ff00a346872a94c"
+    },
+    {
+      "path": "devbuddy-claude/roles/security.md",
+      "sha256": "0758c32fce85aef2d31dc2dad2f5b144ed4054da2e8373c7f6f39b2ea62e5a27"
+    },
+    {
+      "path": "devbuddy-claude/roles/site-reliability.md",
+      "sha256": "8f8f5a907323f35fef822e72c5ccad786ac8dcdf8a857c6a91744d62a6a5f0fb"
+    },
+    {
+      "path": "devbuddy-claude/roles/ux-ui.md",
+      "sha256": "2263e28b8a970bb75c209c11d330b403f9154178fca4bda7ecd5f23cf3f1bce7"
+    },
+    {
+      "path": "devbuddy-claude/roles/vulnerability-scanner.md",
+      "sha256": "7314c8e17d714b99205c46f2bae125f3d4f1252c19064e1b44d604cee6adab58"
+    },
+    {
+      "path": "devbuddy-claude/scripts/check_adapter_conformance.py",
+      "sha256": "089783e2c5e81f1fee5925a31a3fe20b917a68a78f46ea1c4ddc703ec2fbe5e4"
+    },
+    {
+      "path": "devbuddy-claude/scripts/generate_agents.py",
+      "sha256": "cb5a6e738db5fc2edc717d7d947feb418f0e560ae2cbe9806bff59d66da355fa"
     },
     {
       "path": "devbuddy-claude/scripts/init_project_memory.py",
-      "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
-    },
-    {
-      "path": "devbuddy-claude/scripts/install_claude_adapter.py",
-      "sha256": "72ade9941fa1019a7d6f52d82b2cbd6c2e992510b9ed2c41bae3b1e633a834ab"
+      "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
     },
     {
       "path": "devbuddy-claude/scripts/validate_project_settings.py",
-      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
+      "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
+    },
+    {
+      "path": "devbuddy-claude/scripts/validate_skill_metadata.py",
+      "sha256": "ad4cb85b3a8fe75ef6aa685ce2e4dd62c031fd777cc9b23442fa3ace83f91c72"
     },
     {
       "path": "devbuddy-claude/settings.yaml",
-      "sha256": "4cf59ce3294417a734e26a65a3fae8287c33a6f5468bdd4f94e744bb8545dd3b"
+      "sha256": "5d571f4490ebcf6f39d215b31e240a76c984e33970eeedd26ab379c62e9fdc6f"
     },
     {
       "path": "devbuddy-claude/templates/project-tools/init_project_memory.py.template",
-      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+      "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
     },
     {
       "path": "devbuddy-claude/templates/project-tools/validate_project_settings.py.template",
-      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
-    },
-    {
-      "path": "devbuddy-claude/tests/fixtures/missing-budget.yaml",
-      "sha256": "8083b6d42b2dcddb91eaa28c9633373278cc8333143b704cd9f352758eb801be"
-    },
-    {
-      "path": "devbuddy-claude/tests/fixtures/valid-settings.yaml",
-      "sha256": "2e1fb06a6f4ab2e19164adf4239a751b1dd2a305d49a123bb31ae9e3341ce8cf"
-    },
-    {
-      "path": "devbuddy-claude/tests/test_project_memory.py",
-      "sha256": "a112775f746408be506199bff5d4043ec76d0c064351bf24f9b4e8cfe74ccb88"
-    },
-    {
-      "path": "devbuddy-codex/README.md",
-      "sha256": "aaf511a5af1ba9e24847d9d3e15e86ebc73475746159db8b5ee0bf9458dfc2e4"
-    },
-    {
-      "path": "devbuddy-codex/adapter-implementation-checklist.md",
-      "sha256": "cf83ecb0e24f5bbd0ea432c6e38907466ff140c88134e5681dbb9649fbebcab1"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/codex.html",
-      "sha256": "c1aec5178a2e827d16cf4050bc33dd339dc14b68f4d66d07b8320f3c45006d03"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/getting-started.html",
-      "sha256": "4a4f173f4a7357b28c83147d5653c53f1ef28c8cdf9cc3a665b42426f677e504"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/index.html",
-      "sha256": "ce14066a71c9bcb66396383b14d8a5a3eab3a34647b102dd749a9bab6ca894b9"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/migration.html",
-      "sha256": "a556c3814d71de9068ef7594c0b958cdb52991786dd664da31f0691741665909"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/plugin-first.html",
-      "sha256": "375f2e45940037230a1111363fcd2d692e15d0ba722f9b8dfed370bc18603a22"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/scripts.html",
-      "sha256": "142c05788ea4af133ebefed5d97dfce3de58de1cec032ea9ac429f63d9781143"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/tasks-and-knowledge.html",
-      "sha256": "f7a8acd93b369d28697848705889d33cdbd3195ae79ad991852fa84146323854"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/troubleshooting.html",
-      "sha256": "c1de78ecbed1ac79c1b49b19cb76c772da565e7d14a9d85976c2df1bf1d91a06"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/workspace.html",
-      "sha256": "9be02236aef6d45483d7ffea502d6e0b268a52e259b136b5aa3bba196b46dcfd"
-    },
-    {
-      "path": "devbuddy-codex/manual/index.html",
-      "sha256": "8df169dac6dc64e7a1d545939abfb7a65d728ec44262a795ccebde2af81d6005"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/codex.html",
-      "sha256": "ee46565fac34967c6862a2bf8bd63298a3dbfbc10bd310b468f32d4ec41193be"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/getting-started.html",
-      "sha256": "95a5a24f28780011b46fca609e468b1f40b5787522fa9c1c8c680ac2bebf1a97"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/index.html",
-      "sha256": "c0ea9085c8aef279a50f8ed0ca40ae46992a09befb02aa3499d415f7f7ac4bc2"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/migration.html",
-      "sha256": "6064fcaad2281003c80f27b55811acb9d25bc84dfa0d92e54a9bb412fc69b494"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/plugin-first.html",
-      "sha256": "9d4d3382bf9067f7be0a312bc21cd8a274c92b542838a13add610a0248b0c7db"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/scripts.html",
-      "sha256": "6ccc09675b627ec138c7cd8b8061433aea90b00b49b85b27c6b239bcf772a708"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/tasks-and-knowledge.html",
-      "sha256": "1a222813a72d3ad99a509b3fa8fa79c79063f1fc21617ded89a456e0aad51779"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/troubleshooting.html",
-      "sha256": "c0ade16e58758dbbe9b13d07aac0a0515dba8af840274cd6fc771623c6e8369d"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/workspace.html",
-      "sha256": "5da3327017c5932075444959190588408ae3a1d1e7122651b0e444389c6ccd96"
-    },
-    {
-      "path": "devbuddy-codex/references/custom-tools.md",
-      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
-    },
-    {
-      "path": "devbuddy-codex/references/settings.md",
-      "sha256": "1d121c3e58c3eb380db16e1a5ae8bcc95a2d39ace574c14461028e5dd9960c67"
-    },
-    {
-      "path": "devbuddy-codex/scripts/init_project_memory.py",
-      "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
-    },
-    {
-      "path": "devbuddy-codex/scripts/install_codex_adapter.py",
-      "sha256": "fe3aec4ac27d1d29c365135cfdad46923df50bf8464f52247b55a5b28b6ace05"
-    },
-    {
-      "path": "devbuddy-codex/scripts/validate_project_settings.py",
-      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
-    },
-    {
-      "path": "devbuddy-codex/settings.yaml",
-      "sha256": "a224c60f56c788ec9f0d073d62e11911e7bca355ec45ead82f1f945de12d76ce"
-    },
-    {
-      "path": "devbuddy-codex/templates/project-tools/init_project_memory.py.template",
-      "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
-    },
-    {
-      "path": "devbuddy-codex/templates/project-tools/validate_project_settings.py.template",
-      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
-    },
-    {
-      "path": "devbuddy-codex/tests/fixtures/missing-budget.yaml",
-      "sha256": "1e4b8cd0e7d1d83515b033edf43df4b6a3473d442e7fce915b241e7d8c0b81c7"
-    },
-    {
-      "path": "devbuddy-codex/tests/fixtures/valid-settings.yaml",
-      "sha256": "363a9c08ad585e5ed4248ec5ff76081c3dc94aadff578fa4224064cd80cd863c"
-    },
-    {
-      "path": "devbuddy-codex/tests/test_project_memory.py",
-      "sha256": "3aa4357dbc26531793e99220bc5925fc32f72452f8d0105a415d29ae559d8788"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/claude.html",
-      "sha256": "d1f0b328606224f44e97224a2557b087046a7caf837d2259e1efee53ad4a28fb"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/codex.html",
-      "sha256": "382a65b27f687e6f05cc629703301d7f05e2744b3af69fbe7a3cc9f6cd414725"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/getting-started.html",
-      "sha256": "7da9dbe684f1dae9b2c301859e669477829584a2f03aecbbde60c36f850d8973"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/index.html",
-      "sha256": "8e16d994489cc7a3fe8c3ae5ec051bd5cd437737b8ef5df736b417ab19cbf737"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/migration.html",
-      "sha256": "3a25e89db4989718dc206b1e5d75daebae4d793fc7c4581a76c94eeab433328c"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/plugin-first.html",
-      "sha256": "8299e22f670b17f65b4480f550de9ad8e0d202d364f86f6ae9c140027c27cc62"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/scripts.html",
-      "sha256": "eeae22c8401f6cc895f2178bca5bcca1fd3f9815aedacd3b72e515f3dd208fb2"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/tasks-and-knowledge.html",
-      "sha256": "6f7cea708315f2258e093ff40f4e3c42d336eb5bd3e30a4f075cefc5986fecda"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/troubleshooting.html",
-      "sha256": "0ab5b45216ee03bbe43f248e146cff4d211e1cf97f03593b9dc5d338bae18863"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/workspace.html",
-      "sha256": "b9e9c6f6b80e7357d7d812f5bddf622d097f44a9662dabf03a5010df1601d4e2"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/index.html",
-      "sha256": "8df169dac6dc64e7a1d545939abfb7a65d728ec44262a795ccebde2af81d6005"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/claude.html",
-      "sha256": "2924b29844f634cfe5ac5a10c3f453fa5c3be6aeec23271afeb24e1cc4c6f49a"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/codex.html",
-      "sha256": "6a17c40c39e4032ec7f660233872edd0cbf9fc7fb8614f53e0eccf03f62a7e99"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/getting-started.html",
-      "sha256": "9a59d62d1829a2a6bdd7fd16ed0af2ed203cede1d4571f8fa3eebfed9c5c6e68"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/index.html",
-      "sha256": "c5c1f2613f4290a3a6c7481d8c6ef85322bc1c2ed7faa8efb062b9030fbd866e"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/migration.html",
-      "sha256": "e8d270d58ed41a578ec45d82ef25a2847cf21c0a40322756197cc5f62e8a0b41"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/plugin-first.html",
-      "sha256": "1db735a4d37e3fb53b36c6dedd6666cffe74786f11183916b12df33d1dee9117"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/scripts.html",
-      "sha256": "f3cc67dc65d399118d64137c10f82a73b15a86a6d97c6a0b2b6b4ba968225396"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/tasks-and-knowledge.html",
-      "sha256": "e0a9775e4d81ab77784bccbd40c3d0eb3b30e0110fc9cf7e84ab8b84894d9e78"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/troubleshooting.html",
-      "sha256": "027b73d8d3ea4ff115baed6248b9f08a20c0f2c359ec99e6cab94bf361490857"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/workspace.html",
-      "sha256": "7f65eb53a0369746427149ffc1ddf7d0db01331a0d8db8e685b492a0aad20c6b"
-    },
-    {
-      "path": "devbuddy-source-of-truth/references/custom-tools.md",
-      "sha256": "e6e814abbca74c32a65bfe7288581c92eb489e11f2d529e5682c0c2b9c15cb65"
-    },
-    {
-      "path": "devbuddy-source-of-truth/scripts/check_manual_conformance.py",
-      "sha256": "1d209cd0977b473c0d6809faf4531a52081c3898c7191ad5239cbc515cf48ec9"
-    },
-    {
-      "path": "devbuddy-source-of-truth/scripts/init_project_memory.py",
-      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
-    },
-    {
-      "path": "devbuddy-source-of-truth/scripts/sync_adapter_skills.py",
-      "sha256": "a54b3b67f1e28bdf26aeb5671dfb795e20b34b193462ab3c5c37eee8b0abfcc9"
-    },
-    {
-      "path": "devbuddy-source-of-truth/scripts/sync_manual.py",
-      "sha256": "0bdfc9da5866cba04932aaa2d3ec50ba4070539360937d8372465c3c51817908"
-    },
-    {
-      "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
-      "sha256": "7e917d500a4f77a9cf51a145662dce907380d6c99f95f6663bccec27c9a01c07"
-    },
-    {
-      "path": "devbuddy-source-of-truth/settings.yaml",
-      "sha256": "f6f34c25e9fceb64317c278d229877bd258dcf81c0388922dca4194b25a2a883"
-    },
-    {
-      "path": "devbuddy-source-of-truth/templates/adapter-implementation-checklist.md",
-      "sha256": "96c86e79b4e437ec75d81727ff00499d0e2bb24b7f54daa841ee71ed203c9f19"
-    },
-    {
-      "path": "devbuddy-source-of-truth/tests/test_project_memory.py",
-      "sha256": "f3b19dc21c015a937838f5dd61e1c45915ff3be5fb34e93e78349cd6c0be438f"
-    },
-    {
-      "path": "devbuddy-claude/manual/en/git-install.html",
-      "sha256": "e551992daef7289fc3d0be7ae23df91ce82e861082de491a3236923d4dd09771"
-    },
-    {
-      "path": "devbuddy-claude/manual/th/git-install.html",
-      "sha256": "3dee70160435c4ba23896d53a90f2e97279758fae59209eef4b189778052012c"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/git-install.html",
-      "sha256": "e551992daef7289fc3d0be7ae23df91ce82e861082de491a3236923d4dd09771"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/git-install.html",
-      "sha256": "3dee70160435c4ba23896d53a90f2e97279758fae59209eef4b189778052012c"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/git-install.html",
-      "sha256": "e551992daef7289fc3d0be7ae23df91ce82e861082de491a3236923d4dd09771"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/git-install.html",
-      "sha256": "3dee70160435c4ba23896d53a90f2e97279758fae59209eef4b189778052012c"
-    },
-    {
-      "path": "devbuddy-claude/SKILL.md",
-      "sha256": "d4cf6233fc3ed56303f2e62c1235929a65a2caf1bcf697684180a9e3676c21f3"
-    },
-    {
-      "path": "devbuddy-claude/legacy-SKILL.md",
-      "sha256": "b167f75e347011cede31996c66c34c65490c0cd7b3296c74816a5b76bfdfa868"
-    },
-    {
-      "path": "devbuddy-claude/references/knowledge-model.md",
-      "sha256": "ade00ee0cf1cb5b67178284f83713e9403e20182b3746d3f16964d59712ccc67"
-    },
-    {
-      "path": "devbuddy-claude/scripts/install_claude_adapter.py",
-      "sha256": "46d008bcedd786cfec73e940c971f0ed8bc1dae5a1a4fcee934a12a15c149108"
-    },
-    {
-      "path": "devbuddy-claude/templates/knowledge-entity.md",
-      "sha256": "2aef863cefa43eeb8b782b9b9ce81acfac5eae5a91917946e90ed0c887055af4"
+      "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
     },
     {
       "path": "devbuddy-codex/SKILL.md",
-      "sha256": "9bcafcbd12d21d1f593b6fd47783cd8bdfa9ca61ab2c80cfd294ce82dff9819e"
-    },
-    {
-      "path": "devbuddy-codex/legacy-SKILL.md",
-      "sha256": "c0ece5f33ef7f71c32fcb4561fd0714a97091453a40e43c21a02ee5c9e6a1933"
-    },
-    {
-      "path": "devbuddy-codex/references/knowledge-model.md",
-      "sha256": "9ab3e64f47451e6d3ecb825aa3c316670d858ca909ef1ec571da3754cc943ef7"
-    },
-    {
-      "path": "devbuddy-codex/scripts/install_codex_adapter.py",
-      "sha256": "fe3aec4ac27d1d29c365135cfdad46923df50bf8464f52247b55a5b28b6ace05"
-    },
-    {
-      "path": "devbuddy-codex/templates/knowledge-entity.md",
-      "sha256": "2aef863cefa43eeb8b782b9b9ce81acfac5eae5a91917946e90ed0c887055af4"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/en/database-profiles.html",
-      "sha256": "295269c2fb873a9956baff271590c346e8a2c250c1b9112c145092e7a0961ab2"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/th/database-profiles.html",
-      "sha256": "16526cb8d3ebdef413f17a08a76fc0e3417603ec786fdb83f9e8183d402e28f2"
-    },
-    {
-      "path": "devbuddy-claude/manual/en/database-profiles.html",
-      "sha256": "295269c2fb873a9956baff271590c346e8a2c250c1b9112c145092e7a0961ab2"
-    },
-    {
-      "path": "devbuddy-claude/manual/th/database-profiles.html",
-      "sha256": "16526cb8d3ebdef413f17a08a76fc0e3417603ec786fdb83f9e8183d402e28f2"
-    },
-    {
-      "path": "devbuddy-codex/manual/en/database-profiles.html",
-      "sha256": "295269c2fb873a9956baff271590c346e8a2c250c1b9112c145092e7a0961ab2"
-    },
-    {
-      "path": "devbuddy-codex/manual/th/database-profiles.html",
-      "sha256": "16526cb8d3ebdef413f17a08a76fc0e3417603ec786fdb83f9e8183d402e28f2"
-    },
-    {
-      "path": "devbuddy-source-of-truth/manual/assets/manual.js",
-      "sha256": "68bd926547d430594c70bce216303e3b27b8db349cec6bf728b1c78109a048cc"
+      "sha256": "2187d0ecfe7286b025f5218a5291e220d359eeaabb6388d7e0a6e6ca67f43131"
     },
     {
       "path": "devbuddy-codex/manual/assets/manual.js",
-      "sha256": "68bd926547d430594c70bce216303e3b27b8db349cec6bf728b1c78109a048cc"
+      "sha256": "3456cb278d234da50f62c8b10e2f561f36f2f0d3944183ca47f2177fa1e99e29"
     },
     {
-      "path": "devbuddy-claude/manual/assets/manual.js",
-      "sha256": "68bd926547d430594c70bce216303e3b27b8db349cec6bf728b1c78109a048cc"
+      "path": "devbuddy-codex/manual/assets/style.css",
+      "sha256": "e6e54f832da61e37e23a84790fb06c579e012e815ad9eb98e6c86931408e0fce"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/database-profiles.html",
+      "sha256": "29f7ed5f8ba0f44a87fad1902e1a24276594ab9fff86390f5f8c2ae67d13f3cf"
+    },
+    {
+      "path": "devbuddy-codex/manual/en/git-install.html",
+      "sha256": "bf88b4884f74e37009a5caf5e7b0093c2306cfcccdb507c186f859f0b756170d"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/database-profiles.html",
+      "sha256": "13648d4f044520e8f48c37e17804ecd2889053c930b431529fdba8b07d58927a"
+    },
+    {
+      "path": "devbuddy-codex/manual/th/git-install.html",
+      "sha256": "454c515ce5accc1561056203aee9153a1b7adbb6e6703baff9b48a77cce4d9bd"
+    },
+    {
+      "path": "devbuddy-codex/references/role-routing.md",
+      "sha256": "6f159a4222cdf65b0cd97f43512dc85a1f389ae3b81e3e46781c7e419d4aac56"
+    },
+    {
+      "path": "devbuddy-codex/roles/architect.md",
+      "sha256": "c2111deeef3e48bb07199998c07725d9c926cc431d0ae82f5e3be83b01c9cc45"
+    },
+    {
+      "path": "devbuddy-codex/roles/ba-pm.md",
+      "sha256": "ed7148d3ca1b1ad5f79ed098d6f20619c5b97578480864986d5af4b904319c1e"
+    },
+    {
+      "path": "devbuddy-codex/roles/backend-engineer.md",
+      "sha256": "ff6feed28fbcf678d0a4eea67dcd7f8cdf54d5b83d81ab9c8ec3e9e5cc66cb15"
+    },
+    {
+      "path": "devbuddy-codex/roles/cloud-infrastructure.md",
+      "sha256": "299f2e6281b84bdc7a907f9764686d4c9c3db85282a25af780e334741649a231"
+    },
+    {
+      "path": "devbuddy-codex/roles/code-reviewer.md",
+      "sha256": "595dc900eeae3898457bf487b1f9abafb0d6fbb5f28e7e30ebdf6603a0a09a7e"
+    },
+    {
+      "path": "devbuddy-codex/roles/compliance-policy.md",
+      "sha256": "866266771d94d21b987b3fb94741610c293e5e22f22235ab78bcc57af05a47a3"
+    },
+    {
+      "path": "devbuddy-codex/roles/data-analyst.md",
+      "sha256": "1e6cc150b68bb6280d932be4c22ada703cc88642d12919877f4cfad733ca192d"
+    },
+    {
+      "path": "devbuddy-codex/roles/data-pipeline.md",
+      "sha256": "f209c3e7d40519e3baf53c9ae5787927e00ca4327e2f99b8945bca3a969e9548"
+    },
+    {
+      "path": "devbuddy-codex/roles/dba-data.md",
+      "sha256": "f4d5346468b6b176a528d05c155c6c42279b5a096253a77525014bedbcc12646"
+    },
+    {
+      "path": "devbuddy-codex/roles/developer.md",
+      "sha256": "d119ab57b5f3960a886e50d37dd9375bef7f00fe45f829aee8058de02b821f6b"
+    },
+    {
+      "path": "devbuddy-codex/roles/devops-engineer.md",
+      "sha256": "b58d62583d8d86bd3792cf153ddb09fce51f516b1a7164c8dc96af520572d926"
+    },
+    {
+      "path": "devbuddy-codex/roles/devops-sre.md",
+      "sha256": "896d99923631f3ad9bc7bf3dff5e84e80cb9718bad718df93f62fc7a36b6962b"
+    },
+    {
+      "path": "devbuddy-codex/roles/frontend-engineer.md",
+      "sha256": "7426776b274644e108009c52e92bf60559c64bccdae27ec4d0627b367e64baf6"
+    },
+    {
+      "path": "devbuddy-codex/roles/helpdesk-support.md",
+      "sha256": "b9980de929c3de37856073f203147fe211b32d90552832e5ce71553eb645b15b"
+    },
+    {
+      "path": "devbuddy-codex/roles/knowledge-base.md",
+      "sha256": "d778f31370814576dba8011267d7095e57064e6c5e9b1b4f1c2be9791ad72fde"
+    },
+    {
+      "path": "devbuddy-codex/roles/model-evaluator.md",
+      "sha256": "c39114cc354aa4f9663ac4ae9e64f7001dd4b583f6eaa62245fb914ba4b103aa"
+    },
+    {
+      "path": "devbuddy-codex/roles/orchestrator.md",
+      "sha256": "4a0b973fc2ac796ef1877dea079b9e21fd83ff74927d6a411f5932650a7fa0eb"
+    },
+    {
+      "path": "devbuddy-codex/roles/qa.md",
+      "sha256": "b37abd9853809bb78df2586beff160b4c69894904365d408117d1a93dabd653a"
+    },
+    {
+      "path": "devbuddy-codex/roles/requirements-analyst.md",
+      "sha256": "c15e3d8fb728c220a1dd434662877ce07d4d475f0d1c2ae0dd62d84d8595f260"
+    },
+    {
+      "path": "devbuddy-codex/roles/reviewer.md",
+      "sha256": "c5a88221d80480ca4fcadb63b348e5d0564ed74f936066da3c0593f8685a2cb1"
+    },
+    {
+      "path": "devbuddy-codex/roles/security-incident-response.md",
+      "sha256": "7250f276efd5f01bef9e58c83f3c06dd83aa058b71b7d0461ff00a346872a94c"
+    },
+    {
+      "path": "devbuddy-codex/roles/site-reliability.md",
+      "sha256": "8f8f5a907323f35fef822e72c5ccad786ac8dcdf8a857c6a91744d62a6a5f0fb"
+    },
+    {
+      "path": "devbuddy-codex/roles/ux-ui.md",
+      "sha256": "2263e28b8a970bb75c209c11d330b403f9154178fca4bda7ecd5f23cf3f1bce7"
+    },
+    {
+      "path": "devbuddy-codex/roles/vulnerability-scanner.md",
+      "sha256": "7314c8e17d714b99205c46f2bae125f3d4f1252c19064e1b44d604cee6adab58"
+    },
+    {
+      "path": "devbuddy-codex/scripts/check_adapter_conformance.py",
+      "sha256": "a59d10e58e1e13bdeae0a31a35c770be8267a57d014c4879d4e3fa2650ce42a6"
+    },
+    {
+      "path": "devbuddy-codex/scripts/init_project_memory.py",
+      "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
+    },
+    {
+      "path": "devbuddy-codex/scripts/validate_project_settings.py",
+      "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
+    },
+    {
+      "path": "devbuddy-codex/settings.yaml",
+      "sha256": "639a218bd809fde7eb07a739e9e06496461c046241b026bcf9289b560c547546"
+    },
+    {
+      "path": "devbuddy-codex/templates/project-tools/init_project_memory.py.template",
+      "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
+    },
+    {
+      "path": "devbuddy-codex/templates/project-tools/validate_project_settings.py.template",
+      "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
+    },
+    {
+      "path": "devbuddy-source-of-truth/references/role-routing.md",
+      "sha256": "6f159a4222cdf65b0cd97f43512dc85a1f389ae3b81e3e46781c7e419d4aac56"
+    },
+    {
+      "path": "devbuddy-source-of-truth/references/roles.md",
+      "sha256": "a3fdf952bdd1814eda47e717ef33ccc6269c94e870be8555898a48055676e7ac"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/backend-engineer.md",
+      "sha256": "ff6feed28fbcf678d0a4eea67dcd7f8cdf54d5b83d81ab9c8ec3e9e5cc66cb15"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/cloud-infrastructure.md",
+      "sha256": "299f2e6281b84bdc7a907f9764686d4c9c3db85282a25af780e334741649a231"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/code-reviewer.md",
+      "sha256": "595dc900eeae3898457bf487b1f9abafb0d6fbb5f28e7e30ebdf6603a0a09a7e"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/compliance-policy.md",
+      "sha256": "866266771d94d21b987b3fb94741610c293e5e22f22235ab78bcc57af05a47a3"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/data-analyst.md",
+      "sha256": "1e6cc150b68bb6280d932be4c22ada703cc88642d12919877f4cfad733ca192d"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/data-pipeline.md",
+      "sha256": "f209c3e7d40519e3baf53c9ae5787927e00ca4327e2f99b8945bca3a969e9548"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/devops-engineer.md",
+      "sha256": "b58d62583d8d86bd3792cf153ddb09fce51f516b1a7164c8dc96af520572d926"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/frontend-engineer.md",
+      "sha256": "7426776b274644e108009c52e92bf60559c64bccdae27ec4d0627b367e64baf6"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/helpdesk-support.md",
+      "sha256": "b9980de929c3de37856073f203147fe211b32d90552832e5ce71553eb645b15b"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/knowledge-base.md",
+      "sha256": "d778f31370814576dba8011267d7095e57064e6c5e9b1b4f1c2be9791ad72fde"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/model-evaluator.md",
+      "sha256": "c39114cc354aa4f9663ac4ae9e64f7001dd4b583f6eaa62245fb914ba4b103aa"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/requirements-analyst.md",
+      "sha256": "c15e3d8fb728c220a1dd434662877ce07d4d475f0d1c2ae0dd62d84d8595f260"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/security-incident-response.md",
+      "sha256": "7250f276efd5f01bef9e58c83f3c06dd83aa058b71b7d0461ff00a346872a94c"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/site-reliability.md",
+      "sha256": "8f8f5a907323f35fef822e72c5ccad786ac8dcdf8a857c6a91744d62a6a5f0fb"
+    },
+    {
+      "path": "devbuddy-source-of-truth/roles/vulnerability-scanner.md",
+      "sha256": "7314c8e17d714b99205c46f2bae125f3d4f1252c19064e1b44d604cee6adab58"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/check_semantic_conformance.py",
+      "sha256": "b5f5135c0a3dbf8b9b72701b4260a9dbff3bea480a4854d97e067f4cb1b37926"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/init_project_memory.py",
+      "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/sync_adapter_skills.py",
+      "sha256": "09941f22923f320da47c7c21ad90413646a2ab55bc5c92219436bdd48cec7cba"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/validate_project_settings.py",
+      "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
+    },
+    {
+      "path": "devbuddy-source-of-truth/scripts/verify_installed_adapters.py",
+      "sha256": "5c34b31cc661cea75c239cb59ece000b9e6f4bbdc409febd9feee100c5b9f4ef"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T11:19:28+00:00",
+  "generated_at": "2026-08-26T13:07:17+00:00",
   "mappings": [
     {
       "files": [
@@ -35,7 +35,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "d4cf6233fc3ed56303f2e62c1235929a65a2caf1bcf697684180a9e3676c21f3"
+          "sha256": "eb7baa66f0c882e609b8d5238883cbb92434c8483acdd938a22a1b4c54339e85"
         }
       ],
       "source": "devbuddy-claude/SKILL.md",
@@ -45,7 +45,7 @@
       "files": [
         {
           "path": "settings.yaml",
-          "sha256": "9127750baf78b7c5105f2fba781639cbaf78102d9b03c29fa0a9caa694f8b2b3"
+          "sha256": "5d571f4490ebcf6f39d215b31e240a76c984e33970eeedd26ab379c62e9fdc6f"
         }
       ],
       "source": "devbuddy-claude/settings.yaml",
@@ -55,219 +55,579 @@
       "files": [
         {
           "path": "devbuddy-architect-extra.md",
-          "sha256": "2507dcfebef5150cb9e8d756ee53a48e9927fbdf2d9487673b0b3fbef271cdb2"
+          "sha256": "3f06c1ddbe99e49b9b1d360f40eef97045b29a82fa93cc1207c32384d8d462ca"
         },
         {
           "path": "devbuddy-architect-high.md",
-          "sha256": "3df41f1e2f8d8da2ca028d0556cd6e1c88bfde0355b1ef8cc7ebee20763859e4"
+          "sha256": "1fe4c4aeba95962cd22b1f07d1d048c9417dc7a1ba8081a6ce1bc56371b2e0c6"
         },
         {
           "path": "devbuddy-architect-low.md",
-          "sha256": "13d6cb81c7242e88f5efd3c3e59d5f28fa6fc722e756ec944626e1041087acca"
+          "sha256": "79b4537be991f79e7b102b0ed96cc2fbef47ad3a75ee390ec1a4f3da1b0c1be2"
         },
         {
           "path": "devbuddy-architect-max.md",
-          "sha256": "a0f2835969924717e472a8f1ffa1ed0ffd5b4dd0ac420d39446def14e8c02e0c"
+          "sha256": "8d7db11957ea616a67ec9476744ffb7d126dc15e7669539cbed2300ca70b2342"
         },
         {
           "path": "devbuddy-architect-medium.md",
-          "sha256": "74774e28a62c502b166e37418da62ef019f510b4d3bd94139f3b93b5dadb0847"
+          "sha256": "5a7c7be9be550cd70b41b1666ee4de199d14d10460971a65a42f08b9fb059db8"
         },
         {
           "path": "devbuddy-architect-ultracode.md",
-          "sha256": "3efa758d410450c37f0decef4b8766f6598046f780e5fb65fb2420fa2a1c7b7d"
+          "sha256": "1a63df8fbc7f0f8636ac6969e513db1e44999c8a17e70ddc8b5a5554d469c96d"
         },
         {
           "path": "devbuddy-ba-pm-extra.md",
-          "sha256": "bd2e9e39b2c16483638e1d0dc69abf208ad40d8d92ef36ee5c2038d66e0d0b81"
+          "sha256": "226ee5253f23b7bf2ff56e0ee52e347e1d8e9d5ba71aef90db0bac8f51d5a354"
         },
         {
           "path": "devbuddy-ba-pm-high.md",
-          "sha256": "639d3b3690c6730a1c01dfa093109f74d5a784fde2c9077e01ba10544b012f98"
+          "sha256": "847773cda4316d7b24cffa0b68fac521c6fc47d1a6d95cb344182504d475b0c9"
         },
         {
           "path": "devbuddy-ba-pm-low.md",
-          "sha256": "afb30567b8abcf6adbabbdf0c977256a1098afbd0a61aa8b9e3c1a1cb4f6eb39"
+          "sha256": "2860af9d69da3207610c9e34c13c7ae945eb596917c070da6046ca654fda97e7"
         },
         {
           "path": "devbuddy-ba-pm-max.md",
-          "sha256": "5a9991d06be3d3a38fb1e010e0ea4e38fe54db1276dfcd12d5ff5a4dfcf669ec"
+          "sha256": "b0544d66d37fd3546ecbabf1f544878a436fba871e0059b28f5d8cfabbfcba98"
         },
         {
           "path": "devbuddy-ba-pm-medium.md",
-          "sha256": "3f2db7c747a9a370c3a72a1d96760d4aea0ecedf9ad7ad2d27c98cd2fb59e5a3"
+          "sha256": "9b73d01dcc984d8bca867441c4a92c1089d7a4892ec702b4156209133652ffc5"
         },
         {
           "path": "devbuddy-ba-pm-ultracode.md",
-          "sha256": "cdfbe35c0a47a7495b109265b61939f49ac8630b4167fa00744df1d7782dcc32"
+          "sha256": "0ada9f3a1c3a8ab147f094dcdd6938e9219955729d4cd0c4def3cd39491aff45"
+        },
+        {
+          "path": "devbuddy-backend-engineer-extra.md",
+          "sha256": "12a1e4207fc0cc978285a5d574ddb1d9dc1d612daf0e0bf73aee506441301bea"
+        },
+        {
+          "path": "devbuddy-backend-engineer-high.md",
+          "sha256": "9381ffcd524e7731ed104f6b6bf7e8dc839e59e8622e291fc2f65cf296c8b9f5"
+        },
+        {
+          "path": "devbuddy-backend-engineer-low.md",
+          "sha256": "29950f6565a658983cf799df36f92f6bb01ea1aab6d25bc7c4e5f29649f7a83f"
+        },
+        {
+          "path": "devbuddy-backend-engineer-max.md",
+          "sha256": "1b7ea7dfdaeeb87bc402ffe8d2cc82fa1a02ce3169d7140fb0e3292b71a8b5af"
+        },
+        {
+          "path": "devbuddy-backend-engineer-medium.md",
+          "sha256": "bfecd45407cb3b186db0d484869b0c74925cd71402b44fbefaf8b85fdf3fb40d"
+        },
+        {
+          "path": "devbuddy-backend-engineer-ultracode.md",
+          "sha256": "c147ca26e762f23b275aca2af68551c6565e16a1d7f2be3e64d0c13c2b62a6a2"
+        },
+        {
+          "path": "devbuddy-cloud-infrastructure-extra.md",
+          "sha256": "57b5a61523992ca2f5c7fd1c5282636cb5d73f77ef58400a952c8b3b11653b3b"
+        },
+        {
+          "path": "devbuddy-cloud-infrastructure-high.md",
+          "sha256": "ff15a3465d3f3ebc3c6268a92d6fb7d9aa88e449969579205b4254b269e2bb78"
+        },
+        {
+          "path": "devbuddy-cloud-infrastructure-low.md",
+          "sha256": "01d097c2ab33be0b51b2b13d581ed97d0bf9a8deefef274153b00cf0501b1704"
+        },
+        {
+          "path": "devbuddy-cloud-infrastructure-max.md",
+          "sha256": "f3f24190b9a1437fbf70c3239f0149fab8104ffd5c343b2845ec2d46fed25d24"
+        },
+        {
+          "path": "devbuddy-cloud-infrastructure-medium.md",
+          "sha256": "7e7f80dcd435a87fe8658be79c233d316f3fb804b68866e751025f78d8e83d6f"
+        },
+        {
+          "path": "devbuddy-cloud-infrastructure-ultracode.md",
+          "sha256": "73a9b46038c29effe3a7f1b55ef835ef7f073c230f982cc7d4249774bd8054e9"
+        },
+        {
+          "path": "devbuddy-code-reviewer-extra.md",
+          "sha256": "669984fae79481236de91e5518ec2149253de73765e6097bf0388f9e9ea8185c"
+        },
+        {
+          "path": "devbuddy-code-reviewer-high.md",
+          "sha256": "ded7f3ee9b0b1d0822b27cb206071221278f35cf66f6798d746d2abd7fad5c1c"
+        },
+        {
+          "path": "devbuddy-code-reviewer-low.md",
+          "sha256": "918d209252b484a54f038a8437289c26b5efd27e7630ff3550f361f6fc57cb8c"
+        },
+        {
+          "path": "devbuddy-code-reviewer-max.md",
+          "sha256": "0f2016a11d389a7fef86282c22576602b5e7a8174a1b4e7d1c2524e6801d5bb7"
+        },
+        {
+          "path": "devbuddy-code-reviewer-medium.md",
+          "sha256": "b8c399f0184ced75a8ef7b145ca77079dc258b49563ad061ddd927301adea5cd"
+        },
+        {
+          "path": "devbuddy-code-reviewer-ultracode.md",
+          "sha256": "1c6f2f469111f82d2b4f037fc21a6a5b5e2b021837d8895a15164b7d92bff547"
+        },
+        {
+          "path": "devbuddy-compliance-policy-extra.md",
+          "sha256": "387a31d3032c5e557a02461a1e12bb4245e93eb7cd2a8768f98f71d832ab2249"
+        },
+        {
+          "path": "devbuddy-compliance-policy-high.md",
+          "sha256": "e5bc9afb4fd6c71dd24a238b3c8ab220bdc3c5d569aad977e6158d095e8d3b0f"
+        },
+        {
+          "path": "devbuddy-compliance-policy-low.md",
+          "sha256": "4d79cb0d1d9a997e84e94b976ca331a136c3ee09feef1d3ef3647b7d8047b79c"
+        },
+        {
+          "path": "devbuddy-compliance-policy-max.md",
+          "sha256": "11db863e100004f7174b829f44319b4a9e15bb77b0bf98849f804bec9b851b04"
+        },
+        {
+          "path": "devbuddy-compliance-policy-medium.md",
+          "sha256": "312d85d96281e3f0708f8c061967ae61e64b5daa365326bf80e563e0eedb1939"
+        },
+        {
+          "path": "devbuddy-compliance-policy-ultracode.md",
+          "sha256": "e49ea7bf0c79cf494a7eb828f5045f97acf595fc2645a0fb04e3216d1fe412fa"
+        },
+        {
+          "path": "devbuddy-data-analyst-extra.md",
+          "sha256": "c075c63bb48a626ab09782432bb2ad75946d152d8fee5f8aeddb67d573c4a13b"
+        },
+        {
+          "path": "devbuddy-data-analyst-high.md",
+          "sha256": "3d1f8d2ab752ee1f89361fab5f2a20317ea9c77b3b36fadbd611275997303cc0"
+        },
+        {
+          "path": "devbuddy-data-analyst-low.md",
+          "sha256": "7d0cceed73cafd0d1318ab9ff951308539378ce0f2ad3c181f28629ca2b5b188"
+        },
+        {
+          "path": "devbuddy-data-analyst-max.md",
+          "sha256": "0dc0dd9fd519e819ffa209592aac3ee1fe9329dfce56272adaf1e4d0e828d69b"
+        },
+        {
+          "path": "devbuddy-data-analyst-medium.md",
+          "sha256": "ce706c0a03b01664d843920aafb37fcd5e2f4de800bde9b9ca3894639a8fdc8e"
+        },
+        {
+          "path": "devbuddy-data-analyst-ultracode.md",
+          "sha256": "b24de450022766d6c3223d7872a7e93dd7205580a2ccf9508b976aa4273166f1"
+        },
+        {
+          "path": "devbuddy-data-pipeline-extra.md",
+          "sha256": "911777f27cfc619d4c46b07fa378390cc2cba7ce178d97bf3b9bb78f400c51d5"
+        },
+        {
+          "path": "devbuddy-data-pipeline-high.md",
+          "sha256": "19dbd07d00f3d0a80adefce6b971347daaff19c1ebf349ef26f1fa665daa318a"
+        },
+        {
+          "path": "devbuddy-data-pipeline-low.md",
+          "sha256": "48f58e5fd7890a1d5956083bd3f1a2401428a895539cb4b26c624a7cd541636f"
+        },
+        {
+          "path": "devbuddy-data-pipeline-max.md",
+          "sha256": "f0736696de135e87d6becad6f892d2b9b1f200a1a2d2f57ca7e813e7a397d101"
+        },
+        {
+          "path": "devbuddy-data-pipeline-medium.md",
+          "sha256": "7eac9d6ecb2d62f9d788c40042852189c22bf5eff91227d175769457430687c4"
+        },
+        {
+          "path": "devbuddy-data-pipeline-ultracode.md",
+          "sha256": "743554330d3243b8bc67fbcc4fa99a3032e22fa69815a65a2411a6d777973aee"
         },
         {
           "path": "devbuddy-dba-data-extra.md",
-          "sha256": "242d92c95778428bd54cbd2de52517d771e3022a627801a07497dfcdf53794ff"
+          "sha256": "3301ae7b551566703c671172931a52b061297ab322fae175342a8489389c017c"
         },
         {
           "path": "devbuddy-dba-data-high.md",
-          "sha256": "a651ef077dac542500f19303e8389b8b94abe4c10b12a24156d6832e76dbe39d"
+          "sha256": "29de7d7906646613cc5373874d25009bdbc0ef309b71a99b4bdf3713bca6fd0e"
         },
         {
           "path": "devbuddy-dba-data-low.md",
-          "sha256": "e1b6ec353c4e7bc69584cb4231984f6da8f1e6868637f74aacd727a197853238"
+          "sha256": "f0aa203a977ba59cd08d3ad67b9f7f6f3f6a6a5bf90b12d622b9991b3ee954e8"
         },
         {
           "path": "devbuddy-dba-data-max.md",
-          "sha256": "67220fa08029d17095a8752b24d202785e216e9bcb105082dcf994b8f25d0470"
+          "sha256": "cd0ad1f60a4216e8bba85b6d5632985b1cf1aa9fb80b9ecc21df425026c6a297"
         },
         {
           "path": "devbuddy-dba-data-medium.md",
-          "sha256": "21dcbd5152e0efee19a89a5788e1c3f250b9e195885c4b8981d2b4d7b914e660"
+          "sha256": "6d191d2c06bc348c5bcf58bba537285e8ff31840b8b53afaee356eb725826951"
         },
         {
           "path": "devbuddy-dba-data-ultracode.md",
-          "sha256": "c9ae3ce65c853ec0b206391033b2e53e3f31a47ae643e636827d7dbcd1f5258b"
+          "sha256": "3231d2c7344318e7560acc8eea4b464e974bddf2c19dcb26cd087e14e38884f1"
         },
         {
           "path": "devbuddy-developer-extra.md",
-          "sha256": "6376fd001294f6808ff50e5f5dc4ab0ce885e23d99c437683d5a653587f4f930"
+          "sha256": "db6bbb8430d701d024d15c0a713f7aff5d7b5170b1d6de5834c4d8c6cdb5afec"
         },
         {
           "path": "devbuddy-developer-high.md",
-          "sha256": "16ec0adb24e61861b95f7e05a5c68d8857609496cf6f6ac6ee5b2190804881ad"
+          "sha256": "ca3b724bd0e7f510a8b31c54abd62d54673d78a43262ce59e5297930a67bb550"
         },
         {
           "path": "devbuddy-developer-low.md",
-          "sha256": "64503907b499ec5a13b193d06be8b22aaaa817eeccffb5543a3d3699acba7ef7"
+          "sha256": "967d1291c4b53ce35bce2590edcf812f55eef05f29e12792337cf291570c407a"
         },
         {
           "path": "devbuddy-developer-max.md",
-          "sha256": "31c15d973a3e03860dbde4ed0ab5dc546d13ff109f8cc20e95ade41747e4d0ba"
+          "sha256": "f554fd73508e36b369965d5a6a2d0230def8d0dd41b634b405022f158bf4cf05"
         },
         {
           "path": "devbuddy-developer-medium.md",
-          "sha256": "d741541a93783339b0208723e05f72adf2a5b4617eb5c4240e55cebe08eb94da"
+          "sha256": "3eeb509e842b42753f5736badd860ffac9d78586d6ef0ceb960d4f6166584767"
         },
         {
           "path": "devbuddy-developer-ultracode.md",
-          "sha256": "d79bebe113fdd9434196e228239c44eaaebdd6173726d3b67ab9de6c3a700b6b"
+          "sha256": "9b28078f4aed456330c55afabe123a61976c2e798e82170e143ec2ac32cbb807"
+        },
+        {
+          "path": "devbuddy-devops-engineer-extra.md",
+          "sha256": "2bc838c1768a4b009738b14eb69c823eeaa839fc1486c19421e55833049f5056"
+        },
+        {
+          "path": "devbuddy-devops-engineer-high.md",
+          "sha256": "21dd88c66d0be3fe0e83cf8d6be1054e7ead41b6e156166cb70c70c4fb37ad4f"
+        },
+        {
+          "path": "devbuddy-devops-engineer-low.md",
+          "sha256": "03e1a401287f44d966cbbd742f89be9e59a0e99d095d02ef267d1a9b289049f3"
+        },
+        {
+          "path": "devbuddy-devops-engineer-max.md",
+          "sha256": "ca0a7378d053a32ef62a002d167fe77151543dd3d1531a66f59813b9d2231caa"
+        },
+        {
+          "path": "devbuddy-devops-engineer-medium.md",
+          "sha256": "9c080103c2f8e701fa085c8e4ffd0c726cd618c6a3bc1cfa13ee53bd694d771d"
+        },
+        {
+          "path": "devbuddy-devops-engineer-ultracode.md",
+          "sha256": "45172c0001207871dcdef6bb976018a5ec3120ce2eb14286377bff229ab6736f"
         },
         {
           "path": "devbuddy-devops-sre-extra.md",
-          "sha256": "03beeb19eb5ab87005271ccfa9916550573b98c8eff415c4bc8ecd69a58b3887"
+          "sha256": "c3a03ed216848529428871b51f010eb9d7fe0dd424cc65cf2dfb554d26e76498"
         },
         {
           "path": "devbuddy-devops-sre-high.md",
-          "sha256": "bba1d07c932b60bfc09c3d4d67aeb95af6c47637dcde1195632ea9937a7adc81"
+          "sha256": "ec011cd7b1f83ae98836b35d845745b839ace8eee4288fd88c7d68b2f35291b3"
         },
         {
           "path": "devbuddy-devops-sre-low.md",
-          "sha256": "e15e1a468e09c69c23d37e569c4caa3e0e63f69ce475341f2a54a2e89423d86c"
+          "sha256": "189a18a4751603a5ed171b643c210b331d8c11017dbf597fbc2fe885e71290ac"
         },
         {
           "path": "devbuddy-devops-sre-max.md",
-          "sha256": "6f07e83dcf99a206bab83512a726ce030f03087b7a9c047c9774dc48b44a6142"
+          "sha256": "71ab4f02defdad6d32cb44629d01d1cfcfd8f2eb1dc0fd7bda9472b869fb1515"
         },
         {
           "path": "devbuddy-devops-sre-medium.md",
-          "sha256": "b4d8daef9d0489417baa834e85efe2dac9d5bbd0cc7ac521d19784dc73aded55"
+          "sha256": "660f9248df27573b2208c5a5d7c4da04a3b4bb562fd2f757c57925fb754cf1c0"
         },
         {
           "path": "devbuddy-devops-sre-ultracode.md",
-          "sha256": "5fbe1595e2173bc7f30ee9ebf9c3158740a857470c3540f68de96e1b48125d53"
+          "sha256": "361291de7f33c3c798e798b27e98d17fbddabf8075c9f8647b28565896c5f8cb"
+        },
+        {
+          "path": "devbuddy-frontend-engineer-extra.md",
+          "sha256": "bcfb956d494b91d1ad8ba5f89bb275a945823e43af8463a6ff5fbee5719eac9e"
+        },
+        {
+          "path": "devbuddy-frontend-engineer-high.md",
+          "sha256": "3e1ce95b547876f65aef25e7a142eb3284c85e35a2628f6bfeb4707bc362d3ef"
+        },
+        {
+          "path": "devbuddy-frontend-engineer-low.md",
+          "sha256": "2e6397410f1f6211165e8ff0bcbcbd34584a6593a14acee78545c04f5e7e956c"
+        },
+        {
+          "path": "devbuddy-frontend-engineer-max.md",
+          "sha256": "afdf577400f4dd674f29908982b49885b5f15085d97d6e831fbc6c20ccccd3cd"
+        },
+        {
+          "path": "devbuddy-frontend-engineer-medium.md",
+          "sha256": "3bfe0a8acd0259a6f1f66883075a68dc9c05854454281932dce8f056239a4971"
+        },
+        {
+          "path": "devbuddy-frontend-engineer-ultracode.md",
+          "sha256": "f6ed4d555f23b35883cb0c8db61e335b39dfb98d1f92c3e2063df689eaa4df86"
+        },
+        {
+          "path": "devbuddy-helpdesk-support-extra.md",
+          "sha256": "05a25824526f1e19fe86c4e89bf1f334d54f0a0994269bd79c485781cff080e6"
+        },
+        {
+          "path": "devbuddy-helpdesk-support-high.md",
+          "sha256": "ad651d967b371f50a14d9a03b3c95396e5aff2fbbb9681ae55ab8d35be7d831b"
+        },
+        {
+          "path": "devbuddy-helpdesk-support-low.md",
+          "sha256": "df42023b036be3dc19dfab59d91a414b0b6336564a16ceaa0c86ddcbb9a0c4c3"
+        },
+        {
+          "path": "devbuddy-helpdesk-support-max.md",
+          "sha256": "0ca7c9159677fe43c9b352019ba4d2399f03b9fc68000ae63d169ed38ff0f6d8"
+        },
+        {
+          "path": "devbuddy-helpdesk-support-medium.md",
+          "sha256": "60f30414b8a6be1c1c414d753c45c393b78fc012a27e3f0317c16ba4e1a7b3a0"
+        },
+        {
+          "path": "devbuddy-helpdesk-support-ultracode.md",
+          "sha256": "e16a523a32f0df615ffab3998c6a952bfee5968e92fa89f3d0812b478e83bd9b"
+        },
+        {
+          "path": "devbuddy-knowledge-base-extra.md",
+          "sha256": "7b69ad9571eabf163c2a44625822383fb4486f67c5f39237b21732d5ca04c50a"
+        },
+        {
+          "path": "devbuddy-knowledge-base-high.md",
+          "sha256": "440d20e1f3bd4d8510de33c495274ee8f3531c936f60e66ca643f819638d4c28"
+        },
+        {
+          "path": "devbuddy-knowledge-base-low.md",
+          "sha256": "7710a692fc6e07bc013eb599ef16b4b3c0bb492114d1a18b3c5d31b0f5335d21"
+        },
+        {
+          "path": "devbuddy-knowledge-base-max.md",
+          "sha256": "1083c703e31dd95c1bfa2675ea9af6e1871a3aad2e82ca391c8abbde02d581d7"
+        },
+        {
+          "path": "devbuddy-knowledge-base-medium.md",
+          "sha256": "89ab6bbefdd74841655a7fb135e02436c6c8b7058296290e42f8e0e773412095"
+        },
+        {
+          "path": "devbuddy-knowledge-base-ultracode.md",
+          "sha256": "122a988cbf0f0c84fcfc66c74716ab98d6aeb28ea844ce6410154a0a5e8addcb"
+        },
+        {
+          "path": "devbuddy-model-evaluator-extra.md",
+          "sha256": "28060085e1178841b7aaf5430cc75e6c9cfde1806fb60353d16916ddaa4e6578"
+        },
+        {
+          "path": "devbuddy-model-evaluator-high.md",
+          "sha256": "72296afd1c601ba2f85b14e75addd52620c1b8b76d157df2aa68d939285fc0ed"
+        },
+        {
+          "path": "devbuddy-model-evaluator-low.md",
+          "sha256": "46ea6f4e1c527c3883df75b6ea8ba193c21360209472b888750a85fa461604ea"
+        },
+        {
+          "path": "devbuddy-model-evaluator-max.md",
+          "sha256": "b3b1973bd7fbaffe6a9d0e9dfdcdf405f104aaed995f88d72b414b0a055bc692"
+        },
+        {
+          "path": "devbuddy-model-evaluator-medium.md",
+          "sha256": "ec3b3dbede1235b1499307241bdb0c37d5bd21a32bda5a2c42cc8d753a8f910c"
+        },
+        {
+          "path": "devbuddy-model-evaluator-ultracode.md",
+          "sha256": "e653dfbc857d808e74a358486fd418747550aa1c49b09f80dde7d3ccec550cbc"
         },
         {
           "path": "devbuddy-qa-extra.md",
-          "sha256": "3d38dec925e0cec41cfac78f50ed64c586a4c962c2f33e285bdbd200f0290c43"
+          "sha256": "a2e7a4e1ce54d4b578748f1900a829e772b3e3099551c7ee2f5956818cc53f01"
         },
         {
           "path": "devbuddy-qa-high.md",
-          "sha256": "7d7da96eb8cec75023e5f91b0c1478a45d6ad6d618988700be9a3c65c9ee8d26"
+          "sha256": "0a54b48df0cc0e3709124d83fae8c407c80456e43eb2a5d64b89ec6b745e58ac"
         },
         {
           "path": "devbuddy-qa-low.md",
-          "sha256": "5c897766adb217cf361a0b74d70cd157168ef43f45265e44240be4c60f6fde36"
+          "sha256": "8824235fd8ff1a109bbf91edb2de9d796e8a1a4693db8c618c9e869e713ccd3e"
         },
         {
           "path": "devbuddy-qa-max.md",
-          "sha256": "616545f4fd5a1cac4a71e279cf18e20993fd519c4a9453a1de7101df6a3f69a4"
+          "sha256": "19d4895535e4e365da24a3e7ccc32d5c1fc42777815fda63e08761d447d933f5"
         },
         {
           "path": "devbuddy-qa-medium.md",
-          "sha256": "f19d0762ba2e5fbccc5c786522a608160cfed47d9c538f609d29ea52d79ce4f7"
+          "sha256": "3bf8f1a0edcec292e90f44cdd095daea4fcb07cde39e21914835d475df8fd014"
         },
         {
           "path": "devbuddy-qa-ultracode.md",
-          "sha256": "1d95043ac65a50fc6691fd78fe11f58f55c4e2ce6e5d58923ae2384209dbe644"
+          "sha256": "abf67f4df0b85eb7695ea8db51e4ce8048e2687da3c06918445f4a51026d4364"
+        },
+        {
+          "path": "devbuddy-requirements-analyst-extra.md",
+          "sha256": "32f83209998c8644ede5639f47be4d116a09c68c809971a154f44b8acfd9d7bc"
+        },
+        {
+          "path": "devbuddy-requirements-analyst-high.md",
+          "sha256": "9219dca35988c4c60bf178c9f577ffed27fbafb80874802c52a12baedb4a979e"
+        },
+        {
+          "path": "devbuddy-requirements-analyst-low.md",
+          "sha256": "dcdc4b0734439cae46a38438e1ac8a095f1eb9a6929fb581c881a44c07f477ea"
+        },
+        {
+          "path": "devbuddy-requirements-analyst-max.md",
+          "sha256": "4c9ac08a3040a8473d6363989ea582fa079bd07a765e8887a2fc6b844be67a36"
+        },
+        {
+          "path": "devbuddy-requirements-analyst-medium.md",
+          "sha256": "3458b5bcc398746b7c3ec1246956b2e6f56b3ead5f7f9efa91061f492b575005"
+        },
+        {
+          "path": "devbuddy-requirements-analyst-ultracode.md",
+          "sha256": "4ded53391f9c20e77812b223c764c10d7841791556e9d76783c2ac70078dfb25"
         },
         {
           "path": "devbuddy-reviewer-extra.md",
-          "sha256": "33ff1afe2ccde8da5e6a794ef4be6e86f2cde0fb377d6d5512dfcaf83253e95b"
+          "sha256": "2ede1fbf4afd141f5eb675f102e80185f024a2c4fb9c3ef47d327e6701cda830"
         },
         {
           "path": "devbuddy-reviewer-high.md",
-          "sha256": "b530b2b25661e4a2dcd95c6520f388db3cf56ecd2b246f89d92533729949d5c6"
+          "sha256": "622986319b7105a301a1e6d606bc51691244b4cd3f22f7afa0cd48ce5210b6ca"
         },
         {
           "path": "devbuddy-reviewer-low.md",
-          "sha256": "1978f30eb678e0fef1d01962fe4d44275b64df30610b501963eb11219e99e3ec"
+          "sha256": "b75f6ec896194748ab0e2fca832e11568801f9149ea0007695dbc190b2384b5d"
         },
         {
           "path": "devbuddy-reviewer-max.md",
-          "sha256": "3bb4d898e44c56dbbaa450760d8fe35d1497180a6ff40f65f0f83f1c0f4c3f8a"
+          "sha256": "b2fa55bf93e659ae1d709f90a69f77a1f9cb2f93f182b7df51169b5f10712738"
         },
         {
           "path": "devbuddy-reviewer-medium.md",
-          "sha256": "de9a62d8a53ff4a5c9cfe1845ef601e7f0987c382a5f0b16dd2bc18364a567f9"
+          "sha256": "67e7f03738f80b99fbedaa849b56b7bf54205269c25038b05717d32b3c191f04"
         },
         {
           "path": "devbuddy-reviewer-ultracode.md",
-          "sha256": "fd245c5fde71a15f2452792af268a932082fdbc541ddd4af7ba07272fb8efb5b"
+          "sha256": "1a2c5b8d6341aeba0ab649e9be926a678d73a1712f3368ef69e6acff1e5b6a9a"
         },
         {
           "path": "devbuddy-security-extra.md",
-          "sha256": "1502f173dd2f8c9519bbe1318fc3cb9511251f79a27ae7a6f7e1ede87d93f156"
+          "sha256": "a50ffbc94bff0b95607ea265a8a2592c1683a205cef81944a467e288aadb5c03"
         },
         {
           "path": "devbuddy-security-high.md",
-          "sha256": "6eaf860877efc1135b396ddc8072f912d5a44491602ec996cf1c95dd0d26e1ab"
+          "sha256": "812d6a5bbb649c7d686829f3d3dcee80c8b82ba403d48f07d412a523cd67e13b"
+        },
+        {
+          "path": "devbuddy-security-incident-response-extra.md",
+          "sha256": "27408b6536f130e46e6414edfe14693fa49b69d6456818afd1a7590d233d6182"
+        },
+        {
+          "path": "devbuddy-security-incident-response-high.md",
+          "sha256": "734e428157f4b630978f30fd02946d9f74e255dfd92406b0ed98756e35fc2b6a"
+        },
+        {
+          "path": "devbuddy-security-incident-response-low.md",
+          "sha256": "60f9fabac51c261873d289f8f65c4319b3b6b1ea97e9c974ae1b7f6c0aa52d0f"
+        },
+        {
+          "path": "devbuddy-security-incident-response-max.md",
+          "sha256": "1f7c66dee26c62a5fb7e946f28d8bf44230f35a96a916eac3d1e4013166a700c"
+        },
+        {
+          "path": "devbuddy-security-incident-response-medium.md",
+          "sha256": "6a28fbfa6de6b06afec2ec1058cda7f4edb0a39d7a71b9a8affb2f889d2ba3ee"
+        },
+        {
+          "path": "devbuddy-security-incident-response-ultracode.md",
+          "sha256": "7b919d1a4949f4d51cad560b5ebe47f187f09b7819031d709dffdaa677af42b8"
         },
         {
           "path": "devbuddy-security-low.md",
-          "sha256": "28ecdf70d3b71b588712bb4ee7c8d48b86427b2871f782835c918acc4dd0b641"
+          "sha256": "3810df90c4bb4a8c15f9ed5483a7879644d22dcb40f0a81da0708e00afc6fbd2"
         },
         {
           "path": "devbuddy-security-max.md",
-          "sha256": "c80baadd4dea9dcbcc1c7e3282f4cacbbadad996b1742ae6c85fd58bcf8a24fc"
+          "sha256": "c03ee4073e4f8d1227da8e334c6c05ae240603e41014a1df3a7f58c6c3d2e57d"
         },
         {
           "path": "devbuddy-security-medium.md",
-          "sha256": "5bb2b434098eadf420a6d0157c6b2e290600ca8a8d2a3176883b53dd5d566291"
+          "sha256": "68ae379e675603bbd99de5223825b3d99425c6c066557e216e244124f29e0185"
         },
         {
           "path": "devbuddy-security-ultracode.md",
-          "sha256": "38792e733edb3e2ddf4494194905404a88c2ce961cbb5a84687b3d69f37116ae"
+          "sha256": "e47f25d60f86736c8e6668d863f5ba8bddb9f2cbf27afcf9393cc86b87c85b6f"
+        },
+        {
+          "path": "devbuddy-site-reliability-extra.md",
+          "sha256": "6982025b06dbb080f12f9d7ac94da1685867368c3d8b21aba3c15300c1b1d372"
+        },
+        {
+          "path": "devbuddy-site-reliability-high.md",
+          "sha256": "cc0f98b81a6c56e37a30dead131b77954f83fe41973df591eaf932ec6fc43ed8"
+        },
+        {
+          "path": "devbuddy-site-reliability-low.md",
+          "sha256": "96b1aa1897b5f90f61e013da8898813dd6a506858ac17b2af4d96132b8f8d61e"
+        },
+        {
+          "path": "devbuddy-site-reliability-max.md",
+          "sha256": "9f2606372953c9b3001826354c1ff562390aade663607afc78c5c455a5d73f86"
+        },
+        {
+          "path": "devbuddy-site-reliability-medium.md",
+          "sha256": "f64e93484bca2cfe9b4a0e443230ef709c9b316d20ec0137a3bf37422a5656bb"
+        },
+        {
+          "path": "devbuddy-site-reliability-ultracode.md",
+          "sha256": "1c11fb5e7111595d43caaef834b2262531ba5eb5ecba51c606dae1671ea69ef9"
         },
         {
           "path": "devbuddy-ux-ui-extra.md",
-          "sha256": "97920e84fafc28afb5d3cdd3fbe7c7dc018fef0e23f41054bdea8d4be94cce53"
+          "sha256": "350be61b02071c0fd07d55be090f865624a289184873b4906c3152926dd322ce"
         },
         {
           "path": "devbuddy-ux-ui-high.md",
-          "sha256": "850864697897b1543dd6a6fe3db806656f272916dae20770f00c2fe4d984137b"
+          "sha256": "8c8c676b06fa849fbfc3e9e5358dbc64d2adc1bf901e46bbe8929c36cd9db37a"
         },
         {
           "path": "devbuddy-ux-ui-low.md",
-          "sha256": "dd310f8568eadc88d5818e3e60cbc7b56466f41982f96e40eb1aa2a116c81b7f"
+          "sha256": "1c3470be0be431289e6816d999d5313ff42a2da84f4d817815ce4f3ffe799bc2"
         },
         {
           "path": "devbuddy-ux-ui-max.md",
-          "sha256": "25843e24005e8750790209d147eb6f31e39a10e2328bba940858f073d3bfad5c"
+          "sha256": "92032738314e7f8d8038ff214fca1fa32a83b406795950550364e816a44fa23f"
         },
         {
           "path": "devbuddy-ux-ui-medium.md",
-          "sha256": "ca959380f44bcd8ab9266dfce1226093a4cad8ecfff3dca3bd22528792b2941c"
+          "sha256": "1d5b12e41c0ecac1008c7183fd9b28f1ce3d0dfa145feec598027108aee4e3ba"
         },
         {
           "path": "devbuddy-ux-ui-ultracode.md",
-          "sha256": "f543d0b35d263b7d40dd24a869e2c89363c71a90f6a0a42649f69169157b7f07"
+          "sha256": "2e7ec2fbd14507d2364e0e9b1af0b6d6a0479d2a8949e9053dda56b7583ef739"
+        },
+        {
+          "path": "devbuddy-vulnerability-scanner-extra.md",
+          "sha256": "3045d78b805cf99c621e02b1a9988b8371fea11c54e38d7546fc4f9bdf81e518"
+        },
+        {
+          "path": "devbuddy-vulnerability-scanner-high.md",
+          "sha256": "94295c3b423401a5c2a02817ce59a65e4fad67cf4a3ab9fb766442d9c69876a5"
+        },
+        {
+          "path": "devbuddy-vulnerability-scanner-low.md",
+          "sha256": "395642817485ec8a65b72f3300056da30999c29e7b9e66044d1e43bb1d61855d"
+        },
+        {
+          "path": "devbuddy-vulnerability-scanner-max.md",
+          "sha256": "3dd07081dafbf2df91fc47923c7d8800de179017a88ebb65e35fe5fb88da5f22"
+        },
+        {
+          "path": "devbuddy-vulnerability-scanner-medium.md",
+          "sha256": "33a5030b90d10e4f425f8dbcd3fed1389560fa75886af21e073268839eb3ba07"
+        },
+        {
+          "path": "devbuddy-vulnerability-scanner-ultracode.md",
+          "sha256": "516e5f1cd7087c2ac68ee1a9cb4dd68c03f54c842a4b86b99048f0db631ba3cb"
         }
       ],
       "source": "devbuddy-claude/agents",
@@ -301,7 +661,7 @@
         },
         {
           "path": "role-routing.md",
-          "sha256": "a489d1273e6f41c9ad5ba505f6873f72ef74a6f4c67bcef42d1c799d84d92548"
+          "sha256": "6f159a4222cdf65b0cd97f43512dc85a1f389ae3b81e3e46781c7e419d4aac56"
         },
         {
           "path": "settings.md",
@@ -319,43 +679,103 @@
       "files": [
         {
           "path": "architect.md",
-          "sha256": "7b71844a7764644a10f251efed3480430bf6e51eb354ccca25b8a6a7238a8b6d"
+          "sha256": "c2111deeef3e48bb07199998c07725d9c926cc431d0ae82f5e3be83b01c9cc45"
         },
         {
           "path": "ba-pm.md",
-          "sha256": "d4e00a53cc553e50dbd06da36e292d2458bfb36c009dd12968529ebe1f155936"
+          "sha256": "ed7148d3ca1b1ad5f79ed098d6f20619c5b97578480864986d5af4b904319c1e"
+        },
+        {
+          "path": "backend-engineer.md",
+          "sha256": "ff6feed28fbcf678d0a4eea67dcd7f8cdf54d5b83d81ab9c8ec3e9e5cc66cb15"
+        },
+        {
+          "path": "cloud-infrastructure.md",
+          "sha256": "299f2e6281b84bdc7a907f9764686d4c9c3db85282a25af780e334741649a231"
+        },
+        {
+          "path": "code-reviewer.md",
+          "sha256": "595dc900eeae3898457bf487b1f9abafb0d6fbb5f28e7e30ebdf6603a0a09a7e"
+        },
+        {
+          "path": "compliance-policy.md",
+          "sha256": "866266771d94d21b987b3fb94741610c293e5e22f22235ab78bcc57af05a47a3"
+        },
+        {
+          "path": "data-analyst.md",
+          "sha256": "1e6cc150b68bb6280d932be4c22ada703cc88642d12919877f4cfad733ca192d"
+        },
+        {
+          "path": "data-pipeline.md",
+          "sha256": "f209c3e7d40519e3baf53c9ae5787927e00ca4327e2f99b8945bca3a969e9548"
         },
         {
           "path": "dba-data.md",
-          "sha256": "ba6d8d7725cbad30c0205f5754e1569b2fdf54b25a3865d7bdd01bee93f2535d"
+          "sha256": "f4d5346468b6b176a528d05c155c6c42279b5a096253a77525014bedbcc12646"
         },
         {
           "path": "developer.md",
-          "sha256": "38e35879878ae30d67af9d0f641d748a867773eb23f157391a2c39a45e197f87"
+          "sha256": "d119ab57b5f3960a886e50d37dd9375bef7f00fe45f829aee8058de02b821f6b"
+        },
+        {
+          "path": "devops-engineer.md",
+          "sha256": "b58d62583d8d86bd3792cf153ddb09fce51f516b1a7164c8dc96af520572d926"
         },
         {
           "path": "devops-sre.md",
-          "sha256": "64efffff1179ac0206d5730595d4804391c4f0b91d873bc4f7f9a0dff9996a66"
+          "sha256": "896d99923631f3ad9bc7bf3dff5e84e80cb9718bad718df93f62fc7a36b6962b"
+        },
+        {
+          "path": "frontend-engineer.md",
+          "sha256": "7426776b274644e108009c52e92bf60559c64bccdae27ec4d0627b367e64baf6"
+        },
+        {
+          "path": "helpdesk-support.md",
+          "sha256": "b9980de929c3de37856073f203147fe211b32d90552832e5ce71553eb645b15b"
+        },
+        {
+          "path": "knowledge-base.md",
+          "sha256": "d778f31370814576dba8011267d7095e57064e6c5e9b1b4f1c2be9791ad72fde"
+        },
+        {
+          "path": "model-evaluator.md",
+          "sha256": "c39114cc354aa4f9663ac4ae9e64f7001dd4b583f6eaa62245fb914ba4b103aa"
         },
         {
           "path": "orchestrator.md",
-          "sha256": "13b22b16a44476b679905a4b7800b566495b818d439c38e7a25d7c95405ae66e"
+          "sha256": "4a0b973fc2ac796ef1877dea079b9e21fd83ff74927d6a411f5932650a7fa0eb"
         },
         {
           "path": "qa.md",
-          "sha256": "560802a2c1cf74ab6c492dc7db782aea1a1d7a97749afd0732bc000a3297f0ba"
+          "sha256": "b37abd9853809bb78df2586beff160b4c69894904365d408117d1a93dabd653a"
+        },
+        {
+          "path": "requirements-analyst.md",
+          "sha256": "c15e3d8fb728c220a1dd434662877ce07d4d475f0d1c2ae0dd62d84d8595f260"
         },
         {
           "path": "reviewer.md",
-          "sha256": "d8570f25ef0f1105a12325a83cfb2b91122cf31e6743a8df2e76b417e600133e"
+          "sha256": "c5a88221d80480ca4fcadb63b348e5d0564ed74f936066da3c0593f8685a2cb1"
+        },
+        {
+          "path": "security-incident-response.md",
+          "sha256": "7250f276efd5f01bef9e58c83f3c06dd83aa058b71b7d0461ff00a346872a94c"
         },
         {
           "path": "security.md",
-          "sha256": "4ae6d445d60d911baa59be8e9650b7e85bb4e66106c13da74b70cec0958cd48c"
+          "sha256": "0758c32fce85aef2d31dc2dad2f5b144ed4054da2e8373c7f6f39b2ea62e5a27"
+        },
+        {
+          "path": "site-reliability.md",
+          "sha256": "8f8f5a907323f35fef822e72c5ccad786ac8dcdf8a857c6a91744d62a6a5f0fb"
         },
         {
           "path": "ux-ui.md",
-          "sha256": "ff52487a47708739bfd610bf0e5dfa74426f1651a248ac1cc164bb5514d2e1fa"
+          "sha256": "2263e28b8a970bb75c209c11d330b403f9154178fca4bda7ecd5f23cf3f1bce7"
+        },
+        {
+          "path": "vulnerability-scanner.md",
+          "sha256": "7314c8e17d714b99205c46f2bae125f3d4f1252c19064e1b44d604cee6adab58"
         }
       ],
       "source": "devbuddy-claude/roles",
@@ -409,7 +829,7 @@
       "files": [
         {
           "path": "init_project_memory.py",
-          "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
+          "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
         }
       ],
       "source": "devbuddy-claude/scripts/init_project_memory.py",
@@ -459,7 +879,7 @@
       "files": [
         {
           "path": "validate_skill_metadata.py",
-          "sha256": "84493758068f63c069a4f5cfcfdbbb1d8afa0cabfab3acb1f020e6417e9ab867"
+          "sha256": "ad4cb85b3a8fe75ef6aa685ce2e4dd62c031fd777cc9b23442fa3ace83f91c72"
         }
       ],
       "source": "devbuddy-claude/scripts/validate_skill_metadata.py",
@@ -489,7 +909,7 @@
       "files": [
         {
           "path": "SKILL.md",
-          "sha256": "9bcafcbd12d21d1f593b6fd47783cd8bdfa9ca61ab2c80cfd294ce82dff9819e"
+          "sha256": "2187d0ecfe7286b025f5218a5291e220d359eeaabb6388d7e0a6e6ca67f43131"
         }
       ],
       "source": "devbuddy-codex/SKILL.md",
@@ -499,7 +919,7 @@
       "files": [
         {
           "path": "settings.yaml",
-          "sha256": "0bdcf39176df3e5169aaeda379204ef1c3a27bfd27b573c41d1d3cc9d390839c"
+          "sha256": "639a218bd809fde7eb07a739e9e06496461c046241b026bcf9289b560c547546"
         }
       ],
       "source": "devbuddy-codex/settings.yaml",
@@ -543,7 +963,7 @@
         },
         {
           "path": "role-routing.md",
-          "sha256": "9c62f60d910926c741710adf2368f45e7bd4d45271bc29bd6055ec4d4c62e542"
+          "sha256": "6f159a4222cdf65b0cd97f43512dc85a1f389ae3b81e3e46781c7e419d4aac56"
         },
         {
           "path": "settings.md",
@@ -561,43 +981,103 @@
       "files": [
         {
           "path": "architect.md",
-          "sha256": "75d377eb7351fe7ee9e71ce6aa492dba9569e2323f08206c6c0d0dc3e58c8b9b"
+          "sha256": "c2111deeef3e48bb07199998c07725d9c926cc431d0ae82f5e3be83b01c9cc45"
         },
         {
           "path": "ba-pm.md",
-          "sha256": "fc99a21f23dc95929fcba97862e01ef52145bfea17298cc906df9c26e33ba3da"
+          "sha256": "ed7148d3ca1b1ad5f79ed098d6f20619c5b97578480864986d5af4b904319c1e"
+        },
+        {
+          "path": "backend-engineer.md",
+          "sha256": "ff6feed28fbcf678d0a4eea67dcd7f8cdf54d5b83d81ab9c8ec3e9e5cc66cb15"
+        },
+        {
+          "path": "cloud-infrastructure.md",
+          "sha256": "299f2e6281b84bdc7a907f9764686d4c9c3db85282a25af780e334741649a231"
+        },
+        {
+          "path": "code-reviewer.md",
+          "sha256": "595dc900eeae3898457bf487b1f9abafb0d6fbb5f28e7e30ebdf6603a0a09a7e"
+        },
+        {
+          "path": "compliance-policy.md",
+          "sha256": "866266771d94d21b987b3fb94741610c293e5e22f22235ab78bcc57af05a47a3"
+        },
+        {
+          "path": "data-analyst.md",
+          "sha256": "1e6cc150b68bb6280d932be4c22ada703cc88642d12919877f4cfad733ca192d"
+        },
+        {
+          "path": "data-pipeline.md",
+          "sha256": "f209c3e7d40519e3baf53c9ae5787927e00ca4327e2f99b8945bca3a969e9548"
         },
         {
           "path": "dba-data.md",
-          "sha256": "29a8a47a1d3d00656b7021131c6704d16d17cb9eac23dd8745d4c9fa5c638de0"
+          "sha256": "f4d5346468b6b176a528d05c155c6c42279b5a096253a77525014bedbcc12646"
         },
         {
           "path": "developer.md",
-          "sha256": "93682df556289e6e948a321894b77bf658e4f65e661493b5895f5a198fe5fa1c"
+          "sha256": "d119ab57b5f3960a886e50d37dd9375bef7f00fe45f829aee8058de02b821f6b"
+        },
+        {
+          "path": "devops-engineer.md",
+          "sha256": "b58d62583d8d86bd3792cf153ddb09fce51f516b1a7164c8dc96af520572d926"
         },
         {
           "path": "devops-sre.md",
-          "sha256": "2c4fb11ccedce8374fc0d8c3c022f76278415331002c7ecdff1f7fc39a66e620"
+          "sha256": "896d99923631f3ad9bc7bf3dff5e84e80cb9718bad718df93f62fc7a36b6962b"
+        },
+        {
+          "path": "frontend-engineer.md",
+          "sha256": "7426776b274644e108009c52e92bf60559c64bccdae27ec4d0627b367e64baf6"
+        },
+        {
+          "path": "helpdesk-support.md",
+          "sha256": "b9980de929c3de37856073f203147fe211b32d90552832e5ce71553eb645b15b"
+        },
+        {
+          "path": "knowledge-base.md",
+          "sha256": "d778f31370814576dba8011267d7095e57064e6c5e9b1b4f1c2be9791ad72fde"
+        },
+        {
+          "path": "model-evaluator.md",
+          "sha256": "c39114cc354aa4f9663ac4ae9e64f7001dd4b583f6eaa62245fb914ba4b103aa"
         },
         {
           "path": "orchestrator.md",
-          "sha256": "7516f17678f32ef0631966ca779db652948bb9f19c01c996244a20cfc2cb76ca"
+          "sha256": "4a0b973fc2ac796ef1877dea079b9e21fd83ff74927d6a411f5932650a7fa0eb"
         },
         {
           "path": "qa.md",
-          "sha256": "91237202a0667f24a5423b8325ed4c9131ed0a7d5f157087cf0321d70bdbfe51"
+          "sha256": "b37abd9853809bb78df2586beff160b4c69894904365d408117d1a93dabd653a"
+        },
+        {
+          "path": "requirements-analyst.md",
+          "sha256": "c15e3d8fb728c220a1dd434662877ce07d4d475f0d1c2ae0dd62d84d8595f260"
         },
         {
           "path": "reviewer.md",
-          "sha256": "832979ba5d4c80f212a233b8a7d865b6a34ea74b488875fa29c7bd7d79916a4e"
+          "sha256": "c5a88221d80480ca4fcadb63b348e5d0564ed74f936066da3c0593f8685a2cb1"
+        },
+        {
+          "path": "security-incident-response.md",
+          "sha256": "7250f276efd5f01bef9e58c83f3c06dd83aa058b71b7d0461ff00a346872a94c"
         },
         {
           "path": "security.md",
           "sha256": "0758c32fce85aef2d31dc2dad2f5b144ed4054da2e8373c7f6f39b2ea62e5a27"
         },
         {
+          "path": "site-reliability.md",
+          "sha256": "8f8f5a907323f35fef822e72c5ccad786ac8dcdf8a857c6a91744d62a6a5f0fb"
+        },
+        {
           "path": "ux-ui.md",
-          "sha256": "d525f578f9a4602bf92e02a502b7b10c2f250f2691d4649cfaaf96fed6391b03"
+          "sha256": "2263e28b8a970bb75c209c11d330b403f9154178fca4bda7ecd5f23cf3f1bce7"
+        },
+        {
+          "path": "vulnerability-scanner.md",
+          "sha256": "7314c8e17d714b99205c46f2bae125f3d4f1252c19064e1b44d604cee6adab58"
         }
       ],
       "source": "devbuddy-codex/roles",
@@ -633,7 +1113,7 @@
         },
         {
           "path": "project-tools/init_project_memory.py.template",
-          "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
+          "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
         },
         {
           "path": "project-tools/task_memory.py.template",
@@ -645,7 +1125,7 @@
         },
         {
           "path": "project-tools/validate_project_settings.py.template",
-          "sha256": "9f5945dae6ed604d98b99aafa8c56c0d3892192aacae7e228bb28d3ebd1fff61"
+          "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
         },
         {
           "path": "task-ledger.md",
@@ -659,7 +1139,7 @@
       "files": [
         {
           "path": "init_project_memory.py",
-          "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
+          "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
         }
       ],
       "source": "devbuddy-codex/scripts/init_project_memory.py",
@@ -707,5 +1187,5 @@
     }
   ],
   "schema_version": 1,
-  "source_revision": "40d58e23a3b0e89324892564c169badb2adeefa0"
+  "source_revision": "e669f0e4888e1ba7485652f7961ed137022eda10"
 }

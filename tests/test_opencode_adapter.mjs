@@ -23,3 +23,10 @@ assert.equal(manifest.name, "@devbuddy/opencode-plugin")
 assert.equal(manifest.type, "module")
 assert.equal(manifest.exports, "./index.js")
 assert.ok(manifest.files.includes("index.js"))
+
+const agentManifest = JSON.parse(await readFile(new URL("../plugin/devbuddy-core/opencode/plugin.json", import.meta.url)))
+assert.equal(agentManifest.agents.length, 25)
+for (const agent of agentManifest.agents) {
+  const source = await readFile(new URL(`../plugin/devbuddy-core/opencode/${agent.slice(2)}`, import.meta.url), "utf8")
+  assert.match(source, /mode: subagent|# DevBuddy Orchestrator/)
+}

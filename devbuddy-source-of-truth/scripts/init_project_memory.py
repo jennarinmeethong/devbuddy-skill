@@ -37,8 +37,8 @@ TOOLS = (
 SKIP_DIRS = {"bin", "obj", "releases", ".venv", "__pycache__", "node_modules"}
 SKIP_FILES = {"appsettings.json", "tool.json", ".DS_Store"}
 
-ALL_ROLES = "[ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]"
-STANDARD_ROLES = "[ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]"
+ALL_ROLES = "[ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]"
+STANDARD_ROLES = "[ba-pm, requirements-analyst, ux-ui, developer, frontend-engineer, backend-engineer, qa, helpdesk-support, knowledge-base, code-reviewer, reviewer, devops-engineer, data-analyst, data-pipeline, dba-data]"
 
 
 def allowlist_entry(identifier: str, adapter: str, rank: int, roles: str, risks: str) -> tuple[str, ...]:

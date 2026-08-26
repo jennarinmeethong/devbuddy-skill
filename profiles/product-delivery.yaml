@@ -1,0 +1,12 @@
+name: product-delivery
+roles:
+  - requirements-analyst
+  - ba-pm
+  - ux-ui
+  - architect
+  - frontend-engineer
+  - backend-engineer
+  - qa
+  - code-reviewer
+packages:
+  - devbuddy-core

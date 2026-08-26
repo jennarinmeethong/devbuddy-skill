@@ -44,8 +44,10 @@ def main() -> int:
     if "disable-model-invocation: true" not in source:
         errors.append("DevBuddy entrypoint must require explicit user invocation")
     agents = sorted(path.name for path in (PLUGIN / "agents").glob("*.md") if AGENT.fullmatch(path.name))
-    if len(agents) != 54:
-        errors.append(f"expected 54 generated role/effort agents, found {len(agents)}")
+    role_count = len([path for path in (ROOT / "devbuddy-source-of-truth" / "roles").glob("*.md") if path.stem != "orchestrator"])
+    expected_agents = role_count * 6
+    if len(agents) != expected_agents:
+        errors.append(f"expected {expected_agents} generated role/effort agents, found {len(agents)}")
     for relative in RUNTIME_FILES:
         if not (PLUGIN / relative).is_file():
             errors.append(f"missing Plugin-owned runtime asset: {relative}")

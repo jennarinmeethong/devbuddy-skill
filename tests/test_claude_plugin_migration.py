@@ -22,7 +22,7 @@ class ClaudePluginMigrationTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         discovery = json.loads(result.stdout)
         self.assertEqual(discovery["entrypoint"], "/devbuddy-claude-code:devbuddy")
-        self.assertEqual(len(discovery["discovery"]["agents"]), 54)
+        self.assertEqual(len(discovery["discovery"]["agents"]), 144)
 
     def test_claude_profile_selects_only_the_claude_adapter(self) -> None:
         result = run("scripts/profile_resolver.py", "profiles/claude-code.yaml", "--platform", "claude-code")

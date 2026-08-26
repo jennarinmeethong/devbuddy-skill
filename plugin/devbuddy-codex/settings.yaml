@@ -18,36 +18,36 @@ orchestration:
   approved_models:
     - id: gpt-5.6-luna
       rank: 1
-      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, developer, frontend-engineer, backend-engineer, qa, helpdesk-support, knowledge-base, code-reviewer, reviewer, devops-engineer, data-analyst, data-pipeline, dba-data]
       allowed_risks: [low, medium]
     - id: gpt-5.6-terra
       rank: 2
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [low, medium, high]
     - id: gpt-5.6-sol
       rank: 3
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [high, critical]
   approved_effort_levels:
     - id: light
       rank: 1
-      allowed_roles: [ba-pm, ux-ui, developer, qa, reviewer, devops-sre, dba-data]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, developer, frontend-engineer, backend-engineer, qa, helpdesk-support, knowledge-base, code-reviewer, reviewer, devops-engineer, data-analyst, data-pipeline, dba-data]
       allowed_risks: [low]
     - id: medium
       rank: 2
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [low, medium]
     - id: high
       rank: 3
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [low, medium, high]
     - id: extra-high
       rank: 4
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [high, critical]
     - id: ultra
       rank: 5
-      allowed_roles: [ba-pm, ux-ui, architect, developer, qa, security, devops-sre, dba-data, reviewer]
+      allowed_roles: [ba-pm, requirements-analyst, ux-ui, architect, developer, frontend-engineer, backend-engineer, qa, security, vulnerability-scanner, compliance-policy, security-incident-response, devops-sre, devops-engineer, cloud-infrastructure, site-reliability, dba-data, data-pipeline, data-analyst, model-evaluator, helpdesk-support, knowledge-base, reviewer, code-reviewer]
       allowed_risks: [high, critical]
   max_concurrency: 2
   task_timeout_seconds: 900

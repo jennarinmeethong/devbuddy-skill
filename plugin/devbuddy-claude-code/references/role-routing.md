@@ -1,33 +1,33 @@
 # Role Routing
 
+The Orchestrator chooses the smallest role graph that covers the task. Broad, existing roles remain supported for compatibility; prefer a specialised role when it clarifies ownership or evidence.
+
 | Input | Canonical role or mode |
 |---|---|
-| `ba` | `ba-pm` |
-| `sa` | `architect` |
+| `ba`, `requirements`, `analyst` | `requirements-analyst` |
+| `pm`, `product` | `ba-pm` |
+| `design`, `ui`, `ux` | `ux-ui` |
+| `sa`, `architecture` | `architect` |
+| `frontend`, `web-ui` | `frontend-engineer` |
+| `backend`, `api`, `service` | `backend-engineer` |
 | `dev` | `developer` |
-| `tester` | `qa` |
+| `tester`, `test` | `qa` |
+| `code-review` | `code-reviewer` |
+| `security-scan`, `vulnerability` | `vulnerability-scanner` |
+| `compliance`, `policy`, `privacy` | `compliance-policy` |
+| `security-incident` | `security-incident-response` |
+| `cicd`, `devops` | `devops-engineer` |
+| `cloud`, `iac` | `cloud-infrastructure` |
+| `sre`, `reliability`, `incident` | `site-reliability` |
+| `etl`, `pipeline` | `data-pipeline` |
+| `analytics`, `sql-insight` | `data-analyst` |
+| `model-eval`, `ml-eval` | `model-evaluator` |
+| `support`, `helpdesk`, `l1` | `helpdesk-support` |
+| `knowledge`, `kb`, `documentation` | `knowledge-base` |
+| `data`, `database` | `dba-data` |
 | `operations` | `devops-sre` |
-| `data` | `dba-data` |
-| `analyze` | read-only orchestration triage; dispatch a specialist only when needed |
-| `docs` | `developer` documentation scope; route `reviewer` when risk requires it |
+| `review` | `reviewer` |
+| `analyze` | read-only Orchestrator triage; dispatch a specialist only when needed |
+| `docs` | `knowledge-base`; route `reviewer` when risk requires it |
 
 `owner` builds and controls a multi-role graph. A direct canonical role creates a single-role graph, but all policy, settings, model/effort, lock, slice record, and closure gates still apply.
-
-## Subagent names
-
-Each canonical role has six installed subagents, one per effort tier:
-
-```text
-devbuddy-<role>-low
-devbuddy-<role>-medium
-devbuddy-<role>-high
-devbuddy-<role>-extra
-devbuddy-<role>-max
-devbuddy-<role>-ultracode
-```
-
-for `ba-pm`, `ux-ui`, `architect`, `developer`, `qa`, `security`, `devops-sre`, `dba-data`, and `reviewer` — 54 definitions.
-
-`analyze` is an Orchestrator mode, not a role, and has no subagent. `docs` resolves to a `developer` subagent.
-
-Effort tiers are not interchangeable with roles: pick the role from the work, then pick the lowest tier whose `allowed_roles` and `allowed_risks` cover the slice. Some roles have no `low` tier available at a given risk level; consult the project's `approved_effort_levels` rather than assuming the tier exists for that combination.
