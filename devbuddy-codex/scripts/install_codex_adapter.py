@@ -13,16 +13,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL_CONTENT = [
-    "SKILL.md",
-    "agents",
-    "settings.yaml",
-    "schemas",
-    "references",
-    "roles",
-    "templates",
-    "manual",
-]
+SKILL_CONTENT = ["legacy-SKILL.md"]
 # Never installed. A bundled custom tool carries real project files, so a local
 # build or an editor's restore can leave output beside them; shipping that would
 # put stale binaries in the user's configuration. Host-owned configuration is
@@ -73,7 +64,8 @@ def plan(target: Path) -> list[tuple[Path, Path]]:
         if not source.exists():
             continue
         if source.is_file():
-            pairs.append((source, target / entry))
+            destination = "SKILL.md" if entry == "legacy-SKILL.md" else entry
+            pairs.append((source, target / destination))
             continue
         for path in sorted(source.rglob("*")):
             if not path.is_file() or path.name in SKIP_FILES:
@@ -147,8 +139,8 @@ def main() -> int:
     except OSError as error:
         print(f"ERROR: install failed: {error}")
         return 1
-    print(f"OK: installed {len(pairs)} files at {target}")
-    print("DEPRECATED: migrate to the DevBuddy Plugin/profile before DevBuddy 2.0.")
+    print(f"OK: installed {len(pairs)} migration-only file at {target}")
+    print("DEPRECATED: install the DevBuddy Plugin/profile, start a new task, then use $devbuddy migrate <workspace>.")
     return 0
 
 

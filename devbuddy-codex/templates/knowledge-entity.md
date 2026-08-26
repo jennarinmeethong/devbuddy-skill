@@ -1,5 +1,5 @@
 ---
-id: TYPE-A1B2C3D4
+id: PREFIX-YYYYMMDDTHHMMSSZ-UUID4HEX
 type: type
 status: active
 owner: role

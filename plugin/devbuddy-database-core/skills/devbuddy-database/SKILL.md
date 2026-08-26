@@ -18,6 +18,12 @@ defaults to `ask`). If the required package, manifest, adapter, or approval is
 unavailable, return `waiting_user`; do not fall back to a workspace custom
 tool, a direct driver, or a shell command. Never accept or log credentials.
 
+Treat the old `readonly_database_query` custom tool and
+`.devbuddy/tools/db-query-tool/` as retired. Do not invoke them even if an
+older workspace still contains their registry or executable. Ask the user to
+preview the release-owned `migrate_legacy_database_tools.py` migration, then
+use a materialized Plugin-owned adapter instead.
+
 - Relational requests must be parameterized, one read-only statement, time-limited, and result-limited.
 - MongoDB accepts only structured `find`, allowlisted `aggregate`, `count`, and `distinct` operations.
 - Redis accepts only adapter-declared read commands with an approved key prefix.

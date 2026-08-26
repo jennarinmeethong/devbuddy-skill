@@ -125,6 +125,58 @@ class PluginArchitectureTests(unittest.TestCase):
             self.assertIn("DRY RUN", result.stdout)
             self.assertFalse((workspace / "tools" / "databases" / "billing").exists())
 
+    def test_legacy_database_tool_retirement_is_dry_run_first_and_reversible(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            workspace = Path(temporary) / ".devbuddy"
+            self.assertEqual(run("workspace.py", "init", "--devbuddy-root", str(workspace), "--apply").returncode, 0)
+            settings = workspace / "settings.yaml"
+            settings.write_text(settings.read_text(encoding="utf-8") + """custom_tools:
+  - name: readonly_database_query
+    runtime: dotnet
+    manifest: tools/db-query-tool/tool.json
+    secret_file: tools/db-query-tool/appsettings.json
+""", encoding="utf-8")
+            legacy_tool = workspace / "tools" / "db-query-tool"
+            legacy_tool.mkdir()
+            (legacy_tool / "tool.json").write_text("{}\n", encoding="utf-8")
+            preview = run("migrate_legacy_database_tools.py", "--devbuddy-root", str(workspace))
+            self.assertEqual(preview.returncode, 0, preview.stdout)
+            self.assertIn("DRY RUN", preview.stdout)
+            self.assertTrue(legacy_tool.is_dir())
+            applied = run("migrate_legacy_database_tools.py", "--devbuddy-root", str(workspace), "--apply")
+            self.assertEqual(applied.returncode, 0, applied.stdout)
+            self.assertFalse(legacy_tool.exists())
+            self.assertIn("custom_tools: []", settings.read_text(encoding="utf-8"))
+            backups = list((workspace / "backups" / "legacy-database-tools").glob("*/db-query-tool/tool.json"))
+            self.assertEqual(len(backups), 1)
+
+    def test_plugin_generated_knowledge_keys_are_collision_resistant(self) -> None:
+        first = run("new_knowledge_key.py", "--prefix", "inc")
+        second = run("new_knowledge_key.py", "--prefix", "INC")
+        self.assertEqual(first.returncode, 0, first.stdout)
+        self.assertEqual(second.returncode, 0, second.stdout)
+        self.assertRegex(first.stdout.strip(), r"^INC-\d{8}T\d{6}Z-[0-9A-F]{32}$")
+        self.assertNotEqual(first.stdout, second.stdout)
+
+    def test_legacy_host_skill_retirement_is_dry_run_first_and_reversible(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            host = Path(temporary) / ".claude"
+            skill = host / "skills" / "devbuddy"
+            skill.mkdir(parents=True)
+            (skill / "SKILL.md").write_text("# DevBuddy legacy\n", encoding="utf-8")
+            agent = host / "agents" / "devbuddy-qa-low.md"
+            agent.parent.mkdir()
+            agent.write_text("DevBuddy legacy agent\n", encoding="utf-8")
+            preview = run("retire_legacy_host_skill.py", "--host", "claude-code", "--host-root", str(host))
+            self.assertEqual(preview.returncode, 0, preview.stdout)
+            self.assertIn("DRY RUN", preview.stdout)
+            self.assertTrue(skill.exists())
+            applied = run("retire_legacy_host_skill.py", "--host", "claude-code", "--host-root", str(host), "--apply")
+            self.assertEqual(applied.returncode, 0, applied.stdout)
+            self.assertFalse(skill.exists())
+            backups = list((host / "backups" / "devbuddy-legacy-host").glob("*/skills/devbuddy/SKILL.md"))
+            self.assertEqual(len(backups), 1)
+
     def test_workspace_upgrade_and_migration_are_dry_run_first_and_conflict_safe(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             workspace = Path(temporary) / ".devbuddy"; workspace.mkdir()

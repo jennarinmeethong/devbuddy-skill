@@ -21,15 +21,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-SKILL_CONTENT = ["SKILL.md", "settings.yaml", "references", "roles", "templates", "schemas", "manual"]
+SKILL_CONTENT = ["legacy-SKILL.md"]
 
 # Scripts the installed skill can actually run. Each one is self-contained: it
 # needs nothing outside the skill root. The adapter's other scripts compare this
 # adapter against devbuddy-source-of-truth/, which no install ever contains, so
 # shipping them would only hand the user a command that cannot work. SKILL.md's
 # validation section is split along this same line.
-SKILL_SCRIPTS = ["init_project_memory.py", "validate_skill_metadata.py", "run_scenarios.py"]
-SKILL_EXTRAS = [Path("tests") / "scenarios.json"]
+SKILL_SCRIPTS: list[str] = []
+SKILL_EXTRAS: list[Path] = []
 
 # Never installed. Bundled custom tools carry real project files, so a local
 # build or an editor's restore can leave output beside them; shipping that would
@@ -79,7 +79,8 @@ def plan_skill(target: Path) -> list[tuple[Path, Path]]:
         if not source.exists():
             continue
         if source.is_file():
-            pairs.append((source, target / entry))
+            destination = "SKILL.md" if entry == "legacy-SKILL.md" else entry
+            pairs.append((source, target / destination))
             continue
         for path in sorted(source.rglob("*")):
             if not path.is_file() or path.name in SKIP_FILES:
@@ -99,7 +100,7 @@ def plan_skill(target: Path) -> list[tuple[Path, Path]]:
 
 
 def plan_agents(target: Path) -> list[tuple[Path, Path]]:
-    return [(path, target / path.name) for path in sorted((ROOT / "agents").glob("*.md"))]
+    return []
 
 
 def main() -> int:
@@ -169,8 +170,8 @@ def main() -> int:
     print(f"OK: installed {len(pairs)} files")
     print(f"  skill:  {skill_target}")
     print(f"  agents: {agent_target}")
-    print("Restart or refresh the Claude Code session so /devbuddy and the devbuddy-* agents load.")
-    print("DEPRECATED: migrate to the devbuddy-claude-code Plugin before DevBuddy 2.0.")
+    print("Restart Claude Code. The standalone /devbuddy is now migration-only and ships no agents.")
+    print("DEPRECATED: install devbuddy-claude-code, run /reload-plugins, then use /devbuddy-claude-code:devbuddy migrate <workspace>.")
     return 0
 
 

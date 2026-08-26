@@ -117,6 +117,16 @@ class WorkspaceTests(unittest.TestCase):
             self.assertEqual(applied.returncode, 0, applied.stdout)
             self.assertEqual((root / "knowledge-base" / "Context.md").read_text(encoding="utf-8"), "legacy\n")
 
+    def test_legacy_business_documents_are_preserved_as_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / ".devbuddy"; root.mkdir()
+            (root / "BusinessContext.md").write_text("legacy business context\n", encoding="utf-8")
+            (root / "DecisionLog.md").write_text("legacy decision\n", encoding="utf-8")
+            applied = run(INIT, "--devbuddy-root", root, "--migrate-layout")
+            self.assertEqual(applied.returncode, 0, applied.stdout)
+            self.assertEqual((root / "knowledge-base" / "legacy" / "BusinessContext.md").read_text(encoding="utf-8"), "legacy business context\n")
+            self.assertEqual((root / "knowledge-base" / "legacy" / "DecisionLog.md").read_text(encoding="utf-8"), "legacy decision\n")
+
     def test_modified_tool_blocks_explicit_upgrade(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root, _frontend, _backend = self.make_workspace(temporary)
@@ -683,32 +693,17 @@ class InstallerTests(unittest.TestCase):
     def test_installed_payload_ships_only_self_contained_scripts(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             installed = self.install(temporary)
-            # SKILL.md promises these run from an install, and only these. A
-            # script that reaches for devbuddy-source-of-truth/ would hand the
-            # user a command that cannot work once installed.
-            self.assertEqual(
-                sorted(path.name for path in (installed / "scripts").glob("*.py")),
-                ["init_project_memory.py", "run_scenarios.py", "validate_skill_metadata.py"],
-            )
-            self.assertTrue((installed / "tests" / "scenarios.json").is_file())
-            self.assertTrue((installed / "templates" / "project-tools" / "task_memory.py.template").is_file())
-            bundled = installed / "templates" / "project-tools" / "db-query-tool"
-            self.assertTrue((bundled / "db-query-tool" / "build-release.sh").is_file())
-            self.assertFalse((bundled / "db-query-tool" / "appsettings.json").exists())
-            source = Path(temporary) / "source"; source.mkdir()
-            workspace = Path(temporary) / "workspace" / ".devbuddy"
-            seeded = run(installed / "scripts" / "init_project_memory.py", "--devbuddy-root", workspace, "--project", f"app={source}")
-            self.assertEqual(seeded.returncode, 0, seeded.stdout)
-            self.assertTrue((workspace / "tools" / "task_memory.py").is_file())
+            # A legacy installation is intentionally a migration-only shim;
+            # all delivery assets now come from the host Plugin.
+            self.assertEqual([path for path in installed.iterdir() if path.name != "SKILL.md"], [])
+            self.assertIn("migration-only", (installed / "SKILL.md").read_text(encoding="utf-8"))
 
     def test_documented_post_install_checks_run_from_the_install(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             installed = self.install(temporary)
-            agents = installed.parents[1] / "agents"
-            metadata = run(installed / "scripts" / "validate_skill_metadata.py", installed, "--agents-dir", agents)
-            self.assertEqual(metadata.returncode, 0, metadata.stderr or metadata.stdout)
-            scenarios = run(installed / "scripts" / "run_scenarios.py", installed / "tests" / "scenarios.json")
-            self.assertEqual(scenarios.returncode, 0, scenarios.stderr or scenarios.stdout)
+            content = (installed / "SKILL.md").read_text(encoding="utf-8")
+            self.assertIn("/devbuddy migrate", content)
+            self.assertIn("devbuddy-claude-code", content)
 
     def test_installer_skips_build_output_beside_a_bundled_tool(self) -> None:
         """A local build or an editor restore must not reach the user's config.
@@ -767,11 +762,10 @@ class InstallerTests(unittest.TestCase):
             (target / "SKILL.md").write_text("---\nname: devbuddy\n---\nold DevBuddy skill\n", encoding="utf-8")
             (target / "roles").mkdir()
             (target / "roles" / "ba-pm.md").write_text("old custom content", encoding="utf-8")
-            blocked = run(INSTALLER, "--claude-root", configured, "--apply")
-            self.assertNotEqual(blocked.returncode, 0)
             replaced = run(INSTALLER, "--claude-root", configured, "--apply", "--replace-recognized-skill")
             self.assertEqual(replaced.returncode, 0, replaced.stderr or replaced.stdout)
-            self.assertIn("BA/PM", (target / "roles" / "ba-pm.md").read_text(encoding="utf-8"))
+            self.assertIn("migration-only", (target / "SKILL.md").read_text(encoding="utf-8"))
+            self.assertEqual((target / "roles" / "ba-pm.md").read_text(encoding="utf-8"), "old custom content")
 
 
 if __name__ == "__main__":

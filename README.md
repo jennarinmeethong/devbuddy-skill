@@ -93,6 +93,24 @@ an existing adapter. Copy `appsettings.template.json` to the local,
 git-ignored `appsettings.json` yourself and supply a least-privilege read-only
 principal; the materializer never creates or reads credentials.
 
+### Retire the legacy workspace SQL tool
+
+Older DevBuddy workspaces can contain `readonly_database_query` and
+`.devbuddy/tools/db-query-tool/`. The current Plugin must never dispatch that
+custom tool. Preview the narrow migration first; it only recognizes that exact
+name and manifest, then `--apply` backs up `settings.yaml` and moves the old
+tool directory below `.devbuddy/backups/legacy-database-tools/`:
+
+```bash
+python3 devbuddy-release/scripts/migrate_legacy_database_tools.py --devbuddy-root <workspace>/.devbuddy
+python3 devbuddy-release/scripts/migrate_legacy_database_tools.py --devbuddy-root <workspace>/.devbuddy --apply
+```
+
+The migration does not read credentials or create a replacement database
+profile. Materialize the selected Plugin adapter afterwards, configure its
+local secret file yourself, and keep any standalone DevBuddy skill disabled or
+uninstalled so its old instructions cannot win dispatch.
+
 For a later Codex release, refresh the marketplace snapshot before installing again:
 
 ```text

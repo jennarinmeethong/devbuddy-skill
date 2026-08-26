@@ -45,8 +45,10 @@ class ClaudePluginMigrationTests(unittest.TestCase):
             claude_root = Path(temporary) / ".claude"
             result = run("devbuddy-claude/scripts/install_claude_adapter.py", "--claude-root", str(claude_root), "--legacy-install", "--apply")
             self.assertEqual(result.returncode, 0, result.stdout)
-            self.assertTrue((claude_root / "skills" / "devbuddy" / "SKILL.md").is_file())
-            self.assertEqual(len(list((claude_root / "agents").glob("devbuddy-*-*.md"))), 54)
+            skill = claude_root / "skills" / "devbuddy" / "SKILL.md"
+            self.assertTrue(skill.is_file())
+            self.assertIn("migration-only", skill.read_text(encoding="utf-8"))
+            self.assertFalse((claude_root / "agents").exists())
 
     def test_legacy_installer_refuses_unknown_file_conflicts(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

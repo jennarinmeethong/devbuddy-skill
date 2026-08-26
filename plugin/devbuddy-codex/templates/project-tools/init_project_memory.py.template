@@ -285,7 +285,10 @@ def settings_projects(path: Path) -> dict[str, str]:
 
 def migration_pairs(root: Path) -> list[tuple[Path, Path]]:
     names = list(LEGACY_CORE) + [directory.split("/", 1)[0] for directory in KNOWLEDGE_DIRS]
-    return [(root / name, root / KNOWLEDGE / name) for name in sorted(set(names)) if (root / name).exists()]
+    return [
+        (root / name, root / KNOWLEDGE / ("legacy" if name in {"BusinessContext.md", "DecisionLog.md"} else "") / name)
+        for name in sorted(set(names)) if (root / name).exists()
+    ]
 
 
 def main() -> int:

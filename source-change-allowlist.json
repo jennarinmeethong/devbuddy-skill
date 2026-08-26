@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "change_id": "DBY-PLUGIN-001",
-  "purpose": "Authorize the Plugin-first manual rework and generated bilingual adapter manuals.",
+  "purpose": "Authorize the Plugin-first manual rework, migration-only legacy shims, and generated bilingual adapter manuals.",
   "files": [
     {
       "path": "devbuddy-claude/README.md",
@@ -101,7 +101,7 @@
     },
     {
       "path": "devbuddy-claude/scripts/init_project_memory.py",
-      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+      "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
     },
     {
       "path": "devbuddy-claude/scripts/install_claude_adapter.py",
@@ -133,7 +133,7 @@
     },
     {
       "path": "devbuddy-claude/tests/test_project_memory.py",
-      "sha256": "a51724071c73262d67208c443455784eea9e894cd5caf6218d3f4ad90c07b03b"
+      "sha256": "a112775f746408be506199bff5d4043ec76d0c064351bf24f9b4e8cfe74ccb88"
     },
     {
       "path": "devbuddy-codex/README.md",
@@ -229,7 +229,7 @@
     },
     {
       "path": "devbuddy-codex/scripts/init_project_memory.py",
-      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+      "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
     },
     {
       "path": "devbuddy-codex/scripts/install_codex_adapter.py",
@@ -245,7 +245,7 @@
     },
     {
       "path": "devbuddy-codex/templates/project-tools/init_project_memory.py.template",
-      "sha256": "91a70e143d4f61ecae7e68aabc54b28e32a90112c2e4c9d8c05ddba9948fafcf"
+      "sha256": "688315b066670bc9b8395bee7f7f17404dc2d9f6c00cfd6aa900984a8bd2c08d"
     },
     {
       "path": "devbuddy-codex/templates/project-tools/validate_project_settings.py.template",
@@ -385,27 +385,67 @@
     },
     {
       "path": "devbuddy-claude/manual/en/git-install.html",
-      "sha256": "66aadcba32cc3d17c8dba5582b7b6bcc13129846b67d30fcaa768b4cb3677327"
+      "sha256": "d348f333232a3f263f571aacc3d69eb7e8da305e6455f6ffc0859875f0c0f9b8"
     },
     {
       "path": "devbuddy-claude/manual/th/git-install.html",
-      "sha256": "c6a9702d3bc557a9c47c60bd47afb122f0ab14d5b903c20237bd746c0c3340f5"
+      "sha256": "60b3083c4071d919e964f1eadfd3736ccd89f4ef4cb285b3cdc63db90bf170c4"
     },
     {
       "path": "devbuddy-codex/manual/en/git-install.html",
-      "sha256": "66aadcba32cc3d17c8dba5582b7b6bcc13129846b67d30fcaa768b4cb3677327"
+      "sha256": "d348f333232a3f263f571aacc3d69eb7e8da305e6455f6ffc0859875f0c0f9b8"
     },
     {
       "path": "devbuddy-codex/manual/th/git-install.html",
-      "sha256": "c6a9702d3bc557a9c47c60bd47afb122f0ab14d5b903c20237bd746c0c3340f5"
+      "sha256": "60b3083c4071d919e964f1eadfd3736ccd89f4ef4cb285b3cdc63db90bf170c4"
     },
     {
       "path": "devbuddy-source-of-truth/manual/en/git-install.html",
-      "sha256": "66aadcba32cc3d17c8dba5582b7b6bcc13129846b67d30fcaa768b4cb3677327"
+      "sha256": "d348f333232a3f263f571aacc3d69eb7e8da305e6455f6ffc0859875f0c0f9b8"
     },
     {
       "path": "devbuddy-source-of-truth/manual/th/git-install.html",
-      "sha256": "c6a9702d3bc557a9c47c60bd47afb122f0ab14d5b903c20237bd746c0c3340f5"
+      "sha256": "60b3083c4071d919e964f1eadfd3736ccd89f4ef4cb285b3cdc63db90bf170c4"
+    },
+    {
+      "path": "devbuddy-claude/SKILL.md",
+      "sha256": "d4cf6233fc3ed56303f2e62c1235929a65a2caf1bcf697684180a9e3676c21f3"
+    },
+    {
+      "path": "devbuddy-claude/legacy-SKILL.md",
+      "sha256": "b167f75e347011cede31996c66c34c65490c0cd7b3296c74816a5b76bfdfa868"
+    },
+    {
+      "path": "devbuddy-claude/references/knowledge-model.md",
+      "sha256": "ade00ee0cf1cb5b67178284f83713e9403e20182b3746d3f16964d59712ccc67"
+    },
+    {
+      "path": "devbuddy-claude/scripts/install_claude_adapter.py",
+      "sha256": "46d008bcedd786cfec73e940c971f0ed8bc1dae5a1a4fcee934a12a15c149108"
+    },
+    {
+      "path": "devbuddy-claude/templates/knowledge-entity.md",
+      "sha256": "2aef863cefa43eeb8b782b9b9ce81acfac5eae5a91917946e90ed0c887055af4"
+    },
+    {
+      "path": "devbuddy-codex/SKILL.md",
+      "sha256": "9bcafcbd12d21d1f593b6fd47783cd8bdfa9ca61ab2c80cfd294ce82dff9819e"
+    },
+    {
+      "path": "devbuddy-codex/legacy-SKILL.md",
+      "sha256": "c0ece5f33ef7f71c32fcb4561fd0714a97091453a40e43c21a02ee5c9e6a1933"
+    },
+    {
+      "path": "devbuddy-codex/references/knowledge-model.md",
+      "sha256": "9ab3e64f47451e6d3ecb825aa3c316670d858ca909ef1ec571da3754cc943ef7"
+    },
+    {
+      "path": "devbuddy-codex/scripts/install_codex_adapter.py",
+      "sha256": "cce81541559207910c945cd2eac999e7f3d40c27c295f370e3934c3782539385"
+    },
+    {
+      "path": "devbuddy-codex/templates/knowledge-entity.md",
+      "sha256": "2aef863cefa43eeb8b782b9b9ce81acfac5eae5a91917946e90ed0c887055af4"
     }
   ]
 }
