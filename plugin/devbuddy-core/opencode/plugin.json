@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-core",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "entry": "./index.js",
   "skills": ["../../skills/devbuddy-core/SKILL.md"],
   "agents": [

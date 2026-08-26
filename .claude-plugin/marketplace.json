@@ -8,7 +8,7 @@
       "name": "devbuddy-claude-code",
       "source": "./plugin/devbuddy-claude-code",
       "description": "Policy-driven DevBuddy orchestration for Claude Code.",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "category": "development",
       "tags": ["devbuddy", "orchestration"]
     }

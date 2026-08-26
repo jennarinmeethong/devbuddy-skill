@@ -1,6 +1,6 @@
 {
   "name": "devbuddy-claude-code",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "kind": "adapter",
   "dependencies": ["devbuddy-core"],
   "permissions": ["tier-0-read", "tier-1-workspace-write"],
