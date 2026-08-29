@@ -1,6 +1,6 @@
 {
   "name": "@devbuddy/opencode-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "OpenCode adapter for the portable DevBuddy workflow contract.",
   "type": "module",
   "exports": "./index.js",
