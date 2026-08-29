@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T13:07:17+00:00",
+  "generated_at": "2026-08-29T03:35:02+00:00",
   "mappings": [
     {
       "files": [
@@ -800,30 +800,174 @@
         {
           "path": "knowledge-entity.md",
           "sha256": "2aef863cefa43eeb8b782b9b9ce81acfac5eae5a91917946e90ed0c887055af4"
-        }
-      ],
-      "source": "devbuddy-claude/templates/knowledge-entity.md",
-      "target": "plugin/devbuddy-claude-code/templates/knowledge-entity.md"
-    },
-    {
-      "files": [
+        },
         {
           "path": "knowledge-index.md",
           "sha256": "3e967a24f00c48b61ac2670cbb215f488c2ffbaaad3e2fb4455d1c833283b764"
-        }
-      ],
-      "source": "devbuddy-claude/templates/knowledge-index.md",
-      "target": "plugin/devbuddy-claude-code/templates/knowledge-index.md"
-    },
-    {
-      "files": [
+        },
+        {
+          "path": "project-tools/bootstrap_knowledge.py.template",
+          "sha256": "d4a31d650d2b071495a92236af8eece56314704cc5a188c1d5d6581765511344"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/.gitignore",
+          "sha256": "8ea41f293f6bdebb7cf76fcb22580813e34cee6c303d5b2a0296e441428f86cf"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/BmsReadonlyDatabaseQuery.csproj",
+          "sha256": "c734406144ccc5f85bc45c9ecf0d1256fdcac391355aed639e77e9931193c735"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/Program.cs",
+          "sha256": "07a41a4733f30ce9a37eb90ff34497a386d0dacf2b4906f7560b643c808008ce"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/Properties/AssemblyInfo.cs",
+          "sha256": "577efe0f80fecfc20911d833d26aef38b8e5270310c5003610a506c0688cf475"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/README.md",
+          "sha256": "093c094ac059cf4f98e6b49faf52b522762267f2aca0faf628399c9e151eb036"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/SqlReadOnly.cs",
+          "sha256": "b80ac4982cb055c9e0edd43a33a83cf2c4d190a5656549e56a9e506568247b7e"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/appsettings.template.json",
+          "sha256": "b8d58b15e80adda321f1bcc2f311d51191ba4e91d2930db4f0a7fdb547979144"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/build-release.sh",
+          "sha256": "b802abad5a30ffc1e1c693f2cfd00ff6423d7edee6735a166418588a8f5a116d"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/BmsReadonlyDatabaseQuery.csproj.nuget.dgspec.json",
+          "sha256": "1a960957be90c22139a4b15972d36875c9905d80d9971088751069956503b218"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/BmsReadonlyDatabaseQuery.csproj.nuget.g.props",
+          "sha256": "e200cd44bc5ffc5326baf696324c319fcaadffb7690f4f5822fb7704b56a327c"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/BmsReadonlyDatabaseQuery.csproj.nuget.g.targets",
+          "sha256": "b14461e0cb1be3f77fcf9fe2fdd62889325ca92523d0f606980ed59eb5c4aa1c"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/Debug/net8.0/osx-arm64/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+          "sha256": "ae41ca1e67556e4b0622d82a2122a04f17722c0c19d3b2f1fbcab8a2aaf16d2e"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/Debug/net8.0/osx-arm64/BmsReadonlyDatabaseQuery.AssemblyInfo.cs",
+          "sha256": "fdb42b4bee5f8bb4458af51629ac76405369dac1a1af1d050886df2128cb30d8"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/Debug/net8.0/osx-arm64/BmsReadonlyDatabaseQuery.AssemblyInfoInputs.cache",
+          "sha256": "3c5d386ba7389eaad0559f5d7987df6c8b37a01499fec98825762ca0cfe0eb99"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/Debug/net8.0/osx-arm64/BmsReadonlyDatabaseQuery.GeneratedMSBuildEditorConfig.editorconfig",
+          "sha256": "43b413876324937e3dad87b219f9693f843768991bdd4a9ede25bd60d68afbb2"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/Debug/net8.0/osx-arm64/BmsReadonlyDatabaseQuery.GlobalUsings.g.cs",
+          "sha256": "8f86a2cbf00ff3eee0bda2bc0eb5e1fc19c8544d5dc650c53d0132325956b592"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/Debug/net8.0/osx-arm64/BmsReadonlyDatabaseQuery.assets.cache",
+          "sha256": "4f293ca9411c99d0157aca98a23f94d9fb11686487479fce562f58f382f36386"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/obj/project.nuget.cache",
+          "sha256": "d6fca2bb3694f7265849f247394176f0a11f5bff6644660fb1ed20211858a33b"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool/tool.json.template",
+          "sha256": "d1411b9266a3134d285e3035222a03b1cc3389cf71dccd92269f9e29ad694447"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/BmsReadonlyDatabaseQuery.Tests.csproj",
+          "sha256": "cc0f1a1ece8147959f6e39c26005313e7e7872a640c705bffdd9788b6b26a546"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/SqlReadOnlyTests.cs",
+          "sha256": "5aea20c9d22c70c0358344a2abc8cf301a00e53a39a29e8f8f2e683b561a23f4"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/bin/Debug/net8.0/.msCoverageSourceRootsMapping_BmsReadonlyDatabaseQuery.Tests",
+          "sha256": "248ad2240cec16e1c1ab1ee113644e4516c5e57a9e6c33c09e7ee0ad2aa5f55d"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/BmsReadonlyDatabaseQuery.Tests.csproj.nuget.dgspec.json",
+          "sha256": "3173f6564fd7a4e13a0aadf0afe9f38747e5ae6e3dedae44842da802f8984309"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/BmsReadonlyDatabaseQuery.Tests.csproj.nuget.g.props",
+          "sha256": "e5714dae96a4d602f814f0990ff6946817a626f218d29dda120e5255ca5a0771"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/BmsReadonlyDatabaseQuery.Tests.csproj.nuget.g.targets",
+          "sha256": "eaf468085137aa649bf3bff6ea832a128043d8a533f66b764b7ba2414d530509"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs",
+          "sha256": "ae41ca1e67556e4b0622d82a2122a04f17722c0c19d3b2f1fbcab8a2aaf16d2e"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/BmsReadonlyDatabaseQuery.Tests.AssemblyInfo.cs",
+          "sha256": "092b27a06d294541bec7bf781ee8c9e491b45b36cf2a06b77e76622af9936399"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/BmsReadonlyDatabaseQuery.Tests.AssemblyInfoInputs.cache",
+          "sha256": "ddd8ab5f1ef6e261a1c374d91c8166d2fc549273d309ab2b1fe9b91585e28c60"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/BmsReadonlyDatabaseQuery.Tests.GeneratedMSBuildEditorConfig.editorconfig",
+          "sha256": "2bbd608a91130395723381207243aa4d37592d7533ab66777e2624c89fb6b433"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/BmsReadonlyDatabaseQuery.Tests.GlobalUsings.g.cs",
+          "sha256": "8f86a2cbf00ff3eee0bda2bc0eb5e1fc19c8544d5dc650c53d0132325956b592"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/BmsReadonlyDatabaseQuery.Tests.assets.cache",
+          "sha256": "9b4ca1ffbbe88fb99ebc6e727f6319171ff7778e5f0a877859b99d1df0955544"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/Debug/net8.0/BmsReadonlyDatabaseQuery.Tests.csproj.AssemblyReference.cache",
+          "sha256": "441d10ecc5aa477e5a39e183513976b9bc0ce71bc43fd978c4fa4e7e6be0999b"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/project.assets.json",
+          "sha256": "961911cef3e24d3c54d2291100d7371197997b91284d607d76aef465fb90c201"
+        },
+        {
+          "path": "project-tools/db-query-tool/db-query-tool.tests/obj/project.nuget.cache",
+          "sha256": "03dd7d15235c104bc3ca305b14e977c63635ae9fc2d5c38450e44ddcbb8f43b4"
+        },
+        {
+          "path": "project-tools/init_project_memory.py.template",
+          "sha256": "b20f0e10bb4a2e803daf35f3d1d8f413439c7c341c2ce16b8ff0183f7ea2835e"
+        },
+        {
+          "path": "project-tools/task_memory.py.template",
+          "sha256": "674968ae0bd23eac7f3fd3fcf99530f9347c0a22bd2e50bf344df7cf06eeffc4"
+        },
+        {
+          "path": "project-tools/validate_knowledge.py.template",
+          "sha256": "da9d90893d90793df5926ad1ee8662a381026f1bb2fb511dff339b14e1bca344"
+        },
+        {
+          "path": "project-tools/validate_project_settings.py.template",
+          "sha256": "eb041f50091706cfa2e0117a2fb1fc9ecc5ad1d5f619891c29a221e6c7cc9f3f"
+        },
         {
           "path": "task-ledger.md",
           "sha256": "143b96925bc6387f37ab3e4d45c4a94e2fe324d61ce01bd1db74ff18b6ea4e4a"
         }
       ],
-      "source": "devbuddy-claude/templates/task-ledger.md",
-      "target": "plugin/devbuddy-claude-code/templates/task-ledger.md"
+      "source": "devbuddy-claude/templates",
+      "target": "plugin/devbuddy-claude-code/templates"
     },
     {
       "files": [
@@ -1187,5 +1331,5 @@
     }
   ],
   "schema_version": 1,
-  "source_revision": "e669f0e4888e1ba7485652f7961ed137022eda10"
+  "source_revision": "19f2dab94b5885684471aeec2746a789f99d965b"
 }
